@@ -39,7 +39,7 @@
       # Define the web preview configuration.
       previews = {
         web = {
-          command = ["npm", "run", "dev", "--", "--port", "$PORT"]; # Command to start the development server with the assigned port.
+          command = ["npm" "run" "dev" "--" "--port" "$PORT"]; # Command to start the development server with the assigned port.
           manager = "web"; # Use the web preview manager.
         };
       };

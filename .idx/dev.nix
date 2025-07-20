@@ -6,6 +6,7 @@
   # Define the packages available in the development environment.
   packages = [
     pkgs.nodejs_20 # Node.js 20 for Next.js development.
+    pkgs.pnpm # pnpm for package management.
   ];
 
   # Configure workspace settings.
@@ -14,8 +15,9 @@
     extensions = [
       "dbaeumer.vscode-eslint" # ESLint for code linting.
       "esbenp.prettier-vscode" # Prettier for code formatting.
-       "bradlc.vscode-tailwindcss" # Tailwind CSS extension
-       "remixerl.firebase-vscode" # Firebase extension
+      "bradlc.vscode-tailwindcss" # Tailwind CSS extension
+      "remixerl.firebase-vscode" # Firebase extension
+      "lokalise.lokalise" # Lokalise extension for i18n
     ];
 
     # Define workspace lifecycle hooks.

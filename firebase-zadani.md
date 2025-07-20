@@ -1,5 +1,36 @@
 # KOMPLEXNÍ ZADÁNÍ PRO FIREBASE AI: WEBOVÁ APLIKACE MATEMATICKÝCH KALKULAČEK
 
+Vytvořte webovou aplikaci matematických kalkulaček s těmito funkcemi:
+
+KALKULAČKY (MVP priorita):
+- Kalkulátor procent (3 typy: X% z Y, kolik % je X z Y, Y je X% kolik je 100%)
+- Trojčlenka (přímá a nepřímá úměra s vysvětlením)
+- Převodník jednotek (délka: mm/cm/m/km, hmotnost: g/kg/t, objem: ml/l, teplota: °C/°F/K)
+- BMI kalkulačka (s kategorizací: podváha/normální/nadváha/obezita)
+- DPH kalkulátor pro ČR (21%) a SK (20%) - základ→celkem i celkem→základ
+- Kalkulátor čisté mzdy pro ČR a SK (sociální, zdravotní pojištění, daň)
+
+TECHNICKÉ POŽADAVKY:
+- Responzivní design (mobil + desktop)
+- Rychlé načítání (< 3 sekundy)
+- SEO optimalizace (meta tagy, H1, URL structure)
+- Multi-jazykový (cs, sk, pl, hu) s automatickou detekcí
+- Google Ads integrace (4 pozice: header, in-content, sidebar, sticky bottom)
+- AdBlock detekce s modálem pro podporu webu
+
+UŽIVATELSKÉ ROZHRANÍ:
+- Jednoduché a přehledné formuláře
+- Okamžité výsledky bez potřeby kliknutí
+- Chybové hlášky v místním jazyce
+- Příklady použití pro každou kalkulačku
+- FAQ sekce s nejčastějšími dotazy
+
+BUSINESS LOGIKA:
+- Všechny výpočty na straně klienta (rychlost)
+- Tracking použití jednotlivých kalkulaček
+- GDPR compliance pro CEE trh
+
+
 ## 1. PŘEHLED PROJEKTU
 
 ### Název projektu

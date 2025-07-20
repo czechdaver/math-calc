@@ -1,0 +1,21 @@
+// src/data/calculators/en/bmi.json
+
+{
+  "id": "bmi",
+  "name": "BMI Calculator",
+  "category": "Fitness & Health",
+  "formula": "BMI = rac{weight (kg)}{height^2 (m^2)}",
+  "explanation": "Body Mass Index (BMI) is a measure that uses your height and weight to work out if your weight is healthy.",
+  "examples": [
+    "Example 1: A person weighing 70kg and 1.75m tall has a BMI of 22.86.",
+    "Example 2: A person weighing 90kg and 1.80m tall has a BMI of 27.78."
+  ],
+  "relatedCalculators": [
+    { "name": "Ideal Weight Calculator", "url": "/calculator/fitness-a-zdravi/ideal-weight" },
+    { "name": "Calorie Calculator", "url": "/calculator/fitness-a-zdravi/calorie" }
+  ],
+  "faq": [
+    { "question": "What is a healthy BMI range?", "answer": "A healthy BMI is usually between 18.5 and 24.9." },
+    { "question": "Is BMI accurate for everyone?", "answer": "BMI is a useful tool for most adults, but it may not be accurate for athletes, pregnant women, or the elderly." }
+  ]
+}

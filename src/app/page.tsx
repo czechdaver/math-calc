@@ -5,7 +5,7 @@ const SUPPORTED_LOCALES = ['cs', 'hu', 'pl', 'sk'];
 const DEFAULT_LOCALE = 'cs';
 
 export default async function Page() {
-  const headersList = headers();
+  const headersList = await headers();
   const acceptLanguage = headersList.get('accept-language');
 
   let locale = DEFAULT_LOCALE;

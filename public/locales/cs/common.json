@@ -56,5 +56,20 @@
   "bmi_category_underweight": "Podváha",
   "bmi_category_normal": "Normální váha",
   "bmi_category_overweight": "Nadváha",
-  "bmi_category_obese": "Obezita"
+  "bmi_category_obese": "Obezita",
+  "procento_z_cisla_formula": "rac{Procenta}{100} 	imes Číslo = Výsledek",
+  "kolik_procent_je_x_z_y_formula": "rac{X}{Y} 	imes 100 = Výsledek (%)",
+  "y_je_x_kolik_je_sto_formula": "rac{Y}{X} 	imes 100 = Základ (100%)",
+  "prima_umera_formula": "rac{a}{b} = rac{c}{x} implies x = rac{c 	imes b}{a}",
+  "neprima_umera_formula": "a 	imes b = c 	imes x implies x = rac{a 	imes b}{c}",
+  "unknown_input_temperature_unit_error": "Neznámá vstupní jednotka teploty",
+  "unknown_output_temperature_unit_error": "Neznámá výstupní jednotka teploty",
+  "bmi_formula": "BMI = rac{váha (kg)}{výška (m)^2}",
+  "dph_formula_base_to_total": "Celkem = Základ 	imes (1 + Sazba_DPH)",
+  "dph_formula_total_to_base": "Základ = rac{Celkem}{1 + Sazba_DPH}",
+  "numerator_label": "Čitatel",
+  "denominator_label": "Jmenovatel",
+  "error_division_by_zero": "Chyba: Dělení nulou není povoleno.",
+  "decimal_representation_label": "Desetinné číslo",
+  "mixed_number_representation_label": "Smíšené číslo"
 }

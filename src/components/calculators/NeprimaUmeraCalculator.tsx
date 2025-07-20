@@ -1,7 +1,9 @@
 // src/components/calculators/NeprimaUmeraCalculator.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'next-i18next';
 
 const NeprimaUmeraCalculator: React.FC = () => {
+  const { t } = useTranslation('common');
   const [a, setA] = useState('');
   const [b, setB] = useState('');
   const [c, setC] = useState('');
@@ -19,17 +21,17 @@ const NeprimaUmeraCalculator: React.FC = () => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     handleCalculate();
   }, [a, b, c]);
 
   return (
     <div className="p-4 border rounded shadow-md">
-      <h2 className="text-xl font-semibold mb-4">Výpočet nepřímé úměry</h2>
-      <p className="mb-4">Zadajte hodnoty pro a, b, c v rovnici a*b = c*x:</p>
+      <h2 className="text-xl font-semibold mb-4">{t('neprima_umera_title')}</h2>
+      <p className="mb-4">{t('neprima_umera_description')}</p>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
-          <label htmlFor="a" className="block text-sm font-medium text-gray-700">a</label>
+          <label htmlFor="a" className="block text-sm font-medium text-gray-700">{t('label_a')}</label>
           <input
             type="number"
             id="a"
@@ -39,7 +41,7 @@ const NeprimaUmeraCalculator: React.FC = () => {
           />
         </div>
         <div>
-          <label htmlFor="b" className="block text-sm font-medium text-gray-700">b</label>
+          <label htmlFor="b" className="block text-sm font-medium text-gray-700">{t('label_b')}</label>
           <input
             type="number"
             id="b"
@@ -49,7 +51,7 @@ const NeprimaUmeraCalculator: React.FC = () => {
           />
         </div>
         <div>
-          <label htmlFor="c" className="block text-sm font-medium text-gray-700">c</label>
+          <label htmlFor="c" className="block text-sm font-medium text-gray-700">{t('label_c')}</label>
           <input
             type="number"
             id="c"
@@ -62,7 +64,7 @@ const NeprimaUmeraCalculator: React.FC = () => {
 
       {vysledek !== null && (
         <div className="mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
-          Výsledek (x): {vysledek}
+          {t('vysledek_label_x_neprima')}: {vysledek}
         </div>
       )}
     </div>

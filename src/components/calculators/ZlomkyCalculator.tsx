@@ -1,6 +1,12 @@
 // src/components/calculators/ZlomkyCalculator.tsx
 import React, { useState } from 'react';
 import { useTranslation } from 'next-i18next';
+import FractionAddition from './fractionOperations/FractionAddition';
+import FractionSubtraction from './fractionOperations/FractionSubtraction';
+import FractionMultiplication from './fractionOperations/FractionMultiplication';
+import FractionDivision from './fractionOperations/FractionDivision';
+import FractionSimplification from './fractionOperations/FractionSimplification';
+import FractionConversion from './fractionOperations/FractionConversion';
 
 const ZlomkyCalculator: React.FC = () => {
   const { t } = useTranslation('common');
@@ -13,17 +19,17 @@ const ZlomkyCalculator: React.FC = () => {
   const renderOperationForm = () => {
     switch (operace) {
       case 'scitani':
-        return <p>{t('zlomky_form_scitani')}</p>;
+        return <FractionAddition />;
       case 'odcitani':
-        return <p>{t('zlomky_form_odcitani')}</p>;
+        return <FractionSubtraction />;
       case 'nasobeni':
-        return <p>{t('zlomky_form_nasobeni')}</p>;
+        return <FractionMultiplication />;
       case 'deleni':
-        return <p>{t}('zlomky_form_deleni')</p>;
+        return <FractionDivision />;
       case 'zkracovani':
-        return <p>{t('zlomky_form_zkracovani')}</p>;
+        return <FractionSimplification />;
       case 'prevod':
-        return <p>{t('zlomky_form_prevod')}</p>;
+        return <FractionConversion />;
       default:
         return <p>{t('zlomky_select_operation')}</p>;
     }

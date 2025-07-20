@@ -1,52 +1,45 @@
-# To learn more about how to use Nix to configure your environment
-# see: https://developers.google.com/idx/guides/customize-idx-env
-{ pkgs, ... }: {
-  # Which nixpkgs channel to use.
-  channel = "stable-24.05"; # or "unstable"
-  # Use https://search.nixos.org/packages to find packages
+{
+  pkgs, ... }: {
+  # Use the latest stable channel for Nix packages.
+  channel = "stable-24.05";
+
+  # Define the packages available in the development environment.
   packages = [
-    # pkgs.go
-    # pkgs.python311
-    # pkgs.python311Packages.pip
-    # pkgs.nodejs_20
-    # pkgs.nodePackages.nodemon
+    pkgs.nodejs_20 # Node.js 20 for Next.js development.
   ];
-  # Sets environment variables in the workspace
-  env = {};
+
+  # Configure workspace settings.
   idx = {
-    # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
+    # Install recommended VS Code extensions.
     extensions = [
-      # "vscodevim.vim"
+      "dbaeumer.vscode-eslint" # ESLint for code linting.
+      "esbenp.prettier-vscode" # Prettier for code formatting.
+       "bradlc.vscode-tailwindcss" # Tailwind CSS extension
+       "remixerl.firebase-vscode" # Firebase extension
     ];
-    # Enable previews
-    previews = {
-      enable = true;
-      previews = {
-        # web = {
-        #   # Example: run "npm run dev" with PORT set to IDX's defined port for previews,
-        #   # and show it in IDX's web preview panel
-        #   command = ["npm" "run" "dev"];
-        #   manager = "web";
-        #   env = {
-        #     # Environment variables to set for your server
-        #     PORT = "$PORT";
-        #   };
-        # };
+
+    # Define workspace lifecycle hooks.
+    workspace = {
+      # Commands to run when the workspace is first created.
+      onCreate = {
+        npm-install = "npm install"; # Install Node.js dependencies.
+      };
+
+      # Commands to run every time the workspace is started.
+      onStart = {
+        dev-server = "npm run dev"; # Start the Next.js development server.
       };
     };
-    # Workspace lifecycle hooks
-    workspace = {
-      # Runs when a workspace is first created
-      onCreate = {
-        # Example: install JS dependencies from NPM
-        # npm-install = "npm install";
-        # Open editors for the following files by default, if they exist:
-        default.openFiles = [ ".idx/dev.nix" "README.md" ];
-      };
-      # Runs when the workspace is (re)started
-      onStart = {
-        # Example: start a background task to watch and re-build backend code
-        # watch-backend = "npm run watch-backend";
+
+    # Configure web previews.
+    previews = {
+      enable = true; # Enable web previews.
+      # Define the web preview configuration.
+      previews = {
+        web = {
+          command = ["npm", "run", "dev", "--", "--port", "$PORT"]; # Command to start the development server with the assigned port.
+          manager = "web"; # Use the web preview manager.
+        };
       };
     };
   };

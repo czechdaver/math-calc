@@ -1,7 +1,9 @@
 // src/components/calculators/YJeXKolikJeStoCalculator.tsx
 import React, { useState } from 'react';
+import { useTranslation } from 'next-i18next';
 
 const YJeXKolikJeStoCalculator: React.FC = () => {
+  const { t } = useTranslation('common');
   const [y, setY] = useState('');
   const [x, setX] = useState('');
   const [vysledek, setVysledek] = useState<number | null>(null);
@@ -23,9 +25,9 @@ const YJeXKolikJeStoCalculator: React.FC = () => {
 
   return (
     <div className="p-4 border rounded shadow-md">
-      <h2 className="text-xl font-semibold mb-4">Y je X%, kolik je 100%?</h2>
+      <h2 className="text-xl font-semibold mb-4">{t('y_je_x_kolik_je_sto_title')}</h2>
       <div className="mb-4">
-        <label htmlFor="y" className="block text-sm font-medium text-gray-700">Y</label>
+        <label htmlFor="y" className="block text-sm font-medium text-gray-700">{t('hodnota_y_label_y_is_x_percent')}</label>
         <input
           type="number"
           id="y"
@@ -35,7 +37,7 @@ const YJeXKolikJeStoCalculator: React.FC = () => {
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="x" className="block text-sm font-medium text-gray-700">X (%)</label>
+        <label htmlFor="x" className="block text-sm font-medium text-gray-700">{t('hodnota_x_label_y_is_x_percent')}</label>
         <input
           type="number"
           id="x"
@@ -47,7 +49,7 @@ const YJeXKolikJeStoCalculator: React.FC = () => {
 
       {vysledek !== null && (
         <div className="mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
-          Výsledek (100%): {vysledek}
+          {t('vysledek_label_hundred_percent')}: {vysledek}
         </div>
       )}
     </div>

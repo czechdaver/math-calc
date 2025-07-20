@@ -23,7 +23,7 @@ const TemperatureConverter: React.FC = () => {
     } else if (fromUnit === 'K') {
       valueInKelvin = value;
     } else {
-      throw new Error('Unknown input temperature unit'); // Changed for translation
+      throw new Error(t('unknown_input_temperature_unit_error')); // Použití lokalizačního klíče
     }
 
     // Převod z Kelvinu na cílovou jednotku
@@ -34,7 +34,7 @@ const TemperatureConverter: React.FC = () => {
     } else if (toUnit === 'K') {
       return valueInKelvin;
     } else {
-      throw new Error('Unknown output temperature unit'); // Changed for translation
+      throw new Error(t('unknown_output_temperature_unit_error')); // Použití lokalizačního klíče
     }
   };
 

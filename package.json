@@ -9,22 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "i18next": "latest",
+    "katex": "^0.16.22",
     "next": "latest",
+    "next-i18next": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "next-i18next": "latest",
     "react-i18next": "latest",
-    "i18next": "latest"
+    "react-katex": "^3.1.0"
   },
   "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "autoprefixer": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
-    "typescript": "latest",
-    "@types/react": "latest",
-    "@types/node": "latest",
-    "@types/react-dom": "latest",
     "postcss": "latest",
     "tailwindcss": "latest",
-    "autoprefixer": "latest"
+    "typescript": "latest"
   }
 }

@@ -4,7 +4,7 @@ import { headers } from 'next/headers';
 const SUPPORTED_LOCALES = ['cs', 'hu', 'pl', 'sk'];
 const DEFAULT_LOCALE = 'cs';
 
-export default function Page() {
+export default async function Page() {
   const headersList = headers();
   const acceptLanguage = headersList.get('accept-language');
 

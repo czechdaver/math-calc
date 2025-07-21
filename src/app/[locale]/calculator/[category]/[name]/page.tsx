@@ -1,6 +1,5 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { useTranslation } from 'react-i18next'; // Assuming you still need useTranslation for client components within the layout
 import CalculatorLayout from '@/components/layouts/CalculatorLayout';
 import { getCalculatorData } from '@/lib/calculatorData'; // Import the data fetching utility
 import dynamic from 'next/dynamic'; // Import dynamic for dynamic component loading
@@ -11,38 +10,58 @@ interface CalculatorPageProps {
 }
 
 // Map calculator names to component paths
-// This mapping should ideally be more dynamic, maybe generated from your data files
 const calculatorComponentMap: Record<string, string> = {
+  'anuitni-splatka': '@/components/calculators/AnuitniSplatkaCalculator',
   'bmi': '@/components/calculators/BMICalculator',
   'cista-mzda': '@/components/calculators/CistaMzdaCalculator',
+  'compound-interest': '@/components/calculators/CompoundInterestCalculator',
   'dph': '@/components/calculators/DPHCalculator',
-  // Add mappings for all your calculators
+  'kolik-procent-je-x-z-y': '@/components/calculators/KolikProcentJeXZYCalculator',
+  'neprima-umera': '@/components/calculators/NeprimaUmeraCalculator',
+  'prima-umera': '@/components/calculators/PrimaUmeraCalculator',
+  'procento-z-cisla': '@/components/calculators/ProcentoZCislaCalculator',
+  'prevodnik-jednotek': '@/components/calculators/UnitConverter',
+  'y-je-x-kolik-je-sto': '@/components/calculators/YJeXKolikJeStoCalculator',
+  'zlomky': '@/components/calculators/ZlomkyCalculator',
+  // Add mappings for other calculators
 };
+
+// Define a type that represents the expected props for any calculator component
+// This assumes all calculator components will accept these two props
+type CalculatorComponentProps = {
+  calculatorData: CalculatorData;
+  locale: string;
+};
+
+// Define a loading component to show while the calculator component is loading
+const Loading = () => <p>Loading calculator...</p>;
+
 
 const CalculatorPage = async ({ params }: CalculatorPageProps) => {
   const { locale, category, name } = params;
 
-  // Fetch calculator data based on locale and name (as calculatorId)
   const calculatorData = await getCalculatorData(locale, name);
 
-  // Handle case where calculator data is not found
   if (!calculatorData) {
     notFound();
   }
 
-  // Dynamically import the calculator component
   const componentPath = calculatorComponentMap[name];
 
   if (!componentPath) {
-    // Handle case where component is not found for the given name
     console.error(`Calculator component not found for: ${name}`);
-    notFound(); // Or render a specific error component
+    notFound();
   }
 
-  const SpecificCalculator = dynamic(() => import(componentPath));
-
-  // You might still need useTranslation if your calculator components use it
-  // const { t } = useTranslation(locale, 'common'); 
+  // Dynamically import the component, specifying the expected props type
+  // and providing a loading component
+  const SpecificCalculator = dynamic<CalculatorComponentProps>(
+    () => import(componentPath),
+    {
+      ssr: false, // Ensure client-side rendering
+      loading: Loading, // Show the Loading component while importing
+    }
+  );
 
   return (
     <CalculatorLayout
@@ -54,8 +73,8 @@ const CalculatorPage = async ({ params }: CalculatorPageProps) => {
       relatedCalculators={calculatorData.relatedCalculators}
       faq={calculatorData.faq}
     >
-      {/* Render the dynamically imported component */}
-      <SpecificCalculator />
+      {/* Pass the props to the dynamically imported component */}
+      <SpecificCalculator calculatorData={calculatorData} locale={locale} />
     </CalculatorLayout>
   );
 };

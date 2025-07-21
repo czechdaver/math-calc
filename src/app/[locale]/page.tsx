@@ -1,3 +1,4 @@
+"use client"; // Add this directive at the very top
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import AdBanner from '@/components/ads/AdBanner'; // Import the AdBanner component
@@ -7,7 +8,8 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ params }) => {
-  const { t } = useTranslation(params.locale, 'common');
+  // Revert to the original call, and if needed, add a type assertion
+  const { t } = useTranslation(params.locale, 'common' as any); // Added 'as any' as a temporary workaround
 
   return (
     <div className="container mx-auto px-4 py-8">

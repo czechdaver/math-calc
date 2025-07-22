@@ -1,58 +1,65 @@
 // src/components/calculators/ProcentoZCislaCalculator.tsx
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'next-i18next';
+import CalculatorBase, { CalculatorInput, CalculatorResult } from './CalculatorBase';
 
 const ProcentoZCislaCalculator: React.FC = () => {
   const { t } = useTranslation('common');
-  const [procenta, setProcenta] = useState('');
-  const [cislo, setCislo] = useState('');
-  const [vysledek, setVysledek] = useState<number | null>(null);
 
-  const handleCalculate = () => {
-    const p = parseFloat(procenta);
-    const c = parseFloat(cislo);
+  // Define the calculator inputs
+  const inputs: CalculatorInput[] = [
+    {
+      id: 'value',
+      label: t('procenta_label'),
+      type: 'number',
+      required: true,
+      step: 'any',
+      placeholder: t('enter_percentage'),
+      helpText: t('enter_percentage_help'),
+      unit: '%',
+    },
+    {
+      id: 'number',
+      label: t('cislo_label'),
+      type: 'number',
+      required: true,
+      step: 'any',
+      placeholder: t('enter_number'),
+      helpText: t('enter_number_help'),
+    },
+  ];
 
-    if (!isNaN(p) && !isNaN(c)) {
-      setVysledek((p / 100) * c);
-    } else {
-      setVysledek(null);
-    }
+  // Calculation function
+  const calculate = (values: Record<string, any>): CalculatorResult => {
+    const percentage = parseFloat(values.value);
+    const number = parseFloat(values.number);
+    const result = (percentage / 100) * number;
+
+    return {
+      value: result.toFixed(2),
+      details: [
+        { label: t('calculation'), value: `${percentage}% × ${number}` },
+        { label: t('result'), value: result.toFixed(2) },
+      ],
+      formula: `\\text{${t('result')}} = \\frac{${percentage}}{100} \\times ${number} = ${result.toFixed(2)}`,
+      explanation: t('percentage_calculation_explanation', { percentage, number, result: result.toFixed(2) }),
+    };
   };
 
-  useEffect(() => {
-    handleCalculate();
-  }, [procenta, cislo]);
-
   return (
-    <div className="p-4 border rounded shadow-md">
-      <h2 className="text-xl font-semibold mb-4">{t('procento_z_cisla_title')}</h2>
-      <div className="mb-4">
-        <label htmlFor="procenta" className="block text-sm font-medium text-gray-700">{t('procenta_label')} (%)</label>
-        <input
-          type="number"
-          id="procenta"
-          value={procenta}
-          onChange={(e) => setProcenta(e.target.value)}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="cislo" className="block text-sm font-medium text-gray-700">{t('cislo_label')}</label>
-        <input
-          type="number"
-          id="cislo"
-          value={cislo}
-          onChange={(e) => setCislo(e.target.value)}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div>
-
-      {vysledek !== null && (
-        <div className="mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
-          {t('vysledek_label')}: {vysledek}
-        </div>
-      )}
-    </div>
+    <CalculatorBase
+      id="percentage-of-number"
+      title={t('procento_z_cisla_title')}
+      description={t('procento_z_cisla_description')}
+      category="mathematics"
+      seo={{
+        title: t('seo.percentage_of_number.title'),
+        description: t('seo.percentage_of_number.description'),
+        keywords: [t('seo.percentage_of_number.keyword1'), t('seo.percentage_of_number.keyword2')],
+      }}
+      inputs={inputs}
+      calculate={calculate}
+    />
   );
 };
 

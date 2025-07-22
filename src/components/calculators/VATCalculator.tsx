@@ -148,20 +148,20 @@ const DPHCalculator: React.FC = () => {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold mb-2">{t('dph_calculator_title')}</h1>
+      <h1 className="text-3xl font-bold mb-2">{t('vat_calculator_title')}</h1>
       <p className="text-muted-foreground mb-8">
-        {t('dph_calculator_description')}
+        {t('vat_calculator_description')}
       </p>
       
       <CalculatorBase
-        id="dph-calculator"
-        title={t('dph_calculator_title')}
-        description={t('dph_calculator_description')}
+        id="vat-calculator"
+        title={t('vat_calculator_title')}
+        description={t('vat_calculator_description')}
         category="finance"
         seo={{
-          title: t('dph_calculator_title'),
-          description: t('dph_calculator_seo_description'),
-          keywords: ['dph kalkulačka', 'výpočet dph', 'kalkulačka s dph', 'kalkulačka bez dph'],
+          title: t('vat_calculator_title'),
+          description: t('vat_calculator_seo_description'),
+          keywords: ['vat kalkulačka', 'výpočet vat', 'kalkulačka s vat', 'kalkulačka bez vat'],
         }}
         inputs={inputs}
         calculate={calculate}

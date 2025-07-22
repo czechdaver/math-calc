@@ -11,8 +11,8 @@
     "Example 2: A person weighing 90kg and 1.80m tall has a BMI of 27.78."
   ],
   "relatedCalculators": [
-    { "name": "Ideal Weight Calculator", "url": "/calculator/fitness-a-zdravi/ideal-weight" },
-    { "name": "Calorie Calculator", "url": "/calculator/fitness-a-zdravi/calorie" }
+    { "name": "Ideal Weight Calculator", "url": "/calculator/health-fitness/ideal-weight" },
+    { "name": "Calorie Calculator", "url": "/calculator/health-fitness/calorie" }
   ],
   "faq": [
     { "question": "What is a healthy BMI range?", "answer": "A healthy BMI is usually between 18.5 and 24.9." },

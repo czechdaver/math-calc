@@ -1,4 +1,4 @@
-// src/app/[locale]/calculator/cista-mzda/page.tsx
+// src/app/[locale]/calculator/net-salary/page.tsx
 'use client';
 
 import React from 'react';
@@ -9,7 +9,7 @@ import { Info, Calculator, Percent, Shield, HeartPulse, Banknote } from 'lucide-
 
 // Dynamically import the calculator with SSR disabled to avoid hydration issues
 const CistaMzdaCalculator = dynamic(
-  () => import('@/components/calculators/CistaMzdaCalculator.refactored'),
+  () => import('@/components/calculators/NetSalaryCalculator'),
   { 
     ssr: false,
     loading: () => <div className="h-[400px] w-full rounded-md animate-pulse bg-muted" />

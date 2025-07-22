@@ -1,3 +1,10 @@
+---
+title: Calculator Layout
+category: Design
+version: 1.2.0
+updated: 2025-07-22
+---
+
 # Specifikace: Reusable Kalkulačkový Layout (Calculator Page Layout)
 
 ## Účel

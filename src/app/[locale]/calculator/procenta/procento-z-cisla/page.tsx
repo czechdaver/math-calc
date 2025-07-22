@@ -1,4 +1,4 @@
-// src/app/[locale]/calculator/procenta/procento-z-cisla/page.tsx
+// src/app/[locale]/calculator/percentages/percentage-of/page.tsx
 'use client';
 
 import React from 'react';
@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 // Dynamically import the calculator component with SSR disabled
 const ProcentoZCislaCalculator = dynamic(
-  () => import('@/components/calculators/ProcentoZCislaCalculator.refactored'),
+  () => import('@/components/calculators/PercentageOfNumberCalculator'),
   { ssr: false }
 );
 
@@ -19,7 +19,7 @@ const ProcentoZCislaPage: React.FC = () => {
 
   // Get translations with fallbacks
   const seoTitle = t('procento_z_cisla_title') || 'Procento z čísla';
-  const seoDescription = t('procento_z_cisla_seo_description') || 'Vypočítejte X procent z daného čísla. Zadejte procenta a číslo pro výpočet.';
+  const seoDescription = t('procento_z_cisla_seo_description') || 'Vypočítejte X procent z daného čísla. Zadejte percentages a číslo pro výpočet.';
   const formula = t('procento_z_cisla_formula') || '\\text{Výsledek} = \\frac{\\text{Procenta}}{100} \\times \\text{Číslo}';
   const explanation = t('procento_z_cisla_explanation') || 'Výpočet procent z čísla se používá pro zjištění, jakou hodnotu představuje dané procento z celku. Tento výpočet je užitečný například při výpočtu slev, daní, přirážek a dalších procentuálních hodnot.';
 
@@ -78,7 +78,7 @@ const ProcentoZCislaPage: React.FC = () => {
             {t('procento_z_cisla_dalsi_info') || 
             'Výpočet procent z čísla je základní matematická operace, která se používá v každodenním životě. ' +
             'S touto kalkulačkou můžete snadno vypočítat jakoukoliv procentuální hodnotu z libovolného čísla. ' +
-            'Stačí zadat procenta a číslo, ze kterého chcete procenta vypočítat.'}
+            'Stačí zadat percentages a číslo, ze kterého chcete percentages vypočítat.'}
           </p>
         </div>
       </div>

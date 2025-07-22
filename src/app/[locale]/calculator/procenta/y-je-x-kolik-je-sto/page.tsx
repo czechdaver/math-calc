@@ -1,4 +1,4 @@
-// src/app/[locale]/calculator/procenta/y-je-x-kolik-je-sto/page.tsx
+// src/app/[locale]/calculator/percentages/find-percentage/page.tsx
 'use client';
 
 import React from 'react';
@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 // Dynamically import the calculator component with SSR disabled
 const YJeXKolikJeStoCalculator = dynamic(
-  () => import('@/components/calculators/YJeXKolikJeStoCalculator.refactored'),
+  () => import('@/components/calculators/YIsXWhatIsHundredCalculator'),
   { ssr: false }
 );
 

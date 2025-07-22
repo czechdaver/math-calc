@@ -10,7 +10,7 @@ import { Info } from 'lucide-react';
 
 // Dynamically import the BMICalculator component with SSR disabled
 const BMICalculator = dynamic(
-  () => import('@/components/calculators/BMICalculator.refactored'),
+  () => import('@/components/calculators/BMICalculator'),
   { ssr: false }
 );
 

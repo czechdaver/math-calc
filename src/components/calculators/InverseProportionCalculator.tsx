@@ -1,9 +1,9 @@
-// src/components/calculators/PrimaUmeraCalculator.refactored.tsx
+// src/components/calculators/NeprimaUmeraCalculator.refactored.tsx
 import React from 'react';
 import { useTranslation } from 'next-i18next';
 import CalculatorBase, { CalculatorInput, CalculatorResult } from './CalculatorBase';
 
-const PrimaUmeraCalculator: React.FC = () => {
+const NeprimaUmeraCalculator: React.FC = () => {
   const { t } = useTranslation('common');
 
   // Define calculator inputs
@@ -15,7 +15,7 @@ const PrimaUmeraCalculator: React.FC = () => {
       required: true,
       placeholder: t('zadejte_hodnotu') || 'Zadejte hodnotu',
       step: 'any',
-      helpText: t('zadejte_cislo_vetsi_než_nula') || 'Zadejte číslo větší než nula',
+      helpText: t('zadejte_cislo') || 'Zadejte číslo',
     },
     {
       id: 'b',
@@ -33,21 +33,21 @@ const PrimaUmeraCalculator: React.FC = () => {
       required: true,
       placeholder: t('zadejte_hodnotu') || 'Zadejte hodnotu',
       step: 'any',
-      helpText: t('zadejte_cislo') || 'Zadejte číslo',
+      helpText: t('zadejte_cislo_ruzne_od_nuly') || 'Zadejte číslo různé od nuly',
     },
   ];
 
-  // Calculate the direct proportion (přímá úměra)
+  // Calculate the indirect proportion (nepřímá úměra)
   const calculate = (values: Record<string, any>): CalculatorResult => {
-    const a = parseFloat(values.a || '1');
+    const a = parseFloat(values.a || '0');
     const b = parseFloat(values.b || '0');
-    const c = parseFloat(values.c || '0');
+    const c = parseFloat(values.c || '1');
     
-    if (isNaN(a) || isNaN(b) || isNaN(c) || a === 0) {
+    if (isNaN(a) || isNaN(b) || isNaN(c) || c === 0) {
       return { value: null };
     }
 
-    const result = (c * b) / a;
+    const result = (a * b) / c;
 
     return {
       value: result,
@@ -59,11 +59,11 @@ const PrimaUmeraCalculator: React.FC = () => {
         },
         { 
           label: t('vypocet') || 'Výpočet', 
-          value: `(${c} × ${b}) / ${a} = ${result.toFixed(4)}` 
+          value: `(${a} × ${b}) / ${c} = ${result.toFixed(4)}` 
         },
       ],
-      formula: 'výsledek = (C × B) / A',
-      explanation: t('prima_umera_explanation') || 'Výpočet přímé úměry: (C × B) / A',
+      formula: 'výsledek = (A × B) / C',
+      explanation: t('neprima_umera_explanation') || 'Výpočet nepřímé úměry: (A × B) / C',
     };
   };
 
@@ -119,20 +119,20 @@ const PrimaUmeraCalculator: React.FC = () => {
 
   return (
     <CalculatorBase
-      id="prima-umera"
-      title={t('prima_umera_title') || 'Přímá úměra'}
+      id="inverse-proportion"
+      title={t('neprima_umera_title') || 'Nepřímá úměra'}
       description={
-        t('prima_umera_description') || 
-        'Vypočítejte hodnotu přímé úměry podle vzorce: (C × B) / A. Zadejte hodnoty A, B a C pro výpočet.'
+        t('neprima_umera_description') || 
+        'Vypočítejte hodnotu nepřímé úměry podle vzorce: (A × B) / C. Zadejte hodnoty A, B a C pro výpočet.'
       }
       category="matematika"
       seo={{
-        title: t('seo.prima_umera_title') || 'Kalkulačka: Přímá úměra',
+        title: t('seo.neprima_umera_title') || 'Kalkulačka: Nepřímá úměra',
         description: 
-          t('seo.prima_umera_description') || 
-          'Snadno vypočítejte hodnotu přímé úměry podle vzorce (C × B) / A. Ideální pro výpočty s přímými úměrami.',
+          t('seo.neprima_umera_description') || 
+          'Snadno vypočítejte hodnotu nepřímé úměry podle vzorce (A × B) / C. Ideální pro výpočty s nepřímými úměrami.',
         keywords: [
-          t('seo.klicove_slovo_prima_umera') || 'přímá úměra',
+          t('seo.klicove_slovo_neprima_umera') || 'nepřímá úměra',
           t('seo.klicove_slovo_kalkulacka') || 'kalkulačka',
           t('seo.klicove_slovo_vypocet') || 'výpočet',
           t('seo.klicove_slovo_matematika') || 'matematika',
@@ -146,4 +146,4 @@ const PrimaUmeraCalculator: React.FC = () => {
   );
 };
 
-export default PrimaUmeraCalculator;
+export default NeprimaUmeraCalculator;

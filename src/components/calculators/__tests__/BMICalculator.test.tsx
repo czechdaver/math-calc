@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import BMICalculator from '../BMICalculator.refactored';
+import BMICalculator from '../BMICalculator';
 
 // Mock next-i18next
 jest.mock('next-i18next', () => ({

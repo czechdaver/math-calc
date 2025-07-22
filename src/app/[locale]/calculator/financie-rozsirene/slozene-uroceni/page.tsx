@@ -1,4 +1,4 @@
-// src/app/[locale]/calculator/financie-rozsirene/slozene-uroceni/page.tsx
+// src/app/[locale]/calculator/finance-advanced/compound-interest/page.tsx
 'use client';
 
 import React from 'react';
@@ -13,7 +13,7 @@ import { Info } from 'lucide-react';
 
 // Dynamically import the calculator with SSR disabled to avoid hydration issues
 const CompoundInterestCalculator = dynamic(
-  () => import('@/components/calculators/CompoundInterestCalculator.refactored'),
+  () => import('@/components/calculators/CompoundInterestCalculator'),
   { 
     ssr: false,
     loading: () => <Skeleton className="h-[400px] w-full rounded-md" />

@@ -1,4 +1,4 @@
-// src/app/[locale]/calculator/trojclenka/neprima-umera/page.tsx
+// src/app/[locale]/calculator/proportions/inverse-proportion/page.tsx
 'use client';
 
 import React from 'react';
@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 // Dynamically import the calculator component with SSR disabled
 const NeprimaUmeraCalculator = dynamic(
-  () => import('@/components/calculators/NeprimaUmeraCalculator.refactored'),
+  () => import('@/components/calculators/InverseProportionCalculator'),
   { ssr: false }
 );
 

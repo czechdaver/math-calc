@@ -6,29 +6,29 @@ const { execSync } = require('child_process');
 // Configuration for renaming
 const RENAME_MAP = {
   // Calculator components
-  'cista-mzda': 'net-salary',
-  'anuitni-splatka': 'annuity-payment',
-  'slozene-uroceni': 'compound-interest',
-  'prevodnik-jednotek': 'unit-converter',
-  'trojclenka': 'proportions',
-  'neprima-umera': 'inverse-proportion',
-  'prima-umera': 'direct-proportion',
-  'procenta': 'percentages',
-  'zlomky': 'fractions',
-  'dph': 'vat',
+  'net-salary': 'net-salary',
+  'annuity-payment': 'annuity-payment',
+  'compound-interest': 'compound-interest',
+  'unit-converter': 'unit-converter',
+  'proportions': 'proportions',
+  'inverse-proportion': 'inverse-proportion',
+  'direct-proportion': 'direct-proportion',
+  'percentages': 'percentages',
+  'fractions': 'fractions',
+  'vat': 'vat',
   'bmi': 'bmi',
-  'financie-rozsirene': 'finance-advanced',
-  'fitness-a-zdravi': 'health-fitness',
-  'prakticke-vypocty': 'practical-calculations',
+  'finance-advanced': 'finance-advanced',
+  'health-fitness': 'health-fitness',
+  'practical-calculations': 'practical-calculations',
   
   // Calculator names
   'irr': 'irr',
   'npv': 'npv',
-  'predcasne-splaceni': 'early-repayment',
+  'early-repayment': 'early-repayment',
   'roi': 'roi',
-  'kolik-procent-je-x-z-y': 'percentage-of-number',
-  'procento-z-cisla': 'percentage-of',
-  'y-je-x-kolik-je-sto': 'find-percentage',
+  'percentage-of-number': 'percentage-of-number',
+  'percentage-of': 'percentage-of',
+  'find-percentage': 'find-percentage',
 };
 
 // Get the root directory of the project

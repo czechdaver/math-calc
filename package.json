@@ -45,6 +45,7 @@
     "autoprefixer": "^10.4.21",
     "eslint": "latest",
     "eslint-config-next": "latest",
+    "fs-extra": "^11.3.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^30.0.5",
     "jest-environment-jsdom": "^30.0.5",

@@ -1,4 +1,4 @@
-// src/app/[locale]/calculator/trojclenka/prima-umera/page.tsx
+// src/app/[locale]/calculator/proportions/direct-proportion/page.tsx
 'use client';
 
 import React from 'react';
@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 // Dynamically import the calculator component with SSR disabled
 const PrimaUmeraCalculator = dynamic(
-  () => import('@/components/calculators/PrimaUmeraCalculator.refactored'),
+  () => import('@/components/calculators/DirectProportionCalculator'),
   { ssr: false }
 );
 

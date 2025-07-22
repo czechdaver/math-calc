@@ -1,4 +1,4 @@
-// src/app/[locale]/calculator/financie-rozsirene/npv/page.tsx
+// src/app/[locale]/calculator/finance-advanced/npv/page.tsx
 import React from 'react';
 // import NPVCalculator from '@/components/calculators/NPVCalculator'; // Komponenta bude vytvořena později
 

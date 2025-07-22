@@ -143,7 +143,7 @@ const AnuitniSplatkaCalculator: React.FC = () => {
 
   return (
     <CalculatorBase
-      id="anuitni-splatka"
+      id="annuity-payment"
       title={t('anuitni_splatka_title')}
       description={t('anuitni_splatka_description')}
       category="finance"

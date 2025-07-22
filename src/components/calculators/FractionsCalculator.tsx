@@ -47,17 +47,17 @@ const ZlomkyCalculator: React.FC = () => {
   // Define the calculator inputs
   const operationInput: CalculatorInput = {
     id: 'operation',
-    label: t('zlomky_select_operation_label') || 'Operace se zlomky',
+    label: t('fractions_select_operation_label') || 'Operace se fractions',
     type: 'select',
     required: true,
     options: [
       { value: '', label: t('select_option_default') || '-- Vyberte operaci --' },
-      { value: 'scitani', label: t('zlomky_operation_scitani') || 'Sčítání zlomků' },
-      { value: 'odcitani', label: t('zlomky_operation_odcitani') || 'Odčítání zlomků' },
-      { value: 'nasobeni', label: t('zlomky_operation_nasobeni') || 'Násobení zlomků' },
-      { value: 'deleni', label: t('zlomky_operation_deleni') || 'Dělení zlomků' },
-      { value: 'zkracovani', label: t('zlomky_operation_zkracovani') || 'Krácení zlomků' },
-      { value: 'prevod', label: t('zlomky_operation_prevod') || 'Převod zlomku na desetinné číslo' },
+      { value: 'scitani', label: t('fractions_operation_scitani') || 'Sčítání zlomků' },
+      { value: 'odcitani', label: t('fractions_operation_odcitani') || 'Odčítání zlomků' },
+      { value: 'nasobeni', label: t('fractions_operation_nasobeni') || 'Násobení zlomků' },
+      { value: 'deleni', label: t('fractions_operation_deleni') || 'Dělení zlomků' },
+      { value: 'zkracovani', label: t('fractions_operation_zkracovani') || 'Krácení zlomků' },
+      { value: 'prevod', label: t('fractions_operation_prevod') || 'Převod zlomku na desetinné číslo' },
     ],
   };
 
@@ -88,7 +88,7 @@ const ZlomkyCalculator: React.FC = () => {
       default:
         return (
           <div className="p-4 text-center text-muted-foreground">
-            {t('zlomky_select_operation') || 'Vyberte operaci se zlomky'}
+            {t('fractions_select_operation') || 'Vyberte operaci se fractions'}
           </div>
         );
     }
@@ -103,16 +103,16 @@ const ZlomkyCalculator: React.FC = () => {
   return (
     <div>
       <CalculatorBase
-        id="zlomky"
-        title={t('zlomky_calculator_title') || 'Kalkulačka zlomků'}
-        description={t('zlomky_description') || 'Provádějte základní operace se zlomky: sčítání, odčítání, násobení, dělení, krácení a převod na desetinná čísla.'}
+        id="fractions"
+        title={t('fractions_calculator_title') || 'Kalkulačka zlomků'}
+        description={t('fractions_description') || 'Provádějte základní operace se fractions: sčítání, odčítání, násobení, dělení, krácení a převod na desetinná čísla.'}
         category="matematika"
         seo={{
-          title: t('zlomky_calculator_title') || 'Kalkulačka zlomků | Matematické nástroje',
-          description: t('zlomky_seo_description') || 
-            'Výkonná kalkulačka pro práci se zlomky. Sčítání, odčítání, násobení, dělení, krácení a převod zlomků na desetinná čísla.',
+          title: t('fractions_calculator_title') || 'Kalkulačka zlomků | Matematické nástroje',
+          description: t('fractions_seo_description') || 
+            'Výkonná kalkulačka pro práci se fractions. Sčítání, odčítání, násobení, dělení, krácení a převod zlomků na desetinná čísla.',
           keywords: [
-            'zlomky', 'kalkulačka', 'matematika', 'sčítání zlomků', 'odčítání zlomků',
+            'fractions', 'kalkulačka', 'matematika', 'sčítání zlomků', 'odčítání zlomků',
             'násobení zlomků', 'dělení zlomků', 'krácení zlomků', 'převod zlomků', 'zlomková kalkulačka'
           ],
         }}

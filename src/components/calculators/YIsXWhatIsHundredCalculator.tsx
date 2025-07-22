@@ -35,7 +35,7 @@ const YJeXKolikJeStoCalculator: React.FC = () => {
       type: 'number',
       required: true,
       step: 0.01,
-      placeholder: t('enter_percentage') || 'Zadejte procenta',
+      placeholder: t('enter_percentage') || 'Zadejte percentages',
       helpText: t('y_je_x_kolik_je_sto_help_x') || 'Zadejte procentuální hodnotu X (např. 15 pro 15%)',
     },
   ];
@@ -75,7 +75,7 @@ const YJeXKolikJeStoCalculator: React.FC = () => {
 
   return (
     <CalculatorBase
-      id="y-je-x-kolik-je-sto"
+      id="find-percentage"
       title={t('y_je_x_kolik_je_sto_title') || 'Y je X% - kolik je 100%?'}
       description={t('y_je_x_kolik_je_sto_description') || 
         'Výpočet celkové hodnoty (100%), pokud znáte část (Y) a její procentuální podíl (X%).'}
@@ -85,7 +85,7 @@ const YJeXKolikJeStoCalculator: React.FC = () => {
         description: t('y_je_x_kolik_je_sto_seo_description') || 
           'Spočítejte si celkovou hodnotu (100%), pokud znáte část (Y) a její procentuální podíl (X%).',
         keywords: [
-          'procenta', 'výpočet', 'kalkulačka', '100%', 'celková hodnota', 'procentuální podíl',
+          'percentages', 'výpočet', 'kalkulačka', '100%', 'celková hodnota', 'procentuální podíl',
           'finance', 'matematika', 'výpočet procent', 'kolik je 100%'
         ],
       }}

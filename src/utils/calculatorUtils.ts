@@ -8,6 +8,9 @@
  * @returns boolean indicating if the value is a valid number
  */
 export const isValidNumber = (value: any): boolean => {
+  if (value === null || value === undefined) {
+    return false;
+  }
   return value !== '' && !isNaN(Number(value)) && isFinite(Number(value));
 };
 
@@ -83,13 +86,44 @@ export const formatNumberWithCommas = (value: number, decimals: number = 2): str
  * @returns boolean indicating if the expression is valid
  */
 export const isValidMathExpression = (expression: string): boolean => {
-  try {
-    // eslint-disable-next-line no-new-func
-    new Function(`return ${expression}`);
-    return true;
-  } catch (e) {
+  if (!expression || typeof expression !== 'string') {
     return false;
   }
+  
+  // Remove whitespace for validation
+  const cleanExpr = expression.replace(/\s+/g, '');
+  
+  // Check for empty string after cleaning
+  if (!cleanExpr) {
+    return false;
+  }
+  
+  // Check if the expression contains any letters
+  if (/[a-zA-Z]/.test(cleanExpr)) {
+    return false;
+  }
+  
+  // Check for trailing operators or incomplete expressions
+  if (/[+\-*/.]$/.test(cleanExpr)) {
+    return false;
+  }
+  
+  // Check for balanced parentheses
+  let balance = 0;
+  for (const char of cleanExpr) {
+    if (char === '(') balance++;
+    if (char === ')') balance--;
+    if (balance < 0) return false; // More closing than opening parentheses
+  }
+  if (balance !== 0) return false; // Unbalanced parentheses
+  
+  // Check for valid structure (no consecutive operators)
+  if (/[+\-*/]{2,}/.test(cleanExpr)) {
+    return false;
+  }
+  
+  // Basic check for valid characters
+  return /^[0-9+\-*/().\s]+$/.test(cleanExpr);
 };
 
 /**
@@ -156,9 +190,25 @@ export const convertUnit = (
  * @returns Array of numbers in the specified range
  */
 export const range = (start: number, end: number, step: number = 1): number[] => {
-  const result = [];
-  for (let i = start; i <= end; i += step) {
+  const result: number[] = [];
+  
+  if (step === 0) {
+    throw new Error('Step cannot be zero');
+  }
+  
+  if ((step > 0 && start > end) || (step < 0 && start < end)) {
+    // Handle reverse ranges properly
+    if (step < 0 && start > end) {
+      for (let i = start; i >= end; i += step) {
+        result.push(i);
+      }
+    }
+    return result;
+  }
+  
+  for (let i = start; step > 0 ? i <= end : i >= end; i += step) {
     result.push(i);
   }
+  
   return result;
 };

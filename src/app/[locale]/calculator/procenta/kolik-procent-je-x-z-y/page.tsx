@@ -1,4 +1,4 @@
-// src/app/[locale]/calculator/procenta/kolik-procent-je-x-z-y/page.tsx
+// src/app/[locale]/calculator/percentages/percentage-of-number/page.tsx
 'use client';
 
 import React from 'react';
@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 // Dynamically import the calculator component with SSR disabled
 const KolikProcentJeXZYCalculator = dynamic(
-  () => import('@/components/calculators/KolikProcentJeXZYCalculator.refactored'),
+  () => import('@/components/calculators/WhatPercentageIsXOfYCalculator'),
   { ssr: false }
 );
 
@@ -26,7 +26,7 @@ const KolikProcentJeXZYPage: React.FC = () => {
     // Příklady
   ];
   const relatedCalculators = [ // TODO: Přidat dle relevance
-    { name: t('procento_z_cisla_title'), href: '/calculator/procenta/procento-z-cisla' }
+    { name: t('procento_z_cisla_title'), href: '/calculator/percentages/percentage-of' }
     // Další související kalkulačky
   ];
 

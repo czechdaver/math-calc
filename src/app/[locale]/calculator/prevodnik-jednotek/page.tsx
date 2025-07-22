@@ -1,4 +1,4 @@
-// src/app/[locale]/calculator/prevodnik-jednotek/page.tsx
+// src/app/[locale]/calculator/unit-converter/page.tsx
 'use client';
 
 import React from 'react';
@@ -9,7 +9,7 @@ import { Info, Ruler, Scale, Droplets, Thermometer, ArrowRightLeft } from 'lucid
 
 // Dynamically import the calculator with SSR disabled to avoid hydration issues
 const UnitConverter = dynamic(
-  () => import('@/components/calculators/UnitConverter.refactored'),
+  () => import('@/components/calculators/UnitConverter'),
   { 
     ssr: false,
     loading: () => <div className="h-[600px] w-full rounded-md animate-pulse bg-muted" />

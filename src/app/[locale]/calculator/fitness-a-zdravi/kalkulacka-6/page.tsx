@@ -1,4 +1,4 @@
-// src/app/[locale]/calculator/fitness-a-zdravi/kalkulacka-6/page.tsx
+// src/app/[locale]/calculator/health-fitness/kalkulacka-6/page.tsx
 import React from 'react';
 
 const FitnessAZdraviKalkulacka6Page: React.FC = () => {

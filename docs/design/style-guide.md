@@ -1,3 +1,10 @@
+---
+title: Style Guide
+category: Design
+version: 1.2.0
+updated: 2025-07-22
+---
+
 # UI Style Guide
 
 ## Design System Overview

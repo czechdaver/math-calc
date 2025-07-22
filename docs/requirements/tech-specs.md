@@ -1,3 +1,10 @@
+---
+title: Technical Specifications
+category: Requirements
+version: 1.2.0
+updated: 2025-07-22
+---
+
 # Technické specifikace projektu
 
 ## Optimalizace obrázků a Lazy Load

@@ -60,7 +60,7 @@ const KolikProcentJeXZYCalculator: React.FC = () => {
         },
       ],
       formula: 'výsledek = (X / Y) × 100',
-      explanation: t('vypocet_procenta_x_z_y') || 'Výpočet, kolik procent tvoří hodnota X z hodnoty Y',
+      explanation: t('vypocet_percentages_x_z_y') || 'Výpočet, kolik procent tvoří hodnota X z hodnoty Y',
     };
   };
 
@@ -116,10 +116,10 @@ const KolikProcentJeXZYCalculator: React.FC = () => {
 
   return (
     <CalculatorBase
-      id="kolik-procent-je-x-z-y"
+      id="percentage-of-number"
       title={t('kolik_procent_je_x_z_y_title') || 'Kolik procent je X z Y?'}
       description={
-        t('kalkulacka_procenta_popis') || 
+        t('kalkulacka_percentages_popis') || 
         'Vypočítejte, kolik procent tvoří jedna hodnota z druhé. Zadejte hodnoty X a Y a zjistěte výsledek.'
       }
       category="finance"
@@ -129,7 +129,7 @@ const KolikProcentJeXZYCalculator: React.FC = () => {
           t('seo.kolik_procent_je_x_z_y_description') || 
           'Snadno vypočítejte, kolik procent tvoří jedna hodnota z druhé. Ideální pro výpočet slev, přírůstků a dalších procentuálních vztahů.',
         keywords: [
-          t('seo.klicove_slovo_procenta') || 'procenta',
+          t('seo.klicove_slovo_percentages') || 'percentages',
           t('seo.klicove_slovo_kalkulacka') || 'kalkulačka',
           t('seo.klicove_slovo_vypocet') || 'výpočet',
           t('seo.klicove_slovo_xy') || 'x z y',

@@ -1,4 +1,4 @@
-// src/app/[locale]/calculator/financie-rozsirene/roi/page.tsx
+// src/app/[locale]/calculator/finance-advanced/roi/page.tsx
 import React from 'react';
 // import ROICalculator from '@/components/calculators/ROICalculator'; // Komponenta bude vytvořena později
 

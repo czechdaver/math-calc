@@ -22,11 +22,11 @@ const ProcentoZCislaCalculator: React.FC = () => {
   const inputs: CalculatorInput[] = [
     {
       id: 'value',
-      label: t('procenta_label') || 'Procenta',
+      label: t('percentages_label') || 'Procenta',
       type: 'number',
       required: true,
       step: 0.01,
-      placeholder: t('enter_percentage') || 'Zadejte procenta',
+      placeholder: t('enter_percentage') || 'Zadejte percentages',
       helpText: t('enter_percentage_help') || 'Zadejte procentuální hodnotu (např. 15 pro 15%)',
       unit: '%',
       min: 0,
@@ -39,7 +39,7 @@ const ProcentoZCislaCalculator: React.FC = () => {
       required: true,
       step: 0.01,
       placeholder: t('enter_number') || 'Zadejte číslo',
-      helpText: t('enter_number_help') || 'Zadejte číslo, ze kterého chcete vypočítat procenta',
+      helpText: t('enter_number_help') || 'Zadejte číslo, ze kterého chcete vypočítat percentages',
     },
   ];
 
@@ -150,11 +150,11 @@ const ProcentoZCislaCalculator: React.FC = () => {
 
   return (
     <CalculatorBase
-      id="procento-z-cisla"
+      id="percentage-of"
       title={t('procento_z_cisla_title') || 'Procento z čísla'}
       description={
         t('procento_z_cisla_description') || 
-        'Vypočítejte X procent z daného čísla. Zadejte procenta a číslo pro výpočet.'
+        'Vypočítejte X procent z daného čísla. Zadejte percentages a číslo pro výpočet.'
       }
       category="matematika"
       seo={{
@@ -163,7 +163,7 @@ const ProcentoZCislaCalculator: React.FC = () => {
           t('seo.procento_z_cisla_description') || 
           'Snadno vypočítejte X procent z daného čísla. Ideální pro výpočty slev, daní, přirážek a dalších procentuálních výpočtů.',
         keywords: [
-          t('seo.klicove_slovo_procenta') || 'procenta',
+          t('seo.klicove_slovo_percentages') || 'percentages',
           t('seo.klicove_slovo_kalkulacka') || 'kalkulačka',
           t('seo.klicove_slovo_vypocet') || 'výpočet',
           t('seo.klicove_slovo_matematika') || 'matematika',

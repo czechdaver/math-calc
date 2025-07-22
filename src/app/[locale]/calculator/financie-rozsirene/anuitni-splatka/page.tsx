@@ -1,4 +1,4 @@
-// src/app/[locale]/calculator/financie-rozsirene/anuitni-splatka/page.tsx
+// src/app/[locale]/calculator/finance-advanced/annuity-payment/page.tsx
 'use client';
 
 import React from 'react';
@@ -9,7 +9,7 @@ import { Info, Calculator, DollarSign, Calendar, Percent } from 'lucide-react';
 
 // Dynamically import the calculator with SSR disabled to avoid hydration issues
 const AnuitniSplatkaCalculator = dynamic(
-  () => import('@/components/calculators/AnuitniSplatkaCalculator.refactored'),
+  () => import('@/components/calculators/AnnuityPaymentCalculator'),
   { 
     ssr: false,
     loading: () => <div className="h-[600px] w-full rounded-md animate-pulse bg-muted" />

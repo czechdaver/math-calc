@@ -1,4 +1,4 @@
-// src/app/[locale]/calculator/dph/page.tsx
+// src/app/[locale]/calculator/vat/page.tsx
 'use client';
 
 import React from 'react';
@@ -8,7 +8,7 @@ import SeoMetadata from '@/components/seo/SeoMetadata';
 
 // Dynamically import the DPHCalculator component with SSR disabled
 const DPHCalculator = dynamic(
-  () => import('@/components/calculators/DPHCalculator.refactored'),
+  () => import('@/components/calculators/VATCalculator'),
   { ssr: false }
 );
 
@@ -19,8 +19,8 @@ const DPHPage: React.FC = () => {
   const { t } = useTranslation('common');
   
   // SEO Metadata
-  const seoTitle = t('dph_calculator_title');
-  const seoDescription = t('dph_seo_description');
+  const seoTitle = t('vat_calculator_title');
+  const seoDescription = t('vat_seo_description');
   
   // VAT rates information
   const vatRates = [
@@ -53,7 +53,7 @@ const DPHPage: React.FC = () => {
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold mb-2">{seoTitle}</h1>
         <p className="text-muted-foreground max-w-3xl mx-auto">
-          {t('dph_calculator_description')}
+          {t('vat_calculator_description')}
         </p>
       </div>
 

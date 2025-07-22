@@ -1,4 +1,4 @@
-// src/app/[locale]/calculator/financie-rozsirene/predcasne-splaceni/page.tsx
+// src/app/[locale]/calculator/finance-advanced/early-repayment/page.tsx
 import React from 'react';
 // import PredcasneSplaceniCalculator from '@/components/calculators/PredcasneSplaceniCalculator'; // Komponenta bude vytvořena později
 

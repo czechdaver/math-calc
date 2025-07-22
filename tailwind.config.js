@@ -1,13 +1,23 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["class"], // Přidáno pro dark mode podporu
+  darkMode: ["class"],
   content: [
-    './src/**/*.{js,ts,jsx,tsx,mdx}', // Zahrnuje celý src adresář pro App Router i komponenty
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       colors: {
-        border: "hsl(var(--border))", // Přidány placeholder barvy pro Shadcn
+        border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",

@@ -1,4 +1,4 @@
-// src/app/[locale]/calculator/prakticke-vypocty/kalkulacka-1/page.tsx
+// src/app/[locale]/calculator/practical-calculations/kalkulacka-1/page.tsx
 import React from 'react';
 
 const PraktickeVypoctyKalkulacka1Page: React.FC = () => {

@@ -11,18 +11,18 @@ interface CalculatorPageProps {
 
 // Map calculator names to component paths
 const calculatorComponentMap: Record<string, string> = {
-  'anuitni-splatka': '@/components/calculators/AnuitniSplatkaCalculator',
+  'annuity-payment': '@/components/calculators/AnuitniSplatkaCalculator',
   'bmi': '@/components/calculators/BMICalculator',
-  'cista-mzda': '@/components/calculators/CistaMzdaCalculator',
+  'net-salary': '@/components/calculators/CistaMzdaCalculator',
   'compound-interest': '@/components/calculators/CompoundInterestCalculator',
-  'dph': '@/components/calculators/DPHCalculator',
-  'kolik-procent-je-x-z-y': '@/components/calculators/KolikProcentJeXZYCalculator',
-  'neprima-umera': '@/components/calculators/NeprimaUmeraCalculator',
-  'prima-umera': '@/components/calculators/PrimaUmeraCalculator',
-  'procento-z-cisla': '@/components/calculators/ProcentoZCislaCalculator',
-  'prevodnik-jednotek': '@/components/calculators/UnitConverter',
-  'y-je-x-kolik-je-sto': '@/components/calculators/YJeXKolikJeStoCalculator',
-  'zlomky': '@/components/calculators/ZlomkyCalculator',
+  'vat': '@/components/calculators/DPHCalculator',
+  'percentage-of-number': '@/components/calculators/KolikProcentJeXZYCalculator',
+  'inverse-proportion': '@/components/calculators/NeprimaUmeraCalculator',
+  'direct-proportion': '@/components/calculators/PrimaUmeraCalculator',
+  'percentage-of': '@/components/calculators/ProcentoZCislaCalculator',
+  'unit-converter': '@/components/calculators/UnitConverter',
+  'find-percentage': '@/components/calculators/YJeXKolikJeStoCalculator',
+  'fractions': '@/components/calculators/ZlomkyCalculator',
   // Add mappings for other calculators
 };
 

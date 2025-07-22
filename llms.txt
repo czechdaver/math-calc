@@ -1,0 +1,28 @@
+# LLM Configuration for Math Calculator Pro
+# Version: 1.2.0
+# Updated: 2025-07-22
+
+# Include all markdown files in the docs directory
+docs/**/*.md
+
+# Include configuration files
+*.json
+*.yaml
+*.yml
+
+# Include source code for context
+src/**/*.ts
+src/**/*.tsx
+src/**/*.js
+
+# Include documentation
+README.md
+CONTRIBUTING.md
+CHANGELOG.md
+
+# Exclude
+node_modules/**
+.next/**
+out/**
+*.log
+*.lock

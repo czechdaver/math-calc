@@ -11,8 +11,8 @@
     "Příklad 2: Osoba vážící 90 kg a vysoká 1,80 m má BMI 27,78."
   ],
   "relatedCalculators": [
-    { "name": "Kalkulačka ideální váhy", "url": "/kalkulacka/fitness-a-zdravi/idealni-vaha" },
-    { "name": "Kalkulačka kalorií", "url": "/kalkulacka/fitness-a-zdravi/kalorie" }
+    { "name": "Kalkulačka ideální váhy", "url": "/kalkulacka/health-fitness/idealni-vaha" },
+    { "name": "Kalkulačka kalorií", "url": "/kalkulacka/health-fitness/kalorie" }
   ],
   "faq": [
     { "question": "Jaký je zdravý rozsah BMI?", "answer": "Zdravé BMI je obvykle mezi 18,5 a 24,9." },

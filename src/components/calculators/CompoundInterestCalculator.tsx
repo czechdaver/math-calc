@@ -1,100 +1,192 @@
-// src/components/calculators/CompoundInterestCalculator.tsx
-import React, { useState, useEffect } from 'react';
+// src/components/calculators/CompoundInterestCalculator.refactored.tsx
+import React from 'react';
+import { useTranslation } from 'next-i18next';
+import CalculatorBase from './CalculatorBase';
+import type { CalculatorInput, CalculatorResult } from './CalculatorBase';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Info } from 'lucide-react';
+
+// Define the type for frequency options
+type Frequency = 'rocne' | 'mesicne' | 'ctvrtletne' | 'pololetne' | 'denne';
 
 const CompoundInterestCalculator: React.FC = () => {
-  const [jistina, setJistina] = useState('');
-  const [urokovaSazba, setUrokovaSazba] = useState(''); // v %
-  const [cetnostUroceni, setCetnostUroceni] = useState('rocne'); // rocne, mesicne, atd.
-  const [dobaInvestice, setDobaInvestice] = useState(''); // v letech
-  const [budouciHodnota, setBudouciHodnota] = useState<number | null>(null);
+  const { t } = useTranslation('calculator');
 
-  const calculateCompoundInterest = () => {
-    const P = parseFloat(jistina);
-    const r = parseFloat(urokovaSazba) / 100; // převod na desetinné číslo
-    const t = parseFloat(dobaInvestice);
-    let n = 1; // četnost úročení ročně
+  const inputs: CalculatorInput[] = [
+    {
+      id: 'principal',
+      label: t('principal'),
+      type: 'number',
+      required: true,
+      min: 0,
+      step: 'any',
+      placeholder: '10000',
+      helpText: t('principal_description')
+    },
+    {
+      id: 'interestRate',
+      label: t('interest_rate'),
+      type: 'number',
+      required: true,
+      min: 0,
+      max: 100,
+      step: '0.01',
+      placeholder: '5',
+      unit: '%',
+      helpText: t('interest_rate_description')
+    },
+    {
+      id: 'frequency',
+      label: t('compounding_frequency'),
+      type: 'select',
+      required: true,
+      options: [
+        { value: 'rocne', label: t('annually') },
+        { value: 'pololetne', label: t('semi_annually') },
+        { value: 'ctvrtletne', label: t('quarterly') },
+        { value: 'mesicne', label: t('monthly') },
+        { value: 'denne', label: t('daily') },
+      ],
+      defaultValue: 'rocne',
+      helpText: t('compounding_frequency_description')
+    },
+    {
+      id: 'years',
+      label: t('investment_period'),
+      type: 'number',
+      required: true,
+      min: 1,
+      step: '1',
+      placeholder: '10',
+      unit: t('years'),
+      helpText: t('investment_period_description')
+    },
+    {
+      id: 'monthlyContribution',
+      label: t('monthly_contribution'),
+      type: 'number',
+      required: false,
+      min: 0,
+      step: 'any',
+      placeholder: '0',
+      helpText: t('monthly_contribution_description')
+    }
+  ];
 
-    if (cetnostUroceni === 'mesicne') {
-      n = 12;
-    } else if (cetnostUroceni === 'ctvrtletne') {
-        n = 4;
-    } else if (cetnostUroceni === 'pololetne') {
-        n = 2;
-    } else if (cetnostUroceni === 'denne') {
-        n = 365; // zjednodušeno bez ohledu na přestupné roky
+  const calculate = (inputs: Record<string, any>): CalculatorResult => {
+    const principal = parseFloat(inputs.principal) || 0;
+    const annualRate = parseFloat(inputs.interestRate) / 100 || 0;
+    const years = parseFloat(inputs.years) || 0;
+    const frequency = (inputs.frequency as Frequency) || 'rocne';
+    const monthlyContribution = parseFloat(inputs.monthlyContribution) || 0;
+
+    // Map frequency to number of compounding periods per year
+    const periodsPerYear: Record<Frequency, number> = {
+      denne: 365,
+      mesicne: 12,
+      ctvrtletne: 4,
+      pololetne: 2,
+      rocne: 1
+    };
+
+    const n = periodsPerYear[frequency];
+    const ratePerPeriod = annualRate / n;
+    const totalPeriods = years * n;
+    
+    // Calculate future value with compound interest
+    let futureValue = principal * Math.pow(1 + ratePerPeriod, totalPeriods);
+    
+    // Add monthly contributions if any
+    if (monthlyContribution > 0) {
+      const monthlyRate = annualRate / 12;
+      futureValue += monthlyContribution * ((Math.pow(1 + monthlyRate, years * 12) - 1) / (monthlyRate));
     }
 
-    if (!isNaN(P) && !isNaN(r) && !isNaN(t) && P >= 0 && r >= 0 && t >= 0 && n > 0) {
-      // Vzorec pro složené úročení: A = P(1 + r/n)^(nt)
-      const A = P * Math.pow((1 + r / n), (n * t));
-      setBudouciHodnota(A);
-    } else {
-      setBudouciHodnota(null);
-    }
+    const totalContributions = principal + (monthlyContribution * 12 * years);
+    const interestEarned = futureValue - totalContributions;
+
+    return {
+      value: futureValue.toFixed(2),
+      details: [
+        { 
+          label: t('total_contributions'), 
+          value: totalContributions.toFixed(2), 
+          unit: t('currency_czk') 
+        },
+        { 
+          label: t('interest_earned'), 
+          value: interestEarned.toFixed(2), 
+          unit: t('currency_czk') 
+        },
+        { 
+          label: t('compounding_frequency'), 
+          value: t(frequency === 'rocne' ? 'annually' : 
+                 frequency === 'pololetne' ? 'semi_annually' :
+                 frequency === 'ctvrtletne' ? 'quarterly' :
+                 frequency === 'mesicne' ? 'monthly' : 'daily')
+        }
+      ]
+    };
   };
 
-  useEffect(() => {
-    calculateCompoundInterest();
-  }, [jistina, urokovaSazba, cetnostUroceni, dobaInvestice]);
+  // Custom result component to display the calculation results
+  const ResultComponent = ({ result }: { result: CalculatorResult }) => (
+    <Card className="mt-6">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-lg">{t('results')}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 rounded-lg border bg-muted/50">
+              <div className="text-sm font-medium text-muted-foreground">
+                {t('future_value')}
+              </div>
+              <div className="text-2xl font-bold">
+                {result.value} {t('currency_czk')}
+              </div>
+            </div>
+            
+            {result.details?.map((detail, index) => (
+              <div key={index} className="p-4 rounded-lg border">
+                <div className="text-sm font-medium text-muted-foreground">
+                  {detail.label}
+                </div>
+                <div className="text-lg font-semibold">
+                  {detail.value} {detail.unit || ''}
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="text-sm text-muted-foreground flex items-start gap-2 mt-4">
+            <Info className="h-4 w-4 mt-0.5 flex-shrink-0" />
+            <p>{t('compound_interest_disclaimer')}</p>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
 
   return (
-    <div className="p-4 border rounded shadow-md">
-      <h2 className="text-xl font-semibold mb-4">Zadejte údaje pro výpočet:</h2>
-      <div className="mb-4">
-        <label htmlFor="jistina" className="block text-sm font-medium text-gray-700">Jistina:</label>
-        <input
-          type="number"
-          id="jistina"
-          value={jistina}
-          onChange={(e) => setJistina(e.target.value)}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label htmlFor="urokovaSazba" className="block text-sm font-medium text-gray-700">Roční úroková sazba (%):</label>
-        <input
-          type="number"
-          id="urokovaSazba"
-          value={urokovaSazba}
-          onChange={(e) => setUrokovaSazba(e.target.value)}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label htmlFor="cetnostUroceni" className="block text-sm font-medium text-gray-700">Četnost úročení:</label>
-        <select
-          id="cetnostUroceni"
-          value={cetnostUroceni}
-          onChange={(e) => setCetnostUroceni(e.target.value)}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-        >
-          <option value="rocne">Ročně</option>
-          <option value="pololetne">Pololetně</option>
-          <option value="ctvrtletne">Čtvrtletně</option>
-          <option value="mesicne">Měsíčně</option>
-          <option value="denne">Denně</option>
-        </select>
-      </div>
-
-       <div className="mb-4">
-        <label htmlFor="dobaInvestice" className="block text-sm font-medium text-gray-700">Doba investice (roky):</label>
-        <input
-          type="number"
-          id="dobaInvestice"
-          value={dobaInvestice}
-          onChange={(e) => setDobaInvestice(e.target.value)}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div>
-
-      {budouciHodnota !== null && (
-        <div className="mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
-          Budoucí hodnota investice: {budouciHodnota.toFixed(2)}
-        </div>
-      )}
-    </div>
+    <CalculatorBase
+      id="compound-interest-calculator"
+      title={t('compound_interest_calculator')}
+      description={t('compound_interest_calculator_description')}
+      category="finance"
+      seo={{
+        title: t('seo.compound_interest_calculator_title'),
+        description: t('seo.compound_interest_calculator_description'),
+        keywords: [
+          t('seo.compound_interest_keyword_1'),
+          t('seo.compound_interest_keyword_2'),
+          t('seo.compound_interest_keyword_3')
+        ]
+      }}
+      inputs={inputs}
+      calculate={calculate}
+      resultComponent={ResultComponent}
+    />
   );
 };
 

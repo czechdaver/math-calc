@@ -1,12 +1,18 @@
 // src/app/[locale]/calculator/procenta/kolik-procent-je-x-z-y/page.tsx
-import React from 'react';
-import { useTranslation } from 'next-i18next';
-import KolikProcentJeXZYCalculator from '@/components/calculators/KolikProcentJeXZYCalculator';
-import LatexRenderer from '@/components/utils/LatexRenderer';
-import SeoMetadata from '@/components/seo/SeoMetadata'; // Odkomentováno
+'use client';
 
-// TODO: Přidat import pro komponenty Ads, až budou k dispozici
-// import AdBanner from '@/components/ads/AdBanner';
+import React from 'react';
+import dynamic from 'next/dynamic';
+import { useTranslation } from 'next-i18next';
+import LatexRenderer from '@/components/utils/LatexRenderer';
+import SeoMetadata from '@/components/seo/SeoMetadata';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+
+// Dynamically import the calculator component with SSR disabled
+const KolikProcentJeXZYCalculator = dynamic(
+  () => import('@/components/calculators/KolikProcentJeXZYCalculator.refactored'),
+  { ssr: false }
+);
 
 const KolikProcentJeXZYPage: React.FC = () => {
   const { t } = useTranslation('common');
@@ -40,13 +46,44 @@ const KolikProcentJeXZYPage: React.FC = () => {
         {formula && <LatexRenderer formula={formula} displayMode={true} />}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <KolikProcentJeXZYCalculator />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2">
+          <Card>
+            <CardHeader>
+              <CardTitle>{t('kalkulacka')}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <KolikProcentJeXZYCalculator />
+            </CardContent>
+          </Card>
         </div>
-         <div>
-          {/* TODO: Přidat AdBanner (sidebar na desktopu) */}
-          {/* <AdBanner placement="sidebar" /> */}
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>{t('jak_pocitat')} {t('kolik_procent_je_x_z_y_title')?.toLowerCase()}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="prose prose-sm dark:prose-invert max-w-none">
+                <p>{t('kolik_procent_je_x_z_y_explanation')}</p>
+                <div className="mt-4 p-3 bg-muted/50 rounded">
+                  <LatexRenderer formula={formula} displayMode={true} />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>{t('priklady_pouziti')}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2 list-disc pl-5">
+                <li>{t('priklad1_kolik_procent_je_x_z_y')}</li>
+                <li>{t('priklad2_kolik_procent_je_x_z_y')}</li>
+                <li>{t('priklad3_kolik_procent_je_x_z_y')}</li>
+              </ul>
+            </CardContent>
+          </Card>
         </div>
       </div>
 

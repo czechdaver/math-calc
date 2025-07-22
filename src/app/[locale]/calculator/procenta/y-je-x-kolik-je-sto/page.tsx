@@ -1,89 +1,86 @@
 // src/app/[locale]/calculator/procenta/y-je-x-kolik-je-sto/page.tsx
+'use client';
+
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { useTranslation } from 'next-i18next';
-import YJeXKolikJeStoCalculator from '@/components/calculators/YJeXKolikJeStoCalculator';
 import LatexRenderer from '@/components/utils/LatexRenderer';
 import SeoMetadata from '@/components/seo/SeoMetadata';
-import AdBanner from '@/components/ads/AdBanner'; // Odkomentováno
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+
+// Dynamically import the calculator component with SSR disabled
+const YJeXKolikJeStoCalculator = dynamic(
+  () => import('@/components/calculators/YJeXKolikJeStoCalculator.refactored'),
+  { ssr: false }
+);
 
 const YJeXKolikJeStoPage: React.FC = () => {
   const { t } = useTranslation('common');
 
-  // TODO: Získat SEO metadata, vysvětlení a příklady pro tuto kalkulačku (např. z JSON souboru nebo databáze)
-  const seoTitle = t('y_je_x_kolik_je_sto_title');
-  const seoDescription = t('y_je_x_kolik_je_sto_seo_description'); // TODO: Přidat do lokalizace
-  const formula = t('y_je_x_kolik_je_sto_formula');
-  const explanation = t('y_je_x_kolik_je_sto_explanation'); // TODO: Přidat do lokalizace
-  const examples = [
-    // Příklady
-  ];
-  const relatedCalculators = [ // TODO: Přidat dle relevance
-    { name: t('procento_z_cisla_title'), href: '/calculator/procenta/procento-z-cisla' }
-    // Další související kalkulačky
-  ];
+  // Get translations with fallbacks
+  const seoTitle = t('y_je_x_kolik_je_sto_title') || 'Y je X% - kolik je 100%?';
+  const seoDescription = t('y_je_x_kolik_je_sto_seo_description') || 'Spočítejte si celkovou hodnotu (100%), pokud znáte část (Y) a její procentuální podíl (X%).';
+  const formula = t('y_je_x_kolik_je_sto_formula') || '\\text{100\\%} = \\left(\\frac{\\text{Y} \\times 100}{\\text{X}}\\right) \\%';
+  const explanation = t('y_je_x_kolik_je_sto_explanation') || 'Tato kalkulačka vám pomůže vypočítat celkovou hodnotu (100%), pokud znáte část (Y) a její procentuální podíl (X%). Tento výpočet je užitečný například při zjišťování původní ceny před slevou nebo celkového množství na základě známého procentuálního podílu.';
 
   return (
     <div className="container mx-auto p-4">
       <SeoMetadata title={seoTitle} description={seoDescription} />
 
-      {/* Přidáno AdBanner (header) */}
-      <AdBanner placement="header" />
-
       <h1 className="text-3xl font-bold mb-6">{seoTitle}</h1>
 
-      {/* Zobrazit matematický vzorec */}
-      <div className="mb-6 border p-4 rounded">
-         <h2 className="text-xl font-semibold mb-2">{t('formula_title')}</h2> {/* TODO: Přidat do lokalizace */}
-        {formula && <LatexRenderer formula={formula} displayMode={true} />}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2">
+          <Card>
+            <CardHeader>
+              <CardTitle>{t('kalkulacka') || 'Kalkulačka'}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <YJeXKolikJeStoCalculator />
+            </CardContent>
+          </Card>
+        </div>
+        
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>{t('jak_pocitat')} {t('y_je_x_kolik_je_sto_title')?.toLowerCase()}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="prose prose-sm dark:prose-invert max-w-none">
+                <p>{explanation}</p>
+                <div className="mt-4 p-3 bg-muted/50 rounded">
+                  <LatexRenderer formula={formula} displayMode={true} />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>{t('priklady_pouziti') || 'Příklady použití'}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2 list-disc pl-5">
+                <li>{t('priklad1_y_je_x_kolik_je_sto') || 'Výpočet původní ceny před slevou'}</li>
+                <li>{t('priklad2_y_je_x_kolik_je_sto') || 'Zjištění celkového počtu na základě procentuálního podílu'}</li>
+                <li>{t('priklad3_y_je_x_kolik_je_sto') || 'Přepočet mezi různými procentuálními podíly'}</li>
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <YJeXKolikJeStoCalculator />
-        </div>
-         <div>
-          {/* Přidáno AdBanner (sidebar na desktopu) */}
-          <AdBanner placement="sidebar" />
+      <div className="mt-8">
+        <h2 className="text-2xl font-semibold mb-4">{t('dalsi_informace') || 'Další informace'}</h2>
+        <div className="prose prose-sm dark:prose-invert max-w-none">
+          <p>
+            {t('y_je_x_kolik_je_sto_dalsi_info') || 
+            'Tato kalkulačka je užitečná v mnoha situacích, kdy potřebujete zjistit celkovou hodnotu na základě známého procentuálního podílu. ' +
+            'Například pokud víte, že sleva 25% představuje 150 Kč, můžete snadno zjistit původní cenu zboží.'}
+          </p>
         </div>
       </div>
-
-      {/* Přidáno AdBanner (in-content mezi sekcemi) */}
-      <AdBanner placement="in-content" />
-
-      {explanation && (
-        <div className="mt-8">
-          <h2 className="text-2xl font-semibold mb-4">{t('explanation_title')}</h2> {/* TODO: Přidat do lokalizace */}
-          {/* TODO: Zde vykreslit vysvětlení. Může obsahovat text a LatexRenderer pro jednotlivé převody */}
-          <p>{explanation}</p>
-        </div>
-      )}
-
-      {examples && examples.length > 0 && (
-        <div className="mt-8">
-          <h2 className="text-2xl font-semibold mb-4">{t('examples_title')}</h2> {/* TODO: Přidat do lokalizace */}
-          {/* TODO: Zobrazit příklady */}
-          <p>Příklady budou zde.</p>
-        </div>
-      )}
-
-      {relatedCalculators && relatedCalculators.length > 0 && (
-        <div className="mt-8">
-          <h2 className="text-2xl font-semibold mb-4">{t('related_calculators_title')}</h2> {/* TODO: Přidat do lokalizace */}
-          {/* TODO: Zobrazit související kalkulačky (např. odkazy) */}
-          <ul>
-            {relatedCalculators.map((calc, index) => (
-              <li key={index}><a href={calc.href}>{calc.name}</a></li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {/* TODO: Přidat FAQ sekci */}
-      {/* <div className="mt-8">FAQ sekce bude zde.</div> */}
-
-      {/* Přidáno AdBanner (sticky bottom na mobilu) */}
-      <AdBanner placement="sticky-bottom" />
-
     </div>
   );
 };

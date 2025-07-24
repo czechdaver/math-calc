@@ -1,6 +1,16 @@
 const fs = require('fs-extra');
 const path = require('path');
 const { execSync } = require('child_process');
+const chalk = require('chalk');
+
+// Custom error class for documentation generation
+class DocGenError extends Error {
+  constructor(message, filePath) {
+    super(message);
+    this.name = 'DocGenError';
+    this.filePath = filePath;
+  }
+}
 
 // Configuration
 const VERSION = '1.2.0';
@@ -169,10 +179,19 @@ const COMPONENT_DOCS = {
   'tooltip': 'components/tooltip.md'
 };
 
-// Create directory if it doesn't exist
+/**
+ * Create directory if it doesn't exist
+ * @param {string} dir - Directory path to create
+ * @throws {DocGenError} If directory creation fails
+ */
 function ensureDir(dir) {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+  try {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+      console.log(chalk.green(`Created directory: ${dir}`));
+    }
+  } catch (error) {
+    throw new DocGenError(`Failed to create directory: ${error.message}`, dir);
   }
 }
 
@@ -188,49 +207,108 @@ updated: ${UPDATED}
 `;
 }
 
-// Process a single file
+/**
+ * Process a single documentation file
+ * @param {string} targetDir - Target directory path
+ * @param {string} fileName - Output file name
+ * @param {Object} config - File configuration
+ * @param {string} [config.source] - Source file path relative to DOCS_ROOT
+ * @param {string} [config.content] - Direct content for the file
+ * @param {string} config.title - Document title
+ * @param {string} config.category - Document category
+ * @throws {DocGenError} If file processing fails
+ */
 async function processFile(targetDir, fileName, config) {
   const targetPath = path.join(targetDir, fileName);
   let content = '';
 
-  if (config.source) {
-    const sourcePath = path.join(DOCS_ROOT, config.source);
-    if (fs.existsSync(sourcePath)) {
-      content = await fs.readFile(sourcePath, 'utf8');
+  try {
+    if (config.source) {
+      const sourcePath = path.join(DOCS_ROOT, config.source);
+      if (fs.existsSync(sourcePath)) {
+        content = await fs.readFile(sourcePath, 'utf8');
+        console.log(chalk.blue(`Processing source: ${sourcePath}`));
+      } else {
+        const msg = `Source file not found: ${sourcePath}`;
+        console.warn(chalk.yellow(`⚠️  ${msg}`));
+        content = `# ${config.title}\n\n> ⚠️  **Note**: This document is a placeholder.\n> The source file was not found at: \`${config.source}\`\n\n*Documentation coming soon.*`;
+      }
+    } else if (config.content) {
+      content = config.content;
     } else {
-      console.warn(`Source file not found: ${sourcePath}`);
-      content = `# ${config.title}\n\n*Documentation coming soon.*`;
+      throw new DocGenError('No content or source specified for document', targetPath);
     }
-  } else if (config.content) {
-    content = config.content;
-  }
 
-  // Add front matter if not already present
-  if (!content.startsWith('---')) {
-    content = generateFrontMatter(config.title, config.category) + content;
-  }
+    // Add front matter if not already present
+    if (!content.trim().startsWith('---')) {
+      content = generateFrontMatter(config.title, config.category) + content;
+    } else {
+      console.log(chalk.blue(`Preserved existing front matter in: ${targetPath}`));
+    }
 
-  await fs.writeFile(targetPath, content);
-  console.log(`Created: ${targetPath}`);
+    await fs.writeFile(targetPath, content);
+    console.log(chalk.green(`✓ Created: ${path.relative(process.cwd(), targetPath)}`));
+    return true;
+  } catch (error) {
+    if (error instanceof DocGenError) throw error;
+    throw new DocGenError(`Failed to process file: ${error.message}`, targetPath);
+  }
 }
 
-// Generate component documentation
+/**
+ * Generate documentation for components
+ * @throws {DocGenError} If component documentation generation fails
+ */
 async function generateComponentDocs() {
   const targetDir = path.join(DOCS_ROOT, 'design');
   ensureDir(targetDir);
+  let componentCount = 0;
+  let errorCount = 0;
 
+  console.log(chalk.blue('\nProcessing component documentation...'));
+  
   for (const [component, sourcePath] of Object.entries(COMPONENT_DOCS)) {
     const targetPath = path.join(targetDir, `${component}.md`);
-    const sourceContent = await fs.readFile(path.join(DOCS_ROOT, sourcePath), 'utf8');
     
-    const title = component.split('-').map(word => 
-      word.charAt(0).toUpperCase() + word.slice(1)
-    ).join(' ');
-    
-    const content = generateFrontMatter(title, 'Components') + sourceContent;
-    await fs.writeFile(targetPath, content);
-    console.log(`Created component doc: ${targetPath}`);
+    try {
+      const fullSourcePath = path.join(DOCS_ROOT, sourcePath);
+      if (!fs.existsSync(fullSourcePath)) {
+        console.warn(chalk.yellow(`⚠️  Component source not found: ${sourcePath}`));
+        continue;
+      }
+      
+      const sourceContent = await fs.readFile(fullSourcePath, 'utf8');
+      const title = component.split('-').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1)
+      ).join(' ');
+      
+      const content = generateFrontMatter(title, 'Components') + sourceContent;
+      await fs.writeFile(targetPath, content);
+      console.log(chalk.green(`✓ Created component doc: ${path.relative(process.cwd(), targetPath)}`));
+      componentCount++;
+    } catch (error) {
+      errorCount++;
+      console.error(chalk.red(`❌ Failed to process component ${component}:`));
+      console.error(chalk.red(`  ${error.message}`));
+      console.error(chalk.dim(`  Source: ${sourcePath}`));
+      console.error(chalk.dim(`  Target: ${targetPath}`));
+    }
   }
+
+  // Summary
+  console.log('\n' + '-'.repeat(60));
+  if (errorCount > 0) {
+    console.log(chalk.yellow(`Processed ${componentCount} components with ${errorCount} errors`));
+  } else {
+    console.log(chalk.green(`✓ Successfully processed ${componentCount} components`));
+  }
+  console.log('-'.repeat(60));
+  
+  if (errorCount > 0) {
+    throw new DocGenError(`Failed to process ${errorCount} component(s)`, targetDir);
+  }
+  
+  return componentCount;
 }
 
 // Generate index.md with TOC
@@ -280,12 +358,18 @@ updated: ${UPDATED}
   console.log(`Created: ${indexPath}`);
 }
 
-// Generate llms.txt
+/**
+ * Generate LLM configuration file with file patterns for documentation
+ * @throws {DocGenError} If LLM config file generation fails
+ */
 async function generateLLMsTxt() {
   const llmsPath = path.join(process.cwd(), 'llms.txt');
   const content = `# LLM Configuration for Math Calculator Pro
 # Version: ${VERSION}
 # Updated: ${UPDATED}
+# 
+# This file tells LLM tools which files to include when analyzing the project.
+# It helps provide better context for documentation and code understanding.
 
 # Include all markdown files in the docs directory
 docs/**/*.md
@@ -294,61 +378,144 @@ docs/**/*.md
 *.json
 *.yaml
 *.yml
+*.env*
 
-# Include source code for context
+# Source code (TypeScript/JavaScript)
 src/**/*.ts
 src/**/*.tsx
 src/**/*.js
 
-# Include documentation
+# Documentation and project files
 README.md
 CONTRIBUTING.md
 CHANGELOG.md
+package.json
+tsconfig.json
+next.config.js
 
-# Exclude
+# Test files
+**/*.test.ts
+**/*.spec.ts
+
+# Exclude directories
 node_modules/**
 .next/**
 out/**
+dist/**
+build/**
+coverage/**
+
+# Exclude files
 *.log
 *.lock
+*.min.js
+*.min.css
+.DS_Store
+
+# Ignore environment-specific files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 `;
 
-  await fs.writeFile(llmsPath, content);
-  console.log(`Created: ${llmsPath}`);
+  try {
+    await fs.writeFile(llmsPath, content);
+    console.log(chalk.green(`✓ Created LLM configuration: ${path.relative(process.cwd(), llmsPath)}`));
+    return true;
+  } catch (error) {
+    throw new DocGenError(`Failed to generate LLM config: ${error.message}`, llmsPath);
+  }
 }
 
 // Main function
 async function main() {
-  console.log('Restructuring documentation...\n');
+  console.log(chalk.cyan('\n📚 Starting documentation restructuring...\n'));
+  const startTime = Date.now();
+  let processedFiles = 0;
+  let errorCount = 0;
 
   try {
     // Create target directories
+    console.log(chalk.cyan('📂 Creating directory structure...'));
     for (const dir of Object.keys(TARGET_STRUCTURE)) {
       ensureDir(path.join(DOCS_ROOT, dir));
     }
 
     // Process files
+    console.log('\n📄 Processing documentation files...');
     for (const [dir, files] of Object.entries(TARGET_STRUCTURE)) {
       const targetDir = path.join(DOCS_ROOT, dir);
       ensureDir(targetDir);
 
       for (const [file, config] of Object.entries(files)) {
-        await processFile(targetDir, file, config);
+        try {
+          await processFile(targetDir, file, config);
+          processedFiles++;
+        } catch (error) {
+          errorCount++;
+          console.error(chalk.red(`\n❌ Error processing ${file}:`));
+          console.error(chalk.red(`  ${error.message}`));
+          if (error.filePath) {
+            console.error(chalk.dim(`  Path: ${error.filePath}`));
+          }
+        }
       }
     }
 
     // Generate component documentation
-    await generateComponentDocs();
+    console.log('\n🔧 Generating component documentation...');
+    try {
+      await generateComponentDocs();
+    } catch (error) {
+      errorCount++;
+      console.error(chalk.red('\n❌ Error generating component docs:'));
+      console.error(chalk.red(`  ${error.message}`));
+    }
 
     // Generate index.md with TOC
-    await generateIndex();
+    console.log('\n📑 Generating table of contents...');
+    try {
+      await generateIndex();
+      processedFiles++;
+    } catch (error) {
+      errorCount++;
+      console.error(chalk.red('\n❌ Error generating index:'));
+      console.error(chalk.red(`  ${error.message}`));
+    }
 
     // Generate llms.txt
-    await generateLLMsTxt();
+    console.log('\n🤖 Generating LLM configuration...');
+    try {
+      await generateLLMsTxt();
+      processedFiles++;
+    } catch (error) {
+      errorCount++;
+      console.error(chalk.red('\n❌ Error generating LLM configuration:'));
+      console.error(chalk.red(`  ${error.message}`));
+    }
 
-    console.log('\nDocumentation restructured successfully!');
+    // Print summary
+    const duration = ((Date.now() - startTime) / 1000).toFixed(2);
+    console.log('\n' + '='.repeat(60));
+    
+    if (errorCount > 0) {
+      console.log(chalk.yellow(`\n⚠️  Completed with ${errorCount} error(s) in ${duration}s`));
+      console.log(chalk.yellow(`   Processed ${processedFiles} files successfully`));
+      console.log(chalk.yellow('   Check the logs above for details on any errors'));
+      process.exit(1);
+    } else {
+      console.log(chalk.green(`\n✅ Successfully processed ${processedFiles} files in ${duration}s`));
+      console.log(chalk.green('   Documentation restructured successfully!'));
+    }
+    
+    console.log('='.repeat(60) + '\n');
   } catch (error) {
-    console.error('Error restructuring documentation:', error);
+    console.error(chalk.red('\n❌ Fatal error during documentation generation:'));
+    console.error(chalk.red(`  ${error.message}`));
+    if (error.filePath) {
+      console.error(chalk.dim(`  Path: ${error.filePath}`));
+    }
     process.exit(1);
   }
 }

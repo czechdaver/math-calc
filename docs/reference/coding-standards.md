@@ -2,7 +2,7 @@
 title: Coding Standards
 category: Reference
 version: 1.2.0
-updated: 2025-07-22
+updated: 2025-07-23
 ---
 
 # Coding Standards and Naming Conventions

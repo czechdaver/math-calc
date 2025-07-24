@@ -1,125 +1,140 @@
-// src/app/[locale]/calculator/net-salary/page.tsx
 'use client';
 
-import React from 'react';
-import { useTranslation } from 'next-i18next';
+import React, { Suspense, useMemo } from 'react';
 import dynamic from 'next/dynamic';
+import { useTranslation } from 'next-i18next';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Info, Calculator, Percent, Shield, HeartPulse, Banknote } from 'lucide-react';
+import { Info } from 'lucide-react';
+import Tooltip from '@/components/ui/tooltip';
 
-// Dynamically import the calculator with SSR disabled to avoid hydration issues
-const CistaMzdaCalculator = dynamic(
-  () => import('@/components/calculators/NetSalaryCalculator'),
-  { 
-    ssr: false,
-    loading: () => <div className="h-[400px] w-full rounded-md animate-pulse bg-muted" />
+// Dynamically import components with loading states
+const CalculatorComponent = dynamic(() => import('@/components/calculators/cista-mzda'), {
+  loading: () => (
+    <div className="space-y-4">
+      <Skeleton className="h-10 w-1/2" />
+      <Skeleton className="h-8 w-full" />
+      <Skeleton className="h-40 w-full" />
+    </div>
+  ),
+  ssr: false
+});
+
+// Error boundary for calculator component
+interface ErrorBoundaryProps {
+  fallback: React.ReactNode;
+  children: React.ReactNode;
+}
+
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, { hasError: boolean }> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
   }
-);
 
-const CistaMzdaPage: React.FC = () => {
-  const { t } = useTranslation('netSalaryCalculator');
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
 
-  // SEO metadata
-  const seoTitle = t('net_salary_calculator');
-  const seoDescription = t('net_salary_calculator_description');
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('Calculator error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+    return this.props.children;
+  }
+}
+
+const CalculatorPage = () => {
+  const { t, ready } = useTranslation('common');
+
+  // Memoize translations to prevent unnecessary re-renders
+  const translations = useMemo(() => ({
+    seoTitle: t('cista_mzda_title') || 'Cista Mzda',
+    seoDescription: t('cista_mzda_seo_description') || 'Calculator description',
+    tip: t('cista_mzda_tip') || 'Enter values to calculate',
+    tipText: t('cista_mzda_tip_text') || 'Enter values to see the calculation',
+    loadingError: t('chyba_nacitani') || 'Failed to load calculator. Please try refreshing the page.'
+  }), [t]);
+
+  const { seoTitle, seoDescription, tip, tipText, loadingError } = translations;
+
+  // Loading state for translations
+  if (!ready) {
+    return (
+      <div className="container mx-auto p-4 space-y-6">
+        <Skeleton className="h-10 w-1/2 mb-6" />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 space-y-4">
+            <Skeleton className="h-48 w-full rounded-lg" />
+          </div>
+          <div className="space-y-6">
+            <Skeleton className="h-48 w-full rounded-lg" />
+            <Skeleton className="h-32 w-full rounded-lg" />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Header Section */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight mb-2">
-          {seoTitle}
-        </h1>
-        <p className="text-muted-foreground">
-          {seoDescription}
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Main Calculator Section */}
+    <div className="container mx-auto p-4 space-y-6">
+      <h1 className="text-3xl font-bold tracking-tight">{seoTitle}</h1>
+      
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
-          <CistaMzdaCalculator />
-        </div>
-
-        {/* Sidebar with Information */}
-        <div className="space-y-6">
-          {/* About Net Salary Card */}
           <Card>
             <CardHeader>
-              <CardTitle>{t('about_net_salary')}</CardTitle>
+              <CardTitle>{t('kalkulacka') || 'Calculator'}</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <p>{t('net_salary_explanation')}</p>
-              
-              <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <Banknote className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-medium">{t('gross_salary')}</h4>
-                    <p className="text-sm text-muted-foreground">
-                      {t('gross_salary_explanation')}
-                    </p>
+            <CardContent>
+              <ErrorBoundary 
+                fallback={
+                  <div className="text-destructive p-4 rounded-lg bg-destructive/10">
+                    <p>{loadingError}</p>
                   </div>
-                </div>
-                
-                <div className="flex items-start gap-3">
-                  <Percent className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-medium">{t('taxes')}</h4>
-                    <p className="text-sm text-muted-foreground">
-                      {t('taxes_explanation')}
-                    </p>
+                }
+              >
+                <Suspense fallback={
+                  <div className="space-y-4">
+                    <Skeleton className="h-10 w-full" />
+                    <Skeleton className="h-10 w-full" />
+                    <Skeleton className="h-10 w-1/2" />
                   </div>
-                </div>
-                
-                <div className="flex items-start gap-3">
-                  <Shield className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-medium">{t('social_insurance')}</h4>
-                    <p className="text-sm text-muted-foreground">
-                      {t('social_insurance_explanation')}
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-3">
-                  <HeartPulse className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-medium">{t('health_insurance')}</h4>
-                    <p className="text-sm text-muted-foreground">
-                      {t('health_insurance_explanation')}
-                    </p>
-                  </div>
-                </div>
-              </div>
+                }>
+                  <CalculatorComponent />
+                </Suspense>
+              </ErrorBoundary>
             </CardContent>
           </Card>
+        </div>
 
-          {/* Disclaimer Card */}
-          <Card className="border-blue-100 dark:border-blue-900/30 bg-blue-50/50 dark:bg-blue-900/10">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-md flex items-center gap-2">
-                <Info className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                {t('important_note')}
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                {t('tip') || 'Tip'}
+                <Tooltip 
+                  content={tip}
+                  position="top"
+                >
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                </Tooltip>
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                {t('calculator_disclaimer')}
+                {tipText}
               </p>
             </CardContent>
           </Card>
         </div>
       </div>
-
-      {/* TODO: Přidat FAQ sekci */}
-      {/* <div className="mt-8">FAQ sekce bude zde.</div> */}
-
-      {/* TODO: Přidat AdBanner (sticky bottom na mobilu) */}
-      {/* <AdBanner placement="sticky-bottom" /> */}
-
     </div>
   );
 };
 
-export default CistaMzdaPage;
+export default CalculatorPage;

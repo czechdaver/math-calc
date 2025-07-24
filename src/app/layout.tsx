@@ -1,15 +1,52 @@
 'use client';
 
-import '../styles/globals.css'; // Adjust the path if you have a different global CSS file
-import Script from 'next/script'; // Import the Script component
-import CookieBanner from '@/components/CookieBanner'; // Import the CookieBanner component
-import { useEffect } from 'react';
+import '../styles/globals.css';
+import Script from 'next/script';
+import CookieBanner from '@/components/CookieBanner';
+import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocaleFromPath } from '@/i18n/utils';
 
 const MEASUREMENT_ID = 'YOUR_MEASUREMENT_ID'; // TODO: Replace with your actual Measurement ID
 const ADS_CLIENT_ID = 'ca-pub-YOUR_ADS_CLIENT_ID'; // TODO: Replace with your actual AdSense client ID
 const COOKIE_CONSENT_KEY = 'cookie_consent';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+// Load messages for the current locale
+async function loadMessages(locale: string) {
+  try {
+    return (await import(`@/messages/${locale}.json`)).default;
+  } catch (error) {
+    console.error(`Failed to load messages for locale: ${locale}`, error);
+    return {};
+  }
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [messages, setMessages] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const pathname = usePathname();
+  const locale = getLocaleFromPath(pathname);
+
+  // Load messages when the component mounts or the locale changes
+  useEffect(() => {
+    async function load() {
+      const loadedMessages = await loadMessages(locale);
+      setMessages(loadedMessages);
+      setIsLoading(false);
+    }
+    
+    load();
+  }, [locale]);
+  
+  // Set the document language
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
   useEffect(() => {
     const handleConsentGranted = () => {
       console.log('Consent granted, loading tracking and personalized ads');
@@ -80,44 +117,61 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     };
   }, []);
 
+  if (isLoading) {
+    return (
+      <html lang={locale}>
+        <body>
+          <div>Loading...</div>
+        </body>
+      </html>
+    );
+  }
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <head>
+        <title>Math Calculator</title>
+        <meta name="description" content="A calculator application with multiple calculation tools" />
+        <link rel="canonical" href={`https://yourdomain.com/${locale}`} />
+        <link rel="alternate" hrefLang="en" href="https://yourdomain.com/en" />
+        <link rel="alternate" hrefLang="cs" href="https://yourdomain.com/cs" />
+        <link rel="alternate" hrefLang="x-default" href="https://yourdomain.com/en" />
+        
         {/* Google Adsense Script */}
-        {/* This script will be loaded with lazyOnload strategy */}
         <Script
           id="adsense-script"
           async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADS_CLIENT_ID}`} // Use constant
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADS_CLIENT_ID}`}
           crossOrigin="anonymous"
-          strategy="lazyOnload" // Load script lazily
-        ></Script>
+          strategy="lazyOnload"
+        />
 
-        {/* Firebase Analytics Script */}
-        {/* This script will be loaded with lazyOnload strategy and configured after consent */}
-         {/* Set default consent to denied before loading gtag script */}
-         <Script id="google-consent-defaults">
-            {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('consent', 'default', {
-                    'ad_storage': 'denied',
-                    'analytics_storage': 'denied'
-                });
-            `}
-         </Script>
-
+        {/* Google Analytics */}
+        <Script id="google-consent-defaults">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              'ad_storage': 'denied',
+              'analytics_storage': 'denied'
+            });
+          `}
+        </Script>
         <Script
           id="google-analytics-script"
-          src={`https://www.googletagmanager.com/gtag/js?id=${MEASUREMENT_ID}`} // Use constant
-          strategy="lazyOnload" // Load script lazily
-        ></Script>
-        {/* Initial gtag config is now handled in useEffect after consent */}
-
+          src={`https://www.googletagmanager.com/gtag/js?id=${MEASUREMENT_ID}`}
+          strategy="lazyOnload"
+        />
       </head>
       <body>
-        {children}
-        <CookieBanner /> {/* Add the CookieBanner component */}
+        <NextIntlClientProvider 
+          locale={locale} 
+          messages={messages}
+          timeZone="Europe/Prague"
+        >
+          {children}
+          <CookieBanner />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

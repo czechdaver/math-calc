@@ -1,111 +1,140 @@
-// src/app/[locale]/calculator/fractions/page.tsx
 'use client';
 
-import React from 'react';
+import React, { Suspense, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useTranslation } from 'next-i18next';
-import LatexRenderer from '@/components/utils/LatexRenderer';
-import SeoMetadata from '@/components/seo/SeoMetadata';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Info } from 'lucide-react';
+import Tooltip from '@/components/ui/tooltip';
 
-// Dynamically import the calculator component with SSR disabled
-const ZlomkyCalculator = dynamic(
-  () => import('@/components/calculators/FractionsCalculator'),
-  { ssr: false }
-);
+// Dynamically import components with loading states
+const CalculatorComponent = dynamic(() => import('@/components/calculators/zlomky'), {
+  loading: () => (
+    <div className="space-y-4">
+      <Skeleton className="h-10 w-1/2" />
+      <Skeleton className="h-8 w-full" />
+      <Skeleton className="h-40 w-full" />
+    </div>
+  ),
+  ssr: false
+});
 
-const ZlomkyPage: React.FC = () => {
-  const { t } = useTranslation('common');
+// Error boundary for calculator component
+interface ErrorBoundaryProps {
+  fallback: React.ReactNode;
+  children: React.ReactNode;
+}
 
-  // Get translations with fallbacks
-  const seoTitle = t('fractions_calculator_title') || 'Kalkulačka zlomků';
-  const seoDescription = t('fractions_seo_description') || 'Výkonná kalkulačka pro práci se fractions. Sčítání, odčítání, násobení, dělení, krácení a převod zlomků na desetinná čísla.';
-  const explanation = t('fractions_explanation') || 'Kalkulačka zlomků umožňuje provádět základní matematické operace se fractions. Vyberte požadovanou operaci z rozbalovací nabídky a zadejte potřebné hodnoty. Kalkulačka vám poskytne podrobný postup řešení včetně mezivýpočtů.';
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, { hasError: boolean }> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('Calculator error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+    return this.props.children;
+  }
+}
+
+const CalculatorPage = () => {
+  const { t, ready } = useTranslation('common');
+
+  // Memoize translations to prevent unnecessary re-renders
+  const translations = useMemo(() => ({
+    seoTitle: t('zlomky_title') || 'Zlomky',
+    seoDescription: t('zlomky_seo_description') || 'Calculator description',
+    tip: t('zlomky_tip') || 'Enter values to calculate',
+    tipText: t('zlomky_tip_text') || 'Enter values to see the calculation',
+    loadingError: t('chyba_nacitani') || 'Failed to load calculator. Please try refreshing the page.'
+  }), [t]);
+
+  const { seoTitle, seoDescription, tip, tipText, loadingError } = translations;
+
+  // Loading state for translations
+  if (!ready) {
+    return (
+      <div className="container mx-auto p-4 space-y-6">
+        <Skeleton className="h-10 w-1/2 mb-6" />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 space-y-4">
+            <Skeleton className="h-48 w-full rounded-lg" />
+          </div>
+          <div className="space-y-6">
+            <Skeleton className="h-48 w-full rounded-lg" />
+            <Skeleton className="h-32 w-full rounded-lg" />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="container mx-auto p-4">
-      <SeoMetadata title={seoTitle} description={seoDescription} />
-
-      <h1 className="text-3xl font-bold mb-6">{seoTitle}</h1>
-
+    <div className="container mx-auto p-4 space-y-6">
+      <h1 className="text-3xl font-bold tracking-tight">{seoTitle}</h1>
+      
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <Card>
             <CardHeader>
-              <CardTitle>{t('kalkulacka') || 'Kalkulačka'}</CardTitle>
+              <CardTitle>{t('kalkulacka') || 'Calculator'}</CardTitle>
             </CardHeader>
             <CardContent>
-              <ZlomkyCalculator />
+              <ErrorBoundary 
+                fallback={
+                  <div className="text-destructive p-4 rounded-lg bg-destructive/10">
+                    <p>{loadingError}</p>
+                  </div>
+                }
+              >
+                <Suspense fallback={
+                  <div className="space-y-4">
+                    <Skeleton className="h-10 w-full" />
+                    <Skeleton className="h-10 w-full" />
+                    <Skeleton className="h-10 w-1/2" />
+                  </div>
+                }>
+                  <CalculatorComponent />
+                </Suspense>
+              </ErrorBoundary>
             </CardContent>
           </Card>
         </div>
-        
+
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>{t('jak_pocitat')} {t('fractions_calculator_title')?.toLowerCase()}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="prose prose-sm dark:prose-invert max-w-none">
-                <p>{explanation}</p>
-                <div className="mt-4 p-3 bg-muted/50 rounded">
-                  <h4 className="font-medium mb-2">{t('dostupne_operace') || 'Dostupné operace:'}</h4>
-                  <ul className="list-disc pl-5 space-y-1">
-                    <li>{t('fractions_operation_scitani') || 'Sčítání zlomků'}</li>
-                    <li>{t('fractions_operation_odcitani') || 'Odčítání zlomků'}</li>
-                    <li>{t('fractions_operation_nasobeni') || 'Násobení zlomků'}</li>
-                    <li>{t('fractions_operation_deleni') || 'Dělení zlomků'}</li>
-                    <li>{t('fractions_operation_zkracovani') || 'Krácení zlomků'}</li>
-                    <li>{t('fractions_operation_prevod') || 'Převod zlomku na desetinné číslo'}</li>
-                  </ul>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>{t('priklady_pouziti') || 'Příklady použití'}</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                {t('tip') || 'Tip'}
+                <Tooltip 
+                  content={tip}
+                  position="top"
+                >
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                </Tooltip>
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-4">
-                <li className="p-3 bg-muted/30 rounded">
-                  <h4 className="font-medium">{t('priklad1_fractions') || 'Sčítání zlomků'}</h4>
-                  <div className="text-sm text-muted-foreground mt-1">
-                    <LatexRenderer formula="\\frac{1}{2} + \\frac{1}{3} = \\frac{5}{6}" />
-                  </div>
-                </li>
-                <li className="p-3 bg-muted/30 rounded">
-                  <h4 className="font-medium">{t('priklad2_fractions') || 'Násobení zlomků'}</h4>
-                  <div className="text-sm text-muted-foreground mt-1">
-                    <LatexRenderer formula="\\frac{2}{3} \\times \\frac{3}{4} = \\frac{6}{12} = \\frac{1}{2}" />
-                  </div>
-                </li>
-                <li className="p-3 bg-muted/30 rounded">
-                  <h4 className="font-medium">{t('priklad3_fractions') || 'Převod na desetinné číslo'}</h4>
-                  <div className="text-sm text-muted-foreground mt-1">
-                    <LatexRenderer formula="\\frac{3}{8} = 0.375" />
-                  </div>
-                </li>
-              </ul>
+              <p className="text-sm text-muted-foreground">
+                {tipText}
+              </p>
             </CardContent>
           </Card>
-        </div>
-      </div>
-
-      <div className="mt-8">
-        <h2 className="text-2xl font-semibold mb-4">{t('dalsi_informace') || 'Další informace'}</h2>
-        <div className="prose prose-sm dark:prose-invert max-w-none">
-          <p>
-            {t('fractions_dalsi_info') || 
-            'Zlomky jsou základním matematickým konceptem používaným k vyjádření části celku. ' +
-            'Skládají se z čitatele (horní část) a jmenovatele (dolní část). ' +
-            'Při práci se fractions je důležité znát základní pravidla pro jejich sčítání, odčítání, násobení a dělení.'}
-          </p>
         </div>
       </div>
     </div>
   );
 };
 
-export default ZlomkyPage;
+export default CalculatorPage;

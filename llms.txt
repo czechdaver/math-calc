@@ -1,6 +1,9 @@
 # LLM Configuration for Math Calculator Pro
 # Version: 1.2.0
-# Updated: 2025-07-22
+# Updated: 2025-07-23
+# 
+# This file tells LLM tools which files to include when analyzing the project.
+# It helps provide better context for documentation and code understanding.
 
 # Include all markdown files in the docs directory
 docs/**/*.md
@@ -9,20 +12,42 @@ docs/**/*.md
 *.json
 *.yaml
 *.yml
+*.env*
 
-# Include source code for context
+# Source code (TypeScript/JavaScript)
 src/**/*.ts
 src/**/*.tsx
 src/**/*.js
 
-# Include documentation
+# Documentation and project files
 README.md
 CONTRIBUTING.md
 CHANGELOG.md
+package.json
+tsconfig.json
+next.config.js
 
-# Exclude
+# Test files
+**/*.test.ts
+**/*.spec.ts
+
+# Exclude directories
 node_modules/**
 .next/**
 out/**
+dist/**
+build/**
+coverage/**
+
+# Exclude files
 *.log
 *.lock
+*.min.js
+*.min.css
+.DS_Store
+
+# Ignore environment-specific files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

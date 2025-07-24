@@ -2,7 +2,7 @@
 title: Tabs
 category: Components
 version: 1.2.0
-updated: 2025-07-22
+updated: 2025-07-23
 ---
 
 # Tabs Component

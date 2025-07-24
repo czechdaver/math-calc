@@ -1,31 +1,117 @@
-// src/app/[locale]/calculator/percentages/percentage-of/page.tsx
 'use client';
 
-import React from 'react';
+import React, { Suspense, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useTranslation } from 'next-i18next';
-import LatexRenderer from '@/components/utils/LatexRenderer';
-import SeoMetadata from '@/components/seo/SeoMetadata';
+import { Skeleton } from '../../../../../components/ui/skeleton';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Info } from 'lucide-react';
+import Tooltip from '@/components/ui/tooltip';
 
-// Dynamically import the calculator component with SSR disabled
+// Dynamically import components with loading states
+const LatexRenderer = dynamic(() => import('@/components/utils/LatexRenderer'), {
+  loading: () => <Skeleton className="h-6 w-full" />,
+  ssr: false,
+});
+
+const SeoMetadata = dynamic(() => import('@/components/seo/SeoMetadata'), {
+  ssr: false,
+});
+
+// Dynamically import the calculator component with SSR disabled and loading state
 const ProcentoZCislaCalculator = dynamic(
-  () => import('@/components/calculators/PercentageOfNumberCalculator'),
-  { ssr: false }
+  () =>
+    import('@/components/calculators/PercentageOfNumberCalculator').then(
+      (mod) => mod.default,
+      (err) => {
+        console.error('Failed to load calculator component:', err);
+        return () => <div>Error loading calculator. Please try again.</div>;
+      }
+    ),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="space-y-4">
+        <Skeleton className="h-12 w-full" />
+        <Skeleton className="h-12 w-full" />
+        <Skeleton className="h-12 w-1/2 mx-auto" />
+      </div>
+    ),
+  }
 );
 
-const ProcentoZCislaPage: React.FC = () => {
-  const { t } = useTranslation('common');
+// Error boundary for calculator component
+interface ErrorBoundaryProps {
+  fallback: React.ReactNode;
+  children: React.ReactNode;
+}
 
-  // Get translations with fallbacks
-  const seoTitle = t('procento_z_cisla_title') || 'Procento z čísla';
-  const seoDescription = t('procento_z_cisla_seo_description') || 'Vypočítejte X procent z daného čísla. Zadejte percentages a číslo pro výpočet.';
-  const formula = t('procento_z_cisla_formula') || '\\text{Výsledek} = \\frac{\\text{Procenta}}{100} \\times \\text{Číslo}';
-  const explanation = t('procento_z_cisla_explanation') || 'Výpočet procent z čísla se používá pro zjištění, jakou hodnotu představuje dané procento z celku. Tento výpočet je užitečný například při výpočtu slev, daní, přirážek a dalších procentuálních hodnot.';
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, { hasError: boolean }> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('Calculator error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+    return this.props.children;
+  }
+}
+
+const ProcentoZCislaPage: React.FC = () => {
+  const { t, ready } = useTranslation('common');
+
+  // Memoize translations to prevent unnecessary re-renders
+  const translations = useMemo(() => ({
+    seoTitle: t('procento_z_cisla_title') || 'Procento z čísla',
+    seoDescription: t('procento_z_cisla_seo_description') || 'Vypočítejte X procent z daného čísla. Zadejte procenta a číslo pro výpočet.',
+    formula: t('procento_z_cisla_formula') || '\\text{Výsledek} = \\frac{\\text{Procenta}}{100} \\times \\text{Číslo}',
+    explanation: t('procento_z_cisla_explanation') || 'Výpočet procent z čísla se používá pro zjištění, jakou hodnotu představuje dané procento z celku. Tento výpočet je užitečný například při výpočtu slev, daní, přirážek a dalších procentuálních hodnot.',
+    tip: t('procento_z_cisla_tip') || 'Zadejte hodnoty do kalkulačky pro okamžitý výpočet.',
+    tipText: t('procento_z_cisla_tip_text') || 'Zadejte hodnoty do kalkulačky pro okamžitý výpočet.',
+    example: t('priklad') || 'Příklad',
+    exampleText: t('procento_z_cisla_priklad') || 'Kolik je 20% z 150?',
+    result: t('vysledek') || 'Výsledek',
+    calculator: t('kalkulacka') || 'Kalkulačka',
+    howToCalculate: t('jak_pocitat') || 'Jak počítat',
+    loadingError: t('chyba_nacitani') || 'Nepodařilo se načíst kalkulačku. Zkuste prosím obnovit stránku.'
+  }), [t]);
+
+  const { seoTitle, seoDescription, formula, explanation } = translations;
+
+  // Loading state for translations
+  if (!ready) {
+    return (
+      <div className="container mx-auto p-4 space-y-6">
+        <Skeleton className="h-10 w-1/2 mb-6" />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 space-y-4">
+            <Skeleton className="h-48 w-full rounded-lg" />
+          </div>
+          <div className="space-y-6">
+            <Skeleton className="h-48 w-full rounded-lg" />
+            <Skeleton className="h-32 w-full rounded-lg" />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto p-4">
-      <SeoMetadata title={seoTitle} description={seoDescription} />
+      <Suspense fallback={<Skeleton className="h-8 w-1/3 mb-6" />}>
+        <SeoMetadata title={seoTitle} description={seoDescription} />
+      </Suspense>
 
       <h1 className="text-3xl font-bold mb-6">{seoTitle}</h1>
 
@@ -33,10 +119,26 @@ const ProcentoZCislaPage: React.FC = () => {
         <div className="lg:col-span-2">
           <Card>
             <CardHeader>
-              <CardTitle>{t('kalkulacka') || 'Kalkulačka'}</CardTitle>
+              <CardTitle>{translations.calculator}</CardTitle>
             </CardHeader>
             <CardContent>
-              <ProcentoZCislaCalculator />
+              <ErrorBoundary 
+                fallback={
+                  <div className="text-destructive p-4 rounded-lg bg-destructive/10">
+                    <p>{translations.loadingError}</p>
+                  </div>
+                }
+              >
+                <Suspense fallback={
+                  <div className="space-y-4">
+                    <Skeleton className="h-12 w-full" />
+                    <Skeleton className="h-12 w-full" />
+                    <Skeleton className="h-12 w-1/2 mx-auto" />
+                  </div>
+                }>
+                  <ProcentoZCislaCalculator />
+                </Suspense>
+              </ErrorBoundary>
             </CardContent>
           </Card>
         </div>
@@ -44,28 +146,51 @@ const ProcentoZCislaPage: React.FC = () => {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>{t('jak_pocitat')} {t('procento_z_cisla_title')?.toLowerCase()}</CardTitle>
+              <CardTitle>{translations.howToCalculate} {translations.seoTitle.toLowerCase()}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="prose prose-sm dark:prose-invert max-w-none">
-                <p>{explanation}</p>
-                <div className="mt-4 p-3 bg-muted/50 rounded">
-                  <LatexRenderer formula={formula} displayMode={true} />
+              <Suspense fallback={
+                <div className="space-y-2">
+                  {[...Array(4)].map((_, i) => (
+                    <Skeleton 
+                      key={i} 
+                      className={`h-4 ${i === 0 ? 'w-full' : i === 1 ? 'w-5/6' : i === 2 ? 'w-4/6' : 'w-3/6'}`} 
+                    />
+                  ))}
                 </div>
-              </div>
+              }>
+                <div className="prose prose-sm dark:prose-invert max-w-none">
+                  <p>{explanation}</p>
+                  <div className="my-4 p-4 bg-muted/50 rounded-lg">
+                    <LatexRenderer formula={formula} displayMode={true} />
+                  </div>
+                  <p>
+                    <strong>{translations.example}:</strong> {translations.exampleText}
+                  </p>
+                  <p className="text-muted-foreground italic">
+                    {translations.result}: 30
+                  </p>
+                </div>
+              </Suspense>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-muted/50">
             <CardHeader>
-              <CardTitle>{t('priklady_pouziti') || 'Příklady použití'}</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                {t('tip') || 'Tip'}
+                <Tooltip 
+                  content={translations.tip}
+                  position="top"
+                >
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                </Tooltip>
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-2 list-disc pl-5">
-                <li>{t('priklad1_procento_z_cisla') || 'Výpočet slevy z ceny zboží'}</li>
-                <li>{t('priklad2_procento_z_cisla') || 'Výpočet daně z přidané hodnoty (DPH)'}</li>
-                <li>{t('priklad3_procento_z_cisla') || 'Výpočet provize z prodeje'}</li>
-              </ul>
+              <p className="text-sm text-muted-foreground">
+                {translations.tipText}
+              </p>
             </CardContent>
           </Card>
         </div>

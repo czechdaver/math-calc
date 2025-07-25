@@ -1,63 +1,82 @@
-'use client';
-
 import { NextIntlClientProvider } from 'next-intl';
-import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { getLocaleFromPath } from '@/i18n/utils';
-import Head from 'next/head';
+import { notFound } from 'next/navigation';
+import { ReactNode } from 'react';
+import Script from 'next/script';
+import CookieBanner from '@/components/CookieBanner';
 
-// This is a client component that handles the entire layout
-export default function LocaleLayout({
+// Define supported locales as a constant to avoid repetition
+export const supportedLocales = ['cs', 'en', 'sk', 'pl', 'hu'] as const;
+export type Locale = (typeof supportedLocales)[number];
+
+type Props = {
+  children: ReactNode;
+  params: { locale: Locale };
+};
+
+const MEASUREMENT_ID = 'YOUR_MEASUREMENT_ID'; // TODO: Replace with your actual Measurement ID
+const ADS_CLIENT_ID = 'ca-pub-YOUR_ADS_CLIENT_ID'; // TODO: Replace with your actual AdSense client ID
+
+export function generateStaticParams() {
+  return supportedLocales.map((locale) => ({ locale }));
+}
+
+export default async function LocaleLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [messages, setMessages] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const pathname = usePathname();
-  const locale = getLocaleFromPath(pathname);
-
-  // Set the document language
-  useEffect(() => {
-    document.documentElement.lang = locale;
-  }, [locale]);
+  params: { locale }
+}: Props) {
+  // TypeScript will ensure locale is one of the supported locales
+  if (!supportedLocales.includes(locale)) {
+    notFound();
+  }
 
   // Load messages for the current locale
-  useEffect(() => {
-    async function loadMessages() {
-      try {
-        const loadedMessages = (await import(`@/messages/${locale}.json`)).default;
-        setMessages(loadedMessages);
-      } catch (error) {
-        console.error(`Failed to load messages for locale: ${locale}`, error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    loadMessages();
-  }, [locale]);
-
-  if (isLoading) {
-    return (
-      <html lang={locale}>
-        <body>
-          <div>Loading...</div>
-        </body>
-      </html>
-    );
+  let messages;
+  try {
+    messages = (await import(`@/messages/${locale}.json`)).default;
+  } catch (error) {
+    console.error(`Failed to load messages for locale: ${locale}`, error);
+    notFound();
   }
 
   return (
     <html lang={locale}>
-      <Head>
+      <head>
         <title>Math Calculator</title>
         <meta name="description" content="A calculator application with multiple calculation tools" />
         <link rel="canonical" href={`https://yourdomain.com/${locale}`} />
         <link rel="alternate" hrefLang="en" href="https://yourdomain.com/en" />
         <link rel="alternate" hrefLang="cs" href="https://yourdomain.com/cs" />
+        <link rel="alternate" hrefLang="sk" href="https://yourdomain.com/sk" />
+        <link rel="alternate" hrefLang="pl" href="https://yourdomain.com/pl" />
+        <link rel="alternate" hrefLang="hu" href="https://yourdomain.com/hu" />
         <link rel="alternate" hrefLang="x-default" href="https://yourdomain.com/en" />
-      </Head>
+        
+        {/* Google Adsense Script */}
+        <Script
+          id="adsense-script"
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADS_CLIENT_ID}`}
+          crossOrigin="anonymous"
+          strategy="lazyOnload"
+        />
+
+        {/* Google Analytics */}
+        <Script id="google-consent-defaults">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              'ad_storage': 'denied',
+              'analytics_storage': 'denied'
+            });
+          `}
+        </Script>
+        <Script
+          id="google-analytics-script"
+          src={`https://www.googletagmanager.com/gtag/js?id=${MEASUREMENT_ID}`}
+          strategy="lazyOnload"
+        />
+      </head>
       <body>
         <NextIntlClientProvider 
           locale={locale}
@@ -65,6 +84,7 @@ export default function LocaleLayout({
           timeZone="Europe/Prague"
         >
           {children}
+          <CookieBanner />
         </NextIntlClientProvider>
       </body>
     </html>

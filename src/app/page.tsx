@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
 
-const SUPPORTED_LOCALES = ['cs', 'hu', 'pl', 'sk'];
+const SUPPORTED_LOCALES = ['cs', 'en', 'sk', 'pl', 'hu'];
 const DEFAULT_LOCALE = 'cs';
 
 export default async function Page() {

@@ -1,14 +1,18 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { usePathname, useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { Menu, X, Calculator, Home, Menu as MenuIcon } from 'lucide-react';
+import { Menu, X, Calculator, Home } from 'lucide-react';
 
 const MainNavigation: React.FC = () => {
-  const { t, i18n } = useTranslation('common');
+  const t = useTranslations('common');
   const router = useRouter();
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const locale = pathname.split('/')[1] || 'en';
 
   // Handle scroll effect for navbar
   useEffect(() => {
@@ -29,11 +33,11 @@ const MainNavigation: React.FC = () => {
       setIsMenuOpen(false);
     };
 
-    router.events.on('routeChangeStart', handleRouteChange);
+    window.addEventListener('routeChangeStart', handleRouteChange);
     return () => {
-      router.events.off('routeChangeStart', handleRouteChange);
+      window.removeEventListener('routeChangeStart', handleRouteChange);
     };
-  }, [router.events]);
+  }, []);
 
   // Navigation items
   const navItems = [
@@ -43,18 +47,19 @@ const MainNavigation: React.FC = () => {
       href: '/calculators',
       icon: <Calculator className="h-5 w-5" />,
     },
-  ];
+  ] as const;
 
   // Language options
   const languages = [
     { code: 'cs', name: 'Čeština' },
     { code: 'en', name: 'English' },
-    { code: 'sk', name: 'Slovenčina' },
-  ];
+  ] as const;
 
   const changeLanguage = (lang: string) => {
-    const { pathname, asPath, query } = router;
-    router.push({ pathname, query }, asPath, { locale: lang });
+    // Remove current locale from pathname
+    const pathWithoutLocale = pathname.split('/').slice(2).join('/');
+    const newPath = `/${lang}${pathWithoutLocale ? `/${pathWithoutLocale}` : ''}`;
+    router.push(newPath);
   };
 
   return (
@@ -80,9 +85,10 @@ const MainNavigation: React.FC = () => {
             {navItems.map((item) => (
               <Link
                 key={item.name}
-                href={item.href}
+                href={`/${locale}${item.href === '/' ? '' : item.href}`}
                 className={`px-3 py-2 rounded-md text-sm font-medium ${
-                  router.pathname === item.href
+                  pathname === `/${locale}${item.href}` || 
+                  (item.href === '/' && pathname === `/${locale}`)
                     ? 'text-blue-600 bg-blue-50'
                     : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
                 } transition-colors duration-200`}
@@ -94,7 +100,7 @@ const MainNavigation: React.FC = () => {
             {/* Language Selector */}
             <div className="relative ml-4">
               <select
-                value={i18n.language}
+                value={locale}
                 onChange={(e) => changeLanguage(e.target.value)}
                 className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
               >
@@ -135,9 +141,10 @@ const MainNavigation: React.FC = () => {
           {navItems.map((item) => (
             <Link
               key={item.name}
-              href={item.href}
+              href={`/${locale}${item.href === '/' ? '' : item.href}`}
               className={`group flex items-center px-3 py-2 text-base font-medium rounded-md ${
-                router.pathname === item.href
+                pathname === `/${locale}${item.href}` || 
+                (item.href === '/' && pathname === `/${locale}`)
                   ? 'bg-blue-50 text-blue-600'
                   : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
               }`}
@@ -157,7 +164,7 @@ const MainNavigation: React.FC = () => {
             </label>
             <select
               id="mobile-language"
-              value={i18n.language}
+              value={locale}
               onChange={(e) => changeLanguage(e.target.value)}
               className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
             >

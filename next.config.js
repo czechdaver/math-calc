@@ -1,15 +1,10 @@
+const withNextIntl = require('next-intl/plugin')('./next-intl.config.ts');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   // Enable static optimization for better performance
   output: 'standalone',
-  
-  // Configure i18n
-  i18n: {
-    locales: ['en', 'cs'],
-    defaultLocale: 'en',
-    localeDetection: true,
-  },
   
   // Configure image optimization
   images: {
@@ -24,11 +19,6 @@ const nextConfig = {
     }
     return config;
   },
-  
-  // Enable React 18 features
-  experimental: {
-    // Add any experimental features here
-  },
 };
 
-module.exports = nextConfig;
+module.exports = withNextIntl(nextConfig);

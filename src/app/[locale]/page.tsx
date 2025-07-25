@@ -2,17 +2,13 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 import { Calculator, Percent, Ruler, Scale, Droplets, Thermometer, Zap, TrendingUp, Shield, HelpCircle, ArrowRight } from 'lucide-react';
 import AdBanner from '@/components/ads/AdBanner';
 import { Button } from '@/components/ui/Button';
 
-interface HomePageProps {
-  params: { locale: string };
-}
-
-const HomePage: React.FC<HomePageProps> = ({ params }) => {
-  const { t } = useTranslation(params.locale, 'common' as any);
+const HomePage: React.FC = () => {
+  const t = useTranslations('common');
 
   // Categories data
   const categories = [
@@ -21,56 +17,56 @@ const HomePage: React.FC<HomePageProps> = ({ params }) => {
       name: t('categories.percentages'),
       description: t('categories.percentages_description'),
       icon: <Percent className="w-8 h-8 text-blue-500" />,
-      href: `/${params.locale}/calculator/procenta`
+      href: `/calculator/procenta`
     },
     {
       id: 'prevodnik-jednotek',
       name: t('categories.unit_converter'),
       description: t('categories.unit_converter_description'),
       icon: <Ruler className="w-8 h-8 text-green-500" />,
-      href: `/${params.locale}/calculator/prevodnik-jednotek`
+      href: `/calculator/prevodnik-jednotek`
     },
     {
       id: 'bmi',
       name: t('categories.bmi'),
       description: t('categories.bmi_description'),
       icon: <Scale className="w-8 h-8 text-purple-500" />,
-      href: `/${params.locale}/calculator/bmi`
+      href: `/calculator/bmi`
     },
     {
       id: 'dph',
       name: t('categories.vat'),
       description: t('categories.vat_description'),
       icon: <TrendingUp className="w-8 h-8 text-yellow-500" />,
-      href: `/${params.locale}/calculator/dph`
+      href: `/calculator/dph`
     },
     {
       id: 'cista-mzda',
       name: t('categories.net_salary'),
       description: t('categories.net_salary_description'),
       icon: <Calculator className="w-8 h-8 text-red-500" />,
-      href: `/${params.locale}/calculator/cista-mzda`
+      href: `/calculator/cista-mzda`
     },
     {
       id: 'trojclenka',
       name: t('categories.rule_of_three'),
       description: t('categories.rule_of_three_description'),
       icon: <Zap className="w-8 h-8 text-orange-500" />,
-      href: `/${params.locale}/calculator/trojclenka`
+      href: `/calculator/trojclenka`
     },
     {
       id: 'fitness-a-zdravi',
       name: t('categories.health_fitness'),
       description: t('categories.health_fitness_description'),
       icon: <Droplets className="w-8 h-8 text-pink-500" />,
-      href: `/${params.locale}/calculator/fitness-a-zdravi`
+      href: `/calculator/fitness-a-zdravi`
     },
     {
       id: 'pravidla',
       name: t('categories.math_rules'),
       description: t('categories.math_rules_description'),
       icon: <Shield className="w-8 h-8 text-teal-500" />,
-      href: `/${params.locale}/calculator/pravidla`
+      href: `/calculator/pravidla`
     }
   ];
 
@@ -111,7 +107,7 @@ const HomePage: React.FC<HomePageProps> = ({ params }) => {
           {t('homepage.hero.subtitle')}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href={`/${params.locale}/calculator`}>
+          <Link href={`/calculator`}>
             <Button size="lg" className="gap-2">
               {t('homepage.hero.cta_primary')}
               <ArrowRight className="w-4 h-4" />
@@ -161,7 +157,7 @@ const HomePage: React.FC<HomePageProps> = ({ params }) => {
             {t('homepage.categories.title')}
           </h2>
           <Link 
-            href={`/${params.locale}/calculator`}
+            href={`/calculator`}
             className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 text-sm font-medium"
           >
             {t('homepage.categories.view_all')}
@@ -267,7 +263,7 @@ const HomePage: React.FC<HomePageProps> = ({ params }) => {
           {t('homepage.cta.description')}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href={`/${params.locale}/calculator`}>
+          <Link href={`/calculator`}>
             <Button size="lg" className="bg-white text-blue-700 hover:bg-blue-50 gap-2">
               {t('homepage.cta.primary_button')}
               <ArrowRight className="w-4 h-4" />

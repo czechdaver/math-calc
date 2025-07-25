@@ -1,34 +1,24 @@
-import createMiddleware from 'next-intl/middleware';
-import { NextRequest, NextResponse } from 'next/server';
+import createIntlMiddleware from 'next-intl/middleware';
+import { NextRequest } from 'next/server';
 
 // List of supported locales
-const locales = ['cs', 'en'] as const;
+const locales = ['cs', 'en', 'sk', 'pl', 'hu'] as const;
 
-// Create next-intl middleware
-const intlMiddleware = createMiddleware({
-  // A list of all locales that are supported
-  locales: locales as unknown as string[],
+const intlMiddleware = createIntlMiddleware({
+  // List of all locales that are supported
+  locales,
   
-  // If this locale is matched, pathnames work without a prefix (e.g. `/about`)
-  defaultLocale: 'en',
+  // Used when no locale matches
+  defaultLocale: 'cs',
   
-  // Enable automatic locale detection (based on the `accept-language` header)
-  localeDetection: true,
+  // Don't use URL prefix for default locale
+  localePrefix: 'as-needed',
   
-  // Configure the domain for each locale (optional)
-  // domains: [
-  //   {
-  //     domain: 'example.com',
-  //     defaultLocale: 'en',
-  //   },
-  //   {
-  //     domain: 'example.cz',
-  //     defaultLocale: 'cs',
-  //   },
-  // ],
+  // Enable automatic locale detection
+  localeDetection: true
 });
 
-export function middleware(request: NextRequest) {
+export default function middleware(request: NextRequest) {
   // Skip API routes, _next, and static files
   const { pathname } = request.nextUrl;
   if (
@@ -37,7 +27,7 @@ export function middleware(request: NextRequest) {
     pathname.includes('.') ||
     pathname.startsWith('/images/')
   ) {
-    return NextResponse.next();
+    return; // Skip i18n for these paths
   }
   
   // Handle internationalized routing

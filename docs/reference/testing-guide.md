@@ -32,9 +32,9 @@ updated: 2025-07-23
 - [ ] BMI Calculator
 - [ ] DPH (VAT) Calculator
 - [ ] Compound Interest Calculator
-- [ ] Net Salary Calculator (Čistá mzda)
+- [ ] Net Salary Calculator (Net Salary)
 - [ ] Unit Converter
-- [ ] Annuity Payment Calculator (Anuitní splátka)
+- [ ] Annuity Payment Calculator (Annuity Payment)
 - [ ] Percentage Calculators
 - [ ] Fractions Calculator
 

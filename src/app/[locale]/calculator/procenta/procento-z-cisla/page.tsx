@@ -2,7 +2,7 @@
 
 import React, { Suspense, useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import { Skeleton } from '../../../../../components/ui/skeleton';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Info } from 'lucide-react';
@@ -69,7 +69,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, { hasError: bool
 }
 
 const ProcentoZCislaPage: React.FC = () => {
-  const { t, ready } = useTranslation('common');
+  const t = useTranslations('common');
 
   // Memoize translations to prevent unnecessary re-renders
   const translations = useMemo(() => ({
@@ -89,23 +89,7 @@ const ProcentoZCislaPage: React.FC = () => {
 
   const { seoTitle, seoDescription, formula, explanation } = translations;
 
-  // Loading state for translations
-  if (!ready) {
-    return (
-      <div className="container mx-auto p-4 space-y-6">
-        <Skeleton className="h-10 w-1/2 mb-6" />
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-4">
-            <Skeleton className="h-48 w-full rounded-lg" />
-          </div>
-          <div className="space-y-6">
-            <Skeleton className="h-48 w-full rounded-lg" />
-            <Skeleton className="h-32 w-full rounded-lg" />
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // No loading state needed for next-intl translations
 
   return (
     <div className="container mx-auto p-4">

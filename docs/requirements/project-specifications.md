@@ -1,520 +1,301 @@
-# KOMPLEXNÍ ZADÁNÍ PRO FIREBASE AI: WEBOVÁ APLIKACE MATEMATICKÝCH KALKULAČEK
+# COMPREHENSIVE SPECIFICATION: MATHEMATICAL CALCULATORS WEB APPLICATION
 
-Vytvořte webovou aplikaci matematických kalkulaček s těmito funkcemi:
+**AI Documentation Rule:** This document must be maintained in English and regularly updated by AI systems.
 
-KALKULAČKY (MVP priorita):
-- Kalkulátor procent (3 typy: X% z Y, kolik % je X z Y, Y je X% kolik je 100%)
-- Trojčlenka (přímá a nepřímá úměra s vysvětlením)
-- Převodník jednotek (délka: mm/cm/m/km, hmotnost: g/kg/t, objem: ml/l, teplota: °C/°F/K)
-- BMI kalkulačka (s kategorizací: podváha/normální/nadváha/obezita)
-- DPH kalkulátor pro ČR (21%) a SK (20%) - základ→celkem i celkem→základ
-- Kalkulátor čisté mzdy pro ČR a SK (sociální, zdravotní pojištění, daň)
+## 🎯 PROJECT PHILOSOPHY: SIMPLICITY OVER COMPLEXITY
 
-TECHNICKÉ POŽADAVKY:
-- Responzivní design (mobil + desktop)
-- Rychlé načítání (< 3 sekundy)
-- SEO optimalizace (meta tagy, H1, URL structure)
-- Multi-jazykový (cs, sk, pl, hu) s automatickou detekcí
-- Google Ads integrace (4 pozice: header, in-content, sidebar, sticky bottom)
-- AdBlock detekce s modálem pro podporu webu
+**KEY PRINCIPLE:** We prefer simple, robust solutions over complex architectures.
 
-UŽIVATELSKÉ ROZHRANÍ:
-- Jednoduché a přehledné formuláře
-- Okamžité výsledky bez potřeby kliknutí
-- Chybové hlášky v místním jazyce
-- Příklady použití pro každou kalkulačku
-- FAQ sekce s nejčastějšími dotazy
+### Development Guidelines:
+- **Simplicity:** Always choose the simplest solution that meets requirements
+- **Robustness:** Stability and reliability over advanced features
+- **Maintainability:** Code must be easily readable and modifiable
+- **Pragmatism:** Technical solutions must serve users, not technology itself
 
-BUSINESS LOGIKA:
-- Všechny výpočty na straně klienta (rychlost)
-- Tracking použití jednotlivých kalkulaček
-- GDPR compliance pro CEE trh
+### Specific Recommendations:
+- Minimize dependencies on external libraries
+- Prefer standard Next.js approaches over custom solutions
+- Simple configuration over complex abstract layers
+- Explicit code over "smart" optimizations
+- Fallback mechanisms for all critical functions
 
+**Motto:** "The best code is code that works reliably and can be easily understood."
 
-## 1. PŘEHLED PROJEKTU
+**AI Enforcement:** These principles must be followed in all development decisions.
 
-### Název projektu
-**MathCalc Pro** - Hostovatelná webová aplikace pro amatérské matematické výpočty
+---
 
-### Cíl
-Vytvořit moderní, responzivní webovou aplikaci s 141+ matematickými kalkulačkami optimalizovanou pro SEO, monetizaci a snadnou lokalizaci do více jazyků.
+Create a mathematical calculators web application with the following features:
 
-### Referenční analýza
-Aplikace má překonat konkurenční řešení jako:
-- vypocitejto.cz (4.4/5, 194 recenzí)
-- hackmath.net (94 kalkulaček)
+## CALCULATORS (MVP Priority):
+- Percentage Calculator (3 types: X% of Y, what % is X of Y, Y is X% what is 100%)
+- Rule of Three (direct and inverse proportion with explanation)
+- Unit Converter (length: mm/cm/m/km, weight: g/kg/t, volume: ml/l, temperature: °C/°F/K)
+- BMI Calculator (with categorization: underweight/normal/overweight/obese)
+- VAT Calculator for CZ (21%) and SK (20%) - base→total and total→base
+- Net Salary Calculator for CZ and SK (social, health insurance, tax)
+
+## TECHNICAL REQUIREMENTS:
+- Responsive design (mobile + desktop)
+- Fast loading (< 3 seconds)
+- SEO optimization (meta tags, H1, URL structure)
+- Multi-language (cs, sk, pl, hu) with automatic detection
+- Google Ads integration (4 positions: header, in-content, sidebar, sticky bottom)
+- AdBlock detection with modal for site support
+
+## USER INTERFACE:
+- Simple and clear forms
+- Instant results without clicking
+- Error messages in local language
+- Usage examples for each calculator
+- FAQ section with most common questions
+
+## BUSINESS LOGIC:
+- All calculations on client side (speed)
+- Usage tracking for individual calculators
+- GDPR compliance for CEE market
+
+## 1. PROJECT OVERVIEW
+
+### Project Name
+**MathCalc Pro** - Hostable web application for amateur mathematical calculations
+
+### Goal
+Create a modern, responsive web application with 141+ mathematical calculators optimized for SEO, monetization, and easy localization into multiple languages.
+
+### Competitive Analysis
+The application aims to surpass competitive solutions such as:
+- vypocitejto.cz (4.4/5, 194 reviews)
+- hackmath.net (94 calculators)
 - kalkula.cz, penize.cz
 
-## 2. TECHNICKÁ SPECIFIKACE
+## 2. TECHNICAL SPECIFICATION
 
-### Core technologie
-- **Framework**: Next.js 15 s App Router
+### 🛠️ Technical Guidelines (Based on Experience)
+
+**IMPORTANT DEVELOPMENT INSIGHTS:**
+- Next.js 15 has changes in async params - always test compatibility
+- next-intl requires fallback mechanisms for robustness
+- Simple middleware configuration is more reliable than complex
+- Explicit error handling is critical for i18n applications
+
+**RECOMMENDED APPROACHES:**
+- Use basic next-intl configuration without unnecessary optimizations
+- Implement fallback values for all locale parameters
+- Prefer `localePrefix: 'always'` for consistent routing
+- Validate all async params with fallback values
+
+### Core Technologies
+- **Framework**: Next.js 15 with App Router (with caution for async params)
 - **Backend**: Firebase (Firestore, Authentication, Hosting, Analytics)
-- **Styling**: Tailwind CSS + Shadcn/ui komponenty
-- **PWA**: Offline support s Service Workers
-- **Internacionalizace**: next-i18next s podporou 20+ jazyků
+- **Styling**: Tailwind CSS + Shadcn/ui components
+- **PWA**: Offline support with Service Workers
+- **Internationalization**: next-intl (with robust fallback mechanisms)
 
-### Architektura
+### Architecture
 ```
 /src
   /app
     /[locale]
-      /layout.tsx
-      /page.tsx
-      /calculator/[category]/[name]/page.tsx
+      /calculator
+        /[category]
+          /[calculator-name]
+            page.tsx
+      page.tsx
+      layout.tsx
+    layout.tsx
+    page.tsx
   /components
+    /ui (shadcn/ui)
     /calculators
-    /ui
-    /ads
-    /seo
+    /layout
   /lib
-    /firebase
+    /calculators
     /utils
-    /calculations
-  /locales
-  /types
+  /messages
+    cs.json
+    en.json
+    sk.json
+    pl.json
+    hu.json
 ```
 
-## 3. FUNKCIONALITA
+## 3. CALCULATOR SPECIFICATIONS
 
-### Kalkulačky podle priority
+### MVP Calculators (Priority 1)
+1. **Percentage Calculator** (`/calculator/procenta/`)
+   - X% of Y
+   - What % is X of Y
+   - Y is X%, what is 100%
+   
+2. **Rule of Three** (`/calculator/trojclenka/`)
+   - Direct proportion
+   - Inverse proportion
+   - Step-by-step explanation
 
-#### VELMI VYSOKÁ PRIORITA (17 kalkulaček)
-1. **Procenta** (3 varianty)
-   - Výpočet procent z čísla
-   - Kolik procent je číslo z čísla
-   - Základ z procent
+3. **Unit Converter** (`/calculator/prevodnik-jednotek/`)
+   - Length: mm, cm, m, km
+   - Weight: g, kg, t
+   - Volume: ml, l
+   - Temperature: °C, °F, K
 
-2. **Trojčlenka** (2 varianty)
-   - Přímá úměra
-   - Nepřímá úměra
+4. **BMI Calculator** (`/calculator/bmi/`)
+   - Weight and height input
+   - BMI categorization
+   - Health recommendations
 
-3. **Převody jednotek** (12 typů)
-   - Délka, objem, hmotnost, rychlost
-   - Teplota, úhly, tlak, výkon
-   - Energie, čas, procenta/promile/ppm
+5. **VAT Calculator** (`/calculator/dph/`)
+   - CZ: 21%, SK: 20%
+   - Base → Total
+   - Total → Base
 
-#### VYSOKÁ PRIORITA (40 kalkulaček)
-- Zlomky (6 operací)
-- Finance rozšířené (6 kalkulaček)
-- Praktické výpočty (6 kalkulaček)
-- Fitness & zdraví (6 kalkulaček)
-- Podnikání (5 kalkulaček)
-- Finance základní (11 kalkulaček)
+6. **Net Salary Calculator** (`/calculator/cista-mzda/`)
+   - CZ and SK tax systems
+   - Social and health insurance
+   - Take-home pay calculation
 
-#### STŘEDNÍ PRIORITA (59 kalkulaček)
-- Obsah a obvod (14 útvarů)
-- Objem a povrch (7 těles)
-- Statistika (7 funkcí)
-- Fyzika (9 vzorců)
-- Stavebnictví (6 kalkulaček)
-- Rovnice (5 typů)
-- Průměr, mocniny, odmocniny
+### Extended Calculators (Priority 2)
+- Advanced Financial Calculators (15 calculators)
+- Health and Fitness Calculators (8 calculators)
+- Practical Calculations (12 calculators)
+- Fraction Calculators (6 calculators)
 
-#### NÍZKÁ PRIORITA (25 kalkulaček)
-- Pokročilá matematika (9 oblastí)
-- Goniometrie (4 funkce)
-- Logaritmy (3 typy)
-- Chemie (4 kalkulačky)
-- Zahradnictví (4 kalkulačky)
-- Hry (1 sudoku)
+### Full Calculator Suite (Priority 3)
+- Construction Calculators (6 calculators)
+- Equations (5 types)
+- Average, powers, roots
 
-## 4. UI/UX DESIGN
+## 4. SEO & MONETIZATION
 
-### Hlavní stránka
-- Hero sekce s vyhledáváním kalkulaček
-- Kategorie v grid layoutu s ikonami
-- Populární kalkulačky
-- SEO optimalizovaný obsah
+### SEO Strategy
+- Unique meta titles and descriptions for each calculator
+- Structured data (schema.org)
+- Breadcrumb navigation
+- Internal linking strategy
+- Sitemap generation
+- Multi-language hreflang tags
 
-### Stránka kalkulačky
-- Nadpis s kategorií
-- Matematický vzorec (LaTeX rendering)
-- Interaktivní formulář
-- Krok za krokem vysvětlení
-- Související kalkulačky
-- Google Ads placement
+### Monetization
+- Google AdSense integration (4 ad positions)
+- AdBlock detection with support modal
+- Premium features (future)
+- Affiliate partnerships (future)
 
-### Navigace
-- Sticky header s vyhledáváním
-- Breadcrumb navigace
-- Jazykový přepínač
-- Dark/light mode
+## 5. INTERNATIONALIZATION
 
-## 5. MONETIZACE
+### Supported Languages
+- Czech (cs) - Primary
+- Slovak (sk)
+- Polish (pl)
+- Hungarian (hu)
+- English (en) - Documentation
 
-### Google Ads integrace
-- **Placement 1**: Banner v headeru (728x90)
-- **Placement 2**: V-content reklama mezi kalkulačkami (300x250)
-- **Placement 3**: Sticky bottom banner na mobile (320x50)
-- **Placement 4**: Sidebar reklamy na desktop (160x600)
+### Localization Requirements
+- Currency formats per region
+- Number formatting
+- Date formats
+- Regional calculation examples
+- Legal compliance per country
 
-### AdBlock detekce
-```javascript
-// Implementace pomocí bait elementu
-function detectAdBlock() {
-  const adElement = document.createElement('div');
-  adElement.className = 'ad-banner';
-  adElement.style.display = 'none';
-  document.body.appendChild(adElement);
-  
-  setTimeout(() => {
-    if (window.getComputedStyle(adElement).display === 'none') {
-      showAdBlockModal();
-    }
-    document.body.removeChild(adElement);
-  }, 100);
-}
+## 6. PERFORMANCE & QUALITY
+
+### Performance Targets
+- First Contentful Paint: < 1.5s
+- Largest Contentful Paint: < 2.5s
+- Cumulative Layout Shift: < 0.1
+- First Input Delay: < 100ms
+
+### Quality Assurance
+- TypeScript for type safety
+- ESLint + Prettier for code quality
+- Jest for unit testing
+- Cypress for E2E testing
+- Lighthouse CI for performance monitoring
+
+## 7. DEPLOYMENT & HOSTING
+
+### Firebase Setup
+- Firestore for data storage
+- Authentication for user accounts
+- Hosting for static files
+- Analytics for usage tracking
+- Functions for server-side logic
+
+### Environment Configuration
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+NEXT_PUBLIC_FIREBASE_APP_ID=
+NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=
+NEXT_PUBLIC_GOOGLE_ADSENSE_ID=
 ```
 
-### AdBlock modal
-- Informativní zpráva o podpoře webu
-- Možnost vysvětlení přínosů reklam
-- Žádost o vypnutí AdBlockeru
-- Alternativní možnost podpory
+## 8. DEVELOPMENT PHASES
 
-## 6. SEO OPTIMALIZACE
+### Phase 1: MVP (4-6 weeks)
+1. Project setup and architecture
+2. Core 6 calculators implementation
+3. Basic UI/UX design
+4. Internationalization setup
+5. SEO optimization
+6. Initial deployment
 
-### On-page SEO
-- Jedinečné H1 pro každou kalkulačku
-- Meta descriptions s klíčovými slovy
-- Schema.org markup pro calculatory
-- Open Graph a Twitter Cards
-- Breadcrumb schema
+### Phase 2: Extended Features (6-8 weeks)
+1. Additional calculator categories
+2. Advanced UI components
+3. User accounts and preferences
+4. Analytics integration
+5. Performance optimization
 
-### Technické SEO
-- **Core Web Vitals optimalizace**
-- Next.js Image optimization
-- Lazy loading komponent
-- Gzip/Brotli komprese
-- CDN přes Firebase Hosting
+### Phase 3: Full Suite (8-10 weeks)
+1. Complete calculator library
+2. Advanced monetization
+3. Mobile app (PWA)
+4. API development
+5. Third-party integrations
 
-### Struktura URL
-```
-/{locale}/
-/{locale}/calculator/{category}
-/{locale}/calculator/{category}/{calculator-name}
-/{locale}/about
-/{locale}/contact
-```
+## 9. SUCCESS METRICS
 
-### Sitemap.xml
-- Dynamicky generovaná
-- Lokalizovaná pro každý jazyk
-- Prioritizace podle popularity kalkulaček
+### Technical Metrics
+- Page load speed < 3 seconds
+- 99.9% uptime
+- Mobile-first responsive design
+- Accessibility compliance (WCAG 2.1)
 
-## 7. INTERNACIONALIZACE
+### Business Metrics
+- User engagement (time on site)
+- Calculator usage statistics
+- Ad revenue optimization
+- SEO ranking improvements
 
-### Podporované jazyky (20+)
-**Priorita 1**: cs, en, de, es, fr, it
-**Priorita 2**: pl, ru, pt, nl, sv, da
-**Priorita 3**: zh, ja, ko, ar, hi, tr, hu, ro
+## 10. FINAL DEVELOPMENT PRINCIPLES
 
-### Implementace
-```javascript
-// next-i18next konfigurace
-module.exports = {
-  i18n: {
-    defaultLocale: 'cs',
-    locales: ['cs', 'en', 'de', 'es', 'fr', 'it', ...],
-    localeDetection: true,
-  },
-}
-```
+### Code Quality Checklist
+- [ ] Follows simplicity-first philosophy
+- [ ] Implements proper error handling
+- [ ] Uses fallback mechanisms
+- [ ] Includes TypeScript types
+- [ ] Has comprehensive tests
+- [ ] Optimized for performance
+- [ ] Accessible to all users
+- [ ] SEO optimized
+- [ ] Multi-language support
+- [ ] GDPR compliant
 
-### Lokalizace obsahu
-- Názvy kalkulaček
-- Matematické termíny
-- UI komponenty
-- SEO metadata
-- Chybové hlášky
-
-## 8. FIREBASE INTEGRACE
-
-### Hosting
-- Automatické deployment z GitHubu
-- Preview channels pro testování
-- Custom domain s SSL
-
-### Analytics
-- Sledování použití kalkulaček
-- Conversion tracking pro reklamy
-- User engagement metriky
-- A/B testing support
-
-### Firestore
-- Ukládání statistik použití
-- User feedback
-- Kalkulace historie (optional)
-
-### Authentication (volitelné)
-- Google/Facebook přihlášení
-- Uložení oblíbených kalkulaček
-- Historie výpočtů
-
-## 9. PERFORMANCE OPTIMALIZACE
-
-### Loading strategy
-- Critical CSS inlining
-- Route-based code splitting
-- Prefetching populárních kalkulaček
-- Service Worker caching
-
-### Caching
-- Static assets: 1 rok
-- Dynamic content: 1 hodina
-- API responses: 15 minut
-
-### Bundle optimalizace
-- Tree shaking
-- Webpack optimalizace
-- Lazy loading komponent
-- Critical path prioritizace
-
-## 10. DEPLOYMENT STRATEGIE
-
-### Staging workflow
-1. Feature branch → Preview channel
-2. Main branch → Staging environment
-3. Tag release → Production deployment
-
-### CI/CD pipeline
-```yaml
-# GitHub Actions
-deploy:
-  - run: npm run build
-  - run: npm run test
-  - run: firebase deploy --only hosting
-```
-
-### Monitoring
-- Google Analytics 4
-- Firebase Performance Monitoring
-- Error tracking s Sentry
-- Uptime monitoring
-
-## 11. CONTENT MANAGEMENT
-
-### Kalkulačky definice
-```typescript
-interface Calculator {
-  id: string;
-  name: string;
-  category: string;
-  formula: string;
-  inputs: Input[];
-  output: Output;
-  explanation: string;
-  examples: Example[];
-  relatedCalculators: string[];
-}
-```
-
-### Static content
-- Markdown soubory pro about/contact
-- JSON soubory pro kalkulačky
-- Lokalizované stringy v JSON
-
-## 12. TESTING STRATEGIE
-
-### Unit testy
-- Matematické funkce
-- Utility funkce
-- Komponenty
-
-### Integration testy
-- API endpoints
-- Firebase integrace
-- Lokalizace
-
-### E2E testy
-- Kritické user flows
-- Cross-browser testing
-- Mobile responsiveness
-
-## 13. MAINTENANCE & SCALING
-
-### Content updates
-- Přidávání nových kalkulaček
-- Aktualizace překladů
-- SEO optimalizace
-
-### Performance monitoring
-- Regular audity
-- Core Web Vitals tracking
-- User feedback integration
-
-### Scaling plan
-- Multi-region deployment
-- Database scaling
-- CDN optimalizace
-
-## 14. LEGAL & COMPLIANCE
-
-### GDPR compliance
-- Cookie consent
-- Privacy policy
-- Data processing agreement
-
-### Accessibility
-- WCAG 2.1 AA compliance
-- Screen reader support
-- Keyboard navigation
-
-## 15. LAUNCH STRATEGIE
-
-### Phase 1: MVP (20 nejvíce prioritních kalkulaček)
-- Core functionality
-- 3 jazyky (cs, en, de)
-- Základní SEO
-
-### Phase 2: Expansion (100 kalkulaček)
-- 10 jazyků
-- Pokročilé SEO
-- Analytics implementace
-
-### Phase 3: Full Launch (141+ kalkulaček)
-- Všechny jazyky
-- Advanced features
-- Marketing campaign
+### AI Development Rules
+1. **Always prefer simple solutions** over complex architectures
+2. **Implement fallback mechanisms** for all critical functions
+3. **Use explicit error handling** instead of implicit assumptions
+4. **Follow Next.js conventions** rather than custom solutions
+5. **Test all locale routes** after configuration changes
+6. **Update documentation** when adding new features
+7. **Validate with provided commands** before deployment
 
 ---
 
-## 16. MAINTENANCE & UPDATES
+**Project Status:** ✅ Routing functional, MVP calculators implemented, documentation in English, AI-optimized structure
 
-### Regular Updates
-- Monthly feature updates
-- Quarterly UI/UX reviews
-- Annual technology stack review
-
-### Content Updates
-- Monthly content refresh
-- Seasonal calculator additions
-- Regular SEO content updates
-
-### Performance Monitoring
-- Uptime monitoring
-- Performance metrics tracking
-- User behavior analysis
-
-## 17. RISK MANAGEMENT
-
-### Technical Risks
-- Third-party service dependencies
-- Browser compatibility issues
-- Performance bottlenecks
-
-### Business Risks
-- Competition analysis
-- User acquisition costs
-- Monetization strategy adjustments
-
-## 18. SUCCESS METRICS
-
-### User Engagement Metrics
-- **Monthly Active Users (MAU)**: Target: 50,000+ within first year
-- **Daily Active Users (DAU)**: Target: 5,000+ daily
-- **Average Session Duration**: Target: 5+ minutes
-- **Pages per Session**: Target: 4+ pages
-- **Bounce Rate**: Target: <40%
-- **Returning Users**: Target: >40% of total users
-
-### Performance Metrics
-- **Page Load Time**: <2 seconds
-- **API Response Time**: <500ms
-- **Uptime**: 99.9%
-- **Error Rate**: <0.1% of total requests
-- **Mobile Responsiveness**: 100% compatibility
-
-### Business Goals
-- **User Acquisition**:
-  - 10,000+ signups in first 3 months
-  - 5% month-over-month growth
-  - <$2 cost per acquisition (CPA)
-  
-- **Monetization**:
-  - 2% conversion rate to premium
-  - $5,000 MRR by month 6
-  - $0.50 RPM from ads
-  
-- **Retention**:
-  - 30% D1 retention
-  - 15% D7 retention
-  - 5% D30 retention
-
-### Feature Adoption
-- **Calculator Usage**:
-  - 70% of users use ≥2 calculators
-  - 30% use advanced features
-  - 15% use sharing functionality
-  
-- **Content Engagement**:
-  - 3+ minutes average time on educational content
-  - 20% click-through rate on related calculators
-  - 10% social sharing rate
-
-### SEO Performance
-- **Organic Traffic**: 50% of total traffic
-- **Keyword Rankings**:
-  - Top 3 positions for 50+ calculator keywords
-  - Top 10 for 200+ educational content keywords
-- **Backlinks**: 500+ quality backlinks in first year
-
-### Customer Satisfaction
-- **Net Promoter Score (NPS)**: >40
-- **Customer Support**:
-  - <4 hour response time
-  - >90% satisfaction rate
-  - <5% ticket escalation rate
-
-## 19. FUTURE ENHANCEMENTS
-
-### Potential Features
-- Mobile app development
-- Advanced data visualization
-- Integration with educational platforms
-- API access for developers
-
-### Technology Upgrades
-- Progressive Web App (PWA) features
-- AI-powered calculations
-- Voice command support
-- Offline functionality
-
-## 20. CONCLUSION
-
-### Summary
-- Comprehensive mathematical toolset
-- User-focused design
-- Scalable architecture
-- Sustainable business model
-
-### Next Steps
-1. Finalize requirements
-2. Assemble development team
-3. Begin Phase 1 development
-4. Conduct initial testing
-5. Prepare for MVP launch
-
----
-
-**Development Timeline**: 3-4 months
-**Team Structure**:
-- 1x Full-stack Developer
-- 1x UI/UX Designer
-- 1x SEO Specialist
-- 1x QA Tester (part-time)
-
-**Budget Estimate**:
-- Development: $15,000 - $20,000
-- Design: $3,000 - $5,000
-- Marketing: $2,000 - $5,000
-- Contingency: $2,000 - $3,000
-
-**Total Budget**: $22,000 - $33,000 USD
-
-**Projected ROI**:
-- Break-even: 6-9 months
-- Expected monthly revenue after 1 year: $5,000 - $10,000
-
-*Last Updated: July 2024*
+**Next Steps:** Complete i18n standardization, SEO optimization, additional calculators

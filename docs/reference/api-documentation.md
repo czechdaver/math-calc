@@ -1,178 +1,473 @@
 ---
 title: API Documentation
 category: Reference
-version: 1.2.0
-updated: 2025-07-23
+version: 1.3.0
+updated: 2025-07-29
 ---
 
-# API Documentation for Calculator Components
+# API Documentation
 
-## Overview
-This document outlines the API specifications for calculator components in the MathCalc Pro application. All calculator components should follow these guidelines to ensure consistency and maintainability.
+**AI Documentation Rule:** This API documentation must be maintained in English and regularly updated.
 
-## Base Calculator Component
+## Calculator Components API
 
-### Props
+### Percentage Calculator API
 
+#### Basic Usage
 ```typescript
-interface CalculatorBaseProps {
-  // Unique identifier for the calculator
-  id: string;
-  
-  // Calculator title (for display)
-  title: string;
-  
-  // Calculator description (optional)
-  description?: string;
-  
-  // Category for organization
-  category: string;
-  
-  // SEO metadata
-  seo: {
-    title: string;
-    description: string;
-    keywords: string[];
+import { PercentageCalculator } from '@/components/calculators/PercentageCalculator';
+
+// Component usage
+<PercentageCalculator 
+  locale="en"
+  onCalculate={(result) => console.log(result)}
+/>
+```
+
+#### Props Interface
+```typescript
+interface PercentageCalculatorProps {
+  locale: string;
+  onCalculate?: (result: CalculationResult) => void;
+  initialValues?: {
+    value?: number;
+    percentage?: number;
+    calculationType?: 'percentage_of' | 'what_percentage' | 'percentage_to_whole';
   };
+}
+```
+
+#### Calculation Methods
+```typescript
+// X% of Y calculation
+function calculatePercentageOf(value: number, percentage: number): CalculationResult {
+  const result = (value * percentage) / 100;
   
-  // Input fields configuration
-  inputs: CalculatorInput[];
-  
-  // Calculation function
-  calculate: (inputs: Record<string, any>) => CalculatorResult;
-  
-  // Optional: Custom component for rendering the result
-  resultComponent?: React.ComponentType<{ result: CalculatorResult }>;
+  return {
+    result,
+    steps: [
+      { label: 'Calculation', value: `${value} × ${percentage}%` },
+      { label: 'Result', value: result },
+    ],
+    formula: `\\text{Result} = ${value} \\times \\frac{${percentage}}{100} = ${result}`,
+    explanation: 'To calculate percentage of a number, multiply the number by the percentage fraction.'
+  };
+}
+```
+
+#### SEO Metadata
+```typescript
+export const percentageCalculatorSEO = {
+  metadata: {
+    title: 'Percentage Calculator | MathCalc Pro',
+    description: 'Calculate what percentage a number is of another number. Fast and accurate percentage calculations online.',
+    keywords: ['percentage calculator', 'percent calculator', 'what is X percent']
+  }
+};
+```
+
+### BMI Calculator API
+
+#### Component Interface
+```typescript
+interface BMICalculatorProps {
+  locale: string;
+  units?: 'metric' | 'imperial';
+  onCalculate?: (result: BMIResult) => void;
 }
 
-interface CalculatorInput {
-  id: string;
+interface BMIResult {
+  bmi: number;
+  category: 'underweight' | 'normal' | 'overweight' | 'obese';
+  categoryLabel: string;
+  recommendations: string[];
+}
+```
+
+#### Calculation Method
+```typescript
+function calculateBMI(weight: number, height: number, units: 'metric' | 'imperial' = 'metric'): BMIResult {
+  let bmi: number;
+  
+  if (units === 'metric') {
+    // height in cm, weight in kg
+    const heightInMeters = height / 100;
+    bmi = weight / (heightInMeters * heightInMeters);
+  } else {
+    // height in inches, weight in pounds
+    bmi = (weight / (height * height)) * 703;
+  }
+  
+  const category = getBMICategory(bmi);
+  
+  return {
+    bmi: Math.round(bmi * 10) / 10,
+    category,
+    categoryLabel: getBMICategoryLabel(category),
+    recommendations: getBMIRecommendations(category)
+  };
+}
+```
+
+### Unit Converter API
+
+#### Supported Units
+```typescript
+interface UnitConversions {
+  length: {
+    mm: number;
+    cm: number;
+    m: number;
+    km: number;
+  };
+  weight: {
+    g: number;
+    kg: number;
+    t: number;
+  };
+  volume: {
+    ml: number;
+    l: number;
+  };
+  temperature: {
+    celsius: number;
+    fahrenheit: number;
+    kelvin: number;
+  };
+}
+```
+
+#### Conversion Methods
+```typescript
+// Length conversions (base unit: meters)
+const lengthConversions = {
+  mm: 0.001,
+  cm: 0.01,
+  m: 1,
+  km: 1000
+};
+
+function convertLength(value: number, fromUnit: string, toUnit: string): number {
+  const baseValue = value * lengthConversions[fromUnit];
+  return baseValue / lengthConversions[toUnit];
+}
+
+// Temperature conversions
+function convertTemperature(value: number, fromUnit: string, toUnit: string): number {
+  // Convert to Celsius first
+  let celsius: number;
+  
+  switch (fromUnit) {
+    case 'fahrenheit':
+      celsius = (value - 32) * 5/9;
+      break;
+    case 'kelvin':
+      celsius = value - 273.15;
+      break;
+    default:
+      celsius = value;
+  }
+  
+  // Convert from Celsius to target unit
+  switch (toUnit) {
+    case 'fahrenheit':
+      return celsius * 9/5 + 32;
+    case 'kelvin':
+      return celsius + 273.15;
+    default:
+      return celsius;
+  }
+}
+```
+
+### VAT Calculator API
+
+#### Regional Settings
+```typescript
+interface VATSettings {
+  country: 'CZ' | 'SK';
+  rate: number;
+  currency: string;
+}
+
+const vatSettings: Record<string, VATSettings> = {
+  CZ: { country: 'CZ', rate: 21, currency: 'CZK' },
+  SK: { country: 'SK', rate: 20, currency: 'EUR' }
+};
+```
+
+#### Calculation Methods
+```typescript
+function calculateVATFromBase(baseAmount: number, vatRate: number): VATCalculation {
+  const vatAmount = baseAmount * (vatRate / 100);
+  const totalAmount = baseAmount + vatAmount;
+  
+  return {
+    baseAmount,
+    vatAmount,
+    totalAmount,
+    vatRate,
+    steps: [
+      { label: 'Base Amount', value: formatCurrency(baseAmount) },
+      { label: 'VAT Rate', value: `${vatRate}%` },
+      { label: 'VAT Amount', value: formatCurrency(vatAmount) },
+      { label: 'Total Amount', value: formatCurrency(totalAmount) }
+    ]
+  };
+}
+
+function calculateVATFromTotal(totalAmount: number, vatRate: number): VATCalculation {
+  const baseAmount = totalAmount / (1 + vatRate / 100);
+  const vatAmount = totalAmount - baseAmount;
+  
+  return {
+    baseAmount,
+    vatAmount,
+    totalAmount,
+    vatRate,
+    steps: [
+      { label: 'Total Amount', value: formatCurrency(totalAmount) },
+      { label: 'VAT Rate', value: `${vatRate}%` },
+      { label: 'Base Amount', value: formatCurrency(baseAmount) },
+      { label: 'VAT Amount', value: formatCurrency(vatAmount) }
+    ]
+  };
+}
+```
+
+### Net Salary Calculator API
+
+#### Country-Specific Tax Systems
+```typescript
+interface TaxSystem {
+  country: 'CZ' | 'SK';
+  socialInsurance: number;
+  healthInsurance: number;
+  taxBrackets: TaxBracket[];
+  currency: string;
+}
+
+interface TaxBracket {
+  min: number;
+  max: number | null;
+  rate: number;
+}
+
+const taxSystems: Record<string, TaxSystem> = {
+  CZ: {
+    country: 'CZ',
+    socialInsurance: 6.5,
+    healthInsurance: 4.5,
+    taxBrackets: [
+      { min: 0, max: 48840, rate: 15 },
+      { min: 48840, max: null, rate: 23 }
+    ],
+    currency: 'CZK'
+  },
+  SK: {
+    country: 'SK',
+    socialInsurance: 9.4,
+    healthInsurance: 4.0,
+    taxBrackets: [
+      { min: 0, max: 37163, rate: 19 },
+      { min: 37163, max: null, rate: 25 }
+    ],
+    currency: 'EUR'
+  }
+};
+```
+
+## Common Interfaces
+
+### Calculation Result
+```typescript
+interface CalculationResult {
+  result: number | string;
+  steps: CalculationStep[];
+  formula?: string;
+  explanation?: string;
+  metadata?: {
+    calculationType: string;
+    timestamp: Date;
+    locale: string;
+  };
+}
+
+interface CalculationStep {
   label: string;
-  type: 'number' | 'select' | 'radio' | 'checkbox';
+  value: string | number;
+  description?: string;
+}
+```
+
+### Error Handling
+```typescript
+interface CalculationError {
+  code: string;
+  message: string;
+  field?: string;
+  suggestions?: string[];
+}
+
+// Common error types
+const ErrorCodes = {
+  INVALID_INPUT: 'INVALID_INPUT',
+  DIVISION_BY_ZERO: 'DIVISION_BY_ZERO',
+  OUT_OF_RANGE: 'OUT_OF_RANGE',
+  UNSUPPORTED_OPERATION: 'UNSUPPORTED_OPERATION'
+} as const;
+```
+
+### Internationalization
+```typescript
+interface CalculatorMessages {
+  title: string;
+  description: string;
+  labels: Record<string, string>;
+  errors: Record<string, string>;
+  placeholders: Record<string, string>;
+  results: Record<string, string>;
+}
+
+// Usage with next-intl
+import { useTranslations } from 'next-intl';
+
+function CalculatorComponent() {
+  const t = useTranslations('calculators.percentage');
+  
+  return (
+    <div>
+      <h1>{t('title')}</h1>
+      <p>{t('description')}</p>
+    </div>
+  );
+}
+```
+
+## Validation Rules
+
+### Input Validation
+```typescript
+interface ValidationRule {
   required?: boolean;
   min?: number;
   max?: number;
-  step?: number;
-  options?: { value: string; label: string }[];
-  placeholder?: string;
-  helpText?: string;
-  unit?: string;
-  defaultValue?: any;
+  type: 'number' | 'string' | 'email';
+  pattern?: RegExp;
+  custom?: (value: any) => boolean | string;
 }
 
-interface CalculatorResult {
-  // Main result value
-  value: any;
-  
-  // Additional result details
-  details?: {
-    label: string;
-    value: any;
-    unit?: string;
-  }[];
-  
-  // Optional: Formatted result as LaTeX for display
-  formula?: string;
-  
-  // Optional: Explanation of the calculation
-  explanation?: string;
-}
-```
-
-## Example Implementation: Percentage Calculator
-
-```typescript
-import { CalculatorBase } from '@/components/calculators/CalculatorBase';
-
-const PercentageCalculator = () => {
-  const inputs: CalculatorInput[] = [
-    {
-      id: 'value',
-      label: 'Hodnota',
-      type: 'number',
-      required: true,
-      step: 'any',
-      placeholder: 'Zadejte hodnotu',
-    },
-    {
-      id: 'percentage',
-      label: 'Procento',
-      type: 'number',
-      required: true,
-      step: 'any',
-      placeholder: 'Zadejte procento',
-      unit: '%',
-    },
-  ];
-
-  const calculate = (inputs: Record<string, any>) => {
-    const value = parseFloat(inputs.value);
-    const percentage = parseFloat(inputs.percentage);
-    const result = (value * percentage) / 100;
-    
-    return {
-      value: result,
-      details: [
-        { label: 'Výpočet', value: `${value} × ${percentage}%` },
-        { label: 'Výsledek', value: result },
-      ],
-      formula: `\\text{Výsledek} = ${value} \\times \\frac{${percentage}}{100} = ${result}`,
-      explanation: 'Pro výpočet procent z čísla vynásobte číslo zlomkem procenta ku stu.'
-    };
-  };
-
-  return (
-    <CalculatorBase
-      id="percentage-calculator"
-      title="Výpočet procent z čísla"
-      description="Spočítejte X procent z daného čísla"
-      category="matematika"
-      seo={{
-        title: 'Výpočet procent z čísla | MathCalc Pro',
-        description: 'Spočítejte si kolik je X procent z daného čísla. Rychlý a přesný výpočet procent online.',
-        keywords: ['výpočet procent', 'procenta kalkulačka', 'kolik je X procent']
-      }}
-      inputs={inputs}
-      calculate={calculate}
-    />
-  );
+const validationRules: Record<string, ValidationRule> = {
+  percentage: {
+    required: true,
+    type: 'number',
+    min: 0,
+    max: 100000
+  },
+  weight: {
+    required: true,
+    type: 'number',
+    min: 0.1,
+    max: 1000
+  },
+  height: {
+    required: true,
+    type: 'number',
+    min: 1,
+    max: 300
+  }
 };
-
-export default PercentageCalculator;
 ```
 
-## Error Handling
+## Performance Optimization
 
-All calculator components should handle errors gracefully:
+### Memoization
+```typescript
+import { useMemo } from 'react';
 
-1. **Input Validation**: Validate all inputs before calculation
-2. **Error Messages**: Provide clear, user-friendly error messages
-3. **Error Boundaries**: Wrap calculator components in error boundaries
-4. **Logging**: Log errors to your error tracking service
+function OptimizedCalculator({ inputs }) {
+  const result = useMemo(() => {
+    return performExpensiveCalculation(inputs);
+  }, [inputs]);
+  
+  return <div>{result}</div>;
+}
+```
 
-## Performance Considerations
+### Debounced Calculations
+```typescript
+import { useDebounce } from '@/hooks/useDebounce';
 
-1. **Memoization**: Use `React.memo` for calculator components
-2. **Debouncing**: Implement debouncing for input changes
-3. **Lazy Loading**: Lazy load calculator components
-4. **Web Workers**: Consider using Web Workers for complex calculations
+function RealTimeCalculator() {
+  const [input, setInput] = useState('');
+  const debouncedInput = useDebounce(input, 300);
+  
+  useEffect(() => {
+    if (debouncedInput) {
+      performCalculation(debouncedInput);
+    }
+  }, [debouncedInput]);
+}
+```
 
-## Testing Guidelines
+## Testing
 
-Each calculator should include:
+### Unit Tests
+```typescript
+import { calculatePercentageOf } from '@/lib/calculators/percentage';
 
-1. Unit tests for calculation logic
-2. Component tests for rendering
-3. Integration tests for user flows
-4. Edge case testing
+describe('Percentage Calculator', () => {
+  test('calculates 20% of 100 correctly', () => {
+    const result = calculatePercentageOf(100, 20);
+    expect(result.result).toBe(20);
+  });
+  
+  test('handles edge cases', () => {
+    expect(() => calculatePercentageOf(0, 50)).not.toThrow();
+    expect(calculatePercentageOf(0, 50).result).toBe(0);
+  });
+});
+```
 
-## Localization
+### Integration Tests
+```typescript
+import { render, screen, fireEvent } from '@testing-library/react';
+import { PercentageCalculator } from '@/components/calculators/PercentageCalculator';
 
-All user-facing strings should be localized using the application's i18n system. Use translation keys for all text content.
+test('calculator updates result on input change', async () => {
+  render(<PercentageCalculator locale="en" />);
+  
+  const valueInput = screen.getByLabelText(/value/i);
+  const percentageInput = screen.getByLabelText(/percentage/i);
+  
+  fireEvent.change(valueInput, { target: { value: '100' } });
+  fireEvent.change(percentageInput, { target: { value: '20' } });
+  
+  expect(screen.getByText('20')).toBeInTheDocument();
+});
+```
 
-## Accessibility
+## AI Development Guidelines
 
-1. Use proper ARIA labels
-2. Ensure keyboard navigation works
-3. Provide sufficient color contrast
-4. Include proper form labels and error messages
+### Code Generation Rules
+1. **Always use TypeScript** for type safety
+2. **Implement proper error handling** for all calculations
+3. **Add JSDoc comments** for public methods
+4. **Use consistent naming conventions** across all calculators
+5. **Include validation** for all user inputs
+6. **Provide clear error messages** in the user's language
+7. **Optimize for performance** with memoization and debouncing
+8. **Write comprehensive tests** for all calculation logic
+
+### Documentation Requirements
+- All public APIs must have TypeScript interfaces
+- Include usage examples for each component
+- Document error handling and edge cases
+- Provide internationalization examples
+- Include performance optimization notes
+
+---
+
+**API Status:** ✅ All MVP calculators have defined APIs, TypeScript interfaces, and validation rules
+
+**Next Steps:** Implement remaining calculator APIs, add comprehensive error handling, optimize performance

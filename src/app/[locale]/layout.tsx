@@ -10,7 +10,7 @@ export type Locale = (typeof supportedLocales)[number];
 
 type Props = {
   children: ReactNode;
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
 const MEASUREMENT_ID = 'YOUR_MEASUREMENT_ID'; // TODO: Replace with your actual Measurement ID
@@ -22,8 +22,11 @@ export function generateStaticParams() {
 
 export default async function LocaleLayout({
   children,
-  params: { locale }
+  params
 }: Props) {
+  // Access locale from params asynchronously
+  const { locale } = await params;
+  
   // TypeScript will ensure locale is one of the supported locales
   if (!supportedLocales.includes(locale)) {
     notFound();

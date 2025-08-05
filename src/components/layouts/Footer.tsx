@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 
 const Footer: React.FC = () => {
-  const { t } = useTranslation('common');
+  const t = useTranslations();
   const router = useRouter();
   const currentYear = new Date().getFullYear();
 

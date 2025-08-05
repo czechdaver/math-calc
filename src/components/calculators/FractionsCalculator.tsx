@@ -1,6 +1,6 @@
 // src/components/calculators/ZlomkyCalculator.refactored.tsx
 import React, { useState } from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import { CalculatorInput, CalculatorResult } from './CalculatorBase';
 import dynamic from 'next/dynamic';
 
@@ -37,7 +37,7 @@ const FractionConversion = dynamic(
 );
 
 const ZlomkyCalculator: React.FC = () => {
-  const { t } = useTranslation('common');
+  const t = useTranslations();
   const [operace, setOperace] = useState('');
 
   const handleOperaceChange = (value: string) => {
@@ -118,7 +118,6 @@ const ZlomkyCalculator: React.FC = () => {
         }}
         inputs={[operationInput]}
         calculate={handleFormValuesChange}
-        showResult={false}
       />
       <div className="mt-6">
         {renderOperationForm()}

@@ -57,19 +57,56 @@
   "bmi_category_normal": "Normální váha",
   "bmi_category_overweight": "Nadváha",
   "bmi_category_obese": "Obezita",
-  "procento_z_cisla_formula": "rac{Procenta}{100} 	imes Číslo = Výsledek",
-  "kolik_procent_je_x_z_y_formula": "rac{X}{Y} 	imes 100 = Výsledek (%)",
-  "y_je_x_kolik_je_sto_formula": "rac{Y}{X} 	imes 100 = Základ (100%)",
-  "prima_umera_formula": "rac{a}{b} = rac{c}{x} implies x = rac{c 	imes b}{a}",
-  "neprima_umera_formula": "a 	imes b = c 	imes x implies x = rac{a 	imes b}{c}",
+  "procento_z_cisla_formula": "\\frac{Procenta}{100} \\times Číslo = Výsledek",
+  "kolik_procent_je_x_z_y_formula": "\\frac{X}{Y} \\times 100 = Výsledek (%)",
+  "y_je_x_kolik_je_sto_formula": "\\frac{Y}{X} \\times 100 = Základ (100%)",
+  "prima_umera_formula": "\\frac{a}{b} = \\frac{c}{x} \\implies x = \\frac{c \\times b}{a}",
+  "neprima_umera_formula": "a \\times b = c \\times x \\implies x = \\frac{a \\times b}{c}",
   "unknown_input_temperature_unit_error": "Neznámá vstupní jednotka teploty",
   "unknown_output_temperature_unit_error": "Neznámá výstupní jednotka teploty",
-  "bmi_formula": "BMI = rac{váha (kg)}{výška (m)^2}",
-  "vat_formula_base_to_total": "Celkem = Základ 	imes (1 + Sazba_DPH)",
-  "vat_formula_total_to_base": "Základ = rac{Celkem}{1 + Sazba_DPH}",
+  "bmi_formula": "BMI = \\frac{váha (kg)}{výška (m)^2}",
+  "vat_formula_base_to_total": "Celkem = Základ \\times (1 + Sazba_DPH)",
+  "vat_formula_total_to_base": "Základ = \\frac{Celkem}{1 + Sazba_DPH}",
   "numerator_label": "Čitatel",
   "denominator_label": "Jmenovatel",
   "error_division_by_zero": "Chyba: Dělení nulou není povoleno.",
   "decimal_representation_label": "Desetinné číslo",
-  "mixed_number_representation_label": "Smíšené číslo"
+  "mixed_number_representation_label": "Smíšené číslo",
+  "homepage": {
+    "title": "Matematické kalkulátory pro každodenní použití",
+    "subtitle": "Bezplatné online kalkulátory pro procenta, převody jednotek, BMI, výpočty DPH a další. Rychlé, přesné a jednoduché na použití.",
+    "cta_button": "Začít počítat",
+    "search_placeholder": "Najít kalkulátor...",
+    "popular_calculators": "Nejoblíbenější kalkulátory",
+    "calculator_categories": "Kategorie kalkulátorů",
+    "trusted_by": "Důvěřují nám tisíce uživatelů po celém světě",
+    "user_count": "50 000+ výpočtů denně",
+    "faq_title": "Často kladené otázky",
+    "faq_privacy_q": "Jsou moje data v bezpečí?",
+    "faq_privacy_a": "Ano, všechny výpočty se provádějí lokálně ve vašem prohlížeči. Neukládáme žádná vaše osobní data.",
+    "faq_free_q": "Jsou kalkulátory zdarma?",
+    "faq_free_a": "Ano, všechny naše kalkulátory jsou zcela zdarma bez nutnosti registrace.",
+    "faq_accuracy_q": "Jak přesné jsou výpočty?",
+    "faq_accuracy_a": "Naše kalkulátory používají přesné matematické vzorce a jsou pravidelně testovány na přesnost.",
+    "faq_mobile_q": "Fungují kalkulátory na mobilních zařízeních?",
+    "faq_mobile_a": "Ano, všechny kalkulátory jsou plně responzivní a fungují perfektně na smartphonech a tabletech."
+  },
+  "categories": {
+    "percentages": "Procenta",
+    "percentages_description": "Výpočty procent, poměrů a úměr",
+    "unit_converter": "Převodník jednotek",
+    "unit_converter_description": "Převody mezi různými jednotkami měření",
+    "bmi": "BMI kalkulátor",
+    "bmi_description": "Výpočet indexu tělesné hmotnosti",
+    "vat": "DPH kalkulátor",
+    "vat_description": "Výpočet daně z přidané hodnoty",
+    "net_salary": "Čistá mzda",
+    "net_salary_description": "Výpočet čisté mzdy po zdanění",
+    "fractions": "Zlomky",
+    "fractions_description": "Počítání se zlomky a smíšenými čísly",
+    "mathematics": "Matematika",
+    "finance": "Finance",
+    "health": "Zdraví a fitness",
+    "conversions": "Převody jednotek"
+  }
 }

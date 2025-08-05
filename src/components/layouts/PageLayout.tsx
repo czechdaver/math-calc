@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import MainNavigation from '@/components/navigation/MainNavigation';
 import Footer from '@/components/layouts/Footer';
 import { cn } from '@/lib/utils';
@@ -27,14 +27,15 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   showFooter = true,
   showNavigation = true,
 }) => {
-  const { t } = useTranslation('common');
-  const router = useRouter();
+  const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
   const pageTitle = title ? `${title} | ${t('app_name')}` : t('app_name');
   const pageDescription = description || t('default_meta_description');
   const pageKeywords = [...(keywords || []), 'calculator', 'math', 'mathematics', 'tools'];
 
   // Add language-specific keywords if available
-  if (router.locale) {
+  if (locale) {
     const languageKeywords = {
       cs: ['kalkulačka', 'matematika', 'výpočty'],
       sk: ['kalkulačka', 'matematika', 'výpočty'],
@@ -42,7 +43,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
       hu: ['kalkulátor', 'matematika', 'számítások'],
     };
     
-    const additionalKeywords = languageKeywords[router.locale as keyof typeof languageKeywords] || [];
+    const additionalKeywords = languageKeywords[locale as keyof typeof languageKeywords] || [];
     pageKeywords.push(...additionalKeywords);
   }
 
@@ -60,7 +61,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
         <meta property="og:site_name" content={t('app_name')} />
-        <meta property="og:locale" content={router.locale || 'en'} />
+        <meta property="og:locale" content={locale || 'en'} />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -70,7 +71,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
         {/* Canonical URL */}
         <link
           rel="canonical"
-          href={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
+          href={`${process.env.NEXT_PUBLIC_SITE_URL}/${locale}`}
         />
         
         {/* Favicon */}

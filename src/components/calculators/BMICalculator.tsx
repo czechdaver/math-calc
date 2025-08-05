@@ -1,11 +1,11 @@
 // src/components/calculators/BMICalculator.refactored.tsx
 import React from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import CalculatorBase, { CalculatorInput, CalculatorResult } from './CalculatorBase';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import { Info } from 'lucide-react';
 import {
   Tooltip,
@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/tooltip';
 
 const BMICalculator: React.FC = () => {
-  const { t } = useTranslation('common');
+  const t = useTranslations();
 
   const inputs: CalculatorInput[] = [
     {
@@ -76,7 +76,7 @@ const BMICalculator: React.FC = () => {
       value: bmi,
       details: [
         { label: t('bmi'), value: bmi.toFixed(1), unit: 'kg/m²' },
-        { label: t('bmi_category'), value: category, className: categoryClass },
+        { label: t('bmi_category'), value: category, highlight: true },
       ],
       formula: `${inputs.weight} / ((${inputs.height}/100)²) = ${bmi.toFixed(1)}`,
       explanation: t('bmi_explanation', { bmi: bmi.toFixed(1), category }),
@@ -97,7 +97,7 @@ const BMICalculator: React.FC = () => {
                   <div className="text-sm font-medium text-muted-foreground">
                     {detail.label}
                   </div>
-                  <div className={`text-lg font-semibold ${detail.className || ''}`}>
+                  <div className={`text-lg font-semibold ${detail.highlight ? 'text-primary' : ''}`}>
                     {detail.value} {detail.unit || ''}
                   </div>
                 </div>

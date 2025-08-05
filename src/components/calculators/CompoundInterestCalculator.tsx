@@ -1,16 +1,16 @@
 // src/components/calculators/CompoundInterestCalculator.refactored.tsx
 import React from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import CalculatorBase from './CalculatorBase';
 import type { CalculatorInput, CalculatorResult } from './CalculatorBase';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Info } from 'lucide-react';
 
 // Define the type for frequency options
 type Frequency = 'rocne' | 'mesicne' | 'ctvrtletne' | 'pololetne' | 'denne';
 
 const CompoundInterestCalculator: React.FC = () => {
-  const { t } = useTranslation('calculator');
+  const t = useTranslations('calculator');
 
   const inputs: CalculatorInput[] = [
     {

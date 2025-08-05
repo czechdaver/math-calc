@@ -1,6 +1,6 @@
 // src/components/calculators/YJeXKolikJeStoCalculator.refactored.tsx
 import React from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import { CalculatorInput, CalculatorResult } from './CalculatorBase';
 import dynamic from 'next/dynamic';
 
@@ -16,7 +16,7 @@ interface YJeXKolikJeStoValues {
 }
 
 const YJeXKolikJeStoCalculator: React.FC = () => {
-  const { t } = useTranslation('common');
+  const t = useTranslations();
 
   // Define the calculator inputs
   const inputs: CalculatorInput[] = [

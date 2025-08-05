@@ -59,7 +59,7 @@ export function getPreferredLocale(
 
   const languages = Array.isArray(acceptLanguage)
     ? acceptLanguage
-    : acceptLanguage.split(',').map((lang) => {
+    : (acceptLanguage as string).split(',').map((lang) => {
         const [locale] = lang.trim().split(';');
         return locale.split('-')[0];
       });

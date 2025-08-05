@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { Menu, X, Calculator, Home } from 'lucide-react';
 
 const MainNavigation: React.FC = () => {
-  const t = useTranslations('common');
+  const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);

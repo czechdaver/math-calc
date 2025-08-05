@@ -83,6 +83,62 @@ export default async function LocaleLayout({
 }
 ```
 
+### 4. CSS/Tailwind Compilation Issues
+
+**Problem:** CSS styles not loading, pages display as plain HTML without styling.
+
+**Common Causes:**
+1. **Missing dependencies** - Required packages not installed
+2. **Version incompatibility** - Using bleeding-edge versions with compatibility issues
+3. **Missing PostCSS configuration** - Tailwind requires PostCSS to compile
+
+**Solution Steps:**
+
+1. **Use Stable Versions Only:**
+```bash
+# CRITICAL: Always use stable versions, not latest/beta
+npm install tailwindcss@^3.4.0  # NOT v4.x (unstable)
+npm install postcss@^8.4.0
+npm install autoprefixer@^10.4.0
+```
+
+2. **Install Missing Dependencies:**
+```bash
+# Check for missing animation library
+npm install tailwindcss-animate
+
+# Verify all shadcn/ui dependencies
+npm install @radix-ui/react-slot class-variance-authority clsx tailwind-merge
+```
+
+3. **Ensure PostCSS Configuration:**
+```javascript
+// postcss.config.js
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+```
+
+4. **Clear Cache and Restart:**
+```bash
+rm -rf .next
+npm run dev
+```
+
+**Validation:**
+- Create test page with Tailwind classes
+- Verify colored backgrounds and styled components render
+- Check browser dev tools for CSS file loading
+
+**Key Insights:**
+- **NEVER use bleeding-edge versions** in production projects
+- Always install all required dependencies before testing
+- PostCSS configuration is mandatory for Tailwind compilation
+- Clear cache after major dependency changes
+
 ## 🎯 General Guidelines for Robust Development
 
 ### 1. Simplicity Over Complexity

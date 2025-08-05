@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { notFound } from 'next/navigation';
 import CalculatorLayout from '@/components/layouts/CalculatorLayout';
@@ -6,7 +7,7 @@ import dynamic from 'next/dynamic'; // Import dynamic for dynamic component load
 import { type CalculatorData } from '@/types/calculator';
 
 interface CalculatorPageProps {
-  params: { locale: string; category: string; name: string };
+  params: Promise<{ locale: string; category: string; name: string }>;
 }
 
 // Map calculator names to component paths
@@ -36,9 +37,8 @@ type CalculatorComponentProps = {
 // Define a loading component to show while the calculator component is loading
 const Loading = () => <p>Loading calculator...</p>;
 
-
-const CalculatorPage = async ({ params }: CalculatorPageProps) => {
-  const { locale, category, name } = params;
+export default async function CalculatorPage({ params }: CalculatorPageProps) {
+  const { locale, category, name } = await params;
 
   const calculatorData = await getCalculatorData(locale, name);
 
@@ -58,7 +58,6 @@ const CalculatorPage = async ({ params }: CalculatorPageProps) => {
   const SpecificCalculator = dynamic<CalculatorComponentProps>(
     () => import(componentPath),
     {
-      ssr: false, // Ensure client-side rendering
       loading: Loading, // Show the Loading component while importing
     }
   );
@@ -77,6 +76,4 @@ const CalculatorPage = async ({ params }: CalculatorPageProps) => {
       <SpecificCalculator calculatorData={calculatorData} locale={locale} />
     </CalculatorLayout>
   );
-};
-
-export default CalculatorPage;
+}

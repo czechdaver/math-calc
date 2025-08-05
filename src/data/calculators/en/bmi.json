@@ -1,10 +1,8 @@
-// src/data/calculators/en/bmi.json
-
 {
   "id": "bmi",
   "name": "BMI Calculator",
   "category": "Fitness & Health",
-  "formula": "BMI = rac{weight (kg)}{height^2 (m^2)}",
+  "formula": "BMI = \\frac{weight (kg)}{height^2 (m^2)}",
   "explanation": "Body Mass Index (BMI) is a measure that uses your height and weight to work out if your weight is healthy.",
   "examples": [
     "Example 1: A person weighing 70kg and 1.75m tall has a BMI of 22.86.",

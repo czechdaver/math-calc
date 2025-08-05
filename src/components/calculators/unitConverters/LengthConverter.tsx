@@ -1,11 +1,11 @@
 // src/components/calculators/unitConverters/LengthConverter.tsx
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 
 const lengthUnits = ['mm', 'cm', 'm', 'km'];
 
 const LengthConverter: React.FC = () => {
-  const { t } = useTranslation('common');
+  const t = useTranslations();
   const [inputValue, setInputValue] = useState('');
   const [inputUnit, setInputUnit] = useState('m');
   const [outputUnit, setOutputUnit] = useState('km');

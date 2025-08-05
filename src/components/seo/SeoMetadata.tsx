@@ -1,6 +1,6 @@
 // src/components/seo/SeoMetadata.tsx
 import Head from 'next/head';
-import { useTranslation } from 'next-i18next';
+import { useTranslations, useLocale } from 'next-intl';
 
 interface SeoMetadataProps {
   title: string;
@@ -10,8 +10,8 @@ interface SeoMetadataProps {
 }
 
 const SeoMetadata: React.FC<SeoMetadataProps> = ({ title, description /*, schemaData*/ }) => {
-   const { i18n } = useTranslation();
-  const currentLocale = i18n.language;
+  const t = useTranslations();
+  const currentLocale = useLocale();
 
   // TODO: Dynamicky generovat Schema.org JSON-LD
   const schemaMarkup = {}; // Placeholder

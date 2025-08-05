@@ -1,15 +1,15 @@
 // src/components/calculators/CistaMzdaCalculator.refactored.tsx
 import React from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import CalculatorBase from './CalculatorBase';
 import type { CalculatorInput, CalculatorResult } from './CalculatorBase';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Info } from 'lucide-react';
 
 type Country = 'cr' | 'sk';
 
 const CistaMzdaCalculator: React.FC = () => {
-  const { t } = useTranslation('netSalaryCalculator');
+  const t = useTranslations('netSalaryCalculator');
 
   const inputs: CalculatorInput[] = [
     {

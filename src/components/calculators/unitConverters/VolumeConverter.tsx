@@ -1,11 +1,11 @@
 // src/components/calculators/unitConverters/VolumeConverter.tsx
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 
 const volumeUnits = ['ml', 'l'];
 
 const VolumeConverter: React.FC = () => {
-  const { t } = useTranslation('common');
+  const t = useTranslations();
   const [inputValue, setInputValue] = useState('');
   const [inputUnit, setInputUnit] = useState('l');
   const [outputUnit, setOutputUnit] = useState('ml');

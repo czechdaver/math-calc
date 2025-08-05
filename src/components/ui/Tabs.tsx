@@ -5,7 +5,7 @@ import {
   TabsList as ShadcnTabsList,
   TabsTrigger as ShadcnTabsTrigger,
   TabsContent as ShadcnTabsContent,
-} from '@/components/ui/tabs';
+} from '@/components/ui/tabs-base';
 
 type TabVariant = 'default' | 'pills' | 'underline' | 'segmented';
 type TabSize = 'sm' | 'md' | 'lg';
@@ -200,9 +200,10 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabItem } = ({
   // Generate IDs for tabs if not provided
   const tabs = React.Children.map(children, (child, index) => {
     if (!React.isValidElement(child)) return null;
+    const childProps = child.props as any;
     return {
-      ...child.props,
-      _id: child.props._id || `tab-${index}`,
+      ...childProps,
+      _id: childProps._id || `tab-${index}`,
     };
   }).filter(Boolean) as Array<TabItemProps & { _id: string }>;
 

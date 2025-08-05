@@ -1,10 +1,10 @@
 // src/components/calculators/NeprimaUmeraCalculator.refactored.tsx
 import React from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import CalculatorBase, { CalculatorInput, CalculatorResult } from './CalculatorBase';
 
 const NeprimaUmeraCalculator: React.FC = () => {
-  const { t } = useTranslation('common');
+  const t = useTranslations();
 
   // Define calculator inputs
   const inputs: CalculatorInput[] = [

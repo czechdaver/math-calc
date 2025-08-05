@@ -1,16 +1,7 @@
 import * as React from 'react';
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, MoreHorizontal } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import {
-  Pagination as ShadcnPagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink as ShadcnPaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination';
+import { Button } from '@/components/ui/Button';
 
 type PaginationVariant = 'default' | 'outline' | 'ghost';
 type PaginationSize = 'sm' | 'md' | 'lg';
@@ -263,10 +254,10 @@ const Pagination: React.FC<PaginationProps> = ({
         )}
       </div>
 
-      <ShadcnPagination>
-        <PaginationContent>
+      <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1">
           {showFirstLastButtons && (
-            <PaginationItem className={itemClassName}>
+            <div className={itemClassName}>
               <Button
                 variant="ghost"
                 size="icon"
@@ -277,11 +268,11 @@ const Pagination: React.FC<PaginationProps> = ({
                 <ChevronsLeft className="h-4 w-4" />
                 <span className="sr-only">First page</span>
               </Button>
-            </PaginationItem>
+            </div>
           )}
           
           {showPrevNextButtons && (
-            <PaginationItem className={itemClassName}>
+            <div className={itemClassName}>
               <Button
                 variant="ghost"
                 size="icon"
@@ -292,22 +283,22 @@ const Pagination: React.FC<PaginationProps> = ({
                 <ChevronLeft className="h-4 w-4" />
                 <span className="sr-only">Previous page</span>
               </Button>
-            </PaginationItem>
+            </div>
           )}
           
           {pageNumbers.map((page, index) => {
             if (page === '...') {
               return showEllipsis ? (
-                <PaginationItem key={`ellipsis-${index}`} className={itemClassName}>
-                  <PaginationEllipsis className="h-10 w-10 p-0" />
-                </PaginationItem>
+                <div key={`ellipsis-${index}`} className={itemClassName}>
+                  <span className="h-10 w-10 p-0 flex items-center justify-center">...</span>
+                </div>
               ) : null;
             }
             
             const isActive = page === currentPage;
             
             return (
-              <PaginationItem key={page} className={itemClassName}>
+              <div key={page} className={itemClassName}>
                 <Button
                   variant={isActive ? 'outline' : 'ghost'}
                   size="icon"
@@ -322,12 +313,12 @@ const Pagination: React.FC<PaginationProps> = ({
                 >
                   {page}
                 </Button>
-              </PaginationItem>
+              </div>
             );
           })}
           
           {showPrevNextButtons && (
-            <PaginationItem className={itemClassName}>
+            <div className={itemClassName}>
               <Button
                 variant="ghost"
                 size="icon"
@@ -338,11 +329,11 @@ const Pagination: React.FC<PaginationProps> = ({
                 <ChevronRight className="h-4 w-4" />
                 <span className="sr-only">Next page</span>
               </Button>
-            </PaginationItem>
+            </div>
           )}
           
           {showFirstLastButtons && (
-            <PaginationItem className={itemClassName}>
+            <div className={itemClassName}>
               <Button
                 variant="ghost"
                 size="icon"
@@ -353,10 +344,10 @@ const Pagination: React.FC<PaginationProps> = ({
                 <ChevronsRight className="h-4 w-4" />
                 <span className="sr-only">Last page</span>
               </Button>
-            </PaginationItem>
+            </div>
           )}
-        </PaginationContent>
-      </ShadcnPagination>
+        </div>
+      </div>
     </div>
   );
 };

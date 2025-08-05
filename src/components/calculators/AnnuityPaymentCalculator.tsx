@@ -1,14 +1,14 @@
 // src/components/calculators/AnuitniSplatkaCalculator.refactored.tsx
 import React from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import CalculatorBase, { CalculatorInput, CalculatorResult } from './CalculatorBase';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Info } from 'lucide-react';
 
 const AnuitniSplatkaCalculator: React.FC = () => {
-  const { t } = useTranslation('common');
+  const t = useTranslations('calculator');
   
   // Define inputs for the calculator
   const inputs: CalculatorInput[] = [
@@ -57,15 +57,15 @@ const AnuitniSplatkaCalculator: React.FC = () => {
   const calculate = (values: Record<string, any>): CalculatorResult => {
     const J = parseFloat(values.loanAmount || '0'); // Principal amount
     const r = parseFloat(values.interestRate || '0') / 100; // Annual interest rate as decimal
-    const t = parseFloat(values.loanTerm || '0'); // Loan term in years
+    const loanTerm = parseFloat(values.loanTerm || '0'); // Loan term in years
 
-    if (isNaN(J) || isNaN(r) || isNaN(t) || J <= 0 || r < 0 || t <= 0) {
+    if (isNaN(J) || isNaN(r) || isNaN(loanTerm) || J <= 0 || r < 0 || loanTerm <= 0) {
       return { value: null };
     }
 
     // Convert annual rate to monthly and years to months
     const monthlyRate = r / 12;
-    const numPayments = t * 12;
+    const numPayments = loanTerm * 12;
 
     let monthlyPayment: number;
     if (monthlyRate === 0) {

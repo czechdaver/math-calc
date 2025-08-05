@@ -1,11 +1,12 @@
 // src/components/calculators/UnitConverter.refactored.tsx
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import CalculatorBase from './CalculatorBase';
 import type { CalculatorInput, CalculatorResult } from './CalculatorBase';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import Tabs from '@/components/ui/Tabs';
 import { cn } from '@/lib/utils';
@@ -62,7 +63,7 @@ const unitConversions = {
 };
 
 const UnitConverter: React.FC = () => {
-  const { t } = useTranslation('unitConverter');
+  const t = useTranslations('unitConverter');
   const [unitType, setUnitType] = useState<UnitType>('length');
   const [inputValue, setInputValue] = useState('');
   const [fromUnit, setFromUnit] = useState('m');
@@ -290,7 +291,7 @@ const UnitConverter: React.FC = () => {
 };
 
 const UnitConverterWithBase: React.FC = () => {
-  const { t } = useTranslation('unitConverter');
+  const t = useTranslations('unitConverter');
   
   // Since CalculatorBase doesn't support children, we'll use the render prop pattern
   // by returning the UnitConverter component directly

@@ -3,9 +3,10 @@ import { notFound } from 'next/navigation';
 import { ReactNode } from 'react';
 import Script from 'next/script';
 import CookieBanner from '@/components/CookieBanner';
+import '@/styles/globals.css';
 
 // Define supported locales as a constant to avoid repetition
-export const supportedLocales = ['cs', 'en', 'sk', 'pl', 'hu'] as const;
+const supportedLocales = ['cs', 'en', 'sk', 'pl', 'hu'] as const;
 export type Locale = (typeof supportedLocales)[number];
 
 type Props = {

@@ -3,10 +3,10 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import LatexRenderer from '@/components/utils/LatexRenderer';
 import SeoMetadata from '@/components/seo/SeoMetadata';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 
 // Dynamically import the calculator component with SSR disabled
 const KolikProcentJeXZYCalculator = dynamic(
@@ -15,7 +15,7 @@ const KolikProcentJeXZYCalculator = dynamic(
 );
 
 const KolikProcentJeXZYPage: React.FC = () => {
-  const { t } = useTranslation('common');
+  const t = useTranslations();
 
   // TODO: Získat SEO metadata, vysvětlení a příklady pro tuto kalkulačku (např. z JSON souboru nebo databáze)
   const seoTitle = t('kolik_procent_je_x_z_y_title');

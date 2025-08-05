@@ -1,6 +1,6 @@
 // src/components/calculators/CalculatorBase.tsx
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 
 export interface CalculatorInput {
   id: string;
@@ -54,7 +54,7 @@ const CalculatorBase: React.FC<CalculatorBaseProps> = ({
   resultComponent: ResultComponent,
   className = '',
 }) => {
-  const { t } = useTranslation('common');
+  const t = useTranslations();
   
   // Initialize form state with default values
   const [formValues, setFormValues] = useState<Record<string, any>>(() => {

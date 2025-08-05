@@ -71,5 +71,42 @@
   "denominator_label": "Denominator",
   "error_division_by_zero": "Error: Division by zero is not allowed.",
   "decimal_representation_label": "Decimal number",
-  "mixed_number_representation_label": "Mixed number"
+  "mixed_number_representation_label": "Mixed number",
+  "homepage": {
+    "title": "Mathematical Calculators for Everyday Use",
+    "subtitle": "Free online calculators for percentages, unit conversions, BMI, VAT calculations and more. Fast, accurate, and easy to use.",
+    "cta_button": "Start Calculating",
+    "search_placeholder": "Find calculator...",
+    "popular_calculators": "Most Popular Calculators",
+    "calculator_categories": "Calculator Categories",
+    "trusted_by": "Trusted by thousands of users worldwide",
+    "user_count": "50,000+ calculations performed daily",
+    "faq_title": "Frequently Asked Questions",
+    "faq_privacy_q": "Is my data safe?",
+    "faq_privacy_a": "Yes, all calculations are performed locally in your browser. We don't store any of your personal data.",
+    "faq_free_q": "Are the calculators free to use?",
+    "faq_free_a": "Yes, all our calculators are completely free to use with no registration required.",
+    "faq_accuracy_q": "How accurate are the calculations?",
+    "faq_accuracy_a": "Our calculators use precise mathematical formulas and are regularly tested for accuracy.",
+    "faq_mobile_q": "Do the calculators work on mobile devices?",
+    "faq_mobile_a": "Yes, all calculators are fully responsive and work perfectly on smartphones and tablets."
+  },
+  "categories": {
+    "percentages": "Percentages",
+    "percentages_description": "Calculate percentages, ratios, and proportions",
+    "unit_converter": "Unit Converter",
+    "unit_converter_description": "Convert between different units of measurement",
+    "bmi": "BMI Calculator",
+    "bmi_description": "Calculate your Body Mass Index",
+    "vat": "VAT Calculator",
+    "vat_description": "Calculate Value Added Tax",
+    "net_salary": "Net Salary",
+    "net_salary_description": "Calculate net salary after taxes",
+    "fractions": "Fractions",
+    "fractions_description": "Calculate with fractions and mixed numbers",
+    "mathematics": "Mathematics",
+    "finance": "Finance",
+    "health": "Health & Fitness",
+    "conversions": "Unit Conversions"
+  }
 }

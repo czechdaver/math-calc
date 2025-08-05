@@ -2,13 +2,13 @@
 'use client';
 
 import React from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
 // Simple skeleton component since the shadcn/ui one is not available
 const Skeleton = ({ className }: { className: string }) => (
   <div className={`animate-pulse bg-muted rounded-md ${className}`} />
 );
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Info } from 'lucide-react';
 
 // Dynamically import the calculator with SSR disabled to avoid hydration issues
@@ -21,7 +21,7 @@ const CompoundInterestCalculator = dynamic(
 );
 
 const SlozeneUroceniPage: React.FC = () => {
-  const { t } = useTranslation('calculator');
+  const t = useTranslations('calculator');
 
   return (
     <div className="container mx-auto px-4 py-8">

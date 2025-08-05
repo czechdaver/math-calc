@@ -3,10 +3,15 @@
 import React, { Suspense, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
-import { Skeleton } from '../../../../../components/ui/skeleton';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Info } from 'lucide-react';
-import Tooltip from '@/components/ui/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 // Dynamically import components with loading states
 const LatexRenderer = dynamic(() => import('@/components/utils/LatexRenderer'), {
@@ -69,7 +74,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, { hasError: bool
 }
 
 const ProcentoZCislaPage: React.FC = () => {
-  const t = useTranslations('common');
+  const t = useTranslations();
 
   // Memoize translations to prevent unnecessary re-renders
   const translations = useMemo(() => ({
@@ -163,12 +168,16 @@ const ProcentoZCislaPage: React.FC = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 {t('tip') || 'Tip'}
-                <Tooltip 
-                  content={translations.tip}
-                  position="top"
-                >
-                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
-                </Tooltip>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{translations.tip}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </CardTitle>
             </CardHeader>
             <CardContent>

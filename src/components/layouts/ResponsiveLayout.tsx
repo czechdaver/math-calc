@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import Head from 'next/head';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 
 interface ResponsiveLayoutProps {
   children: ReactNode;
@@ -17,7 +17,7 @@ const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({
   keywords = [],
   className = '',
 }) => {
-  const { t } = useTranslation('common');
+  const t = useTranslations();
   const pageTitle = title ? `${title} | ${t('app_name')}` : t('app_name');
   
   return (

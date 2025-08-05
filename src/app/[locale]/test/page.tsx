@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 
 export default function TestPage() {
-  const t = useTranslations('common');
+  const t = useTranslations();
   
   return (
     <div className="container mx-auto p-4">

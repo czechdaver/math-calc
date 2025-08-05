@@ -369,24 +369,12 @@ export const isValidMathExpression = (expression: string): boolean => {
  * @param variables Optional variables to use in the expression
  * @returns The result of the evaluation or null if invalid
  */
-// Helper function to evaluate binary operations
-const evaluateBinaryOperation = (a: number, b: number, op: string): number | null => {
-  switch (op) {
-    case '+': return a + b;
-    case '-': return a - b;
-    case '*': return a * b;
-    case '/': return b !== 0 ? a / b : null;
-    case '^': return Math.pow(a, b);
-    default: return null;
-  }
-};
-
-export const evaluateMathExpression = (
+export function evaluateMathExpression(
   expression: string,
   variables: Record<string, number> = {}
-): number | null => {
+): number | null {
   // Remove all whitespace from the expression
-  const expr = expression.replace(/\s+/g, '');
+  let expr = expression.replace(/\s+/g, '');
   
   // Check for empty expression
   if (!expr) return null;
@@ -398,9 +386,9 @@ export const evaluateMathExpression = (
   }
   
   // Handle variables and constants
-  const varMatch = expr.match(/^[a-zA-Z]+$/);
-  if (varMatch) {
-    const varName = varMatch[0];
+  const variableMatch = expr.match(/^[a-zA-Z]+$/);
+  if (variableMatch) {
+    const varName = variableMatch[0];
     const upperVarName = varName.toUpperCase();
     
     // Check for constants (case-insensitive)
@@ -417,9 +405,9 @@ export const evaluateMathExpression = (
   }
   
   // Handle parentheses - most deeply nested first
-  const parenMatch = expr.match(/\(([^()]+)\)/);
-  if (parenMatch) {
-    const innerExpr = parenMatch[1];
+  const parenthesesMatch = expr.match(/\(([^()]+)\)/);
+  if (parenthesesMatch) {
+    const innerExpr = parenthesesMatch[1];
     let innerResult = evaluateMathExpression(innerExpr, variables);
     
     // If we couldn't evaluate the inner expression, try replacing PI and E
@@ -433,122 +421,38 @@ export const evaluateMathExpression = (
     if (innerResult === null) return null;
     
     // Replace the parenthesized expression with its result and evaluate again
-    const newExpr = expr.replace(parenMatch[0], innerResult.toString());
+    const newExpr = expr.replace(parenthesesMatch[0], innerResult.toString());
     return evaluateMathExpression(newExpr, variables);
   }
   
   // Handle mathematical functions (sin, cos, tan, sqrt, log, pow)
-  const functionMatch = expr.match(/(sin|cos|tan|sqrt|log|pow)\(([^()]*)\)/);
-  if (functionMatch) {
-    const [fullMatch, fn, argsStr] = functionMatch;
+  const funcMatch = expr.match(/(sin|cos|tan|sqrt|log|pow)\(([^()]*)\)/);
+  if (funcMatch) {
+    const fn = funcMatch[1];
+    const argsStr = funcMatch[2];
+    let argResult: number | null = null;
     
-    // First try to evaluate the arguments as an expression
-    let argResult = evaluateMathExpression(argsStr, variables);
+    // First try to evaluate the argument as a simple number
+    if (/^[-+]?\d*\.?\d+([eE][-+]?\d+)?$/.test(argsStr)) {
+      argResult = parseFloat(argsStr);
+    } else {
+      // Otherwise, try to evaluate as an expression
+      argResult = evaluateMathExpression(argsStr, variables);
+    }
     
-    // If that fails, try replacing PI and E in the arguments
+    // If we couldn't evaluate the argument, try replacing PI and E
     if (argResult === null) {
       const processedArgs = argsStr
         .replace(/PI/g, Math.PI.toString())
         .replace(/E/g, Math.E.toString());
       
-      // Handle pow function with two arguments
-      if (fn === 'pow') {
-        const args = processedArgs.split(',').map(s => s.trim());
-        if (args.length !== 2) return null;
-        
-        const base = evaluateMathExpression(args[0], variables);
-        const exp = evaluateMathExpression(args[1], variables);
-        
-        if (base === null || exp === null) return null;
-        return Math.pow(base, exp);
-      }
-      
-      // For single-argument functions, evaluate the processed arguments
-      argResult = evaluateMathExpression(processedArgs, variables);
-    }
-    
-    if (argResult === null) return null;
-    
-    // Apply the function to the evaluated argument
-    switch (fn) {
-      case 'sin':
-        return Math.sin(argResult);
-      case 'cos':
-        return Math.cos(argResult);
-      case 'tan':
-        return Math.tan(argResult);
-      case 'sqrt':
-        return argResult >= 0 ? Math.sqrt(argResult) : null;
-      case 'log':
-        return argResult > 0 ? Math.log(argResult) : null;
-      case 'pow':
-        // If we get here, pow wasn't handled above, which shouldn't happen
-        return null;
-      default:
-        return null;
-    }
-  // Handle simple number literals (including scientific notation)
-  const numberMatch = expr.match(/^([-+]?\d*\.?\d+(?:[eE][-+]?\d+)?)$/);
-  if (numberMatch) {
-    return parseFloat(numberMatch[1]);
-  }
-  
-  // Handle parentheses first - most deeply nested first
-  const parenMatch = expr.match(/\(([^()]+)\)/);
-  if (parenMatch) {
-    const innerExpr = parenMatch[1];
-    const innerResult = evaluateMathExpression(innerExpr, variables);
-    if (innerResult === null) return null;
-    
-    // Replace the parenthesized expression with its result and evaluate again
-    const newExpr = expr.replace(parenMatch[0], innerResult.toString());
-    return evaluateMathExpression(newExpr, variables);
-  }
-  
-  // Handle mathematical functions (sin, cos, tan, sqrt, log, pow)
-  const functionMatch = expr.match(/(sin|cos|tan|sqrt|log|pow)\(([^()]*)\)/);
-  if (functionMatch) {
-    const [fullMatch, fn, argsStr] = functionMatch;
-    console.log(`Processing function: ${fn} with args: ${argsStr}`);
-    
-    // First, evaluate the entire argument expression
-    let argResult = evaluateMathExpression(argsStr, variables);
-    
-    // If we couldn't evaluate the argument directly, try to process it
-    if (argResult === null) {
-      // Try to evaluate the argument as an expression
-      const processedArgs = argsStr
-        .replace(/\s+/g, '') // Remove all whitespace
-        .replace(/PI/g, Math.PI.toString())
-        .replace(/E/g, Math.E.toString());
-      
-      // Handle pow function with two arguments
-      if (fn === 'pow') {
-        const args = processedArgs.split(',').map(s => s.trim());
-        if (args.length !== 2) return null;
-        
-        const base = evaluateMathExpression(args[0], variables);
-        const exp = evaluateMathExpression(args[1], variables);
-        
-        if (base === null || exp === null) return null;
-        return Math.pow(base, exp);
-      }
-      
-      // For single-argument functions, evaluate the processed arguments
-      // First try to evaluate as a simple number
       if (/^[-+]?\d*\.?\d+([eE][-+]?\d+)?$/.test(processedArgs)) {
         argResult = parseFloat(processedArgs);
       } else {
-        // Otherwise, try to evaluate as an expression
         argResult = evaluateMathExpression(processedArgs, variables);
       }
     }
     
-    if (argResult === null) {
-      // Try one more time with the original args in case of variables
-      argResult = evaluateMathExpression(argsStr, variables);
-    }
-    
     if (argResult === null) return null;
     
     // Apply the function to the evaluated argument
@@ -564,15 +468,11 @@ export const evaluateMathExpression = (
       case 'log':
         return argResult > 0 ? Math.log(argResult) : null;
       case 'pow':
-        // If we get here, pow wasn't handled above, which shouldn't happen
+        // pow should be handled differently as it needs two arguments
         return null;
       default:
         return null;
     }
-    
-    // If we get here, the function was handled and we've already returned a value
-    // This is just a fallthrough to handle any unexpected cases
-    return null;
   }
   
   // Handle multiplication and division (left to right)
@@ -675,6 +575,19 @@ export const evaluateMathExpression = (
   // Handle negative numbers after operators
   expr = expr.replace(/([+\-*/(^])(-)/g, '$1-');
   
+  // Create evaluation context with math functions and constants
+  const context = {
+    sin: Math.sin,
+    cos: Math.cos,
+    tan: Math.tan,
+    sqrt: Math.sqrt,
+    log: Math.log,
+    pow: Math.pow,
+    PI: Math.PI,
+    E: Math.E,
+    ...variables
+  };
+
   // Handle function calls with parameters
   expr = expr.replace(/([a-zA-Z]+)\(([^()]+)\)/g, (match, fn, args) => {
     // For pow function with two arguments
@@ -744,9 +657,6 @@ export const evaluateMathExpression = (
       return isFinite(result) ? result : null;
     }
     return null;
-  } catch (e) {
-    return null;
-  }
   } catch (e) {
     // Catch any unexpected errors during evaluation
     return null;

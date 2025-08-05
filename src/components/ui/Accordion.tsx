@@ -5,7 +5,7 @@ import {
   AccordionItem as ShadcnAccordionItem,
   AccordionTrigger as ShadcnAccordionTrigger,
   AccordionContent as ShadcnAccordionContent,
-} from '@/components/ui/accordion';
+} from '@/components/ui/accordion-base';
 import { ChevronDown, ChevronUp, Plus, Minus } from 'lucide-react';
 
 type AccordionVariant = 'default' | 'bordered' | 'filled' | 'separated';
@@ -276,6 +276,7 @@ const Accordion: React.FC<AccordionProps> & { Item: typeof AccordionItem } = ({
   iconOpened,
   showDivider = true,
   animate = true,
+  ...props
 }) => {
   const [internalActiveItems, setInternalActiveItems] = React.useState<string[]>([]);
   const isControlled = externalActiveItems !== undefined;
@@ -288,9 +289,14 @@ const Accordion: React.FC<AccordionProps> & { Item: typeof AccordionItem } = ({
   // Generate IDs for accordion items if not provided
   const items = React.Children.map(children, (child, index) => {
     if (!React.isValidElement(child)) return null;
+    if (typeof child.props === 'object' && child.props !== null) {
+      return {
+        ...child.props,
+        _id: (child.props as any)._id || `accordion-item-${index}`,
+      };
+    }
     return {
-      ...child.props,
-      _id: child.props._id || `accordion-item-${index}`,
+      _id: `accordion-item-${index}`,
     };
   }).filter(Boolean) as Array<AccordionItemProps & { _id: string }>;
 
@@ -322,15 +328,18 @@ const Accordion: React.FC<AccordionProps> & { Item: typeof AccordionItem } = ({
     }
     
     if (onChange) {
-      onChange(allowMultiple ? newActiveItems : newActiveItems[0] || '');
+      const result = allowMultiple ? newActiveItems : newActiveItems[0] || '';
+      onChange(result as any);
     }
   };
 
   return (
     <ShadcnAccordion 
-      type={allowMultiple ? 'multiple' : 'single'} 
-      value={allowMultiple ? activeItems : activeItems[0] || ''}
+      type={allowMultiple ? 'multiple' : 'single' as any}
+      value={allowMultiple ? activeItems : activeItems[0] || '' as any}
       className={cn('w-full', className)}
+      onValueChange={handleToggle as any}
+      {...props as any}
     >
       {items.map((item) => (
         <AccordionItem

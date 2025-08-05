@@ -1,9 +1,9 @@
 // src/components/calculators/DPHCalculator.refactored.tsx
 import React from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import CalculatorBase from './CalculatorBase';
 import type { CalculatorInput, CalculatorResult } from './CalculatorBase';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 // Using basic select and radio components to avoid additional dependencies
 import { Select, SelectItem } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
@@ -13,7 +13,7 @@ type CountryCode = 'cr' | 'sk';
 type CalculationDirection = 'zaklad-celkem' | 'celkem-zaklad';
 
 const DPHCalculator: React.FC = () => {
-  const { t } = useTranslation('common');
+  const t = useTranslations();
 
   const inputs: CalculatorInput[] = [
     {
@@ -122,7 +122,7 @@ const DPHCalculator: React.FC = () => {
           <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {result.details?.map((detail, index) => (
-                <div key={index} className={`p-4 rounded-lg border ${detail.className || 'font-semibold text-blue-600'} dark:text-blue-400`}>
+                <div key={index} className={`p-4 rounded-lg border ${detail.highlight ? 'font-semibold text-blue-600' : ''} dark:text-blue-400`}>
                   <div className="text-sm font-medium text-muted-foreground">
                     {detail.label}
                   </div>

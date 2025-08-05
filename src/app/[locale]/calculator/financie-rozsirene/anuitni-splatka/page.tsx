@@ -2,9 +2,9 @@
 'use client';
 
 import React from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Info, Calculator, DollarSign, Calendar, Percent } from 'lucide-react';
 
 // Dynamically import the calculator with SSR disabled to avoid hydration issues
@@ -17,7 +17,7 @@ const AnuitniSplatkaCalculator = dynamic(
 );
 
 const AnuitniSplatkaPage: React.FC = () => {
-  const { t } = useTranslation('common');
+  const t = useTranslations();
 
   return (
     <div className="container mx-auto px-4 py-8">

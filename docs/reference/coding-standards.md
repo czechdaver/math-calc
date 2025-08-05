@@ -7,6 +7,46 @@ updated: 2025-07-23
 
 # Coding Standards and Naming Conventions
 
+## 🚨 Critical Development Rules
+
+### Dependency Management
+
+**MANDATORY: Use Only Stable Versions**
+
+- **NEVER use bleeding-edge or beta versions** in production projects
+- Always specify stable version ranges in package.json
+- Avoid `@latest` tags - use specific stable versions
+
+**Examples:**
+```json
+// ✅ CORRECT - Stable versions
+{
+  "tailwindcss": "^3.4.0",    // NOT v4.x (unstable)
+  "next": "^14.2.0",          // Use LTS when available
+  "react": "^18.2.0",         // Stable release
+  "typescript": "^5.3.0"      // Stable release
+}
+
+// ❌ WRONG - Bleeding-edge versions
+{
+  "tailwindcss": "^4.1.0",    // Causes compatibility issues
+  "next": "^15.0.0-canary",   // Unstable canary release
+  "react": "^19.0.0-beta"     // Beta version
+}
+```
+
+**Rationale:**
+- Bleeding-edge versions often have compatibility issues
+- Missing dependencies and breaking changes are common
+- Stable versions ensure reliable builds and deployments
+- Easier troubleshooting with well-documented stable releases
+
+**Before Adding New Dependencies:**
+1. Check if the library has a stable release
+2. Verify compatibility with existing stack
+3. Install all required peer dependencies
+4. Test thoroughly before committing
+
 ## File and Directory Naming
 
 ### General Rules

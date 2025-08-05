@@ -2,14 +2,19 @@
 
 import React, { Suspense, useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Info } from 'lucide-react';
-import Tooltip from '@/components/ui/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 // Dynamically import components with loading states
-const CalculatorComponent = dynamic(() => import('@/components/calculators/prevodnik-jednotek'), {
+const CalculatorComponent = dynamic(() => import('@/components/calculators/UnitConverter'), {
   loading: () => (
     <div className="space-y-4">
       <Skeleton className="h-10 w-1/2" />
@@ -49,7 +54,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, { hasError: bool
 }
 
 const CalculatorPage = () => {
-  const { t, ready } = useTranslation('common');
+  const t = useTranslations();
 
   // Memoize translations to prevent unnecessary re-renders
   const translations = useMemo(() => ({
@@ -62,23 +67,7 @@ const CalculatorPage = () => {
 
   const { seoTitle, seoDescription, tip, tipText, loadingError } = translations;
 
-  // Loading state for translations
-  if (!ready) {
-    return (
-      <div className="container mx-auto p-4 space-y-6">
-        <Skeleton className="h-10 w-1/2 mb-6" />
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-4">
-            <Skeleton className="h-48 w-full rounded-lg" />
-          </div>
-          <div className="space-y-6">
-            <Skeleton className="h-48 w-full rounded-lg" />
-            <Skeleton className="h-32 w-full rounded-lg" />
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // Translations are loaded via useTranslations hook
 
   return (
     <div className="container mx-auto p-4 space-y-6">
@@ -117,12 +106,16 @@ const CalculatorPage = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 {t('tip') || 'Tip'}
-                <Tooltip 
-                  content={tip}
-                  position="top"
-                >
-                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
-                </Tooltip>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{tip}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </CardTitle>
             </CardHeader>
             <CardContent>

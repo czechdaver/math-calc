@@ -3,8 +3,6 @@ const withNextIntl = require('next-intl/plugin')('./next-intl.config.ts');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Enable static optimization for better performance
-  output: 'standalone',
   
   // Configure image optimization
   images: {

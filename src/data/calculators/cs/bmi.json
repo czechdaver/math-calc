@@ -1,10 +1,8 @@
-// src/data/calculators/cs/bmi.json
-
 {
   "id": "bmi",
   "name": "BMI Kalkulačka",
   "category": "Fitness a zdraví",
-  "formula": "BMI = rac{váha (kg)}{výška^2 (m^2)}",
+  "formula": "BMI = \\frac{váha (kg)}{výška^2 (m^2)}",
   "explanation": "Index tělesné hmotnosti (BMI) je ukazatel, který pomocí vaší výšky a váhy určí, zda je vaše váha zdravá.",
   "examples": [
     "Příklad 1: Osoba vážící 70 kg a vysoká 1,75 m má BMI 22,86.",

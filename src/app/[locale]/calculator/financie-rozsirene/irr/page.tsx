@@ -1,16 +1,9 @@
-// src/app/[locale]/calculator/finance-advanced/irr/page.tsx
+// src/app/[locale]/calculator/financie-rozsirene/irr/page.tsx
 import React from 'react';
-// import IRRCalculator from '@/components/calculators/IRRCalculator'; // Komponenta bude vytvořena později
+import IRRCalculator from '@/components/calculators/IRRCalculator';
 
 const IRRPage: React.FC = () => {
-  return (
-    <div>
-      <h1>Kalkulátor vnitřního výnosového percentages (IRR)</h1>
-      {/* <IRRCalculator /> */}
-      <p>Formulář a logika pro kalkulátor IRR budou implementovány později.</p>
-      {/* Zde budou další prvky stránky */}
-    </div>
-  );
+  return <IRRCalculator />;
 };
 
 export default IRRPage;

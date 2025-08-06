@@ -70,63 +70,23 @@ const CalculatorPage = () => {
   // Translations are loaded via useTranslations hook
 
   return (
-    <div className="container mx-auto p-4 space-y-6">
-      <h1 className="text-3xl font-bold tracking-tight">{seoTitle}</h1>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
-          <Card>
-            <CardHeader>
-              <CardTitle>{t('kalkulacka') || 'Calculator'}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ErrorBoundary 
-                fallback={
-                  <div className="text-destructive p-4 rounded-lg bg-destructive/10">
-                    <p>{loadingError}</p>
-                  </div>
-                }
-              >
-                <Suspense fallback={
-                  <div className="space-y-4">
-                    <Skeleton className="h-10 w-full" />
-                    <Skeleton className="h-10 w-full" />
-                    <Skeleton className="h-10 w-1/2" />
-                  </div>
-                }>
-                  <CalculatorComponent />
-                </Suspense>
-              </ErrorBoundary>
-            </CardContent>
-          </Card>
+    <ErrorBoundary 
+      fallback={
+        <div className="text-destructive p-4 rounded-lg bg-destructive/10">
+          <p>{loadingError}</p>
         </div>
-
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                {t('tip') || 'Tip'}
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Info className="h-4 w-4 text-muted-foreground cursor-help" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{tip}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">
-                {tipText}
-              </p>
-            </CardContent>
-          </Card>
+      }
+    >
+      <Suspense fallback={
+        <div className="space-y-4">
+          <Skeleton className="h-10 w-1/2" />
+          <Skeleton className="h-8 w-full" />
+          <Skeleton className="h-40 w-full" />
         </div>
-      </div>
-    </div>
+      }>
+        <CalculatorComponent />
+      </Suspense>
+    </ErrorBoundary>
   );
 };
 

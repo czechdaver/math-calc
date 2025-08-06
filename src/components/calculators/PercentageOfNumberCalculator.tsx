@@ -1,47 +1,67 @@
-// src/components/calculators/ProcentoZCislaCalculator.refactored.tsx
-import React from 'react';
+// src/components/calculators/PercentageOfNumberCalculator.tsx
+import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { CalculatorInput, CalculatorResult } from './CalculatorBase';
-import dynamic from 'next/dynamic';
+import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Input } from '@/components/ui/Input';
+import { Label } from '@/components/ui/label';
+import { Info, AlertCircle } from 'lucide-react';
 
-// Dynamically import CalculatorBase with SSR disabled
-const CalculatorBase = dynamic(
-  () => import('./CalculatorBase').then(mod => mod.default),
-  { ssr: false }
-);
-
-interface ProcentoZCislaValues {
-  value: string;
-  number: string;
+interface PercentageResult {
+  result: number;
+  percentage: number;
+  number: number;
+  isValid: boolean;
 }
 
-const ProcentoZCislaCalculator: React.FC = () => {
+const PercentageOfNumberCalculator: React.FC = () => {
   const t = useTranslations();
+  const [percentage, setPercentage] = useState<string>('15');
+  const [number, setNumber] = useState<string>('1000');
+  const [result, setResult] = useState<PercentageResult | null>(null);
+  const [errors, setErrors] = useState<{ percentage?: string; number?: string }>({});
 
-  // Define the calculator inputs
-  const inputs: CalculatorInput[] = [
-    {
-      id: 'value',
-      label: t('percentages_label') || 'Procenta',
-      type: 'number',
-      required: true,
-      step: 0.01,
-      placeholder: t('enter_percentage') || 'Zadejte percentages',
-      helpText: t('enter_percentage_help') || 'Zadejte procentuální hodnotu (např. 15 pro 15%)',
-      unit: '%',
-      min: 0,
-      max: 1000,
-    },
-    {
-      id: 'number',
-      label: t('cislo_label') || 'Číslo',
-      type: 'number',
-      required: true,
-      step: 0.01,
-      placeholder: t('enter_number') || 'Zadejte číslo',
-      helpText: t('enter_number_help') || 'Zadejte číslo, ze kterého chcete vypočítat percentages',
-    },
-  ];
+  // Calculate percentage of number
+  const calculatePercentage = (percentageNum: number, numberNum: number): PercentageResult => {
+    const result = (percentageNum / 100) * numberNum;
+    
+    return {
+      result,
+      percentage: percentageNum,
+      number: numberNum,
+      isValid: true
+    };
+  };
+
+  // Validation function
+  const validateInputs = (percentageStr: string, numberStr: string) => {
+    const newErrors: { percentage?: string; number?: string } = {};
+    
+    const percentageNum = parseFloat(percentageStr);
+    const numberNum = parseFloat(numberStr);
+    
+    if (!percentageStr || isNaN(percentageNum) || percentageNum < 0 || percentageNum > 1000) {
+      newErrors.percentage = 'Zadejte platné procento (0-1000%)';
+    }
+    if (!numberStr || isNaN(numberNum) || numberNum < 0) {
+      newErrors.number = 'Zadejte platné kladné číslo';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Effect for real-time calculation
+  useEffect(() => {
+    if (validateInputs(percentage, number)) {
+      const percentageNum = parseFloat(percentage);
+      const numberNum = parseFloat(number);
+      const calculatedResult = calculatePercentage(percentageNum, numberNum);
+      setResult(calculatedResult);
+    } else {
+      setResult(null);
+    }
+  }, [percentage, number]);
 
   // Format number with spaces as thousand separators and comma as decimal separator
   const formatNumber = (num: number): string => {
@@ -51,130 +71,177 @@ const ProcentoZCislaCalculator: React.FC = () => {
     });
   };
 
-  // Calculation function
-  const calculate = (values: Record<string, any>): CalculatorResult => {
-    const percentage = parseFloat(values.value || '0');
-    const number = parseFloat(values.number || '0');
-    
-    if (isNaN(percentage) || isNaN(number)) {
-      return { value: null };
-    }
-
-    const result = (percentage / 100) * number;
-    const formattedPercentage = formatNumber(percentage);
-    const formattedNumber = formatNumber(number);
-    const formattedResult = formatNumber(result);
-
-    return {
-      value: result,
-      details: [
-        { 
-          label: t('vypocet') || 'Výpočet', 
-          value: `${formattedPercentage}% × ${formattedNumber}`,
-          highlight: true
-        },
-        { 
-          label: t('vysledek') || 'Výsledek', 
-          value: formattedResult,
-          highlight: true
-        },
-        { 
-          label: t('vzorec') || 'Vzorec', 
-          value: `(${formattedPercentage} / 100) × ${formattedNumber} = ${formattedResult}`
-        },
-      ],
-      formula: `\text{${t('vysledek') || 'Výsledek'}} = \\frac{${formattedPercentage}}{100} \\times ${formattedNumber} = ${formattedResult}`,
-      explanation: t('percentage_calculation_explanation', { 
-        percentage: formattedPercentage, 
-        number: formattedNumber, 
-        result: formattedResult
-      }) || `${formattedPercentage}% z čísla ${formattedNumber} je ${formattedResult}`,
-    };
-  };
-
-  // Custom result component to display the calculation details
-  const ResultComponent = ({ result }: { result: CalculatorResult }) => {
-    if (result.value === null) {
-      return (
-        <div className="text-center py-4 text-muted-foreground">
-          {t('zadejte_platne_hodnoty') || 'Zadejte platné hodnoty pro výpočet'}
+  // Calculator form
+  const calculatorForm = (
+    <div className="space-y-6">
+      {/* Percentage Input */}
+      <div className="space-y-2">
+        <Label htmlFor="percentage" className="text-sm font-medium">
+          {t('percentages_label') || 'Procenta'}
+        </Label>
+        <div className="relative">
+          <Input
+            id="percentage"
+            type="number"
+            value={percentage}
+            onChange={(e) => setPercentage(e.target.value)}
+            placeholder="15"
+            className={`${errors.percentage ? 'border-red-500' : ''}`}
+            min="0"
+            max="1000"
+            step="0.01"
+          />
+          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
+            %
+          </span>
         </div>
-      );
-    }
-
-    return (
-      <div className="space-y-4">
-        <div className="bg-primary/10 p-4 rounded-lg border border-primary/20">
-          <div className="text-sm font-medium text-primary/80 mb-1">
-            {t('vysledek') || 'Výsledek'}
-          </div>
-          <div className="text-2xl font-bold">
-            {Number(result.value).toLocaleString('cs-CZ', {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 4,
-            })}
-          </div>
-        </div>
-
-        {result.details && result.details.length > 0 && (
-          <div className="space-y-2">
-            {result.details.map((detail, index) => (
-              <div 
-                key={index} 
-                className={`flex justify-between ${detail.highlight ? 'font-medium' : ''}`}
-              >
-                <span className="text-muted-foreground">{detail.label}:</span>
-                <span>
-                  {detail.value} {detail.unit || ''}
-                </span>
-              </div>
-            ))}
-          </div>
+        {errors.percentage && (
+          <p className="text-red-500 text-xs flex items-center gap-1">
+            <AlertCircle className="w-3 h-3" />
+            {errors.percentage}
+          </p>
         )}
-
-        {result.formula && (
-          <div className="mt-4 p-3 bg-muted/50 rounded text-sm font-mono">
-            <div className="font-semibold mb-1">{t('pouzity_vzorec') || 'Použitý vzorec'}:</div>
-            <div>{result.formula}</div>
-          </div>
-        )}
-
-        {result.explanation && (
-          <div className="mt-3 text-sm text-muted-foreground">
-            {result.explanation}
-          </div>
-        )}
+        <p className="text-gray-500 text-xs">
+          Zadejte procentuální hodnotu (např. 15 pro 15%)
+        </p>
       </div>
-    );
+
+      {/* Number Input */}
+      <div className="space-y-2">
+        <Label htmlFor="number" className="text-sm font-medium">
+          {t('cislo_label') || 'Číslo'}
+        </Label>
+        <div className="relative">
+          <Input
+            id="number"
+            type="number"
+            value={number}
+            onChange={(e) => setNumber(e.target.value)}
+            placeholder="1000"
+            className={`${errors.number ? 'border-red-500' : ''}`}
+            min="0"
+            step="0.01"
+          />
+        </div>
+        {errors.number && (
+          <p className="text-red-500 text-xs flex items-center gap-1">
+            <AlertCircle className="w-3 h-3" />
+            {errors.number}
+          </p>
+        )}
+        <p className="text-gray-500 text-xs">
+          Zadejte číslo, ze kterého chcete vypočítat procenta
+        </p>
+      </div>
+    </div>
+  );
+
+  // Examples for SimpleCalculatorLayout
+  const examples = {
+    title: 'Příklady výpočtu procent z čísla',
+    description: 'Praktické příklady procentuálních výpočtů',
+    scenarios: [
+      {
+        title: 'Výpočet slevy',
+        description: 'Máte zboží za 1000 Kč a sleva je 15%. Kolik ušetříte?',
+        example: '15% z 1000 = 150 Kč (sleva)'
+      },
+      {
+        title: 'Výpočet DPH',
+        description: 'Máte cenu bez DPH 1000 Kč a DPH je 21%. Kolik je DPH?',
+        example: '21% z 1000 = 210 Kč (DPH)'
+      }
+    ]
   };
+
+  // FAQ for SimpleCalculatorLayout
+  const faq = [
+    {
+      question: 'Jak se počítá procento z čísla?',
+      answer: 'Procento z čísla se počítá podle vzorce: (procento ÷ 100) × číslo. Například 15% z 1000 = (15 ÷ 100) × 1000 = 150.'
+    },
+    {
+      question: 'K čemu se používá výpočet procent z čísla?',
+      answer: 'Nejčastěji pro výpočet slev, DPH, spropitného, úroků, provizí a dalších procentuálních poplatků nebo srážek.'
+    },
+    {
+      question: 'Můžu zadat procento větší než 100%?',
+      answer: 'Ano, kalkulátor podporuje procenta až do 1000%. To je užitečné například pro výpočet násobků nebo vysokých přirážek.'
+    }
+  ];
+
+  // Related calculators
+  const relatedCalculators = [
+    {
+      title: 'Kolik procent je X z Y',
+      description: 'Zjistěte, kolik procent tvoří jedno číslo z druhého',
+      href: '/calculator/kolik-procent-je-x-z-y',
+      category: 'math'
+    },
+    {
+      title: 'Y je X%, kolik je 100%',
+      description: 'Vypočítejte celkovou hodnotu, když znáte část a její procento',
+      href: '/calculator/y-je-x-kolik-je-sto',
+      category: 'math'
+    }
+  ];
 
   return (
-    <CalculatorBase
-      id="percentage-of"
+    <SimpleCalculatorLayout
       title={t('procento_z_cisla_title') || 'Procento z čísla'}
-      description={
-        t('procento_z_cisla_description') || 
-        'Vypočítejte X procent z daného čísla. Zadejte percentages a číslo pro výpočet.'
-      }
-      category="matematika"
+      description="Vypočítejte X procent z daného čísla. Ideální pro výpočty slev, DPH, spropitného a dalších procentuálních výpočtů."
+      category="math"
       seo={{
-        title: t('seo.procento_z_cisla_title') || 'Kalkulačka: Procento z čísla',
-        description: 
-          t('seo.procento_z_cisla_description') || 
-          'Snadno vypočítejte X procent z daného čísla. Ideální pro výpočty slev, daní, přirážek a dalších procentuálních výpočtů.',
+        title: 'Kalkulátor: Procento z čísla - Výpočet X% z čísla | MathCalc',
+        description: 'Bezplatný kalkulátor pro výpočet procent z čísla. Snadno vypočítejte slevy, DPH, spropitné a další procentuální hodnoty.',
         keywords: [
-          t('seo.klicove_slovo_percentages') || 'percentages',
-          t('seo.klicove_slovo_kalkulacka') || 'kalkulačka',
-          t('seo.klicove_slovo_vypocet') || 'výpočet',
-          t('seo.klicove_slovo_matematika') || 'matematika',
-          t('seo.klicove_slovo_sleva') || 'sleva',
-        ],
+          'procento z čísla',
+          'kalkulátor procent',
+          'výpočet slevy',
+          'výpočet DPH',
+          'procentuální kalkulátor'
+        ]
       }}
-      inputs={inputs}
-      calculate={calculate}
-      resultComponent={ResultComponent}
-    />
+      formula={{
+        latex: t('procento_z_cisla_formula') || '\\frac{Procenta}{100} \\times Číslo = Výsledek',
+        description: 'Pro výpočet procenta z čísla se procento vydělí 100 a vynásobí daným číslem.'
+      }}
+      examples={examples}
+      faq={faq}
+      relatedCalculators={relatedCalculators}
+      resultSection={result && (
+        <Card className="mt-6">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Info className="w-5 h-5" />
+              {t('vysledek_label') || 'Výsledek'}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600">
+                  {result.result.toLocaleString('cs-CZ', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 4,
+                  })}
+                </div>
+                <div className="text-sm text-gray-600 mt-1">
+                  {result.percentage}% z {result.number.toLocaleString('cs-CZ')}
+                </div>
+              </div>
+              
+              <div className="text-sm text-gray-600 bg-gray-50 p-3 rounded">
+                <p><strong>Výpočet:</strong> {result.percentage}% × {result.number.toLocaleString('cs-CZ')} = {result.result.toLocaleString('cs-CZ', { minimumFractionDigits: 2, maximumFractionDigits: 4 })}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+    >
+      {calculatorForm}
+    </SimpleCalculatorLayout>
   );
 };
 
-export default ProcentoZCislaCalculator;
+export default PercentageOfNumberCalculator;

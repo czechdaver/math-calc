@@ -1,13 +1,8 @@
-// src/app/[locale]/calculator/practical-calculations/kalkulacka-5/page.tsx
-import React from 'react';
+// src/app/[locale]/calculator/prakticke-vypocty/kalkulacka-5/page.tsx
+'use client';
 
-const PraktickeVypoctyKalkulacka5Page: React.FC = () => {
-  return (
-    <div>
-      <h1>Praktické výpočty - Kalkulačka 5</h1>
-      <p>Tato kalkulačka bude implementována později.</p>
-    </div>
-  );
-};
+import CurrencyCalculator from '@/components/calculators/CurrencyCalculator';
 
-export default PraktickeVypoctyKalkulacka5Page;
+export default function CurrencyCalculatorPage() {
+  return <CurrencyCalculator />;
+}

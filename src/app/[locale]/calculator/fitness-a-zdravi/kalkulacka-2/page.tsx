@@ -1,13 +1,8 @@
-// src/app/[locale]/calculator/health-fitness/kalkulacka-2/page.tsx
-import React from 'react';
+// src/app/[locale]/calculator/fitness-a-zdravi/kalkulacka-2/page.tsx
+'use client';
 
-const FitnessAZdraviKalkulacka2Page: React.FC = () => {
-  return (
-    <div>
-      <h1>Fitness a zdraví - Kalkulačka 2</h1>
-      <p>Tato kalkulačka bude implementována později.</p>
-    </div>
-  );
-};
+import BMRCalculator from '@/components/calculators/BMRCalculator';
 
-export default FitnessAZdraviKalkulacka2Page;
+export default function BMRCalculatorPage() {
+  return <BMRCalculator />;
+}

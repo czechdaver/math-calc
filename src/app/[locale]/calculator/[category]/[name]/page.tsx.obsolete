@@ -1,7 +1,11 @@
+// OBSOLETE: This generic calculator routing is no longer used.
+// All calculators now have specific pages (e.g., /calculator/bmi/page.tsx)
+// This file can be safely removed after confirming no routes depend on it.
+
 'use client';
 import React from 'react';
 import { notFound } from 'next/navigation';
-import CalculatorLayout from '@/components/layouts/CalculatorLayout';
+import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { getCalculatorData } from '@/lib/calculatorData'; // Import the data fetching utility
 import dynamic from 'next/dynamic'; // Import dynamic for dynamic component loading
 import { type CalculatorData } from '@/types/calculator';
@@ -63,17 +67,22 @@ export default async function CalculatorPage({ params }: CalculatorPageProps) {
   );
 
   return (
-    <CalculatorLayout
+    <SimpleCalculatorLayout
       title={calculatorData.name}
+      description={calculatorData.description || ''}
       category={calculatorData.category}
+      seo={{
+        title: calculatorData.seo?.title || calculatorData.name,
+        description: calculatorData.seo?.description || calculatorData.description || '',
+        keywords: calculatorData.seo?.keywords || []
+      }}
       formula={calculatorData.formula}
-      explanation={calculatorData.explanation}
       examples={calculatorData.examples}
       relatedCalculators={calculatorData.relatedCalculators}
       faq={calculatorData.faq}
     >
       {/* Pass the props to the dynamically imported component */}
       <SpecificCalculator calculatorData={calculatorData} locale={locale} />
-    </CalculatorLayout>
+    </SimpleCalculatorLayout>
   );
 }

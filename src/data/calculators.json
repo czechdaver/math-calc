@@ -1,0 +1,92 @@
+{
+  "calculators": {
+    "bmi": {
+      "id": "bmi",
+      "slug": "bmi",
+      "category": "health",
+      "popularity": 95,
+      "titleKey": "bmi_calculator_title",
+      "descriptionKey": "bmi_calculator_description",
+      "path": "/calculator/bmi",
+      "tags": ["health", "fitness", "weight", "body"],
+      "relatedCategories": ["health", "fitness"]
+    },
+    "bmr": {
+      "id": "bmr", 
+      "slug": "bmr",
+      "category": "health",
+      "popularity": 85,
+      "titleKey": "bmr_calculator_title",
+      "descriptionKey": "bmr_calculator_description", 
+      "path": "/calculator/bmr",
+      "tags": ["health", "fitness", "metabolism", "calories"],
+      "relatedCategories": ["health", "fitness"]
+    },
+    "ideal-weight": {
+      "id": "ideal-weight",
+      "slug": "ideal-weight", 
+      "category": "health",
+      "popularity": 80,
+      "titleKey": "ideal_weight_calculator_title",
+      "descriptionKey": "ideal_weight_calculator_description",
+      "path": "/calculator/ideal-weight",
+      "tags": ["health", "weight", "body"],
+      "relatedCategories": ["health"]
+    },
+    "body-fat": {
+      "id": "body-fat",
+      "slug": "body-fat",
+      "category": "health", 
+      "popularity": 75,
+      "titleKey": "body_fat_calculator_title",
+      "descriptionKey": "body_fat_calculator_description",
+      "path": "/calculator/body-fat",
+      "tags": ["health", "fitness", "body"],
+      "relatedCategories": ["health", "fitness"]
+    },
+    "percentage": {
+      "id": "percentage",
+      "slug": "procenta",
+      "category": "math",
+      "popularity": 90,
+      "titleKey": "percentage_calculator_title", 
+      "descriptionKey": "percentage_calculator_description",
+      "path": "/calculator/procenta",
+      "tags": ["math", "percentage", "calculation"],
+      "relatedCategories": ["math"]
+    },
+    "vat": {
+      "id": "vat",
+      "slug": "dph", 
+      "category": "finance",
+      "popularity": 85,
+      "titleKey": "vat_calculator_title",
+      "descriptionKey": "vat_calculator_description",
+      "path": "/calculator/dph",
+      "tags": ["finance", "tax", "business"],
+      "relatedCategories": ["finance"]
+    },
+    "net-salary": {
+      "id": "net-salary",
+      "slug": "cista-mzda",
+      "category": "finance", 
+      "popularity": 80,
+      "titleKey": "net_salary_calculator_title",
+      "descriptionKey": "net_salary_calculator_description",
+      "path": "/calculator/cista-mzda",
+      "tags": ["finance", "salary", "tax"],
+      "relatedCategories": ["finance"]
+    },
+    "unit-converter": {
+      "id": "unit-converter",
+      "slug": "prevodnik-jednotek",
+      "category": "utility",
+      "popularity": 75,
+      "titleKey": "unit_converter_title",
+      "descriptionKey": "unit_converter_description", 
+      "path": "/calculator/prevodnik-jednotek",
+      "tags": ["utility", "conversion", "units"],
+      "relatedCategories": ["utility"]
+    }
+  }
+}

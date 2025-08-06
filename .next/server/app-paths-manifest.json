@@ -1,6 +1,4 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/[locale]/test-styles/page": "app/[locale]/test-styles/page.js",
   "/[locale]/page": "app/[locale]/page.js",
-  "/[locale]/calculator/dph/page": "app/[locale]/calculator/dph/page.js"
+  "/[locale]/calculator/bmi/page": "app/[locale]/calculator/bmi/page.js"
 }

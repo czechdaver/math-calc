@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"app/[locale]/calculator/dph/page.tsx -> @/components/calculators/VATCalculator\":{\"id\":\"app/[locale]/calculator/dph/page.tsx -> @/components/calculators/VATCalculator\",\"files\":[\"static/chunks/_app-pages-browser_src_components_calculators_VATCalculator_tsx.js\"]}}"
+self.__REACT_LOADABLE_MANIFEST="{}"

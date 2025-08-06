@@ -1,13 +1,8 @@
-// src/app/[locale]/calculator/health-fitness/kalkulacka-1/page.tsx
-import React from 'react';
+// src/app/[locale]/calculator/fitness-a-zdravi/kalkulacka-1/page.tsx
+'use client';
 
-const FitnessAZdraviKalkulacka1Page: React.FC = () => {
-  return (
-    <div>
-      <h1>Fitness a zdraví - Kalkulačka 1</h1>
-      <p>Tato kalkulačka bude implementována později.</p>
-    </div>
-  );
-};
+import CaloriesCalculator from '@/components/calculators/CaloriesCalculator';
 
-export default FitnessAZdraviKalkulacka1Page;
+export default function CaloriesCalculatorPage() {
+  return <CaloriesCalculator />;
+}

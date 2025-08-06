@@ -1,13 +1,8 @@
-// src/app/[locale]/calculator/health-fitness/kalkulacka-3/page.tsx
-import React from 'react';
+// src/app/[locale]/calculator/fitness-a-zdravi/kalkulacka-3/page.tsx
+'use client';
 
-const FitnessAZdraviKalkulacka3Page: React.FC = () => {
-  return (
-    <div>
-      <h1>Fitness a zdraví - Kalkulačka 3</h1>
-      <p>Tato kalkulačka bude implementována později.</p>
-    </div>
-  );
-};
+import IdealWeightCalculator from '@/components/calculators/IdealWeightCalculator';
 
-export default FitnessAZdraviKalkulacka3Page;
+export default function IdealWeightCalculatorPage() {
+  return <IdealWeightCalculator />;
+}

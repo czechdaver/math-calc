@@ -1,16 +1,9 @@
-// src/app/[locale]/calculator/finance-advanced/npv/page.tsx
+// src/app/[locale]/calculator/financie-rozsirene/npv/page.tsx
 import React from 'react';
-// import NPVCalculator from '@/components/calculators/NPVCalculator'; // Komponenta bude vytvořena později
+import NPVCalculator from '@/components/calculators/NPVCalculator';
 
 const NPVPage: React.FC = () => {
-  return (
-    <div>
-      <h1>Kalkulátor čisté současné hodnoty (NPV)</h1>
-      {/* <NPVCalculator /> */}
-      <p>Formulář a logika pro kalkulátor NPV budou implementovány později.</p>
-      {/* Zde budou další prvky stránky */}
-    </div>
-  );
+  return <NPVCalculator />;
 };
 
 export default NPVPage;

@@ -1,185 +1,217 @@
-// src/components/calculators/BMICalculator.refactored.tsx
-import React from 'react';
+// src/components/calculators/BMICalculator.tsx
+import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import CalculatorBase, { CalculatorInput, CalculatorResult } from './CalculatorBase';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/Button';
+import { useParams } from 'next/navigation';
+import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
+import { CalculatorInput, CalculatorResult } from './shared';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 import { Info } from 'lucide-react';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+
+interface BMIResult {
+  bmi: number;
+  category: string;
+  categoryColor: string;
+  isValid: boolean;
+}
 
 const BMICalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
+  const [height, setHeight] = useState<string>('170');
+  const [weight, setWeight] = useState<string>('70');
+  const [result, setResult] = useState<BMIResult | null>(null);
+  const [errors, setErrors] = useState<{ height?: string; weight?: string }>({});
 
-  const inputs: CalculatorInput[] = [
-    {
-      id: 'height',
-      label: t('height_label'),
-      type: 'number',
-      required: true,
-      min: 50,
-      max: 300,
-      step: 0.1,
-      unit: 'cm',
-      helpText: t('height_help_text'),
-      defaultValue: 170,
-    },
-    {
-      id: 'weight',
-      label: t('weight_label'),
-      type: 'number',
-      required: true,
-      min: 2,
-      step: 0.1,
-      unit: 'kg',
-      helpText: t('weight_help_text'),
-      defaultValue: 70,
-    },
-  ];
-
-  const calculate = (inputs: Record<string, any>): CalculatorResult => {
-    const heightM = parseFloat(inputs.height) / 100; // Convert cm to m
-    const weight = parseFloat(inputs.weight);
+  // Calculate BMI
+  const calculateBMI = (heightCm: number, weightKg: number): BMIResult => {
+    const heightM = heightCm / 100;
+    const bmi = weightKg / (heightM * heightM);
     
-    if (isNaN(heightM) || isNaN(weight) || heightM <= 0 || weight <= 0) {
-      return {
-        value: null,
-        details: [],
-      };
-    }
-
-    const bmi = weight / (heightM * heightM);
     let category = '';
-    let categoryClass = '';
+    let categoryColor = '';
 
     if (bmi < 18.5) {
       category = t('bmi_category_underweight');
-      categoryClass = 'text-blue-500';
+      categoryColor = 'text-blue-600';
     } else if (bmi < 25) {
       category = t('bmi_category_normal');
-      categoryClass = 'text-green-500';
+      categoryColor = 'text-green-600';
     } else if (bmi < 30) {
       category = t('bmi_category_overweight');
-      categoryClass = 'text-yellow-500';
+      categoryColor = 'text-yellow-600';
     } else {
       category = t('bmi_category_obese');
-      categoryClass = 'text-red-500';
+      categoryColor = 'text-red-600';
     }
 
     return {
-      value: bmi,
-      details: [
-        { label: t('bmi'), value: bmi.toFixed(1), unit: 'kg/m²' },
-        { label: t('bmi_category'), value: category, highlight: true },
-      ],
-      formula: `${inputs.weight} / ((${inputs.height}/100)²) = ${bmi.toFixed(1)}`,
-      explanation: t('bmi_explanation', { bmi: bmi.toFixed(1), category }),
+      bmi,
+      category,
+      categoryColor,
+      isValid: true
     };
   };
 
-  const ResultDisplay: React.FC<{ result: CalculatorResult }> = ({ result }) => (
-    <Card className="mt-6">
-      <CardHeader>
-        <CardTitle className="text-lg">{t('result')}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        {result.value !== null ? (
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              {result.details?.map((detail, index) => (
-                <div key={index} className="space-y-1">
-                  <div className="text-sm font-medium text-muted-foreground">
-                    {detail.label}
-                  </div>
-                  <div className={`text-lg font-semibold ${detail.highlight ? 'text-primary' : ''}`}>
-                    {detail.value} {detail.unit || ''}
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            {result.formula && (
-              <div className="mt-4 p-4 bg-muted/50 rounded-md">
-                <div className="text-sm font-medium mb-1">{t('formula')}</div>
-                <code className="text-sm">{result.formula}</code>
-              </div>
-            )}
-            
-            {result.explanation && (
-              <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-md">
-                <div className="flex items-start">
-                  <Info className="h-4 w-4 mt-0.5 mr-2 flex-shrink-0" />
-                  <p className="text-sm">{result.explanation}</p>
-                </div>
-              </div>
-            )}
-          </div>
-        ) : (
-          <p className="text-muted-foreground">{t('enter_values_to_calculate')}</p>
-        )}
-      </CardContent>
-    </Card>
-  );
+  // Validation function
+  const validateInputs = (heightStr: string, weightStr: string) => {
+    const newErrors: { height?: string; weight?: string } = {};
+    
+    const heightNum = parseFloat(heightStr);
+    const weightNum = parseFloat(weightStr);
+    
+    if (!heightStr || isNaN(heightNum) || heightNum < 50 || heightNum > 300) {
+      newErrors.height = t('height_validation_error');
+    }
+    if (!weightStr || isNaN(weightNum) || weightNum < 2 || weightNum > 500) {
+      newErrors.weight = t('weight_validation_error');
+    }
 
-  return (
-    <div className="max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold mb-2">{t('bmi_calculator_title')}</h1>
-      <p className="text-muted-foreground mb-8">
-        {t('bmi_calculator_description')}
-      </p>
-      
-      <CalculatorBase
-        id="bmi-calculator"
-        title={t('bmi_calculator_title')}
-        description={t('bmi_calculator_description')}
-        category="health"
-        seo={{
-          title: t('bmi_calculator_title'),
-          description: t('bmi_calculator_seo_description'),
-          keywords: ['bmi calculator', 'body mass index', 'health calculator'],
-        }}
-        inputs={inputs}
-        calculate={calculate}
-        resultComponent={ResultDisplay}
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Effect for real-time calculation
+  useEffect(() => {
+    if (validateInputs(height, weight)) {
+      const heightNum = parseFloat(height);
+      const weightNum = parseFloat(weight);
+      const calculatedResult = calculateBMI(heightNum, weightNum);
+      setResult(calculatedResult);
+    } else {
+      setResult(null);
+    }
+  }, [height, weight]);
+
+  // Calculator form using shared components
+  const calculatorForm = (
+    <div className="space-y-6">
+      <CalculatorInput
+        id="height"
+        label={t('height_label') || 'Výška'}
+        value={height}
+        onChange={setHeight}
+        placeholder="170"
+        min="50"
+        max="300"
+        unit="cm"
+        helpText={t('height_help_text') || 'Zadejte svou výšku v centimetrech (50-300 cm)'}
+        error={errors.height}
       />
       
-      <div className="mt-8 space-y-4">
-        <h2 className="text-xl font-semibold">{t('about_bmi')}</h2>
-        <p>{t('bmi_about_text')}</p>
-        
-        <h3 className="text-lg font-semibold mt-6">{t('bmi_categories')}</h3>
-        <ul className="space-y-2">
-          <li className="flex items-center">
-            <span className="w-24 font-medium">{t('bmi_category_underweight')}:</span>
-            <span> &lt; 18.5</span>
-          </li>
-          <li className="flex items-center">
-            <span className="w-24 font-medium">{t('bmi_category_normal')}:</span>
-            <span>18.5 - 24.9</span>
-          </li>
-          <li className="flex items-center">
-            <span className="w-24 font-medium">{t('bmi_category_overweight')}:</span>
-            <span>25.0 - 29.9</span>
-          </li>
-          <li className="flex items-center">
-            <span className="w-24 font-medium">{t('bmi_category_obese')}:</span>
-            <span>≥ 30.0</span>
-          </li>
-        </ul>
-        
-        <div className="mt-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-md">
-          <p className="text-sm text-yellow-800 dark:text-yellow-200">
-            {t('bmi_limitation_notice')}
-          </p>
-        </div>
-      </div>
+      <CalculatorInput
+        id="weight"
+        label={t('weight_label') || 'Váha'}
+        value={weight}
+        onChange={setWeight}
+        placeholder="70"
+        min="2"
+        max="500"
+        unit="kg"
+        helpText={t('weight_help_text') || 'Zadejte svou váhu v kilogramech (2-500 kg)'}
+        error={errors.weight}
+      />
     </div>
+  );
+
+  // Examples for SimpleCalculatorLayout
+  const examples = {
+    title: t('bmi_examples_title'),
+    description: t('bmi_examples_description'),
+    scenarios: [
+      {
+        title: t('bmi_example_1_title'),
+        description: t('bmi_example_1_description'),
+        example: t('bmi_example_1_calculation')
+      },
+      {
+        title: t('bmi_example_2_title'),
+        description: t('bmi_example_2_description'),
+        example: t('bmi_example_2_calculation')
+      }
+    ]
+  };
+
+  // FAQ for SimpleCalculatorLayout
+  const faq = [
+    {
+      question: t('bmi_faq_1_question'),
+      answer: t('bmi_faq_1_answer')
+    },
+    {
+      question: t('bmi_faq_2_question'),
+      answer: t('bmi_faq_2_answer')
+    },
+    {
+      question: t('bmi_faq_3_question'),
+      answer: t('bmi_faq_3_answer')
+    }
+  ];
+
+  // Related calculators - loaded from centralized data
+  const relatedCalculators = getRelatedCalculators('bmi', locale, t);
+
+  return (
+    <SimpleCalculatorLayout
+      title={t('bmi_calculator_title')}
+      description={t('bmi_calculator_description') || 'Vypočítejte svůj Body Mass Index (BMI) a zjistěte svou váhovou kategorii.'}
+      category="health"
+      calculatorId="bmi"
+      seo={{
+        title: t('bmi_calculator_title') + ' - Výpočet Body Mass Index | MathCalc',
+        description: 'Bezplatný BMI kalkulátor pro výpočet Body Mass Index. Zjistěte svou váhovou kategorii podle WHO standardů.',
+        keywords: [
+          'BMI kalkulátor',
+          'Body Mass Index',
+          'váhová kategorie',
+          'zdravá váha',
+          'nadváha'
+        ]
+      }}
+      formula={{
+        latex: 'BMI = \\frac{váha (kg)}{výška (m)^2}',
+        description: 'BMI se vypočítá jako váha v kilogramech dělená druhou mocninou výšky v metrech.'
+      }}
+      examples={examples}
+      faq={faq}
+      relatedCalculators={relatedCalculators}
+      resultSection={result && (
+        <CalculatorResult
+          title={t('your_bmi_label') || 'Váš BMI'}
+          value={result.bmi.toFixed(1)}
+          description={result.category}
+          formula={`BMI = ${parseFloat(weight).toFixed(1)} kg ÷ (${(parseFloat(height) / 100).toFixed(2)} m)² = ${result.bmi.toFixed(1)}`}
+          additionalInfo={
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                <div className="text-center p-2 bg-blue-50 rounded">
+                  <div className="font-medium text-blue-600">&lt; 18.5</div>
+                  <div>{t('bmi_category_underweight') || 'Podváha'}</div>
+                </div>
+                <div className="text-center p-2 bg-green-50 rounded">
+                  <div className="font-medium text-green-600">18.5 - 24.9</div>
+                  <div>{t('bmi_category_normal') || 'Normální'}</div>
+                </div>
+                <div className="text-center p-2 bg-yellow-50 rounded">
+                  <div className="font-medium text-yellow-600">25.0 - 29.9</div>
+                  <div>{t('bmi_category_overweight') || 'Nadváha'}</div>
+                </div>
+                <div className="text-center p-2 bg-red-50 rounded">
+                  <div className="font-medium text-red-600">≥ 30.0</div>
+                  <div>{t('bmi_category_obese') || 'Obezita'}</div>
+                </div>
+              </div>
+              
+              <div className="text-sm text-gray-600 bg-gray-50 p-3 rounded">
+                <p>BMI je pouze orientační ukazatel. Pro přesné posouzení zdravotního stavu se obraťte na lékaře.</p>
+              </div>
+            </div>
+          }
+        />
+      )}
+    >
+      {calculatorForm}
+    </SimpleCalculatorLayout>
   );
 };
 

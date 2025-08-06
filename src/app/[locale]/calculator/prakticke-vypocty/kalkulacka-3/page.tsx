@@ -1,13 +1,8 @@
-// src/app/[locale]/calculator/practical-calculations/kalkulacka-3/page.tsx
-import React from 'react';
+// src/app/[locale]/calculator/prakticke-vypocty/kalkulacka-3/page.tsx
+'use client';
 
-const PraktickeVypoctyKalkulacka3Page: React.FC = () => {
-  return (
-    <div>
-      <h1>Praktické výpočty - Kalkulačka 3</h1>
-      <p>Tato kalkulačka bude implementována později.</p>
-    </div>
-  );
-};
+import AgeCalculator from '@/components/calculators/AgeCalculator';
 
-export default PraktickeVypoctyKalkulacka3Page;
+export default function AgeCalculatorPage() {
+  return <AgeCalculator />;
+}

@@ -1,0 +1,49 @@
+{
+  "relationships": {
+    "bmi": {
+      "related": ["bmr", "ideal-weight", "body-fat"],
+      "maxCount": 3,
+      "priorityOrder": ["bmr", "ideal-weight", "body-fat", "calories"]
+    },
+    "bmr": {
+      "related": ["bmi", "calories", "ideal-weight"],
+      "maxCount": 3,
+      "priorityOrder": ["bmi", "calories", "ideal-weight", "body-fat"]
+    },
+    "ideal-weight": {
+      "related": ["bmi", "bmr", "body-fat"],
+      "maxCount": 3,
+      "priorityOrder": ["bmi", "bmr", "body-fat"]
+    },
+    "body-fat": {
+      "related": ["bmi", "bmr", "ideal-weight"],
+      "maxCount": 3,
+      "priorityOrder": ["bmi", "bmr", "ideal-weight"]
+    },
+    "percentage": {
+      "related": ["vat", "discount", "tip"],
+      "maxCount": 3,
+      "priorityOrder": ["vat", "discount", "tip", "compound-interest"]
+    },
+    "vat": {
+      "related": ["percentage", "net-salary", "discount"],
+      "maxCount": 3,
+      "priorityOrder": ["percentage", "net-salary", "discount"]
+    },
+    "net-salary": {
+      "related": ["vat", "percentage", "compound-interest"],
+      "maxCount": 3,
+      "priorityOrder": ["vat", "percentage", "compound-interest"]
+    },
+    "unit-converter": {
+      "related": ["percentage", "bmi", "bmr"],
+      "maxCount": 3,
+      "priorityOrder": ["percentage", "bmi", "bmr"]
+    }
+  },
+  "fallbackStrategy": {
+    "sameCategory": true,
+    "popularityThreshold": 70,
+    "maxFallbackCount": 2
+  }
+}

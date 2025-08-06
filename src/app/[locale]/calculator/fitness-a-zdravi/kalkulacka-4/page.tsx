@@ -1,13 +1,8 @@
-// src/app/[locale]/calculator/health-fitness/kalkulacka-4/page.tsx
-import React from 'react';
+// src/app/[locale]/calculator/fitness-a-zdravi/kalkulacka-4/page.tsx
+'use client';
 
-const FitnessAZdraviKalkulacka4Page: React.FC = () => {
-  return (
-    <div>
-      <h1>Fitness a zdraví - Kalkulačka 4</h1>
-      <p>Tato kalkulačka bude implementována později.</p>
-    </div>
-  );
-};
+import BodyFatCalculator from '@/components/calculators/BodyFatCalculator';
 
-export default FitnessAZdraviKalkulacka4Page;
+export default function BodyFatCalculatorPage() {
+  return <BodyFatCalculator />;
+}

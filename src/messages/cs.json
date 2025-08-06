@@ -1,6 +1,4 @@
 {
-  "procento_z_cisla_title": "Výpočet percentages z čísla",
-  "percentages_label": "Procenta",
   "cislo_label": "Číslo",
   "vysledek_label": "Výsledek",
   "kolik_procent_je_x_z_y_title": "Kalkulátor: Kolik procent je X z Y?",
@@ -48,15 +46,39 @@
   "fractions_form_deleni": "Formulář pro dělení zlomků...",
   "fractions_form_zkracovani": "Formulář pro zkracování zlomků...",
   "fractions_form_prevod": "Formulář pro převod zlomků...",
-  "bmi_calculator_title": "Kalkulačka BMI",
+  "bmi_calculator_title": "Kalkulátor BMI",
+  "bmi_calculator_description": "Vypočítejte svůj Body Mass Index (BMI) a zjistěte svou váhovou kategorii podle WHO standardů.",
   "height_label": "Výška",
   "weight_label": "Váha",
+  "height_help_text": "Zadejte svou výšku v centimetrech (50-300 cm)",
+  "weight_help_text": "Zadejte svou váhu v kilogramech (2-500 kg)",
   "your_bmi_label": "Vaše BMI",
   "category_label": "Kategorie",
   "bmi_category_underweight": "Podváha",
   "bmi_category_normal": "Normální váha",
   "bmi_category_overweight": "Nadváha",
   "bmi_category_obese": "Obezita",
+  "bmi_examples_title": "Příklady výpočtu BMI",
+  "bmi_examples_description": "Praktické příklady výpočtu BMI pro různé situace",
+  "bmi_example_1_title": "Normální váha",
+  "bmi_example_1_description": "Osoba s výškou 170 cm a váhou 65 kg",
+  "bmi_example_1_calculation": "65 ÷ (1.7)² = 22.5 BMI (normální váha)",
+  "bmi_example_2_title": "Nadváha",
+  "bmi_example_2_description": "Osoba s výškou 175 cm a váhou 85 kg",
+  "bmi_example_2_calculation": "85 ÷ (1.75)² = 27.8 BMI (nadváha)",
+  "bmi_faq_1_question": "Co je BMI a k čemu slouží?",
+  "bmi_faq_1_answer": "BMI (Body Mass Index) je ukazatel poměru váhy a výšky, který pomáhá posoudit, zda máte zdravou váhu.",
+  "bmi_faq_2_question": "Jak se interpretují hodnoty BMI?",
+  "bmi_faq_2_answer": "BMI pod 18.5 = podváha, 18.5-24.9 = normální váha, 25-29.9 = nadváha, 30+ = obezita.",
+  "bmi_faq_3_question": "Je BMI přesný ukazatel zdraví?",
+  "bmi_faq_3_answer": "BMI je pouze orientační. Nezohledňuje svalovou hmotu, věk či pohlaví. Pro přesné posouzení navštivte lékaře.",
+  "dph_title": "DPH Kalkulátor",
+  "dph_tip_text": "Tip: DPH se v České republice účtuje ve výši 21%, na Slovensku 20%. Vždy si ověřte aktuální sazby.",
+  "bmi_tip_text": "Tip: BMI je pouze orientační ukazatel. Pro přesné posouzení zdraví konzultujte s lékařem.",
+  "bmi_explanation": "BMI je standardní měřítko pro klasifikaci váhy dospělých osob podle WHO.",
+  "bmi_title": "Kalkulátor BMI",
+  "procento_z_cisla_title": "Výpočet procent z čísla",
+  "percentages_label": "Procenta",
   "procento_z_cisla_formula": "\\frac{Procenta}{100} \\times Číslo = Výsledek",
   "kolik_procent_je_x_z_y_formula": "\\frac{X}{Y} \\times 100 = Výsledek (%)",
   "y_je_x_kolik_je_sto_formula": "\\frac{Y}{X} \\times 100 = Základ (100%)",
@@ -106,7 +128,724 @@
     "fractions_description": "Počítání se zlomky a smíšenými čísly",
     "mathematics": "Matematika",
     "finance": "Finance",
+    "financial": "Finanční",
+    "construction": "Stavební",
+    "practical": "Praktické",
     "health": "Zdraví a fitness",
     "conversions": "Převody jednotek"
+  },
+  "common": {
+    "formula": "Vzorec",
+    "calculator": "Kalkulačka",
+    "enter_values": "Zadejte hodnoty pro výpočet",
+    "results": "Výsledek",
+    "faq": "Často kladené otázky",
+    "related_calculators": "Související kalkulátory",
+    "other_useful_calculations": "Další užitečné výpočty",
+    "quick_links": "Rychlé odkazy",
+    "all_calculators": "Všechny kalkulátory",
+    "most_popular": "Nejoblíbenější",
+    "home": "Domů",
+    "calculators": "Kalkulátory",
+    "calculate": "Vypočítat",
+    "examples": "Příklady",
+    "select_option": "Vyberte možnost",
+    "detailed_calculation": "Detailní výpočet",
+    "currency": "Kč",
+    "percentage": "%",
+    "years": "let",
+    "months": "měsíců",
+    "days": "dní",
+    "hours": "hodin",
+    "minutes": "minut",
+    "seconds": "sekund"
+  },
+  "calculators": {
+    "tip": {
+      "title": "Kalkulátor spropitného",
+      "description": "Vypočítejte spropitné podle kvality obsluhy a rozdělte účet mezi více lidí. Doporučené procenta pro restaurace, bary a kavárny v České republice.",
+      "bill_amount": "Částka účtu",
+      "bill_amount_hint": "Celková částka účtu před spropitným",
+      "service_quality": "Kvalita obsluhy",
+      "service_quality_hint": "Dobrá obsluha - doporučené spropitné",
+      "number_of_people": "Počet lidí",
+      "number_of_people_hint": "Počet lidí, kteří si účet rozdělí",
+      "people_unit": "osob",
+      "total_to_pay": "Celkem k zaplacení",
+      "bill_plus_tip": "Účet + spropitné",
+      "original_bill": "Účet",
+      "original_amount": "Původní částka",
+      "tip_amount": "Spropitné",
+      "tip_from_bill": "z účtu",
+      "per_person": "Na osobu",
+      "per_person_people": "lidí",
+      "per_person_bill": "Účet",
+      "per_person_tip": "Spropitné",
+      "per_person_total": "Celkem",
+      "service_poor": "Špatná obsluha",
+      "service_average": "Průměrná obsluha",
+      "service_good": "Dobrá obsluha",
+      "service_excellent": "Výborná obsluha",
+      "service_custom": "Vlastní procento",
+      "validation": {
+        "bill_amount": "Zadejte platnou částku účtu (1-100 000 Kč)",
+        "tip_percentage": "Zadejte platné procento spropitného (0-100%)",
+        "number_of_people": "Zadejte platný počet lidí (1-50)",
+        "custom_tip": "Zadejte platné vlastní procento (0-100%)"
+      }
+    },
+    "age": {
+      "title": "Kalkulátor věku",
+      "description": "Vypočítejte přesný věk v letech, měsících a dnech. Zjistěte celkový počet dní, týdnů, hodin života a kdy budou další narozeniny.",
+      "birth_date": "Datum narození",
+      "birth_date_hint": "Vaše datum narození",
+      "target_date": "Cílové datum",
+      "target_date_hint": "Datum, ke kterému chcete spočítat věk (dnes je výchozí)",
+      "quick_settings": "Rychlé nastavení",
+      "today": "Dnes",
+      "next_year": "Za rok",
+      "exact_age": "Přesný věk",
+      "total_days": "Dní",
+      "total_weeks": "Týdnů",
+      "total_hours": "Hodin",
+      "total_minutes": "Minut",
+      "total_seconds": "Sekund",
+      "next_birthday": "Další narozeniny",
+      "date": "Datum",
+      "in_days": "Za",
+      "age_will_be": "Věk",
+      "zodiac_sign": "Znamení zvěrokruhu",
+      "by_birth_date": "Podle data narození"
+    },
+    "currency": {
+      "title": "Kalkulátor měn",
+      "description": "Převádějte mezi různými měnami s aktuálními směnnými kurzy. Podporuje hlavní světové měny včetně EUR, USD, GBP a dalších.",
+      "amount": "Částka",
+      "amount_hint": "Zadejte částku, kterou chcete převést",
+      "quick_amounts": "Rychlé částky",
+      "from_currency": "Z měny",
+      "to_currency": "Na měnu",
+      "swap_currencies": "Prohodit měny",
+      "converted_amount": "Převedená částka",
+      "exchange_rate": "Směnný kurz",
+      "current_rate": "Aktuální kurz",
+      "original_amount": "Původní částka",
+      "popular_conversions": "Oblíbené převody"
+    },
+
+    "time": {
+      "title": "Kalkulátor času",
+      "description": "Sčítejte a odčítejte časy v hodinách, minutách a sekundách. Vypočítejte celkovou dobu práce, přestávek nebo jakýchkoli časových intervalů.",
+      "operation": "Operace",
+      "add_time": "Sčítat časy",
+      "subtract_time": "Odčítat časy",
+      "first_time": "První čas",
+      "second_time": "Druhý čas",
+      "hours": "Hodiny",
+      "minutes": "Minuty",
+      "seconds": "Sekundy",
+      "result_time": "Výsledný čas",
+      "total_seconds": "Celkem sekund",
+      "total_minutes": "Celkem minut",
+      "total_hours": "Celkem hodin"
+    },
+    "material": {
+      "title": "Kalkulátor materiálů",
+      "description": "Vypočítejte potřebné množství stavebních materiálů včetně odpadu. Dlažba, barva, beton, podlahoviny a další.",
+      "material_type": "Typ materiálu",
+      "area": "Plocha",
+      "area_hint": "Celková plocha k pokrytí materiálem",
+      "price_per_unit": "Cena za",
+      "price_hint": "Cena za jednotku materiálu",
+      "waste_reserve": "Odpad/rezerva",
+      "recommended": "Doporučeno",
+      "required_amount": "Potřebné množství",
+      "including_waste": "(včetně odpadu)",
+      "basic_amount": "Základní množství",
+      "waste_amount": "Odpad/rezerva",
+      "total_price": "Celková cena",
+      "enter_parameters": "Zadejte parametry pro výpočet materiálu",
+      "select_material": "Vyberte materiál",
+      "calculation_needed": "výpočet potřebného množství",
+      "tiles": "Dlažba/obklady",
+      "paint": "Barva",
+      "concrete": "Beton",
+      "flooring": "Podlahoviny",
+      "wallpaper": "Tapety",
+      "insulation": "Izolace",
+      "installation_tips": "Tipy pro montáž",
+      "preparation": "Příprava",
+      "preparation_tip": "Rovný podklad, správné nářadí, kontrola rozměrů",
+      "installation": "Montáž",
+      "installation_tip": "Začněte od středu místnosti, použijte křížky",
+      "coverage": "Pokrytí",
+      "coverage_tip": "Rovnoměrné nanášení, respektujte spotřebu",
+      "drying": "Sušení",
+      "drying_tip": "Dodržujte teplotu a vlhkost, větrání",
+      "mixing": "Míchání",
+      "mixing_tip": "Správný poměr voda/cement, důkladné promíchání",
+      "pouring": "Lití",
+      "pouring_tip": "Rychlé zpracování, vibrace pro odstranění vzduchu",
+      "acclimation": "Aklimatizace",
+      "acclimation_tip": "48 hodin v místnosti montáže před pokládká",
+      "cutting": "Řezání",
+      "cutting_tip": "Ostré nářadí, měření dvakrát, řez jednou",
+      "gluing": "Lepení",
+      "gluing_tip": "Začněte od okna, lepte směrem ke světlu",
+      "pattern": "Vzor",
+      "pattern_tip": "U vzorovanych tapet počítejte s vyšším odpadem",
+      "mounting": "Montáž",
+      "mounting_tip": "Bez tepelných mostů, těsné spoje",
+      "protection": "Ochrana",
+      "protection_tip": "Chraňte před vlhkostí, použijte parotěsnou fólii"
+    },
+    "irr": {
+      "title": "Kalkulátor IRR",
+      "description": "Vypočítejte vnitřní výnosové procento (IRR) investice a analyzujte její výhodnost. Včetně NPV a doby návratnosti.",
+      "discount_rate": "Diskontní sazba",
+      "discount_rate_hint": "Požadovaná minimální výnosnost pro výpočet NPV",
+      "cash_flows": "Peněžní toky",
+      "add_period": "Přidat období",
+      "beginning": "Počátek",
+      "year": "Rok",
+      "irr_result": "Vnitřní výnosové procento (IRR)",
+      "investment_profitable": "Investice je výhodná",
+      "investment_unprofitable": "Investice není výhodná",
+      "npv_result": "Čistá současná hodnota (NPV)",
+      "payback_period": "Doba návratnosti",
+      "net_profit": "Čistý zisk",
+      "total_investment": "Celková investice",
+      "total_returns": "Celkové výnosy",
+      "enter_cash_flows": "Zadejte peněžní toky pro výpočet IRR",
+      "remove_period": "Odebrat období",
+      "years": "let",
+      "negative_values": "Záporné hodnoty = investice/výdaje",
+      "positive_values": "Kladné hodnoty = příjmy/výnosy",
+      "period_zero": "Období 0 = počáteční investice",
+      "investment_analysis": "Analýza investice",
+      "periods": "období",
+      "investments": "investic",
+      "returns": "výnosů",
+      "sum_all_expenses": "Součet všech výdajů",
+      "sum_all_income": "Součet všech příjmů",
+      "seo_title": "Kalkulátor IRR - Vnitřní výnosové procento | MathCalc",
+      "seo_description": "Bezplatný kalkulátor IRR. Vypočítejte vnitřní výnosové procento, NPV a analyzujte výhodnost investice s peněžními toky.",
+      "formula_description": "IRR je diskontní sazba, při které je čistá současná hodnota (NPV) rovna nule.",
+      "examples_title": "Příklady výpočtu IRR",
+      "examples_description": "Praktické použití kalkulátoru IRR"
+    },
+    "npv": {
+      "title": "Kalkulátor NPV",
+      "description": "Vypočítejte čistou současnou hodnotu (NPV) investice a analyzujte její ziskovost. Včetně indexu ziskovosti.",
+      "npv_result": "Čistá současná hodnota (NPV)",
+      "profitability_index": "Index ziskovosti (PI)",
+      "present_value_returns": "Současná hodnota výnosů",
+      "total_investment": "Celková investice",
+      "total_returns": "Celkové výnosy",
+      "enter_cash_flows": "Zadejte peněžní toky pro výpočet NPV",
+      "total_npv": "Celková NPV",
+      "discount_rate": "Diskontní sazba",
+      "discount_rate_hint": "Požadovaná minimální výnosnost (náklady kapitálu)",
+      "cash_flows": "Peněžní toky",
+      "add_period": "Přidat období",
+      "beginning": "Počátek",
+      "year": "Rok",
+      "negative_values": "Záporné hodnoty = investice/výdaje",
+      "positive_values": "Kladné hodnoty = příjmy/výnosy",
+      "period_zero": "Období 0 = počáteční investice",
+      "npv_analysis": "Analýza NPV",
+      "periods": "období",
+      "investments": "investic",
+      "returns": "výnosů",
+      "investment_profitable": "Investice je výhodná",
+      "investment_unprofitable": "Investice není výhodná",
+      "profitable": "Výhodné",
+      "unprofitable": "Nevýhodné"
+    },
+    "roi": {
+      "title": "Kalkulátor ROI",
+      "description": "Vypočítejte návratnost investice (ROI) pro jednorázové i pravidelné investice. Včetně anualizovaného ROI.",
+      "calculation_type": "Typ výpočtu",
+      "simple_roi": "Jednoduchý ROI",
+      "annualized_roi": "Anualizovaný ROI",
+      "initial_investment": "Počáteční investice",
+      "final_value": "Konečná hodnota",
+      "additional_costs": "Dodatečné náklady",
+      "investment_period": "Doba investice",
+      "total_roi": "Celkový ROI",
+      "total_returns": "Celkové výnosy",
+      "net_profit": "Čistý zisk",
+      "breakeven_point": "Bod zvratu",
+      "enter_parameters": "Zadejte parametry pro výpočet ROI",
+      "select_type": "Vyberte typ",
+      "simple_investment": "Jednorázová investice",
+      "regular_returns": "Pravidelné výnosy",
+      "simple_hint": "Investice s konečnou hodnotou po určitém období",
+      "annualized_hint": "Investice s pravidelnými ročními výnosy",
+      "initial_investment_hint": "Celková částka investovaná na začátku",
+      "final_value_hint": "Hodnota investice na konci období",
+      "annual_return_hint": "Roční výnos z investice",
+      "additional_costs_hint": "Poplatky, provize a další náklady",
+      "time_period_hint": "Doba trvání investice",
+      "years": "let",
+      "months": "měsíců",
+      "roi_analysis": "Analýza ROI",
+      "profitable_investment": "Zisková investice",
+      "unprofitable_investment": "Ztrátová investice",
+      "including_costs": "Včetně dodatecných nákladů",
+      "total_investment": "Celková investice"
+    },
+    "early_repayment": {
+      "title": "Kalkulátor předčasného splacení",
+      "description": "Vypočítejte úspory z předčasného splacení úvěru. Porovnejte zkrácení doby vs. snížení splátky.",
+      "enter_parameters": "Zadejte parametry pro výpočet předčasného splacení",
+      "loan_amount": "Výše úvěru (Kč)",
+      "loan_amount_hint": "Původní výše úvěru",
+      "interest_rate": "Úroková sazba (% p.a.)",
+      "interest_rate_hint": "Roční úroková sazba úvěru",
+      "loan_term": "Doba splatnosti (roky)",
+      "loan_term_hint": "Původní doba splatnosti úvěru",
+      "paid_months": "Splacené měsíce",
+      "paid_months_hint": "Počet již splacených měsíčních splátek",
+      "repayment_amount": "Částka předčasného splacení (Kč)",
+      "repayment_amount_hint": "Částka, kterou chcete mimořádně splatit",
+      "repayment_type": "Typ předčasného splacení",
+      "select_type": "Vyberte typ",
+      "reduce_term": "Zkrátit dobu splatnosti",
+      "reduce_payment": "Snížit měsíční splátku",
+      "keep_payment_reduce_term": "Zachovat výši splátky, zkrátit dobu úvěru",
+      "keep_term_reduce_payment": "Zachovat dobu úvěru, snížit měsíční splátku",
+      "early_loan_repayment": "Předčasné splacení úvěru",
+      "reduce_term_short": "Zkrátit dobu",
+      "reduce_payment_short": "Snížit splátku",
+      "total_interest_savings": "Celková úspora na úrocích",
+      "term_reduction": "Zkrácení doby úvěru",
+      "payment_reduction": "Snížení měsíční splátky",
+      "new_monthly_payment": "Nová měsíční splátka",
+      "new_loan_term": "Nová doba splatnosti",
+      "seo": {
+        "title": "Kalkulátor předčasného splacení úvěru | MathCalc",
+        "description": "Bezplatný kalkulátor předčasného splacení. Vypočítejte úspory na úrocích a porovnejte možnosti zkrácení doby nebo snížení splátky.",
+        "keywords": "předčasné splacení,úvěr,hypotéka,úspora úroků,zkrácení doby,snížení splátky,kalkulátor úvěru"
+      },
+      "formula": {
+        "description": "Úspora je rozdíl mezi celkovými splátkami původního a nového úvěru po předčasném splacení."
+      },
+      "examples": {
+        "title": "Příklady předčasného splacení",
+        "description": "Praktické použití kalkulátoru předčasného splacení",
+        "scenario1": {
+          "title": "Hypotéka 2 mil. Kč",
+          "description": "Splacení 300 000 Kč po 3 letech, zkrácení o 3,2 roku",
+          "example": "Úspora 287 456 Kč na úrocích"
+        },
+        "scenario2": {
+          "title": "Spotřebitelský úvěr",
+          "description": "Splacení 50 000 Kč po roce, snížení splátky o 1 200 Kč",
+          "example": "Úspora 18 234 Kč na úrocích"
+        },
+        "scenario3": {
+          "title": "Podnikatelský úvěr",
+          "description": "Splacení 500 000 Kč po 2 letech, zkrácení o 2,8 roku",
+          "example": "Úspora 156 789 Kč na úrocích"
+        }
+      },
+      "faq": {
+        "q1": {
+          "question": "Kdy se vyplatí předčasné splacení?",
+          "answer": "Když úroková sazba úvěru je vyšší než výnosnost alternativních investic. Vždy zkontrolujte poplatky za předčasné splacení."
+        },
+        "q2": {
+          "question": "Zkrátit dobu nebo snížit splátku?",
+          "answer": "Zkrácení doby přináší větší úsporu na úrocích. Snížení splátky uvolní měsíční cash flow pro jiné účely."
+        },
+        "q3": {
+          "question": "Jaké jsou poplatky za předčasné splacení?",
+          "answer": "U hypoték obvykle 0,5-1% ze splacené částky. U spotřebitelských úvěrů může být vyšší. Vždy si ověřte ve smlouvě."
+        },
+        "q4": {
+          "question": "Kdy předčasně nesplácet?",
+          "answer": "Ano, můžete zadat vlastní procento spropitného vybráním možnosti 'Vlastní' v kvalítě služeb."
+        },
+        "compound_interest": {
+          "title": "Složené úročení",
+          "description": "Výpočet složeného úročení"
+        },
+        "roi": {
+          "title": "Kalkulátor ROI",
+          "description": "Návratnost investice"
+        },
+        "npv": {
+          "title": "Kalkulátor NPV",
+          "description": "Čistá současná hodnota"
+        }
+      },
+      "results": {
+        "original_loan": "Původní úvěr",
+        "after_repayment": "Po předčasném splacení",
+        "detailed_analysis": "Detailní analýza",
+        "monthly_payment": "Měsíční splátka",
+        "loan_term": "Doba splatnosti",
+        "total_interest": "Celkové úroky",
+        "remaining_balance": "Zůstatek před splacením",
+        "early_payment": "Předčasné splacení",
+        "new_balance": "Nový zůstatek",
+        "interest_savings": "Úspora na úrocích",
+        "total_savings": "Celková úspora",
+        "tips_title": "Tipy pro předčasné splacení",
+        "tips": {
+          "term_reduction": {
+            "title": "Zkrácení doby",
+            "description": "Větší úspora na úrocích, rychlejší zbavení se dluhu"
+          },
+          "payment_reduction": {
+            "title": "Snížení splátky",
+            "description": "Nižší měsíční zatížení, více peněz na jiné účely"
+          },
+          "fees": {
+            "title": "Poplatky",
+            "description": "Zkontrolujte poplatky za předčasné splacení u banky"
+          },
+          "alternatives": {
+            "title": "Alternativy",
+            "description": "Zvažte investování vs. splacení podle úrokových sazeb"
+          }
+        }
+      }
+    },
+    "fuel": {
+      "title": "Kalkulátor spotřeby paliva",
+      "description": "Vypočítejte spotřebu paliva, náklady na cestu a naplánujte si výlety. Užitečný nástroj pro řidiče a cestování.",
+      "calculation_type": "Typ výpočtu",
+      "consumption_calc": "Výpočet spotřeby",
+      "cost_calc": "Výpočet nákladů",
+      "trip_planning": "Plánování cesty",
+      "distance": "Vzdálenost",
+      "distance_hint": "Ujetá vzdálenost v kilometrech",
+      "fuel_used": "Spotřebované palivo",
+      "fuel_used_hint": "Množství spotřebovaného paliva v litrech",
+      "fuel_price": "Cena paliva",
+      "fuel_price_hint": "Cena za litr paliva v Kč",
+      "consumption": "Spotřeba",
+      "consumption_hint": "Spotřeba vozidla v l/100km",
+      "trip_distance": "Vzdálenost cesty",
+      "trip_distance_hint": "Celková vzdálenost plánované cesty",
+      "car_consumption": "Spotřeba vozidla",
+      "car_consumption_hint": "Průměrná spotřeba vašeho vozidla",
+      "fuel_consumption": "Spotřeba paliva",
+      "total_cost": "Celkové náklady",
+      "cost_per_km": "Náklady na km",
+      "fuel_needed": "Potřebné palivo",
+      "enter_values": "Zadejte hodnoty pro výpočet spotřeby paliva",
+      "detailed_calculation": "Detailní výpočet",
+      "fuel_used_consumed": "Spotřebované palivo",
+      "consumption_per_100km": "Spotřeba na 100km",
+      "fuel_efficiency_tips": "Tipy pro úsporu paliva",
+      "city_driving": "Jízda ve městě",
+      "city_tip": "Plynulá jízda, předvídání, správný tlak v pneumatikách",
+      "highway_driving": "Dálniční jízda",
+      "highway_tip": "Konstantní rychlost, využití tempomatu, aerodynamika",
+      "vehicle_maintenance": "Údržba vozidla",
+      "maintenance_tip": "Pravidelné servisy, čistý vzduchový filtr, kvalitní olej",
+      "trip_planning_tips": "Plánování cest",
+      "planning_tip": "Spojování cest, vyhýbání se špičkám, GPS navigace",
+      "seo": {
+        "title": "Kalkulátor spotřeby paliva - Výpočet nákladů na cestu | MathCalc",
+        "description": "Bezplatný kalkulátor spotřeby paliva. Vypočítejte spotřebu l/100km, náklady na cestu a naplánujte si výlety.",
+        "keywords": "palivo,spotřeba paliva,náklady na cestu,l/100km,benzín,nafta,kalkulátor paliva,cestování,auto"
+      },
+      "formula": {
+        "latex": "Spotřeba = \\frac{Palivo \\times 100}{Vzdálenost} \\quad Náklady = Palivo \\times Cena",
+        "description": "Spotřeba se počítá jako poměr spotřebovaného paliva k ujeté vzdálenosti, náklady jako součin paliva a ceny."
+      },
+      "examples": {
+        "title": "Příklady výpočtu spotřeby paliva",
+        "description": "Praktické použití kalkulátoru paliva",
+        "scenario1": {
+          "title": "Výpočet spotřeby",
+          "description": "100 km, 7,5 l → 7,5 l/100km",
+          "example": "Zjištění skutečné spotřeby vašeho vozidla"
+        },
+        "scenario2": {
+          "title": "Náklady na dovolenou",
+          "description": "800 km, 7,5 l/100km, 35 Kč/l → 2 100 Kč",
+          "example": "Plánování rozpočtu na dovolenou autem"
+        },
+        "scenario3": {
+          "title": "Porovnání vozidel",
+          "description": "Stejná trasa, různé spotřeby",
+          "example": "Výběr ekonomičtějšího vozidla"
+        }
+      },
+      "faq": {
+        "q1": {
+          "question": "Jak přesně vypočítat spotřebu paliva?",
+          "answer": "Spotřeba se počítá jako (spotřebované palivo v litrech / ujetá vzdálenost v km) × 100. Výsledek je v l/100km."
+        },
+        "q2": {
+          "question": "Jaké faktory ovlivňují spotřebu paliva?",
+          "answer": "Spotřebu ovlivňuje styl jízdy, typ vozidla, stav vozidla, typ cesty (město/dálnice), počasí, zatížení vozidla a kvalita paliva."
+        },
+        "q3": {
+          "question": "Jak snížit spotřebu paliva?",
+          "answer": "Jezdíte plynule, udržujte konstantní rychlost, pravidelně servisujte vozidlo, kontrolujte tlak v pneumatikách a plánujte cesty efektivně."
+        },
+        "q4": {
+          "question": "Je lepší tankovat častěji nebo méně často?",
+          "answer": "Z hlediska spotřeby je lepší jezdit s lehčím vozidlem, ale rozdíl je minimální. Důležitější je kvalita paliva a pravidelné tankování."
+        }
+      },
+      "related": {
+        "age": {
+          "title": "Kalkulátor věku",
+          "description": "Výpočet přesného věku a dní života"
+        },
+        "time": {
+          "title": "Kalkulátor času",
+          "description": "Sčítání a odčítání času"
+        },
+        "currency": {
+          "title": "Kalkulátor měn",
+          "description": "Převod mezi různými měnami"
+        },
+        "unit_converter": {
+          "title": "Převodník jednotek",
+          "description": "Převod mezi různými jednotkami"
+        }
+      }
+    },
+    "calories": {
+      "title": "Kalorie kalkulátor",
+      "description": "Vypočítejte denní potřebu kalorií na základě věku, váhy, výšky, pohlaví a úrovně aktivity. Zahrnuje BMR, TDEE a cíle pro hubnutí nebo přibírání.",
+      "seo": {
+        "title": "Kalorie kalkulátor - Denní potřeba kalorií BMR TDEE | MathCalc",
+        "description": "Bezplatný kalkulátor denní potřeby kalorií. Výpočet BMR, TDEE a kalorických cílů pro hubnutí, udržení nebo přibírání váhy.",
+        "keywords": "kalorie,BMR,TDEE,bazální metabolismus,denní potřeba kalorií,hubnutí,přibírání,metabolismus,fitness"
+      },
+      "formula": {
+        "latex": "BMR_{muž} = 10 \\times váha + 6.25 \\times výška - 5 \\times věk + 5",
+        "description": "BMR se vypočítá pomocí Mifflin-St Jeor rovnice. TDEE = BMR × koeficient aktivity (1.2-1.9)."
+      },
+      "examples": {
+        "title": "Příklady výpočtu kalorií",
+        "description": "Praktické příklady pro různé profily a cíle",
+        "scenario1": {
+          "title": "Muž, 30 let, 80kg, 180cm, střední aktivita",
+          "description": "BMR: 1847 kcal, TDEE: 2863 kcal",
+          "example": "Udržení váhy: 2863 kcal, hubnutí: 2363 kcal, přibírání: 3363 kcal"
+        },
+        "scenario2": {
+          "title": "Žena, 25 let, 60kg, 165cm, lehká aktivita",
+          "description": "BMR: 1411 kcal, TDEE: 1940 kcal",
+          "example": "Udržení váhy: 1940 kcal, hubnutí: 1440 kcal, přibírání: 2440 kcal"
+        },
+        "scenario3": {
+          "title": "Aktivní sportovec, 35 let, 75kg, 175cm",
+          "description": "BMR: 1745 kcal, TDEE: 3013 kcal (vysoká aktivita)",
+          "example": "Potřebuje více kalorií kvůli intenzivnímu tréninku"
+        }
+      },
+      "faq": {
+        "q1": {
+          "question": "Co je BMR a TDEE?",
+          "answer": "BMR (Basal Metabolic Rate) je energie potřebná pro základní tělesné funkce v klidu. TDEE (Total Daily Energy Expenditure) zahrnuje BMR plus energii spotřebovanou aktivitou."
+        },
+        "q2": {
+          "question": "Jak rychle mohu hubnout?",
+          "answer": "Zdravé hubnutí je 0.5-1 kg týdně. Deficit 500 kcal denně vede k úbytku přibližně 0.5 kg týdně. Nikdy neklesejte pod 1200 kcal denně."
+        },
+        "q3": {
+          "question": "Jak přesný je výpočet?",
+          "answer": "Výpočet používá vědecky ověřenou Mifflin-St Jeor rovnici s přesností ±10%. Individuální metabolismus se může lišit kvůli genetice, zdravotnímu stavu a složení těla."
+        },
+        "q4": {
+          "question": "Jak volím úroveň aktivity?",
+          "answer": "Sedavý: kancelářská práce bez cvičení. Lehký: cvičení 1-3× týdně. Střední: 3-5× týdně. Vysoký: 6-7× týdně. Extrémní: 2× denně nebo fyzická práce."
+        }
+      },
+      "related": {
+        "bmi": {
+          "title": "BMI kalkulátor",
+          "description": "Výpočet indexu tělesné hmotnosti"
+        },
+        "percentage": {
+          "title": "Procento z čísla",
+          "description": "Vypočítejte X% z daného čísla"
+        },
+        "unit_converter": {
+          "title": "Převodník jednotek",
+          "description": "Převod mezi různými jednotkami"
+        },
+        "net_salary": {
+          "title": "Čistá mzda",
+          "description": "Výpočet čisté mzdy z hrubé"
+        }
+      }
+    },
+    "discount": {
+      "title": "Kalkulátor slev",
+      "description": "Vypočítejte slevu z procenta, částky slevy nebo konečné ceny. Zjistěte úsporu a finální cenu po slevě.",
+      "seo": {
+        "title": "Kalkulátor slev - Výpočet slevy z procenta nebo částky | MathCalc",
+        "description": "Bezplatný kalkulátor slev. Vypočítejte slevu z procenta, částky slevy nebo konečné ceny. Zjistěte úsporu a finální cenu.",
+        "keywords": "sleva,discount,procento slevy,výpočet slevy,úspora,akce,kalkulátor,nákup"
+      },
+      "formula": {
+        "latex": "Sleva = P\\u016fvodn\\u00ed\\,cena \\times \\frac{Procento}{100}",
+        "description": "Konečná cena = Původní cena - Sleva. Procento slevy = (Sleva ÷ Původní cena) × 100."
+      },
+      "examples": {
+        "title": "Příklady výpočtu slev",
+        "description": "Různé způsoby výpočtu slev",
+        "scenario1": {
+          "title": "20% sleva z 1000 Kč",
+          "description": "Sleva: 200 Kč, Konečná cena: 800 Kč",
+          "example": "Ušetříte 200 Kč"
+        },
+        "scenario2": {
+          "title": "Sleva 150 Kč z 500 Kč",
+          "description": "Procento slevy: 30%, Konečná cena: 350 Kč",
+          "example": "30% sleva je výhodná"
+        },
+        "scenario3": {
+          "title": "Konečná cena 600 Kč z 1000 Kč",
+          "description": "Sleva: 400 Kč (40%), Úspora: 400 Kč",
+          "example": "Výrazná sleva 40%"
+        }
+      },
+      "faq": {
+        "q1": {
+          "question": "Jak vypočítat procento slevy?",
+          "answer": "Procento slevy = (Částka slevy ÷ Původní cena) × 100. Například: sleva 200 Kč z 1000 Kč = (200 ÷ 1000) × 100 = 20%."
+        },
+        "q2": {
+          "question": "Jak vypočítat slevu z procenta?",
+          "answer": "Sleva = Původní cena × (Procento ÷ 100). Například: 20% sleva z 1000 Kč = 1000 × (20 ÷ 100) = 200 Kč."
+        },
+        "q3": {
+          "question": "Co je lepší - procento nebo částka slevy?",
+          "answer": "Záleží na situaci. Procento slevy je užitečné pro porovnání různých produktů. Částka slevy vám přímo ukáže, kolik ušetříte."
+        },
+        "q4": {
+          "question": "Jak poznat výhodnou slevu?",
+          "answer": "Obecně je sleva nad 20% považována za výhodnou. Porovnejte ceny u konkurence a zvažujte, zda produkt skutečně potřebujete."
+        }
+      },
+      "related": {
+        "percentage": {
+          "title": "Procento z čísla",
+          "description": "Vypočítejte X% z daného čísla"
+        },
+        "tip": {
+          "title": "Kalkulátor spropitného",
+          "description": "Výpočet spropitného pro restaurace"
+        },
+        "vat": {
+          "title": "DPH kalkulátor",
+          "description": "Výpočet DPH a cen"
+        },
+        "bmi": {
+          "title": "BMI kalkulátor",
+          "description": "Výpočet indexu tělesné hmotnosti"
+        }
+      }
+    },
+    "bmr": {
+      "title": "BMR kalkulátor",
+      "description": "Vypočítejte bazální metabolismus (BMR) pomocí různých vědeckých vzorců. Zjistěte, kolik energie vaše tělo potřebuje v klidu.",
+      "seo": {
+        "title": "BMR kalkulátor - Bazální metabolismus Mifflin Harris Katch | MathCalc",
+        "description": "Bezplatný kalkulátor bazálního metabolismu. Výpočet BMR pomocí Mifflin-St Jeor, Harris-Benedict a Katch-McArdle vzorců.",
+        "keywords": "BMR,bazální metabolismus,Mifflin-St Jeor,Harris-Benedict,Katch-McArdle,metabolismus,kalorie,energie"
+      },
+      "formula": {
+        "latex": "BMR = 10 \\times W + 6.25 \\times H - 5 \\times A + S",
+        "description": "Mifflin-St Jeor: W=váha(kg), H=výška(cm), A=věk(roky), S=+5(muž)/-161(žena). Harris-Benedict a Katch-McArdle používají jiné koeficienty."
+      },
+      "examples": {
+        "title": "Příklady výpočtu BMR",
+        "description": "Porovnání různých vzorců pro různé profily",
+        "scenario1": {
+          "title": "Muž, 30 let, 80kg, 180cm",
+          "description": "Mifflin: 1847 kcal, Harris: 1896 kcal",
+          "example": "Rozdíl mezi vzorci je obvykle 50-100 kcal"
+        },
+        "scenario2": {
+          "title": "Žena, 25 let, 60kg, 165cm",
+          "description": "Mifflin: 1411 kcal, Harris: 1442 kcal",
+          "example": "Ženy mají obecně nižší BMR než muži"
+        },
+        "scenario3": {
+          "title": "Sportovec s 10% tělesným tukem",
+          "description": "Katch-McArdle může být přesnější",
+          "example": "Zohledňuje svalovou hmotu vs. tukovou tkáň"
+        }
+      },
+      "faq": {
+        "q1": {
+          "question": "Který vzorec je nejpřesnější?",
+          "answer": "Mifflin-St Jeor je obecně nejpřesnější pro většinu lidí. Katch-McArdle je přesnější pro atletické postavy s nízkým obsahem tuku, ale vyžaduje znalost % tělesného tuku."
+        },
+        "q2": {
+          "question": "Proč se výsledky vzorců liší?",
+          "answer": "Každý vzorec používá jiné koeficienty založené na různých studiích populace. Rozdíly jsou obvykle 50-150 kcal, což je v rámci přirozené variability metabolismu."
+        },
+        "q3": {
+          "question": "Jak se BMR liší od TDEE?",
+          "answer": "BMR je energie v úplném klidu. TDEE (Total Daily Energy Expenditure) zahrnuje BMR plus energii spotřebovanou aktivitou a je 1.2-1.9× vyšší než BMR."
+        },
+        "q4": {
+          "question": "Mění se BMR s věkem?",
+          "answer": "Ano, BMR klesá s věkem přibližně o 1-2% za dekádu po 20. roce věku kvůli úbytku svalové hmoty a zpomalení metabolismu."
+        }
+      },
+      "related": {
+        "calories": {
+          "title": "Kalorie kalkulátor",
+          "description": "Denní potřeba kalorií včetně aktivity"
+        },
+        "bmi": {
+          "title": "BMI kalkulátor",
+          "description": "Výpočet indexu tělesné hmotnosti"
+        },
+        "percentage": {
+          "title": "Procento z čísla",
+          "description": "Vypočítejte X% z daného čísla"
+        },
+        "unit_converter": {
+          "title": "Převodník jednotek",
+          "description": "Převod mezi různými jednotkami"
+        }
+      }
+    }
+  },
+  "bmr_calculator_title": "BMR Kalkulátor",
+  "bmr_calculator_description": "Vypočítejte bazální metabolismus pomocí vědeckých vzorců",
+  "ideal_weight_calculator_title": "Kalkulátor ideální váhy",
+  "ideal_weight_calculator_description": "Vypočítejte svou ideální váhu podle výšky a typu těla",
+  "body_fat_calculator_title": "Kalkulátor tělesného tuku",
+  "body_fat_calculator_description": "Vypočítejte procento tělesného tuku různými metodami měření",
+  "category_health_title": "Zdraví a fitness",
+  "category_health_description": "Kalkulačky pro zdraví, fitness a tělesnou kondici",
+  "category_math_title": "Matematické výpočty",
+  "category_math_description": "Základní matematické kalkulačky a převody",
+  "category_finance_title": "Finance a ekonomika",
+  "category_finance_description": "Finanční kalkulačky, daně a investice",
+  "category_utility_title": "Užitečné nástroje",
+  "category_utility_description": "Praktické kalkulačky pro každodenní použití",
+  "quick_links_popular": "Nejoblíbenější",
+  "quick_links_recent": "Nedávno přidané",
+  "percentage_calculator_title": "Kalkulátor procent",
+  "percentage_calculator_description": "Vypočítejte procenta, slevy a poměry",
+  "vat_calculator_title": "DPH Kalkulátor",
+  "vat_calculator_description": "Vypočítejte DPH a ceny s daní",
+  "net_salary_calculator_title": "Kalkulátor čisté mzdy",
+  "net_salary_calculator_description": "Vypočítejte čistou mzdu z hrubé mzdy",
+  "unit_converter_title": "Převodník jednotek",
+  "unit_converter_description": "Převádějte mezi různými jednotkami",
+  "rating": {
+    "no_reviews": "Ohodnotit",
+    "thank_you": "Děkujeme za hodnocení!",
+    "already_rated": "Již jste hodnotil"
   }
 }

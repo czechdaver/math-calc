@@ -1,0 +1,56 @@
+{
+  "categories": {
+    "health": {
+      "id": "health",
+      "titleKey": "category_health_title",
+      "descriptionKey": "category_health_description",
+      "icon": "Heart",
+      "color": "text-red-600",
+      "bgColor": "bg-red-50",
+      "calculators": ["bmi", "bmr", "ideal-weight", "body-fat", "calories"],
+      "priority": 1
+    },
+    "math": {
+      "id": "math",
+      "titleKey": "category_math_title", 
+      "descriptionKey": "category_math_description",
+      "icon": "Calculator",
+      "color": "text-blue-600",
+      "bgColor": "bg-blue-50",
+      "calculators": ["percentage", "fractions", "rule-of-three"],
+      "priority": 2
+    },
+    "finance": {
+      "id": "finance",
+      "titleKey": "category_finance_title",
+      "descriptionKey": "category_finance_description", 
+      "icon": "DollarSign",
+      "color": "text-green-600",
+      "bgColor": "bg-green-50",
+      "calculators": ["vat", "net-salary", "compound-interest", "loan"],
+      "priority": 3
+    },
+    "utility": {
+      "id": "utility",
+      "titleKey": "category_utility_title",
+      "descriptionKey": "category_utility_description",
+      "icon": "Settings",
+      "color": "text-gray-600", 
+      "bgColor": "bg-gray-50",
+      "calculators": ["unit-converter", "discount", "tip"],
+      "priority": 4
+    }
+  },
+  "quickLinks": {
+    "popular": {
+      "titleKey": "quick_links_popular",
+      "calculators": ["bmi", "percentage", "vat", "net-salary"],
+      "maxCount": 4
+    },
+    "recent": {
+      "titleKey": "quick_links_recent",
+      "calculators": ["bmr", "ideal-weight", "unit-converter"],
+      "maxCount": 3
+    }
+  }
+}

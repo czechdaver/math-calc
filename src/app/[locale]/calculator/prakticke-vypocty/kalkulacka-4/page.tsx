@@ -1,13 +1,8 @@
-// src/app/[locale]/calculator/practical-calculations/kalkulacka-4/page.tsx
-import React from 'react';
+// src/app/[locale]/calculator/prakticke-vypocty/kalkulacka-4/page.tsx
+'use client';
 
-const PraktickeVypoctyKalkulacka4Page: React.FC = () => {
-  return (
-    <div>
-      <h1>Praktické výpočty - Kalkulačka 4</h1>
-      <p>Tato kalkulačka bude implementována později.</p>
-    </div>
-  );
-};
+import TimeCalculator from '@/components/calculators/TimeCalculator';
 
-export default PraktickeVypoctyKalkulacka4Page;
+export default function TimeCalculatorPage() {
+  return <TimeCalculator />;
+}

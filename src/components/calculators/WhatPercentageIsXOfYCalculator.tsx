@@ -1,13 +1,18 @@
-// src/components/calculators/KolikProcentJeXZYCalculator.refactored.tsx
-import React from 'react';
+// PARTIALLY REFACTORED: This calculator is in transition from CalculatorBase to SimpleCalculatorLayout
+// TODO: Complete refactoring to fix TypeScript errors and use shared components
+// Current status: Has TypeScript errors that need fixing
+
+// src/components/calculators/WhatPercentageIsXOfYCalculator.tsx
+import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import CalculatorBase, { CalculatorInput, CalculatorResult } from './CalculatorBase';
+import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
+import { CalculatorInput, CalculatorResult } from './shared';
 
 const KolikProcentJeXZYCalculator: React.FC = () => {
   const t = useTranslations();
 
   // Define calculator inputs
-  const inputs: CalculatorInput[] = [
+  const inputs = [
     {
       id: 'x',
       label: t('hodnota_x_label') || 'Hodnota X',
@@ -31,7 +36,7 @@ const KolikProcentJeXZYCalculator: React.FC = () => {
   ];
 
   // Calculate the percentage
-  const calculate = (values: Record<string, any>): CalculatorResult => {
+  const calculate = (values: Record<string, any>) => {
     const x = parseFloat(values.x || '0');
     const y = parseFloat(values.y || '1');
     

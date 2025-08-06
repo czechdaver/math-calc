@@ -1,13 +1,8 @@
-// src/app/[locale]/calculator/practical-calculations/kalkulacka-2/page.tsx
-import React from 'react';
+// src/app/[locale]/calculator/prakticke-vypocty/kalkulacka-2/page.tsx
+'use client';
 
-const PraktickeVypoctyKalkulacka2Page: React.FC = () => {
-  return (
-    <div>
-      <h1>Praktické výpočty - Kalkulačka 2</h1>
-      <p>Tato kalkulačka bude implementována později.</p>
-    </div>
-  );
-};
+import DiscountCalculator from '@/components/calculators/DiscountCalculator';
 
-export default PraktickeVypoctyKalkulacka2Page;
+export default function DiscountCalculatorPage() {
+  return <DiscountCalculator />;
+}

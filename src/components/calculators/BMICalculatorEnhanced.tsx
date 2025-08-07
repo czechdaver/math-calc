@@ -93,7 +93,7 @@ const BMICalculatorEnhanced: React.FC = () => {
     <div className="space-y-8">
       {/* Enhanced Header */}
       <div className="text-center space-y-4 pb-4">
-        <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+        <h2 className="text-3xl font-bold enhanced-gradient-text">
           {t('enhanced_bmi_calculator') || 'Enhanced BMI Calculator'}
         </h2>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -101,17 +101,17 @@ const BMICalculatorEnhanced: React.FC = () => {
         </p>
       </div>
       {/* Formula Card */}
-      <Card className="overflow-hidden border-0 shadow-xl">
-        <CardHeader className="bg-gradient-to-r from-indigo-50 to-blue-50 border-b">
+      <Card className="enhanced-card-xl">
+        <CardHeader className="enhanced-card-header-indigo">
           <CardTitle className="flex items-center gap-3">
-            <div className="p-2 bg-white rounded-lg shadow-sm">
+            <div className="enhanced-icon-wrapper">
               <Info className="w-5 h-5 text-indigo-600" />
             </div>
             {t('formula_label') || 'BMI Formula'}
           </CardTitle>
         </CardHeader>
         <CardContent className="p-6">
-          <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-xl text-center border-2 border-indigo-100 shadow-inner">
+          <div className="enhanced-formula-display">
             <div className="text-2xl font-bold text-gray-800 font-mono">
               BMI = {t('weight_label') || 'weight'} (kg) ÷ {t('height_label') || 'height'} (m)²
             </div>
@@ -123,10 +123,10 @@ const BMICalculatorEnhanced: React.FC = () => {
       </Card>
 
       {/* Calculator Input Card */}
-      <Card className="overflow-hidden border-0 shadow-xl">
-        <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 border-b">
+      <Card className="enhanced-card-xl">
+        <CardHeader className="enhanced-card-header-green">
           <CardTitle className="flex items-center gap-3">
-            <div className="p-2 bg-white rounded-lg shadow-sm">
+            <div className="enhanced-icon-wrapper">
               <Calculator className="w-5 h-5 text-green-600" />
             </div>
             {t('calculate_your_bmi') || 'Calculate Your BMI'}
@@ -152,14 +152,7 @@ const BMICalculatorEnhanced: React.FC = () => {
                   placeholder="170"
                   min="50"
                   max="300"
-                  className={`
-                    h-12 text-lg font-medium transition-all duration-300
-                    ${errors.height 
-                      ? 'border-red-500 ring-red-500/20' 
-                      : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500/20'
-                    }
-                    hover:border-blue-400 focus:ring-4
-                  `}
+                  className={`enhanced-input ${errors.height ? 'error' : ''}`}
                 />
                 <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 font-medium">
                   cm
@@ -194,14 +187,7 @@ const BMICalculatorEnhanced: React.FC = () => {
                   placeholder="70"
                   min="2"
                   max="500"
-                  className={`
-                    h-12 text-lg font-medium transition-all duration-300
-                    ${errors.weight 
-                      ? 'border-red-500 ring-red-500/20' 
-                      : 'border-gray-300 focus:border-green-500 focus:ring-green-500/20'
-                    }
-                    hover:border-green-400 focus:ring-4
-                  `}
+                  className={`enhanced-input ${errors.weight ? 'error' : ''}`}
                 />
                 <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 font-medium">
                   kg
@@ -223,10 +209,10 @@ const BMICalculatorEnhanced: React.FC = () => {
 
       {/* Enhanced Result Card */}
       {result && (
-        <Card className="overflow-hidden border-0 shadow-2xl">
-          <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50 border-b">
+        <Card className="enhanced-card-xl">
+          <CardHeader className="enhanced-card-header-purple">
             <CardTitle className="flex items-center gap-3">
-              <div className="p-2 bg-white rounded-lg shadow-sm">
+              <div className="enhanced-icon-wrapper">
                 <Heart className="w-5 h-5 text-purple-600" />
               </div>
               {t('your_bmi_label') || 'Your BMI Result'}
@@ -252,27 +238,19 @@ const BMICalculatorEnhanced: React.FC = () => {
             <div className="mt-6">
               <h4 className="font-semibold text-gray-900 mb-3">{t('bmi_categories') || 'BMI Categories'}</h4>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <div className={`text-center p-3 rounded-lg border-2 transition-all ${
-                  result.bmi < 18.5 ? 'border-blue-300 bg-blue-50 shadow-lg scale-105' : 'border-blue-100 bg-blue-50/50'
-                }`}>
+                <div className={`enhanced-result-grid blue ${result.bmi < 18.5 ? 'active' : ''}`}>
                   <div className="font-bold text-blue-600 text-sm">&lt; 18.5</div>
                   <div className="text-xs text-gray-700">{t('bmi_category_underweight') || 'Underweight'}</div>
                 </div>
-                <div className={`text-center p-3 rounded-lg border-2 transition-all ${
-                  result.bmi >= 18.5 && result.bmi < 25 ? 'border-green-300 bg-green-50 shadow-lg scale-105' : 'border-green-100 bg-green-50/50'
-                }`}>
+                <div className={`enhanced-result-grid green ${result.bmi >= 18.5 && result.bmi < 25 ? 'active' : ''}`}>
                   <div className="font-bold text-green-600 text-sm">18.5 - 24.9</div>
                   <div className="text-xs text-gray-700">{t('bmi_category_normal') || 'Normal'}</div>
                 </div>
-                <div className={`text-center p-3 rounded-lg border-2 transition-all ${
-                  result.bmi >= 25 && result.bmi < 30 ? 'border-yellow-300 bg-yellow-50 shadow-lg scale-105' : 'border-yellow-100 bg-yellow-50/50'
-                }`}>
+                <div className={`enhanced-result-grid yellow ${result.bmi >= 25 && result.bmi < 30 ? 'active' : ''}`}>
                   <div className="font-bold text-yellow-600 text-sm">25.0 - 29.9</div>
                   <div className="text-xs text-gray-700">{t('bmi_category_overweight') || 'Overweight'}</div>
                 </div>
-                <div className={`text-center p-3 rounded-lg border-2 transition-all ${
-                  result.bmi >= 30 ? 'border-red-300 bg-red-50 shadow-lg scale-105' : 'border-red-100 bg-red-50/50'
-                }`}>
+                <div className={`enhanced-result-grid red ${result.bmi >= 30 ? 'active' : ''}`}>
                   <div className="font-bold text-red-600 text-sm">≥ 30.0</div>
                   <div className="text-xs text-gray-700">{t('bmi_category_obese') || 'Obese'}</div>
                 </div>
@@ -334,6 +312,7 @@ const BMICalculatorEnhanced: React.FC = () => {
         description={t('bmi_calculator_description') || 'Calculate your Body Mass Index (BMI) and determine your weight category.'}
         category="health"
         calculatorId="bmi-enhanced"
+        enhanced={true}
         seo={{
           title: (t('bmi_calculator_title') || 'BMI Calculator') + ' - Enhanced Body Mass Index | MathCalc',
           description: 'Free enhanced BMI calculator for calculating Body Mass Index. Determine your weight category according to WHO standards.',
@@ -354,14 +333,7 @@ const BMICalculatorEnhanced: React.FC = () => {
         relatedCalculators={relatedCalculators}
         resultSection={null} // We handle results inside the form component
       >
-        <div className="space-y-8 relative">
-          {/* Enhanced Background for Main Content */}
-          <div className="absolute inset-0 -m-6 bg-gradient-to-br from-blue-100/80 via-white to-purple-100/80 rounded-3xl shadow-inner"></div>
-          <div className="absolute inset-0 -m-4 bg-gradient-to-tr from-indigo-50/60 via-transparent to-pink-50/60 rounded-2xl"></div>
-          <div className="relative z-10">
-            {calculatorForm}
-          </div>
-        </div>
+        {calculatorForm}
       </SimpleCalculatorLayout>
   );
 };

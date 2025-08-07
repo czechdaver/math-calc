@@ -50,7 +50,7 @@ const EnhancedBMICalculatorPage = () => {
 
   // Memoize translations to prevent unnecessary re-renders
   const translations = useMemo(() => ({
-    loadingError: t('chyba_nacitani') || 'Failed to load calculator. Please try refreshing the page.'
+    loadingError: t('loading_error') || 'Failed to load calculator. Please try refreshing the page.'
   }), [t]);
 
   const { loadingError } = translations;

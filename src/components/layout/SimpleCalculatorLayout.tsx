@@ -25,6 +25,7 @@ export interface SimpleCalculatorLayoutProps {
   description: string;
   category: string;
   calculatorId?: string;
+  enhanced?: boolean; // New prop for enhanced styling
   
   // SEO
   seo: {
@@ -189,6 +190,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
   description,
   category,
   calculatorId,
+  enhanced = false,
   seo,
   formula,
   children,
@@ -243,9 +245,9 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <div className="min-h-screen bg-gray-50">
+      <div className={enhanced ? "enhanced-calculator-bg" : "min-h-screen bg-gray-50"}>
 
-        <div className="container mx-auto px-4 py-6">
+        <div className={`container mx-auto px-4 py-6 ${enhanced ? "enhanced-calculator-content" : ""}`}>
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
             {/* Main Content */}
             <div className="lg:col-span-3 space-y-6">

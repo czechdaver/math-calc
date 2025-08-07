@@ -89,7 +89,7 @@ Unifikovaný layout stránky každé kalkulačky, který zajišťuje:
 - Přístupnost (WCAG 2.1), dostatečný barevný kontrast, focus indikátory.
 
 ## Lokalizace
-- Všechny texty, labely, hlášky, příklady lokalizované (next-i18next).
+- Všechny texty, labely, hlášky, příklady lokalizované (next-intl).
 - Automatická detekce jazyka podle URL, fallback na default.
 
 ## Kódové zásady pro generátor aplikace

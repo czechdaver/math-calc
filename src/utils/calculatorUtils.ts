@@ -774,8 +774,7 @@ export const range = (start: number, end: number, step: number = 1): number[] =>
   for (let i = start; step > 0 ? i <= end : i >= end; i += step) {
     // Protect against potential infinite loops with very small steps
     if (result.length > 1000000) {
-      console.warn('Range function generated too many elements, truncating');
-      break;
+      throw new Error('Range function would generate too many elements (>1M), please use a larger step value');
     }
     result.push(i);
   }

@@ -117,7 +117,10 @@ const CalculatorBase: React.FC<CalculatorBaseProps> = ({
         const calculationResult = calculate(formValues);
         setResult(calculationResult);
       } catch (error) {
-        console.error('Calculation error:', error);
+        // Only log in development for debugging
+        if (process.env.NODE_ENV !== 'production') {
+          console.error('Calculation error:', error);
+        }
         // Set a generic error message
         setErrors((prev) => ({
           ...prev,

@@ -12,7 +12,10 @@ export async function GET() {
     
     return NextResponse.json(data);
   } catch (error) {
-    console.error('Error reading ratings file:', error);
+    // Log server errors for debugging
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error reading ratings file:', error);
+    }
     return NextResponse.json(
       { error: 'Failed to load ratings' },
       { status: 500 }
@@ -59,7 +62,7 @@ export async function POST(request: NextRequest) {
     
     // Výpočet nového průměru a celkového počtu pro response
     const calculatorRatings = data.ratings[calculatorId];
-    const totalCount = Object.values(calculatorRatings).reduce((sum: number, count) => sum + (count as number), 0);
+    const totalCount = Object.values(calculatorRatings).reduce((sum: number, count) => sum + (count as number), 0) as number;
     const weightedSum = Object.entries(calculatorRatings).reduce(
       (sum, [star, count]) => sum + (parseInt(star) * (count as number)), 
       0
@@ -76,7 +79,10 @@ export async function POST(request: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error updating ratings:', error);
+    // Log server errors for debugging
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error updating ratings:', error);
+    }
     return NextResponse.json(
       { error: 'Failed to update rating' },
       { status: 500 }

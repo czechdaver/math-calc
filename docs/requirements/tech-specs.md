@@ -81,7 +81,7 @@ To ensure a scalable and maintainable architecture for 141+ calculators, we are 
     - Use `useState` to manage input values and calculation results.
     - Implement the specific calculation logic.
     - Use `useEffect` to trigger calculations when inputs change.
-    - Use `useTranslation` with the `locale` prop for localization.
+    - Use `useTranslations` from next-intl for localization.
     - Render the calculator's input form, result display, and any calculator-specific UI elements based on `calculatorData` and component state.
 
 **Benefits:**
@@ -94,13 +94,13 @@ To ensure a scalable and maintainable architecture for 141+ calculators, we are 
 **Implementation Steps for Each Calculator Component:**
 
 1.  Add `"use client";` directive.
-2.  Import necessary React hooks (`useState`, `useEffect`), `useTranslation`, and `CalculatorData` type.
+2.  Import necessary React hooks (`useState`, `useEffect`), `useTranslations` from next-intl, and `CalculatorData` type.
 3.  Define a props interface accepting `calculatorData: CalculatorData` and `locale: string`.
 4.  Update the component function signature to use the props.
 5.  Access relevant data from `calculatorData`.
 6.  Define state variables for inputs and outputs using `useState`.
 7.  Implement the calculator's core calculation logic.
 8.  Wrap calculation logic in `useEffect` with appropriate dependencies (inputs, `t`).
-9.  Initialize `useTranslation` with the `locale` prop and a calculator-specific namespace.
+9.  Initialize `useTranslations` with a calculator-specific namespace.
 10. Refactor JSX to use `calculatorData`, state variables, and the `t` function for localization.
 11. Remove any obsolete page-specific code.

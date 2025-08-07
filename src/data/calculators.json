@@ -46,45 +46,45 @@
     },
     "percentage": {
       "id": "percentage",
-      "slug": "procenta",
+      "slug": "percentages",
       "category": "math",
       "popularity": 90,
       "titleKey": "percentage_calculator_title", 
       "descriptionKey": "percentage_calculator_description",
-      "path": "/calculator/procenta",
+      "path": "/calculator/percentages",
       "tags": ["math", "percentage", "calculation"],
       "relatedCategories": ["math"]
     },
     "vat": {
       "id": "vat",
-      "slug": "dph", 
+      "slug": "vat", 
       "category": "finance",
       "popularity": 85,
       "titleKey": "vat_calculator_title",
       "descriptionKey": "vat_calculator_description",
-      "path": "/calculator/dph",
+      "path": "/calculator/vat",
       "tags": ["finance", "tax", "business"],
       "relatedCategories": ["finance"]
     },
     "net-salary": {
       "id": "net-salary",
-      "slug": "cista-mzda",
+      "slug": "net-salary",
       "category": "finance", 
       "popularity": 80,
       "titleKey": "net_salary_calculator_title",
       "descriptionKey": "net_salary_calculator_description",
-      "path": "/calculator/cista-mzda",
+      "path": "/calculator/net-salary",
       "tags": ["finance", "salary", "tax"],
       "relatedCategories": ["finance"]
     },
     "unit-converter": {
       "id": "unit-converter",
-      "slug": "prevodnik-jednotek",
+      "slug": "unit-converter",
       "category": "utility",
       "popularity": 75,
       "titleKey": "unit_converter_title",
       "descriptionKey": "unit_converter_description", 
-      "path": "/calculator/prevodnik-jednotek",
+      "path": "/calculator/unit-converter",
       "tags": ["utility", "conversion", "units"],
       "relatedCategories": ["utility"]
     }

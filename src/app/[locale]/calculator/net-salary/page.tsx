@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/tooltip';
 
 // Dynamically import components with loading states
-const CalculatorComponent = dynamic(() => import('@/components/calculators/VATCalculator'), {
+const CalculatorComponent = dynamic(() => import('@/components/calculators/NetSalaryCalculator'), {
   loading: () => (
     <div className="space-y-4">
       <Skeleton className="h-10 w-1/2" />
@@ -58,11 +58,11 @@ const CalculatorPage = () => {
 
   // Memoize translations to prevent unnecessary re-renders
   const translations = useMemo(() => ({
-    seoTitle: t('dph_title') || 'Dph',
-    seoDescription: t('dph_seo_description') || 'Calculator description',
-    tip: t('dph_tip') || 'Enter values to calculate',
-    tipText: t('dph_tip_text') || 'Enter values to see the calculation',
-    loadingError: t('chyba_nacitani') || 'Failed to load calculator. Please try refreshing the page.'
+    seoTitle: t('net_salary_calculator_title') || 'Net Salary Calculator',
+    seoDescription: t('net_salary_calculator_description') || 'Calculate net salary from gross salary',
+    tip: t('net_salary_tip') || 'Enter values to calculate net salary',
+    tipText: t('net_salary_tip_text') || t('cista_mzda_tip_text') || 'Enter values to see the calculation',
+    loadingError: t('loading_error') || 'Failed to load calculator. Please try refreshing the page.'
   }), [t]);
 
   const { seoTitle, seoDescription, tip, tipText, loadingError } = translations;

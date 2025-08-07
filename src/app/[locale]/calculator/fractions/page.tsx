@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/tooltip';
 
 // Dynamically import components with loading states
-const CalculatorComponent = dynamic(() => import('@/components/calculators/UnitConverter'), {
+const CalculatorComponent = dynamic(() => import('@/components/calculators/FractionsCalculator'), {
   loading: () => (
     <div className="space-y-4">
       <Skeleton className="h-10 w-1/2" />
@@ -58,11 +58,11 @@ const CalculatorPage = () => {
 
   // Memoize translations to prevent unnecessary re-renders
   const translations = useMemo(() => ({
-    seoTitle: t('prevodnik_jednotek_title') || 'Prevodnik Jednotek',
-    seoDescription: t('prevodnik_jednotek_seo_description') || 'Calculator description',
-    tip: t('prevodnik_jednotek_tip') || 'Enter values to calculate',
-    tipText: t('prevodnik_jednotek_tip_text') || 'Enter values to see the calculation',
-    loadingError: t('chyba_nacitani') || 'Failed to load calculator. Please try refreshing the page.'
+    seoTitle: t('fractions_calculator_title') || 'Fractions Calculator',
+    seoDescription: t('fractions_calculator_description') || 'Calculate with fractions - add, subtract, multiply, divide',
+    tip: t('fractions_tip') || 'Select operation and enter fractions',
+    tipText: t('fractions_tip_text') || t('fractions_select_operation') || 'Select a fractions operation from the list',
+    loadingError: t('loading_error') || 'Failed to load calculator. Please try refreshing the page.'
   }), [t]);
 
   const { seoTitle, seoDescription, tip, tipText, loadingError } = translations;

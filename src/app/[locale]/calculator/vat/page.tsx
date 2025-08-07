@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/tooltip';
 
 // Dynamically import components with loading states
-const CalculatorComponent = dynamic(() => import('@/components/calculators/FractionsCalculator'), {
+const CalculatorComponent = dynamic(() => import('@/components/calculators/VATCalculator'), {
   loading: () => (
     <div className="space-y-4">
       <Skeleton className="h-10 w-1/2" />
@@ -58,11 +58,11 @@ const CalculatorPage = () => {
 
   // Memoize translations to prevent unnecessary re-renders
   const translations = useMemo(() => ({
-    seoTitle: t('zlomky_title') || 'Zlomky',
-    seoDescription: t('zlomky_seo_description') || 'Calculator description',
-    tip: t('zlomky_tip') || 'Enter values to calculate',
-    tipText: t('zlomky_tip_text') || 'Enter values to see the calculation',
-    loadingError: t('chyba_nacitani') || 'Failed to load calculator. Please try refreshing the page.'
+    seoTitle: t('vat_calculator_title') || 'VAT Calculator',
+    seoDescription: t('vat_calculator_description') || 'Calculate Value Added Tax and prices with tax',
+    tip: t('vat_tip') || 'Enter values to calculate VAT',
+    tipText: t('vat_tip_text') || t('dph_tip_text') || 'Enter values to see the calculation',
+    loadingError: t('loading_error') || 'Failed to load calculator. Please try refreshing the page.'
   }), [t]);
 
   const { seoTitle, seoDescription, tip, tipText, loadingError } = translations;

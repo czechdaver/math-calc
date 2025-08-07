@@ -1,21 +1,9 @@
 'use client';
 
 import React, { Suspense, useMemo } from 'react';
-import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
 import { Skeleton } from '@/components/ui/skeleton';
-
-// Dynamically import the enhanced BMI calculator component
-const BMICalculatorEnhanced = dynamic(() => import('@/components/calculators/BMICalculatorEnhanced'), {
-  loading: () => (
-    <div className="space-y-4">
-      <Skeleton className="h-10 w-1/2" />
-      <Skeleton className="h-8 w-full" />
-      <Skeleton className="h-40 w-full" />
-    </div>
-  ),
-  ssr: false
-});
+import BMICalculatorEnhanced from '@/components/calculators/BMICalculatorEnhanced';
 
 // Error boundary for calculator component
 interface ErrorBoundaryProps {

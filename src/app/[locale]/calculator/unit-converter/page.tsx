@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/tooltip';
 
 // Dynamically import components with loading states
-const CalculatorComponent = dynamic(() => import('@/components/calculators/NetSalaryCalculator'), {
+const CalculatorComponent = dynamic(() => import('@/components/calculators/UnitConverter'), {
   loading: () => (
     <div className="space-y-4">
       <Skeleton className="h-10 w-1/2" />
@@ -58,11 +58,11 @@ const CalculatorPage = () => {
 
   // Memoize translations to prevent unnecessary re-renders
   const translations = useMemo(() => ({
-    seoTitle: t('cista_mzda_title') || 'Cista Mzda',
-    seoDescription: t('cista_mzda_seo_description') || 'Calculator description',
-    tip: t('cista_mzda_tip') || 'Enter values to calculate',
-    tipText: t('cista_mzda_tip_text') || 'Enter values to see the calculation',
-    loadingError: t('chyba_nacitani') || 'Failed to load calculator. Please try refreshing the page.'
+    seoTitle: t('unit_converter_calculator_title') || t('unit_converter_title') || 'Unit Converter',
+    seoDescription: t('unit_converter_calculator_description') || 'Convert between different units of measurement',
+    tip: t('unit_converter_tip') || 'Select units and enter value',
+    tipText: t('unit_converter_tip_text') || t('unit_converter_select_type') || 'Select conversion type from the list',
+    loadingError: t('loading_error') || 'Failed to load calculator. Please try refreshing the page.'
   }), [t]);
 
   const { seoTitle, seoDescription, tip, tipText, loadingError } = translations;

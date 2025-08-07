@@ -56,7 +56,7 @@ a {
 
 /* Enhanced Calculator Components */
   .enhanced-calculator-bg {
-    background: var(--enhanced-bg-primary);
+    background: linear-gradient(135deg, #dbeafe 0%, #ffffff 50%, #e0e7ff 100%) !important;
     min-height: 100vh;
     position: relative;
   }
@@ -87,11 +87,12 @@ a {
   }
   
   .enhanced-card-xl {
-    overflow: hidden;
-    border: 0;
-    box-shadow: var(--enhanced-card-shadow-xl);
-    backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.95);
+    overflow: hidden !important;
+    border: 0 !important;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25) !important;
+    backdrop-filter: blur(10px) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-radius: 12px !important;
   }
   
   .enhanced-card-header {
@@ -100,17 +101,17 @@ a {
   }
   
   .enhanced-card-header-green {
-    background: var(--enhanced-gradient-green);
+    background: linear-gradient(to right, #d1fae5, #a7f3d0) !important;
     border-bottom: 1px solid #e5e7eb;
   }
   
   .enhanced-card-header-purple {
-    background: var(--enhanced-gradient-purple);
+    background: linear-gradient(to right, #e9d5ff, #f3e8ff) !important;
     border-bottom: 1px solid #e5e7eb;
   }
   
   .enhanced-card-header-indigo {
-    background: var(--enhanced-gradient-indigo);
+    background: linear-gradient(to right, #e0e7ff, #c7d2fe) !important;
     border-bottom: 1px solid #e5e7eb;
   }
   
@@ -136,9 +137,10 @@ a {
   }
   
   .enhanced-gradient-text {
-    color: transparent;
-    background-clip: text;
-    background-image: linear-gradient(to right, #2563eb, #9333ea);
+    color: transparent !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    background-image: linear-gradient(to right, #2563eb, #9333ea) !important;
   }
   
   .enhanced-icon-wrapper {

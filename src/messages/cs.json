@@ -849,5 +849,15 @@
     "no_reviews": "Ohodnotit",
     "thank_you": "Děkujeme za hodnocení!",
     "already_rated": "Již jste hodnotil"
-  }
+  },
+  "vat_tip": "Zadejte základní částku a sazbu DPH",
+  "vat_tip_text": "Sazby DPH se liší podle země: 21% (CZ), 20% (SK). Vždy ověřte aktuální sazby.",
+  "net_salary_tip": "Zadejte hrubou mzdu a srážky",
+  "net_salary_tip_text": "Daňové sazby a srážky se liší podle země a typu zaměstnání.",
+  "unit_converter_tip": "Vyberte jednotky a zadejte hodnotu k převodu",
+  "unit_converter_tip_text": "Vyberte typ převodu a zadejte hodnotu, kterou chcete převést.",
+  "fractions_tip": "Vyberte operaci a zadejte zlomky",
+  "fractions_tip_text": "Vyberte operaci (sčítání, odčítání, násobení, dělení) a zadejte vaše zlomky.",
+  "loading_error": "Nepodařilo se načíst kalkulátor. Zkuste obnovit stránku.",
+  "tip": "Tip"
 }

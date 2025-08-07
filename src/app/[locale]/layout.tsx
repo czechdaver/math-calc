@@ -14,8 +14,8 @@ type Props = {
   params: Promise<{ locale: Locale }>;
 };
 
-const MEASUREMENT_ID = 'YOUR_MEASUREMENT_ID'; // TODO: Replace with your actual Measurement ID
-const ADS_CLIENT_ID = 'ca-pub-YOUR_ADS_CLIENT_ID'; // TODO: Replace with your actual AdSense client ID
+const MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || '';
+const ADS_CLIENT_ID = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || '';
 
 export function generateStaticParams() {
   return supportedLocales.map((locale) => ({ locale }));

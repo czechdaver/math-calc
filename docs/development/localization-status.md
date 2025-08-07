@@ -1,7 +1,14 @@
 # Localization Status Report
 
+**⚠️ IMPORTANT**: This document needs updating after recent cleanup changes.
+
 ## Overview
 Systematic implementation of EN and CS localization for all calculators in the math calculator project.
+
+**Recent Changes:**
+- ✅ Consolidated i18n configuration files
+- ✅ Removed duplicate calculator directories (-new versions)
+- ✅ Cleaned up backup files
 
 ## Current Status
 

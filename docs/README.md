@@ -27,7 +27,6 @@
 ### 📋 Requirements & Specifications
 - [Project Specifications](./requirements/project-specifications.md) - Main specs with simplicity philosophy
 - [Technical Specifications](./requirements/tech-specs.md) - Detailed technical requirements
-- [Firebase Setup](./requirements/firebase-setup.md) - Backend configuration guide
 - [Testing Strategy](./requirements/testing-strategy.md) - Comprehensive testing approach
 
 ### 🛠️ Development Guides
@@ -98,11 +97,13 @@ For issues, consult the [troubleshooting guide](./development/troubleshooting-gu
 
 ## 📊 Project Status
 
-- ✅ **Routing**: Functional with locale support (cs, en, sk, pl, hu)
-- ✅ **Core Calculators**: MVP calculators implemented
-- ✅ **i18n**: next-intl with fallback mechanisms
-- ✅ **Documentation**: English-first, AI-optimized
-- 🔄 **In Progress**: SEO optimization, additional calculators
+- ✅ **Architecture**: Cleaned and consolidated (2024-12-07)
+- ✅ **Routing**: Functional with locale support (cs, en)
+- ✅ **Core Calculators**: 20+ specialized calculators implemented
+- ✅ **i18n**: next-intl with consolidated configuration and fallback mechanisms
+- ✅ **Documentation**: English-first, AI-optimized with CLAUDE.md
+- ✅ **Code Quality**: Removed duplicates, organized dependencies, improved error handling
+- 🔄 **In Progress**: Performance optimization, additional features
 
 ---
 

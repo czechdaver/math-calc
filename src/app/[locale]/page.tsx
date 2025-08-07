@@ -26,7 +26,7 @@ const HomePage: React.FC = () => {
       name: t('categories.percentages'),
       description: t('categories.percentages_description'),
       icon: <Percent className="w-8 h-8 text-blue-500" />,
-      href: `/calculator/procenta`,
+      href: `/calculator/percentages`,
       rating: 4.8
     },
     {
@@ -42,7 +42,7 @@ const HomePage: React.FC = () => {
       name: t('categories.vat'),
       description: t('categories.vat_description'),
       icon: <TrendingUp className="w-8 h-8 text-green-500" />,
-      href: `/calculator/dph`,
+      href: `/calculator/vat`,
       rating: 4.7
     }
   ];

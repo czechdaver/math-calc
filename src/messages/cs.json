@@ -52,6 +52,8 @@
   "weight_label": "Váha",
   "height_help_text": "Zadejte svou výšku v centimetrech (50-300 cm)",
   "weight_help_text": "Zadejte svou váhu v kilogramech (2-500 kg)",
+  "height_validation_error": "Zadejte platnou výšku (50-300 cm)",
+  "weight_validation_error": "Zadejte platnou váhu (2-500 kg)",
   "your_bmi_label": "Vaše BMI",
   "category_label": "Kategorie",
   "bmi_category_underweight": "Podváha",

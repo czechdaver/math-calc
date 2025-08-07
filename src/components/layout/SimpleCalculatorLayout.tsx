@@ -2,7 +2,7 @@
 'use client';
 
 import React, { ReactNode, useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/hooks/useTranslations';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { ChevronRight, Home, Calculator, Info, ExternalLink, AlertCircle } from 'lucide-react';

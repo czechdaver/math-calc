@@ -115,9 +115,6 @@ The application aims to surpass competitive solutions such as:
   /messages
     cs.json
     en.json
-    sk.json
-    pl.json
-    hu.json
 ```
 
 ## 3. CALCULATOR SPECIFICATIONS

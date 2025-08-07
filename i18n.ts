@@ -1,13 +1,12 @@
-import {notFound} from 'next/navigation';
 import {getRequestConfig} from 'next-intl/server';
-import {locales} from './src/i18n';
+import {locales} from './src/i18n/settings';
 
 export default getRequestConfig(async ({locale}) => {
   // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(locale as any)) notFound();
+  const validLocale = locale && locales.includes(locale as any) ? locale : 'cs';
 
   return {
-    locale,
-    messages: (await import(`./src/messages/${locale}.json`)).default
+    locale: validLocale,
+    messages: (await import(`./src/messages/${validLocale}.json`)).default
   };
 });

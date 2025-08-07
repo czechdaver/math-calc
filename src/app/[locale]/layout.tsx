@@ -38,7 +38,10 @@ export default async function LocaleLayout({
   try {
     messages = (await import(`@/messages/${locale}.json`)).default;
   } catch (error) {
-    console.error(`Failed to load messages for locale: ${locale}`, error);
+    // Log in development for debugging
+    if (process.env.NODE_ENV !== 'production') {
+      console.error(`Failed to load messages for locale: ${locale}`, error);
+    }
     notFound();
   }
 

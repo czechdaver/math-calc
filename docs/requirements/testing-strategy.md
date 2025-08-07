@@ -34,11 +34,9 @@ This document outlines the testing strategy for MathCalc Pro, ensuring high qual
 import { render, screen, waitFor } from '@testing-library/react';
 import BMICalculator from '@/components/calculators/BMICalculator.refactored';
 
-// Mock next-i18next
-jest.mock('next-i18next', () => ({
-  useTranslation: () => ({
-    t: (key) => key, // Return the key as the translation
-  }),
+// Mock next-intl
+jest.mock('next-intl', () => ({
+  useTranslations: () => (key) => key, // Return the key as the translation
 }));
 
 // Mock the CalculatorBase component
@@ -159,24 +157,17 @@ describe('Percentage Calculator', () => {
     cy.findByText('Result: 10').should('be.visible');
   });
 });
-```
 
 ## Mocking Strategy
 
 ### 1. Mocking External Dependencies
 
-**next-i18next Mock**
+**next-intl Mock**
 ```typescript
-// __mocks__/next-i18next.js
-export const useTranslation = () => ({
-  t: (key) => key, // Return the key as the translation
-  i18n: {
-    language: 'en',
-    changeLanguage: jest.fn(),
-  },
-});
+// __mocks__/next-intl.js
+export const useTranslations = () => (key) => key; // Return the key as the translation
 
-export const appWithTranslation = (component) => component;
+export const NextIntlClientProvider = ({ children }) => children;
 ```
 
 **Component Mocks**

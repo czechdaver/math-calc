@@ -4,7 +4,7 @@ import React from 'react';
 import EnhancedBMICalculator from '@/components/calculators/enhanced/EnhancedBMICalculator';
 import { mockRootProps } from '@/components/calculators/enhanced/enhancedBMIMockData';
 
-export default function EnhancedBMIPage() {
+export default function EnhancedBMIPreviewPage() {
   return (
     <div className="min-h-screen">
       <EnhancedBMICalculator

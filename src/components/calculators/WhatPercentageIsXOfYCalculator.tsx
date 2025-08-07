@@ -1,12 +1,13 @@
-// PARTIALLY REFACTORED: This calculator is in transition from CalculatorBase to SimpleCalculatorLayout
-// TODO: Complete refactoring to fix TypeScript errors and use shared components
-// Current status: Has TypeScript errors that need fixing
+// REFACTORING NEEDED: This calculator has TypeScript errors and needs to be fully migrated
+// to the standard calculator pattern. Priority: Medium
+// Issues: Missing CalculatorBase import, type errors in map function
 
 // src/components/calculators/WhatPercentageIsXOfYCalculator.tsx
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput, CalculatorResult } from './shared';
+import CalculatorBase from './CalculatorBase';
 
 const KolikProcentJeXZYCalculator: React.FC = () => {
   const t = useTranslations();
@@ -16,7 +17,7 @@ const KolikProcentJeXZYCalculator: React.FC = () => {
     {
       id: 'x',
       label: t('hodnota_x_label') || 'Hodnota X',
-      type: 'number',
+      type: 'number' as const,
       required: true,
       placeholder: t('zadejte_hodnotu') || 'Zadejte hodnotu',
       min: 0,
@@ -26,7 +27,7 @@ const KolikProcentJeXZYCalculator: React.FC = () => {
     {
       id: 'y',
       label: t('hodnota_y_label') || 'Hodnota Y',
-      type: 'number',
+      type: 'number' as const,
       required: true,
       placeholder: t('zadejte_hodnotu') || 'Zadejte hodnotu',
       min: 0.0001, // Prevent division by zero
@@ -90,16 +91,9 @@ const KolikProcentJeXZYCalculator: React.FC = () => {
           </div>
         </div>
 
-        {result.details && result.details.length > 0 && (
-          <div className="space-y-2">
-            {result.details.map((detail, index) => (
-              <div key={index} className={`flex justify-between ${detail.highlight ? 'font-medium' : ''}`}>
-                <span className="text-muted-foreground">{detail.label}:</span>
-                <span>
-                  {detail.value} {detail.unit || ''}
-                </span>
-              </div>
-            ))}
+        {result.details && (
+          <div className="text-sm text-gray-600 mt-2">
+            {result.details}
           </div>
         )}
 

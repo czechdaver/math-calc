@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CLAUDE.md - Comprehensive AI development guidelines
 - Enhanced project documentation structure
 - TypeScript gradual strict mode preparation
+- CalculatorRating: view-only mode for cards (homepage, related calculators)
+
+### Changed
+- CalculatorRating: modernized UI/UX (amber stars, subtle hover, tooltip above stars, improved a11y with radiogroup and aria labels)
+- Documentation: expanded rating docs (API, view-only usage, localization keys `rating.stars`, `rating.already_rated`)
 
 ### Changed
 - Complete README.md rewrite with comprehensive project overview

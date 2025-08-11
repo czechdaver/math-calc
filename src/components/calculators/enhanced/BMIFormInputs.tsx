@@ -31,20 +31,40 @@ const BMIFormInputs: React.FC<BMIFormInputsProps> = ({
       <div className="group">
         <Label 
           htmlFor="height" 
-          className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-3"
+          className="flex items-center gap-2 text-sm font-normal text-gray-700 mb-3"
         >
           <Ruler className="w-4 h-4 text-blue-600" />
           Height
         </Label>
-        <div className="relative">
+        <div className="flex items-center gap-2">
           <Input
             id="height"
             type="number"
+            step="0.1"
             value={height}
             onChange={(e) => onHeightChange(e.target.value)}
             placeholder="170"
             min="50"
             max="300"
+            onFocus={() => {
+              const v = (height ?? '').trim();
+              if (v !== '') return;
+              onHeightChange('50');
+            }}
+            onKeyDown={(e) => {
+              if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') return;
+              const current = parseFloat(height as string);
+              const step = 0.1;
+              let next: number;
+              if (isNaN(current)) {
+                next = 50 + (e.key === 'ArrowUp' ? step : 0);
+              } else {
+                next = current + (e.key === 'ArrowUp' ? step : -step);
+              }
+              next = Math.max(50, Math.min(300, next));
+              onHeightChange(next.toFixed(1));
+              e.preventDefault();
+            }}
             className={`
               h-12 text-lg font-medium transition-all duration-300
               ${errors.height 
@@ -54,9 +74,29 @@ const BMIFormInputs: React.FC<BMIFormInputsProps> = ({
               hover:border-blue-400 focus:ring-4
             `}
           />
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 font-medium">
-            cm
-          </div>
+          <span className="text-gray-500 font-medium select-none">cm</span>
+        </div>
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          {[1, 5, 10].map((s) => (
+            <div key={`h-${s}`} className="flex items-center gap-1">
+              <button
+                type="button"
+                className="px-2 py-1 text-xs rounded border hover:bg-gray-50"
+                onClick={() => onHeightChange(String(Math.max(50, Math.min(300, (parseFloat(height || '0') || 0) - s))))}
+                aria-label={`- ${s}`}
+              >
+                -{s}
+              </button>
+              <button
+                type="button"
+                className="px-2 py-1 text-xs rounded border hover:bg-gray-50"
+                onClick={() => onHeightChange(String(Math.max(50, Math.min(300, (parseFloat(height || '0') || 0) + s))))}
+                aria-label={`+ ${s}`}
+              >
+                +{s}
+              </button>
+            </div>
+          ))}
         </div>
         <p className="text-sm text-gray-500 mt-2">
           Enter your height in centimeters (50-300 cm)
@@ -73,20 +113,40 @@ const BMIFormInputs: React.FC<BMIFormInputsProps> = ({
       <div className="group">
         <Label 
           htmlFor="weight" 
-          className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-3"
+          className="flex items-center gap-2 text-sm font-normal text-gray-700 mb-3"
         >
           <Scale className="w-4 h-4 text-green-600" />
           Weight
         </Label>
-        <div className="relative">
+        <div className="flex items-center gap-2">
           <Input
             id="weight"
             type="number"
+            step="0.1"
             value={weight}
             onChange={(e) => onWeightChange(e.target.value)}
             placeholder="70"
             min="2"
             max="500"
+            onFocus={() => {
+              const v = (weight ?? '').trim();
+              if (v !== '') return;
+              onWeightChange('2');
+            }}
+            onKeyDown={(e) => {
+              if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') return;
+              const current = parseFloat(weight as string);
+              const step = 0.1;
+              let next: number;
+              if (isNaN(current)) {
+                next = 2 + (e.key === 'ArrowUp' ? step : 0);
+              } else {
+                next = current + (e.key === 'ArrowUp' ? step : -step);
+              }
+              next = Math.max(2, Math.min(500, next));
+              onWeightChange(next.toFixed(1));
+              e.preventDefault();
+            }}
             className={`
               h-12 text-lg font-medium transition-all duration-300
               ${errors.weight 
@@ -96,9 +156,29 @@ const BMIFormInputs: React.FC<BMIFormInputsProps> = ({
               hover:border-green-400 focus:ring-4
             `}
           />
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 font-medium">
-            kg
-          </div>
+          <span className="text-gray-500 font-medium select-none">kg</span>
+        </div>
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          {[1, 5, 10].map((s) => (
+            <div key={`w-${s}`} className="flex items-center gap-1">
+              <button
+                type="button"
+                className="px-2 py-1 text-xs rounded border hover:bg-gray-50"
+                onClick={() => onWeightChange(String(Math.max(2, Math.min(500, (parseFloat(weight || '0') || 0) - s))))}
+                aria-label={`- ${s}`}
+              >
+                -{s}
+              </button>
+              <button
+                type="button"
+                className="px-2 py-1 text-xs rounded border hover:bg-gray-50"
+                onClick={() => onWeightChange(String(Math.max(2, Math.min(500, (parseFloat(weight || '0') || 0) + s))))}
+                aria-label={`+ ${s}`}
+              >
+                +{s}
+              </button>
+            </div>
+          ))}
         </div>
         <p className="text-sm text-gray-500 mt-2">
           Enter your weight in kilograms (2-500 kg)

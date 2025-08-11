@@ -16,3 +16,4 @@ updated: 2025-07-23
 - [Tabs](/docs/design/tabs)
 - [Toast](/docs/design/toast)
 - [Tooltip](/docs/design/tooltip)
+- [Calculator Rating](/docs/design/calculator-layout.md#rating-component-v2)

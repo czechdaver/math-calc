@@ -77,6 +77,7 @@
   "dph_title": "DPH Kalkulátor",
   "dph_tip_text": "Tip: DPH se v České republice účtuje ve výši 21%, na Slovensku 20%. Vždy si ověřte aktuální sazby.",
   "bmi_tip_text": "Tip: BMI je pouze orientační ukazatel. Pro přesné posouzení zdraví konzultujte s lékařem.",
+  "bmi_disclaimer_text": "BMI je pouze orientační ukazatel. Pro přesné posouzení zdravotního stavu se obraťte na lékaře.",
   "bmi_explanation": "BMI je standardní měřítko pro klasifikaci váhy dospělých osob podle WHO.",
   "bmi_title": "Kalkulátor BMI",
   "procento_z_cisla_title": "Výpočet procent z čísla",
@@ -113,7 +114,16 @@
     "faq_accuracy_q": "Jak přesné jsou výpočty?",
     "faq_accuracy_a": "Naše kalkulátory používají přesné matematické vzorce a jsou pravidelně testovány na přesnost.",
     "faq_mobile_q": "Fungují kalkulátory na mobilních zařízeních?",
-    "faq_mobile_a": "Ano, všechny kalkulátory jsou plně responzivní a fungují perfektně na smartphonech a tabletech."
+    "faq_mobile_a": "Ano, všechny kalkulátory jsou plně responzivní a fungují perfektně na smartphonech a tabletech.",
+    "popular_tagline": "Rychlý přístup k nejpoužívanějším nástrojům",
+    "try_it_now": "Vyzkoušet",
+    "categories_tagline": "Prozkoumejte všechny naše nástroje podle kategorií",
+    "calculators_available": "{count, plural, one {# kalkulátor k dispozici} few {# kalkulátory k dispozici} other {# kalkulátorů k dispozici}}",
+    "explore_category": "Prozkoumat kategorii",
+    "active_users_label": "Aktivní uživatelé",
+    "average_rating_label": "Průměrné hodnocení",
+    "secure_private_label": "Zabezpečeno a soukromé",
+    "common_questions_tagline": "Nejčastější otázky k našim kalkulátorům"
   },
   "categories": {
     "percentages": "Procenta",
@@ -160,7 +170,8 @@
     "days": "dní",
     "hours": "hodin",
     "minutes": "minut",
-    "seconds": "sekund"
+    "seconds": "sekund",
+    "calculator_rating": "Hodnocení kalkulačky"
   },
   "calculators": {
     "tip": {
@@ -217,7 +228,10 @@
       "in_days": "Za",
       "age_will_be": "Věk",
       "zodiac_sign": "Znamení zvěrokruhu",
-      "by_birth_date": "Podle data narození"
+      "by_birth_date": "Podle data narození",
+      "years": "let",
+      "months": "měsíců",
+      "days": "dní"
     },
     "currency": {
       "title": "Kalkulátor měn",
@@ -234,7 +248,6 @@
       "original_amount": "Původní částka",
       "popular_conversions": "Oblíbené převody"
     },
-
     "time": {
       "title": "Kalkulátor času",
       "description": "Sčítejte a odčítejte časy v hodinách, minutách a sekundách. Vypočítejte celkovou dobu práce, přestávek nebo jakýchkoli časových intervalů.",
@@ -395,7 +408,8 @@
       "profitable_investment": "Zisková investice",
       "unprofitable_investment": "Ztrátová investice",
       "including_costs": "Včetně dodatecných nákladů",
-      "total_investment": "Celková investice"
+      "total_investment": "Celková investice",
+      "annualized_roi_result": "Annualizované ROI"
     },
     "early_repayment": {
       "title": "Kalkulátor předčasného splacení",
@@ -513,6 +527,24 @@
             "description": "Zvažte investování vs. splacení podle úrokových sazeb"
           }
         }
+      },
+      "related": {
+        "annuity": {
+          "title": "Anuitní splátka",
+          "description": "Výpočet výše anuitní splátky úvěru"
+        },
+        "compound_interest": {
+          "title": "Složené úročení",
+          "description": "Výpočet růstu s úrokem z úroku v čase"
+        },
+        "roi": {
+          "title": "ROI",
+          "description": "Návratnost investice v procentech"
+        },
+        "npv": {
+          "title": "NPV",
+          "description": "Čistá současná hodnota peněžních toků"
+        }
       }
     },
     "fuel": {
@@ -614,7 +646,8 @@
           "title": "Převodník jednotek",
           "description": "Převod mezi různými jednotkami"
         }
-      }
+      },
+      "select_option": "Vyberte možnost"
     },
     "calories": {
       "title": "Kalorie kalkulátor",
@@ -843,12 +876,11 @@
   "vat_calculator_description": "Vypočítejte DPH a ceny s daní",
   "net_salary_calculator_title": "Kalkulátor čisté mzdy",
   "net_salary_calculator_description": "Vypočítejte čistou mzdu z hrubé mzdy",
-  "unit_converter_title": "Převodník jednotek",
-  "unit_converter_description": "Převádějte mezi různými jednotkami",
   "rating": {
     "no_reviews": "Ohodnotit",
     "thank_you": "Děkujeme za hodnocení!",
-    "already_rated": "Již jste hodnotil"
+    "already_rated": "Již jste hodnotil",
+    "stars": "{count, plural, one {hvězdička} few {hvězdičky} other {hvězdiček}}"
   },
   "vat_tip": "Zadejte základní částku a sazbu DPH",
   "vat_tip_text": "Sazby DPH se liší podle země: 21% (CZ), 20% (SK). Vždy ověřte aktuální sazby.",
@@ -859,5 +891,18 @@
   "fractions_tip": "Vyberte operaci a zadejte zlomky",
   "fractions_tip_text": "Vyberte operaci (sčítání, odčítání, násobení, dělení) a zadejte vaše zlomky.",
   "loading_error": "Nepodařilo se načíst kalkulátor. Zkuste obnovit stránku.",
-  "tip": "Tip"
+  "chyba_nacitani": "Nepodařilo se načíst kalkulátor. Zkuste prosím obnovit stránku.",
+  "tip": "Tip",
+  "footer": {
+    "categories": "Kategorie",
+    "popular_calculators": "Nejoblíbenější kalkulačky",
+    "privacy": "Ochrana soukromí",
+    "cookies_tracking": "Cookies a tracking (Google Ads)",
+    "manage_cookies": "Nastavení soukromí a cookies",
+    "contact": "Kontakt",
+    "ads_note": "Na tomto webu používáme analytiku (např. Google Analytics) a reklamní služby (např. Google AdSense). Podrobnosti o cookies, účelech a partnerech najdete v zásadách a v nastavení soukromí."
+  },
+  "unit_converter_calculator_title": "Převodník jednotek",
+  "unit_converter_calculator_description": "Převod mezi různými jednotkami",
+  "fractions_calculator_description": "Počítání se zlomky – sčítání, odčítání, násobení, dělení"
 }

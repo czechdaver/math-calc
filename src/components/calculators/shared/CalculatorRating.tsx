@@ -9,6 +9,7 @@ import { useTranslations } from 'next-intl';
 interface CalculatorRatingProps {
   calculatorId: string;
   className?: string;
+  variant?: 'interactive' | 'view';
 }
 
 interface RatingData {
@@ -26,7 +27,8 @@ interface RatingCounters {
 
 const CalculatorRating: React.FC<CalculatorRatingProps> = ({ 
   calculatorId, 
-  className = '' 
+  className = '',
+  variant = 'interactive',
 }) => {
   const t = useTranslations();
   const [rating, setRating] = useState<RatingData>({
@@ -167,7 +169,10 @@ const CalculatorRating: React.FC<CalculatorRatingProps> = ({
           key={i}
           variant="ghost"
           size="sm"
-          className={`p-1 h-auto ${hasRated ? 'cursor-default' : 'cursor-pointer'} relative`}
+          role="radio"
+          aria-checked={isFilled}
+          aria-label={`${i} ${t('rating.stars', { count: i })}`}
+          className={`p-1 h-auto ${hasRated ? 'cursor-default' : 'cursor-pointer hover:scale-[1.08]'} relative transition-transform duration-150`}
           onClick={() => handleStarClick(i)}
           onMouseEnter={() => {
             if (!hasRated) {
@@ -184,7 +189,7 @@ const CalculatorRating: React.FC<CalculatorRatingProps> = ({
           <Star
             className={`w-5 h-5 transition-colors ${
               isFilled || isHovered
-                ? 'fill-yellow-400 text-yellow-400'
+                ? 'fill-amber-400 text-amber-400'
                 : 'text-gray-300'
             }`}
           />
@@ -196,43 +201,63 @@ const CalculatorRating: React.FC<CalculatorRatingProps> = ({
     return stars;
   };
 
+  // View-only variant: render just the summary pill (avg, star icon, total count)
+  if (variant === 'view') {
+    return (
+      <div className={`${className}`}>
+        <div className="inline-flex items-center gap-1 rounded-full border border-amber-200 bg-amber-50/60 px-2 py-0.5 text-xs text-amber-700">
+          <span>{rating.averageRating.toFixed(1)}</span>
+          <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+          <span>({rating.reviewCount})</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={`${className}`}>
       {/* Hlavní řádek - hvězdičky + counter vpravo */}
       <div className="flex items-center justify-between relative">
         <div 
-          className="flex items-center"
+          role="radiogroup"
+          className="flex items-center gap-1"
           onMouseEnter={() => hasRated && setShowTooltip(true)}
           onMouseLeave={() => hasRated && setShowTooltip(false)}
         >
           {renderStars()}
         </div>
         
-        {/* Counter průměru a počtu hlasů vpravo */}
+        {/* Counter průměru a počtu hlasů vpravo - modern pill */}
         {rating.averageRating > 0 && (
-          <div className="text-sm text-gray-600 ml-3">
-            {rating.averageRating.toFixed(1)} ({rating.reviewCount})
+          <div className="ml-3 inline-flex items-center gap-1 rounded-full border border-amber-200 bg-amber-50/60 px-2 py-0.5 text-xs text-amber-700">
+            <span>{rating.averageRating.toFixed(1)}</span>
+            <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+            <span>({rating.reviewCount})</span>
           </div>
         )}
         
-        {/* Tooltip pro již hodnocené - jednodušší pozicování */}
+        {/* Tooltip pro již hodnocené - zobrazit nad hvězdičkami */}
         {hasRated && showTooltip && (
-          <div className="absolute top-8 left-0 px-3 py-2 bg-black text-white text-sm rounded-md shadow-xl z-50 whitespace-nowrap">
+          <div className="absolute bottom-full left-0 mb-2 px-3 py-2 bg-black text-white text-xs rounded-md shadow-xl z-50 whitespace-nowrap">
             {t('rating.already_rated')}
-            <div className="absolute -top-1 left-4 w-2 h-2 bg-black transform rotate-45"></div>
+            <div className="absolute -bottom-1 left-4 w-2 h-2 bg-black transform rotate-45"></div>
+          </div>
+        )}
+
+        {/* Thank you tooltip above stars to avoid layout shift */}
+        {showThankYou && (
+          <div 
+            className="absolute bottom-full left-0 mb-2 px-3 py-2 bg-emerald-600 text-white text-xs rounded-md shadow-xl z-50 whitespace-nowrap pointer-events-none transition-opacity duration-1000"
+            style={{ opacity: isThankYouFading ? 0 : 1 }}
+            aria-live="polite"
+          >
+            {t('rating.thank_you')}
+            <div className="absolute -bottom-1 left-4 w-2 h-2 bg-emerald-600 transform rotate-45"></div>
           </div>
         )}
       </div>
       
       {/* Call to action texty dole */}
-      {showThankYou && (
-        <div 
-          className="mt-1 text-xs text-green-600 transition-opacity duration-1000"
-          style={{ opacity: isThankYouFading ? 0 : 1 }}
-        >
-          {t('rating.thank_you')}
-        </div>
-      )}
       {!hasRated && rating.averageRating === 0 && (
         <div className="mt-1 text-xs text-gray-500">
           {t('rating.no_reviews')}

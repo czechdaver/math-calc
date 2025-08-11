@@ -205,6 +205,7 @@ const calculatorCategories = getCalculatorCategories(locale, t);
    - Konzistentní odkazy s jazykovou mutací
    - Jednotná správa překladových klíčů
 
+<a id="rating-component-v2"></a>
 ## NOVÁ RATING KOMPONENTA (v2.0)
 
 ### Přehled
@@ -238,6 +239,28 @@ Sdílená komponenta `CalculatorRating` umožňuje uživatelům hodnotit kalkula
 - **Počet recenzí:** Lokalizovaný text ("hodnocení" / "reviews")
 - **Prázdný stav:** "Zatím žádná hodnocení" / "No reviews yet"
 
+#### View-only režim
+- Určeno pro karty na homepage a v sekci „Souvisejících kalkulaček“
+- Bez interakce; zobrazuje pouze průměr, hvězdu a počet hodnocení
+- Použití:
+```tsx
+<CalculatorRating calculatorId="bmi" variant="view" className="pointer-events-none" />
+```
+
+#### API (props)
+```ts
+type Props = {
+  calculatorId: string
+  className?: string
+  variant?: 'interactive' | 'view' // default: 'interactive'
+}
+```
+
+#### UX vylepšení (v2.0)
+- Poděkování se zobrazuje jako tooltip nad hvězdičkami (bez posunu layoutu)
+- Hvězdy v barvě amber s jemným hover efektem
+- Lepší přístupnost: role="radiogroup", aria-checked, aria-label s pluralizací `rating.stars`
+
 ### Implementace
 
 #### Použití v kalkulačce
@@ -254,6 +277,13 @@ Sdílená komponenta `CalculatorRating` umožňuje uživatelům hodnotit kalkula
 #### Automatická integrace
 Rating komponenta se automaticky zobrazí v každé kalkulačce, která má definované `calculatorId`.
 
+#### Integrace v kartách „Související kalkulačky“
+- Karty souvisejících kalkulaček nyní zobrazují `CalculatorRating` v režimu `variant="view"`, pokud datová položka obsahuje pole `id` (viz utilita `getRelatedCalculators(...)`).
+- Příklad struktury položky:
+```ts
+{ id: 'bmr', title: 'BMR Kalkulátor', href: '/cs/calculator/bmr', category: 'health' }
+```
+
 ### Lokalizační klíče
 
 #### České překlady (`cs.json`)
@@ -263,7 +293,9 @@ Rating komponenta se automaticky zobrazí v každé kalkulačce, která má defi
     "reviews": "hodnocení",
     "no_reviews": "Zatím žádná hodnocení",
     "thank_you": "Děkujeme za hodnocení!",
-    "click_to_rate": "Klikněte na hvězdičky pro hodnocení"
+    "click_to_rate": "Klikněte na hvězdičky pro hodnocení",
+    "already_rated": "Již jste hodnotili",
+    "stars": "{count, plural, one {hvězdička} few {hvězdičky} other {hvězdiček}}"
   }
 }
 ```
@@ -275,7 +307,9 @@ Rating komponenta se automaticky zobrazí v každé kalkulačce, která má defi
     "reviews": "reviews",
     "no_reviews": "No reviews yet",
     "thank_you": "Thank you for rating!",
-    "click_to_rate": "Click stars to rate"
+    "click_to_rate": "Click stars to rate",
+    "already_rated": "You have already rated",
+    "stars": "{count, plural, one {star} other {stars}}"
   }
 }
 ```

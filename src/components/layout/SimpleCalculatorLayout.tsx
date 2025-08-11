@@ -2,15 +2,19 @@
 'use client';
 
 import React, { ReactNode, useEffect, useState } from 'react';
-import { useTranslations } from '@/hooks/useTranslations';
+import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { ChevronRight, Home, Calculator, Info, ExternalLink, AlertCircle } from 'lucide-react';
+import { ChevronRight, Home, Calculator, Info, ExternalLink, AlertCircle, Heart, BookOpen, HelpCircle, Star } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { getCalculatorCategories, getQuickLinks } from '@/lib/calculatorDataUtils';
 import { CalculatorRating } from '@/components/calculators/shared';
+import { cn } from '@/lib/utils';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs';
+import Footer from '@/components/navigation/Footer';
+import PanelHeader from '@/components/ui/PanelHeader';
 
 // Dynamically import KaTeX to avoid SSR issues
 const InlineMath = dynamic(() => import('react-katex').then(mod => mod.InlineMath), { ssr: false }) as any;
@@ -65,6 +69,7 @@ export interface SimpleCalculatorLayoutProps {
   
   // Related Calculators
   relatedCalculators?: Array<{
+    id?: string;
     title: string;
     description: string;
     href: string;
@@ -144,7 +149,7 @@ const SimpleFAQ: React.FC<{ faq: Array<{ question: string; answer: string }> }> 
             />
           </button>
           {openItems.includes(index) && (
-            <div className="px-4 pb-3 text-gray-600 text-sm border-t border-gray-100">
+            <div className="px-4 pt-3 pb-3 text-gray-600 text-sm border-t border-gray-100">
               {item.answer}
             </div>
           )}
@@ -209,12 +214,28 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
   const calculatorCategories = getCalculatorCategories(locale, t);
   const { showModal, setShowModal } = useAdBlockDetection();
 
-  // Generate breadcrumb
-  const breadcrumbs = [
+  // Apply full-page gradient on body for enhanced pages
+  useEffect(() => {
+    if (enhanced) {
+      document.body.classList.add('force-enhanced-bg');
+      return () => {
+        document.body.classList.remove('force-enhanced-bg');
+      };
+    }
+  }, [enhanced]);
+
+  // Generate breadcrumb items (global component)
+  const categoryKey = `categories.${category}`;
+  const categoryLabelResolved = t(categoryKey);
+  const categoryLabel = !categoryLabelResolved || categoryLabelResolved === categoryKey
+    ? category
+    : categoryLabelResolved;
+
+  const breadcrumbItems = [
     { label: t('common.home'), href: `/${locale}` },
-    { label: t('common.calculators'), href: `/${locale}` },
-    { label: category, href: `/${locale}#${category.toLowerCase()}` },
-    { label: title, href: '', current: true }
+    // Per UX: omit generic "Calculators" step unless a real listing page exists
+    { label: categoryLabel },
+    { label: title, current: true }
   ];
 
   // Schema.org structured data
@@ -239,43 +260,45 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
 
   return (
     <>
+      {enhanced && (
+        <div className="enhanced-page-bg" aria-hidden="true" />
+      )}
       {/* Schema.org structured data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <div className={enhanced ? "enhanced-calculator-bg" : "min-h-screen bg-gray-50"}>
+      <div className={enhanced ? "min-h-screen" : "min-h-screen bg-gray-50"}>
 
-        <div className={`container mx-auto px-4 py-6 ${enhanced ? "enhanced-calculator-content" : ""}`}>
+        <div className={`container mx-auto px-4 pt-20 pb-24 lg:py-6 ${enhanced ? "enhanced-calculator-content" : ""}`}>
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
             {/* Main Content */}
             <div className="lg:col-span-3 space-y-6">
               {/* Breadcrumb Navigation */}
-              <nav className="text-sm text-gray-500 mb-2">
-                <Link href={`/${locale}`} className="hover:text-blue-600">
-                  {t('common.home')}
-                </Link>
-                <span className="mx-2">/</span>
-                <span>{title}</span>
-              </nav>
+              <Breadcrumbs items={breadcrumbItems} enhanced className="mb-2" />
 
-              {/* Page Title and Description with Rating */}
+              {/* Top Ad (Mobile) */}
+              <div className="md:hidden flex justify-center mb-2">
+                <AdPlaceholder 
+                  size="320x50" 
+                  position="Top Mobile"
+                  className="w-[320px] h-[50px]"
+                />
+              </div>
+
+              {/* Page Title and Description (enhanced styling) */}
               <div className="space-y-3">
-                {/* Title row with rating on desktop */}
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between md:gap-4">
-                  <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
-                  <div className="hidden md:block">
-                    <CalculatorRating 
-                      calculatorId={calculatorId || 'unknown'} 
-                      className="" 
-                    />
-                  </div>
+                  <h1 className={cn(
+                    "font-bold w-full text-center",
+                    enhanced ? "text-3xl md:text-4xl enhanced-gradient-text" : "text-2xl text-gray-900"
+                  )}>
+                    {title}
+                  </h1>
                 </div>
-                
-                <p className="text-gray-600">{description}</p>
-                
-                {/* Rating on mobile - below description */}
+                <p className={cn('text-gray-600', enhanced ? 'text-center' : '')}>{description}</p>
+                {/* Keep rating visible on mobile since sidebar is hidden */}
                 <div className="md:hidden">
                   <CalculatorRating 
                     calculatorId={calculatorId || 'unknown'} 
@@ -286,15 +309,27 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
 
               {/* Formula Section */}
               {formula && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Info className="w-5 h-5" />
-                      {t('common.formula')}
-                    </CardTitle>
-                    <CardDescription>{formula.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
+                <Card className={enhanced ? 'enhanced-card gap-0 p-0' : ''}>
+                  {enhanced ? (
+                    <PanelHeader
+                      title={t('common.formula')}
+                      subtitle={formula.description}
+                      icon={Info}
+                      color="indigo"
+                      variant="indigo"
+                    />
+                  ) : (
+                    <CardHeader>
+                      <div className="flex items-center gap-3">
+                        <Info className="w-5 h-5" />
+                        <div>
+                          <CardTitle>{t('common.formula')}</CardTitle>
+                          <CardDescription className="mt-0.5">{formula.description}</CardDescription>
+                        </div>
+                      </div>
+                    </CardHeader>
+                  )}
+                  <CardContent className="py-5">
                     <div className="bg-gray-50 p-4 rounded-lg text-center">
                       {BlockMath && <BlockMath math={formula.latex} />}
                     </div>
@@ -303,8 +338,8 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
               )}
 
               {/* Calculator Input Section */}
-              <Card>
-                <CardContent className="pt-6">
+              <Card className={enhanced ? 'enhanced-card gap-0 p-0' : ''}>
+                <CardContent className="py-5">
                   {children}
                 </CardContent>
               </Card>
@@ -320,11 +355,23 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
 
               {/* Results Section */}
               {resultSection && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>{t('common.results')}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
+                <Card className={enhanced ? 'enhanced-card gap-0 p-0' : ''}>
+                  {enhanced ? (
+                    <PanelHeader
+                      title={t('common.results')}
+                      icon={Heart}
+                      color="green"
+                      variant="green"
+                    />
+                  ) : (
+                    <CardHeader>
+                      <div className="flex items-center gap-3">
+                        <Heart className="w-5 h-5" />
+                        <CardTitle>{t('common.results')}</CardTitle>
+                      </div>
+                    </CardHeader>
+                  )}
+                  <CardContent className="py-5">
                     {resultSection}
                   </CardContent>
                 </Card>
@@ -332,12 +379,27 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
 
               {/* Examples and Explanation */}
               {examples && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>{examples.title}</CardTitle>
-                    <CardDescription>{examples.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
+                <Card className={enhanced ? 'enhanced-card gap-0 p-0' : ''}>
+                  {enhanced ? (
+                    <PanelHeader
+                      title={examples.title}
+                      subtitle={examples.description}
+                      icon={BookOpen}
+                      color="purple"
+                      variant="purple"
+                    />
+                  ) : (
+                    <CardHeader>
+                      <div className="flex items-center gap-3">
+                        <BookOpen className="w-5 h-5" />
+                        <div>
+                          <CardTitle>{examples.title}</CardTitle>
+                          <CardDescription className="mt-0.5">{examples.description}</CardDescription>
+                        </div>
+                      </div>
+                    </CardHeader>
+                  )}
+                  <CardContent className="py-5 space-y-4">
                     {examples.scenarios?.map((scenario, index) => (
                       <div key={index} className="border-l-4 border-blue-200 pl-4">
                         <h4 className="font-semibold text-gray-900">{scenario.title}</h4>
@@ -355,33 +417,88 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
 
               {/* FAQ Section */}
               {faq && faq.length > 0 && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>{t('common.faq')}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
+                <Card className={enhanced ? 'enhanced-card gap-0 p-0' : ''}>
+                  {enhanced ? (
+                    <PanelHeader
+                      title={t('common.faq')}
+                      icon={HelpCircle}
+                      color="indigo"
+                      variant="indigo"
+                    />
+                  ) : (
+                    <CardHeader>
+                      <div className="flex items-center gap-3">
+                        <HelpCircle className="w-5 h-5" />
+                        <CardTitle>{t('common.faq')}</CardTitle>
+                      </div>
+                    </CardHeader>
+                  )}
+                  <CardContent className="py-5">
                     <SimpleFAQ faq={faq} />
                   </CardContent>
                 </Card>
               )}
 
+              {/* Mid-page Ad between FAQ and Related */}
+              <div className="flex justify-center py-4">
+                <div className="md:hidden">
+                  <AdPlaceholder 
+                    size="320x50" 
+                    position="Mid Mobile"
+                    className="w-[320px] h-[50px]"
+                  />
+                </div>
+                <div className="hidden md:block">
+                  <AdPlaceholder 
+                    size="728x90" 
+                    position="Mid Desktop"
+                    className="w-[728px] h-[90px]"
+                  />
+                </div>
+              </div>
+
               {/* Related Calculators */}
               {relatedCalculators && relatedCalculators.length > 0 && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>{t('common.related_calculators')}</CardTitle>
-                    <CardDescription>{t('common.other_useful_calculations')}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
+                <Card className={enhanced ? 'enhanced-card gap-0 p-0' : ''}>
+                  {enhanced ? (
+                    <PanelHeader
+                      title={t('common.related_calculators')}
+                      subtitle={t('common.other_useful_calculations')}
+                      icon={Calculator}
+                      color="blue"
+                      variant="blue"
+                    />
+                  ) : (
+                    <CardHeader>
+                      <div className="flex items-center gap-3">
+                        <Calculator className="w-5 h-5" />
+                        <div>
+                          <CardTitle>{t('common.related_calculators')}</CardTitle>
+                          <CardDescription className="mt-0.5">{t('common.other_useful_calculations')}</CardDescription>
+                        </div>
+                      </div>
+                    </CardHeader>
+                  )}
+                  <CardContent className="py-5">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {relatedCalculators.map((calc, index) => (
                         <Link key={index} href={calc.href}>
-                          <Card className="hover:shadow-md transition-shadow cursor-pointer">
+                          <Card variant="outlined" hoverEffect="shadow" className={cn('transition-shadow cursor-pointer')}>
                             <CardContent className="p-4">
-                              <div className="flex items-center justify-between">
+                              <div className="flex items-start gap-3">
+                                <div className="enhanced-icon-wrapper">
+                                  <Calculator className="w-4 h-4 text-blue-600" />
+                                </div>
                                 <div>
                                   <h4 className="font-semibold text-gray-900">{calc.title}</h4>
-                                  <p className="text-sm text-gray-600 mt-1">{calc.description}</p>
+                                  <p className="text-sm text-gray-600 mt-0.5">{calc.description}</p>
+                                  {calc.id && (
+                                    <CalculatorRating 
+                                      calculatorId={calc.id} 
+                                      variant="view" 
+                                      className="mt-2 pointer-events-none"
+                                    />
+                                  )}
                                   <SimpleBadge variant="outline" className="mt-2 text-xs">
                                     {calc.category}
                                   </SimpleBadge>
@@ -409,12 +526,51 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                 />
               </div>
 
+              {/* Calculator Rating moved near Quick Links (desktop) */}
+              <div className="hidden lg:block">
+                <Card className={enhanced ? 'enhanced-card gap-0 p-0' : ''}>
+                  {enhanced ? (
+                    <PanelHeader
+                      title={t('common.calculator_rating') || 'Hodnocení kalkulačky'}
+                      icon={Star}
+                      color="amber"
+                      variant="amber"
+                    />
+                  ) : (
+                    <CardHeader>
+                      <div className="flex items-center gap-3">
+                        <Star className="w-5 h-5" />
+                        <CardTitle>{t('common.calculator_rating') || 'Hodnocení kalkulačky'}</CardTitle>
+                      </div>
+                    </CardHeader>
+                  )}
+                  <CardContent className="py-5">
+                    <CalculatorRating 
+                      calculatorId={calculatorId || 'unknown'} 
+                    />
+                  </CardContent>
+                </Card>
+              </div>
+
               {/* Quick Links */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">{t('common.quick_links')}</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
+              <Card className={enhanced ? 'enhanced-card gap-0 p-0' : ''}>
+                {enhanced ? (
+                  <PanelHeader
+                    title={t('common.quick_links')}
+                    icon={Home}
+                    color="blue"
+                    variant="blue"
+                    titleClassName="text-lg"
+                  />
+                ) : (
+                  <CardHeader>
+                    <div className="flex items-center gap-3">
+                      <Home className="w-5 h-5" />
+                      <CardTitle className="text-lg">{t('common.quick_links')}</CardTitle>
+                    </div>
+                  </CardHeader>
+                )}
+                <CardContent className="py-5 space-y-3">
                   {/* Static links */}
                   <Link href={`/${locale}`} className="flex items-center gap-2 text-sm hover:text-blue-600 transition-colors">
                     <Home className="w-4 h-4" />
@@ -474,8 +630,11 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
           </div>
         </div>
 
+        {/* Site Footer */}
+        <Footer />
+
         {/* Sticky Bottom Ad (Mobile) */}
-        <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t z-40">
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t z-40 pb-[env(safe-area-inset-bottom)]">
           <div className="flex justify-center p-2">
             <AdPlaceholder 
               size="320x50" 

@@ -12,11 +12,17 @@ interface FAQItem {
 interface FAQSectionProps {
   faqItems: FAQItem[];
   className?: string;
+  title?: string;
+  hideHeader?: boolean;
+  compact?: boolean; // match BMI v3 spacing
 }
 
 const FAQSection: React.FC<FAQSectionProps> = ({ 
   faqItems, 
-  className = '' 
+  className = '',
+  title,
+  hideHeader = false,
+  compact = false,
 }) => {
   const [openItems, setOpenItems] = useState<number[]>([]);
 
@@ -30,16 +36,18 @@ const FAQSection: React.FC<FAQSectionProps> = ({
 
   return (
     <Card className={className}>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-3">
-          <div className="p-2 bg-blue-50 rounded-lg">
-            <HelpCircle className="w-5 h-5 text-blue-600" />
-          </div>
-          Frequently Asked Questions
-        </CardTitle>
-      </CardHeader>
+      {!hideHeader && (
+        <CardHeader>
+          <CardTitle className="flex items-center gap-3">
+            <div className="p-2 bg-blue-50 rounded-lg">
+              <HelpCircle className="w-5 h-5 text-blue-600" />
+            </div>
+            {title ?? 'Frequently Asked Questions'}
+          </CardTitle>
+        </CardHeader>
+      )}
       
-      <CardContent className="space-y-2">
+      <CardContent className={compact ? 'py-5 space-y-2' : 'py-5 space-y-2'}>
         {faqItems.map((item, index) => (
           <div 
             key={index} 
@@ -47,7 +55,9 @@ const FAQSection: React.FC<FAQSectionProps> = ({
           >
             <button
               onClick={() => toggleItem(index)}
-              className="w-full px-4 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors group"
+              className={compact 
+                ? 'w-full px-4 py-3 text-left flex items-center justify-between hover:bg-gray-50 transition-colors group'
+                : 'w-full px-4 py-5 text-left flex items-center justify-between hover:bg-gray-50 transition-colors group'}
             >
               <span className="font-medium text-gray-900 pr-4">
                 {item.question}
@@ -62,8 +72,8 @@ const FAQSection: React.FC<FAQSectionProps> = ({
             </button>
             
             {openItems.includes(index) && (
-              <div className="px-4 pb-4 border-t border-gray-100 bg-gray-50">
-                <div className="pt-3 text-gray-600 text-sm leading-relaxed">
+              <div className={compact ? 'px-4 pb-3 border-t border-gray-100 bg-gray-50' : 'px-4 pb-5 border-t border-gray-100 bg-gray-50'}>
+                <div className={compact ? 'pt-3 text-gray-600 text-sm leading-relaxed' : 'pt-4 text-gray-600 text-sm leading-relaxed'}>
                   {item.answer}
                 </div>
               </div>

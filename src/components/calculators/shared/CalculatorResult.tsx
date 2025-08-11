@@ -23,7 +23,7 @@ const CalculatorResult: React.FC<CalculatorResultProps> = ({
   className = ''
 }) => {
   return (
-    <Card className={`mt-6 ${className}`}>
+    <Card className={className}>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Calculator className="w-5 h-5" />

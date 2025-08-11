@@ -32,6 +32,11 @@ updated: 2025-07-29
 - Grid of several most frequently used calculators → card style (icon, description, rating/popularity)
 - Each card = CTA (redirect to specific calculator page)
 
+#### Ratings on Cards
+- Cards display a compact rating pill using `CalculatorRating` with `variant="view"`.
+- Shows average rating with a star icon and total review count.
+- No interactivity on the homepage cards (read-only).
+
 ### 4. Calculator Categories
 - Grid section for categories (Mathematics, Finance, Health, Units, etc.) with icon and number of available calculators
 - Click through to category shows complete directory with calculator selection

@@ -33,7 +33,6 @@
   "to_unit_label": "To unit",
   "weight_converter_title": "Weight Converter",
   "volume_converter_title": "Volume Converter",
-  "fractions_calculator_title": "Fractions Calculator",
   "fractions_select_operation_label": "Select operation",
   "fractions_select_operation": "Select a fractions operation from the list.",
   "fractions_operation_scitani": "Addition",
@@ -77,6 +76,7 @@
   "dph_title": "VAT Calculator",
   "dph_tip_text": "Tip: VAT is charged at 21% in the Czech Republic and 20% in Slovakia. Always verify current rates.",
   "bmi_tip_text": "Tip: BMI is only an indicative measure. For accurate health assessment, consult with a doctor.",
+  "bmi_disclaimer_text": "BMI is only an indicative measure. For an accurate health assessment, consult a doctor.",
   "bmi_explanation": "BMI is a standard measure for classifying adult weight according to WHO.",
   "procento_z_cisla_formula": "\\frac{Percentage}{100} \\times Number = Result",
   "kolik_procent_je_x_z_y_formula": "\\frac{X}{Y} \\times 100 = Result (%)",
@@ -110,18 +110,22 @@
     "faq_accuracy_q": "How accurate are the calculations?",
     "faq_accuracy_a": "Our calculators use precise mathematical formulas and are regularly tested for accuracy.",
     "faq_mobile_q": "Do the calculators work on mobile devices?",
-    "faq_mobile_a": "Yes, all calculators are fully responsive and work perfectly on smartphones and tablets."
+    "faq_mobile_a": "Yes, all calculators are fully responsive and work perfectly on smartphones and tablets.",
+    "popular_tagline": "Quick access to our most frequently used tools",
+    "try_it_now": "Try it now",
+    "categories_tagline": "Explore all our calculation tools organized by category",
+    "calculators_available": "{count, plural, one {# calculator available} other {# calculators available}}",
+    "explore_category": "Explore Category",
+    "active_users_label": "Active users",
+    "average_rating_label": "Average rating",
+    "secure_private_label": "Secure & Private",
+    "common_questions_tagline": "Common questions about our calculators"
   },
   "categories": {
     "percentages": "Percentages",
     "percentages_description": "Percentage calculations, ratios and proportions",
     "unit_converter": "Unit Converter",
     "unit_converter_description": "Conversions between different measurement units",
-    "rating": {
-      "no_reviews": "Rate this",
-      "thank_you": "Thank you for rating!",
-      "already_rated": "You already rated this"
-    },
     "bmi": "BMI Calculator",
     "bmi_description": "Body Mass Index calculation",
     "vat": "VAT Calculator",
@@ -160,7 +164,10 @@
     "days": "days",
     "hours": "hours",
     "minutes": "minutes",
-    "seconds": "seconds"
+    "seconds": "seconds",
+    "calculator_rating": "Calculator rating",
+    "select_option": "Select option",
+    "detailed_calculation": "Detailed calculation"
   },
   "calculators": {
     "tip": {
@@ -219,7 +226,8 @@
       "in_days": "In",
       "age_will_be": "Age",
       "zodiac_sign": "Zodiac Sign",
-      "by_birth_date": "By birth date"
+      "by_birth_date": "By birth date",
+      "total_seconds": "Total seconds"
     },
     "currency": {
       "title": "Currency Calculator",
@@ -236,7 +244,6 @@
       "original_amount": "Original Amount",
       "popular_conversions": "Popular Conversions"
     },
-
     "time": {
       "title": "Time Calculator",
       "description": "Add and subtract times in hours, minutes and seconds. Calculate total work time, breaks or any time intervals.",
@@ -397,7 +404,8 @@
       "profitable_investment": "Profitable investment",
       "unprofitable_investment": "Unprofitable investment",
       "including_costs": "Including additional costs",
-      "total_investment": "Total Investment"
+      "total_investment": "Total Investment",
+      "total_returns": "Total returns"
     },
     "early_repayment": {
       "title": "Early Repayment Calculator",
@@ -470,6 +478,18 @@
         "q4": {
           "question": "When not to repay early?",
           "answer": "When you can invest the money with higher returns than the loan interest rate, or when you need a reserve."
+        },
+        "compound_interest": {
+          "title": "How does compound interest relate to early repayment?",
+          "description": "Compound interest determines how interest accrues over time. Early repayment reduces principal sooner and lowers total interest paid."
+        },
+        "roi": {
+          "title": "What is ROI in early repayment analysis?",
+          "description": "ROI compares savings from early repayment to the extra cash used. A higher ROI indicates a more beneficial early repayment."
+        },
+        "npv": {
+          "title": "Why use NPV for early repayment?",
+          "description": "NPV discounts future savings to their present value, reflecting the time value of money when evaluating early repayment."
         }
       },
       "related": {
@@ -853,5 +873,36 @@
   "fractions_tip": "Select operation and enter fractions",
   "fractions_tip_text": "Choose an operation (add, subtract, multiply, divide) and enter your fractions.",
   "loading_error": "Failed to load calculator. Please try refreshing the page.",
-  "tip": "Tip"
+  "chyba_nacitani": "Failed to load calculator. Please try refreshing the page.",
+  "tip": "Tip",
+  "rating": {
+    "no_reviews": "Rate this",
+    "thank_you": "Thank you for rating!",
+    "already_rated": "You already rated this",
+    "stars": "{count, plural, one {star} other {stars}}"
+  },
+  "footer": {
+    "categories": "Categories",
+    "popular_calculators": "Popular Calculators",
+    "privacy": "Privacy Policy",
+    "cookies_tracking": "Cookies & Tracking (Google Ads)",
+    "manage_cookies": "Privacy & Cookie Settings",
+    "contact": "Contact",
+    "ads_note": "We use analytics (e.g., Google Analytics) and advertising services (e.g., Google AdSense). See our policies and privacy settings for details about cookies, purposes, and partners."
+  },
+  "height_validation_error": "Enter a valid height (50–300 cm)",
+  "weight_validation_error": "Enter a valid weight (2–500 kg)",
+  "bmi_title": "BMI",
+  "category_health_title": "Health and fitness",
+  "category_health_description": "Calculators for health, fitness, and body composition",
+  "category_math_title": "Mathematical calculations",
+  "category_math_description": "Basic math calculators and conversions",
+  "category_finance_title": "Finance and economics",
+  "category_finance_description": "Financial calculators, taxes, and investments",
+  "category_utility_title": "Useful tools",
+  "category_utility_description": "Practical calculators for everyday use",
+  "quick_links_popular": "Most Popular",
+  "quick_links_recent": "Recently Added",
+  "percentage_calculator_title": "Percentage Calculator",
+  "percentage_calculator_description": "Calculate percentages, discounts, and ratios"
 }

@@ -47,6 +47,7 @@
 - [Tabs](./design/tabs.md) - Tabbed interfaces
 - [Toast](./design/toast.md) - Notification system
 - [Tooltip](./design/tooltip.md) - Help text overlays
+ - [Calculator Rating](./design/calculator-layout.md#rating-component-v2) - Interactive and view-only rating
 
 ### 📝 Project History & Changes
 - **[Changelog](./changelog/CHANGELOG.md)** - Version history and major changes

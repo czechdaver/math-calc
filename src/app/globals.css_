@@ -8,7 +8,8 @@
   /* Enhanced Calculator Theme Variables */
   --enhanced-bg-primary: linear-gradient(135deg, #dbeafe 0%, #ffffff 50%, #e0e7ff 100%);
   --enhanced-bg-secondary: linear-gradient(135deg, #f0f9ff 0%, transparent 50%, #fdf2f8 100%);
-  --enhanced-card-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  /* Reduced by ~25% */
+  --enhanced-card-shadow: 0 15px 19px -4px rgb(0 0 0 / 0.1), 0 6px 8px -5px rgb(0 0 0 / 0.1);
   --enhanced-card-shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   --enhanced-gradient-blue: linear-gradient(to right, #dbeafe, #bfdbfe);
   --enhanced-gradient-green: linear-gradient(to right, #d1fae5, #a7f3d0);
@@ -55,6 +56,22 @@ a {
 }
 
 /* Enhanced Calculator Components */
+  /* Full-page fixed gradient background layer for enhanced calculators */
+  .enhanced-page-bg {
+    position: fixed;
+    inset: 0;
+    background: var(--enhanced-bg-primary);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .enhanced-page-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--enhanced-bg-secondary);
+    opacity: 0.6;
+  }
+
   .enhanced-calculator-bg {
     background: linear-gradient(135deg, #dbeafe 0%, #ffffff 50%, #e0e7ff 100%) !important;
     min-height: 100vh;
@@ -112,6 +129,11 @@ a {
   
   .enhanced-card-header-indigo {
     background: linear-gradient(to right, #e0e7ff, #c7d2fe) !important;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .enhanced-card-header-amber {
+    background: linear-gradient(to right, #fef3c7, #fde68a) !important; /* yellow-100 to yellow-200 */
     border-bottom: 1px solid #e5e7eb;
   }
   
@@ -221,4 +243,47 @@ a {
   .force-enhanced-card {
     box-shadow: var(--enhanced-card-shadow) !important;
     background: rgba(255, 255, 255, 0.95) !important;
+  }
+
+/* Fancy animated glow under homepage search */
+  .search-glow {
+    position: relative;
+  }
+  .search-glow::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -8px; /* sits just below the input */
+    height: 14px; /* soft bar height */
+    border-radius: 9999px;
+    pointer-events: none;
+    background: linear-gradient(90deg, #60a5fa, #a78bfa, #22d3ee, #60a5fa);
+    background-size: 200% 200%;
+    filter: blur(10px);
+    opacity: 0.35;
+    transform: scaleX(0.95);
+    transition: opacity 300ms ease, transform 300ms ease, filter 300ms ease;
+    animation: searchGlowShift 8s ease-in-out infinite;
+    z-index: 0;
+  }
+  .search-glow:hover::after {
+    opacity: 0.45;
+  }
+  .search-glow:focus-within::after {
+    opacity: 0.7;
+    filter: blur(12px);
+    transform: scaleX(1);
+  }
+  @keyframes searchGlowShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .search-glow::after {
+      animation: none;
+      background-position: 50% 50%;
+      opacity: 0.3;
+    }
   }

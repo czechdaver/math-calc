@@ -4,7 +4,7 @@ import React from 'react';
 import { CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
 
-export type PanelColor = 'blue' | 'green' | 'purple' | 'indigo' | 'amber';
+export type PanelColor = 'blue' | 'green' | 'purple' | 'indigo' | 'amber' | 'gray';
 
 const headerBgByVariant: Record<PanelColor, string> = {
   blue: 'enhanced-card-header',
@@ -12,6 +12,7 @@ const headerBgByVariant: Record<PanelColor, string> = {
   purple: 'enhanced-card-header-purple',
   indigo: 'enhanced-card-header-indigo',
   amber: 'enhanced-card-header-amber',
+  gray: 'enhanced-card-header-gray',
 };
 
 const textColorByColor: Record<PanelColor, string> = {
@@ -20,6 +21,7 @@ const textColorByColor: Record<PanelColor, string> = {
   purple: 'text-purple-600',
   indigo: 'text-indigo-600',
   amber: 'text-amber-600',
+  gray: 'text-gray-700',
 };
 
 interface PanelHeaderProps {

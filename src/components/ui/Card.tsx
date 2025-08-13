@@ -42,6 +42,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
         data-slot="card"
         className={cn(
           'flex flex-col gap-0 rounded-xl',
+          '[&:has([data-slot="card-header"])>[data-slot="card-content"]]:pt-6',
           variantStyles[variant],
           hoverEffect !== 'none' && 'hover:cursor-pointer',
           hoverEffects[hoverEffect],
@@ -65,7 +66,7 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
       ref={ref}
       data-slot="card-header"
       className={cn(
-        'grid auto-rows-min grid-rows-[auto_auto] items-start gap-0 px-6',
+        'grid auto-rows-min grid-rows-[auto_auto] items-start gap-0 px-6 py-6',
         'has-data-[slot=card-action]:grid-cols-[1fr_auto]',
         withBorder && 'border-b pb-6',
         className
@@ -128,7 +129,7 @@ const CardContent = React.forwardRef<
   <div
     ref={ref}
     data-slot="card-content"
-    className={cn('px-6', className)}
+    className={cn('px-6 py-6', className)}
     {...props}
   />
 ))

@@ -48,6 +48,31 @@
   "fractions_form_zkracovani": "Fractions reduction form...",
   "fractions_form_prevod": "Fractions conversion form...",
   "bmi_calculator_title": "BMI Calculator",
+  "calculators": {
+    "unit_converter": {
+      "title": "Unit Converter Calculator",
+      "description": "Convert between different units of measurement including length, weight, temperature, volume, and area with precise calculations and helpful formulas.",
+      "category": "Category",
+      "value": "Value",
+      "enter_value": "Enter value",
+      "from": "From",
+      "to": "To",
+      "swap_units": "Swap units",
+      "convert": "Convert",
+      "reset": "Reset",
+      "result": "Result",
+      "quick_conversions": "Quick Conversions",
+      "show_formula": "Show Formula",
+      "hide_formula": "Hide Formula",
+      "keyword_converter": "unit converter",
+      "keyword_measurement": "measurement conversion",
+      "keyword_length": "length conversion",
+      "keyword_weight": "weight conversion",
+      "keyword_temperature": "temperature conversion",
+      "keyword_volume": "volume conversion",
+      "keyword_area": "area conversion"
+    }
+  },
   "bmi_calculator_description": "Calculate your Body Mass Index (BMI) and determine your weight category according to WHO standards.",
   "height_label": "Height",
   "weight_label": "Weight",
@@ -138,6 +163,9 @@
     "finance": "Finance",
     "financial": "Financial",
     "construction": "Construction",
+    "Stavební": "Construction",
+    "Financial": "Financial",
+    "Practical": "Practical",
     "practical": "Practical",
     "health": "Health and fitness",
     "conversions": "Unit conversions"
@@ -167,7 +195,8 @@
     "seconds": "seconds",
     "calculator_rating": "Calculator rating",
     "select_option": "Select option",
-    "detailed_calculation": "Detailed calculation"
+    "detailed_calculation": "Detailed calculation",
+    "unit": "unit"
   },
   "calculators": {
     "tip": {
@@ -904,5 +933,14 @@
   "quick_links_popular": "Most Popular",
   "quick_links_recent": "Recently Added",
   "percentage_calculator_title": "Percentage Calculator",
-  "percentage_calculator_description": "Calculate percentages, discounts, and ratios"
+  "percentage_calculator_description": "Calculate percentages, discounts, and ratios",
+  "app_name": "MathCalc Pro",
+  "nav": {
+    "home": "Home",
+    "calculators": "Calculators",
+    "all_calculators": "All Calculators"
+  },
+  "open_menu": "Open menu",
+  "language": "Language",
+  "kalkulacka": "Calculator"
 }

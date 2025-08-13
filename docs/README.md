@@ -28,6 +28,12 @@
 - [Project Specifications](./requirements/project-specifications.md) - Main specs with simplicity philosophy
 - [Technical Specifications](./requirements/tech-specs.md) - Detailed technical requirements
 - [Testing Strategy](./requirements/testing-strategy.md) - Comprehensive testing approach
+- [Calculator Specifications](./calculator-specification.md) - Calculator technical specs
+
+### 🏗️ Development Methodology & Patterns
+- [Development Methodology](./DEVELOPMENT_METHODOLOGY.md) - Foundation-first development approach
+- [Calculator Patterns](./CALCULATOR_PATTERNS.md) - Proven calculator development patterns
+- [Design System](./design-system.md) - Complete design system documentation
 
 ### 🛠️ Development Guides
 - [Troubleshooting Guide](./development/troubleshooting-guide.md) - Problem resolution with specific solutions
@@ -43,6 +49,10 @@
 ### 📖 Technical Reference
 - [API Documentation](./reference/api-documentation.md) - Complete API reference
 - [State Management](./reference/state-management.md) - Application state patterns
+
+### 📝 Templates & Migrations
+- [Calculator Template](./templates/calculator-template.md) - Template for new calculators
+- [URL Migration Map](./migration/URL_MIGRATION_MAP.md) - Route changes and redirects
 
 ### 📝 Project History
 - [Changelog](./changelog/CHANGELOG.md) - Version history and updates

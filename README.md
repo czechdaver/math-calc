@@ -150,11 +150,23 @@ NEXT_PUBLIC_ADSENSE_CLIENT_ID=your_adsense_id
 
 ## 📖 Documentation
 
+### 📚 Essential Documentation
+- **[Documentation Index](./docs/_INDEX.md)** - Complete navigation to all docs
 - **[Project Documentation](./docs/README.md)** - Complete project guide
 - **[Development Guide](./docs/development/README.md)** - Development principles
 - **[Calculator Specifications](./docs/calculator-specification.md)** - Technical specs
+
+### 🏗️ Development Resources
+- **[Development Methodology](./docs/DEVELOPMENT_METHODOLOGY.md)** - Foundation-first approach
+- **[Calculator Patterns](./docs/CALCULATOR_PATTERNS.md)** - Proven development patterns
+- **[Design System](./docs/design-system.md)** - Complete design system
+- **[Calculator Template](./docs/templates/calculator-template.md)** - Template for new calculators
+
+### 🔧 Technical References
 - **[API Documentation](./docs/reference/api-documentation.md)** - API reference
 - **[Troubleshooting](./docs/development/troubleshooting-guide.md)** - Common issues
+- **[Testing Guide](./docs/reference/testing-guide.md)** - Testing methodologies
+- **[Coding Standards](./docs/reference/coding-standards.md)** - Code style guidelines
 
 ## 🤖 AI Development
 

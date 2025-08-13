@@ -47,7 +47,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
         </CardHeader>
       )}
       
-      <CardContent className={compact ? 'py-5 space-y-2' : 'py-5 space-y-2'}>
+      <CardContent className="space-y-2">
         {faqItems.map((item, index) => (
           <div 
             key={index} 

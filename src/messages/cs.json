@@ -48,6 +48,31 @@
   "fractions_form_prevod": "Formulář pro převod zlomků...",
   "bmi_calculator_title": "Kalkulátor BMI",
   "bmi_calculator_description": "Vypočítejte svůj Body Mass Index (BMI) a zjistěte svou váhovou kategorii podle WHO standardů.",
+  "calculators": {
+    "unit_converter": {
+      "title": "Převodník jednotek",
+      "description": "Převádějte mezi různými jednotkami měření včetně délky, hmotnosti, teploty, objemu a plochy s přesnými výpočty a užitečnými vzorci.",
+      "category": "Kategorie",
+      "value": "Hodnota",
+      "enter_value": "Zadejte hodnotu",
+      "from": "Z",
+      "to": "Na",
+      "swap_units": "Prohodit jednotky",
+      "convert": "Převést",
+      "reset": "Reset",
+      "result": "Výsledek",
+      "quick_conversions": "Rychlé převody",
+      "show_formula": "Zobrazit vzorec",
+      "hide_formula": "Skrýt vzorec",
+      "keyword_converter": "převodník jednotek",
+      "keyword_measurement": "převod měření",
+      "keyword_length": "převod délky",
+      "keyword_weight": "převod hmotnosti",
+      "keyword_temperature": "převod teploty",
+      "keyword_volume": "převod objemu",
+      "keyword_area": "převod plochy"
+    }
+  },
   "height_label": "Výška",
   "weight_label": "Váha",
   "height_help_text": "Zadejte svou výšku v centimetrech (50-300 cm)",
@@ -142,6 +167,9 @@
     "finance": "Finance",
     "financial": "Finanční",
     "construction": "Stavební",
+    "Stavební": "Stavební",
+    "Finanční": "Finanční",
+    "Practical": "Praktické",
     "practical": "Praktické",
     "health": "Zdraví a fitness",
     "conversions": "Převody jednotek"
@@ -171,7 +199,8 @@
     "hours": "hodin",
     "minutes": "minut",
     "seconds": "sekund",
-    "calculator_rating": "Hodnocení kalkulačky"
+    "calculator_rating": "Hodnocení kalkulačky",
+    "unit": "jednotka"
   },
   "calculators": {
     "tip": {
@@ -904,5 +933,14 @@
   },
   "unit_converter_calculator_title": "Převodník jednotek",
   "unit_converter_calculator_description": "Převod mezi různými jednotkami",
-  "fractions_calculator_description": "Počítání se zlomky – sčítání, odčítání, násobení, dělení"
+  "fractions_calculator_description": "Počítání se zlomky – sčítání, odčítání, násobení, dělení",
+  "app_name": "MathCalc Pro",
+  "nav": {
+    "home": "Domů",
+    "calculators": "Kalkulátory",
+    "all_calculators": "Všechny kalkulátory"
+  },
+  "open_menu": "Otevřít menu",
+  "language": "Jazyk",
+  "kalkulacka": "Kalkulačka"
 }

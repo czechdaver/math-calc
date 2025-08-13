@@ -71,7 +71,7 @@ const KolikProcentJeXZYCalculator: React.FC = () => {
   };
 
   // Custom result component to display the calculation details
-  const ResultComponent = ({ result }: { result: { value: number | null; formula?: string; details?: string; explanation?: string; } }) => {
+  const ResultComponent = ({ result }: { result: any }) => {
     if (result.value === null) {
       return (
         <div className="text-center py-4 text-muted-foreground">

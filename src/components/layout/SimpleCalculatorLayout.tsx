@@ -1,7 +1,7 @@
 // src/components/layout/SimpleCalculatorLayout.tsx
 'use client';
 
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -15,12 +15,20 @@ import { cn } from '@/lib/utils';
 import Breadcrumbs from '@/components/navigation/Breadcrumbs';
 import Footer from '@/components/navigation/Footer';
 import PanelHeader from '@/components/ui/PanelHeader';
+import AdSlot from '@/components/ads/AdSlot';
 
-// Dynamically import KaTeX to avoid SSR issues
-const InlineMath = dynamic(() => import('react-katex').then(mod => mod.InlineMath), { ssr: false }) as any;
-const BlockMath = dynamic(() => import('react-katex').then(mod => mod.BlockMath), { ssr: false }) as any;
+// Dynamically import KaTeX to avoid SSR issues with loading state
+const InlineMath = dynamic(() => import('react-katex').then(mod => mod.InlineMath), { 
+  ssr: false,
+  loading: () => <div className="h-6 bg-gray-100 animate-pulse rounded"></div>
+}) as any;
 
-// Import KaTeX CSS
+const BlockMath = dynamic(() => import('react-katex').then(mod => mod.BlockMath), { 
+  ssr: false,
+  loading: () => <div className="h-16 bg-gray-100 animate-pulse rounded"></div>
+}) as any;
+
+// Import KaTeX CSS - only when needed
 import 'katex/dist/katex.min.css';
 
 export interface SimpleCalculatorLayoutProps {
@@ -87,19 +95,7 @@ export interface SimpleCalculatorLayoutProps {
   };
 }
 
-// Ad Placeholder Component
-const AdPlaceholder: React.FC<{ 
-  size: string; 
-  position: string; 
-  className?: string;
-}> = ({ size, position, className = '' }) => (
-  <div 
-    className={`bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-500 text-sm ${className}`}
-    style={{ minHeight: size.includes('x') ? size.split('x')[1] + 'px' : '100px' }}
-  >
-    Ad Space ({size}) - {position}
-  </div>
-);
+//
 
 // Simple Badge Component
 const SimpleBadge: React.FC<{ children: ReactNode; variant?: 'default' | 'secondary' | 'outline'; className?: string }> = ({ 
@@ -209,9 +205,9 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
   const params = useParams();
   const locale = params?.locale as string || 'cs';
   
-  // Load centralized data for quick links and categories
-  const popularLinks = getQuickLinks('popular', locale, t);
-  const calculatorCategories = getCalculatorCategories(locale, t);
+  // Memoize expensive data loading operations
+  const popularLinks = useMemo(() => getQuickLinks('popular', locale, t), [locale, t]);
+  const calculatorCategories = useMemo(() => getCalculatorCategories(locale, t), [locale, t]);
   const { showModal, setShowModal } = useAdBlockDetection();
 
   // Apply full-page gradient on body for enhanced pages
@@ -224,22 +220,24 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
     }
   }, [enhanced]);
 
-  // Generate breadcrumb items (global component)
-  const categoryKey = `categories.${category}`;
-  const categoryLabelResolved = t(categoryKey);
-  const categoryLabel = !categoryLabelResolved || categoryLabelResolved === categoryKey
-    ? category
-    : categoryLabelResolved;
+  // Memoize breadcrumb generation for performance
+  const breadcrumbItems = useMemo(() => {
+    const categoryKey = `categories.${category}`;
+    const categoryLabelResolved = t(categoryKey);
+    const categoryLabel = !categoryLabelResolved || categoryLabelResolved === categoryKey
+      ? category
+      : categoryLabelResolved;
 
-  const breadcrumbItems = [
-    { label: t('common.home'), href: `/${locale}` },
-    // Per UX: omit generic "Calculators" step unless a real listing page exists
-    { label: categoryLabel },
-    { label: title, current: true }
-  ];
+    return [
+      { label: t('common.home'), href: `/${locale}` },
+      // Per UX: omit generic "Calculators" step unless a real listing page exists
+      { label: categoryLabel },
+      { label: title, current: true }
+    ];
+  }, [category, t, locale, title]);
 
-  // Schema.org structured data
-  const structuredData = {
+  // Memoize Schema.org structured data for performance
+  const structuredData = useMemo(() => ({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": title,
@@ -256,7 +254,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
       "ratingValue": "4.8",
       "reviewCount": "1250"
     }
-  };
+  }), [title, description, schemaData]);
 
   return (
     <>
@@ -280,9 +278,8 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
 
               {/* Top Ad (Mobile) */}
               <div className="md:hidden flex justify-center mb-2">
-                <AdPlaceholder 
-                  size="320x50" 
-                  position="Top Mobile"
+                <AdSlot 
+                  position="calc-header"
                   className="w-[320px] h-[50px]"
                 />
               </div>
@@ -302,14 +299,14 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                 <div className="md:hidden">
                   <CalculatorRating 
                     calculatorId={calculatorId || 'unknown'} 
-                    className="" 
+                    
                   />
                 </div>
               </div>
 
               {/* Formula Section */}
               {formula && (
-                <Card className={enhanced ? 'enhanced-card gap-0 p-0' : ''}>
+                <Card className={enhanced ? 'enhanced-card gap-0' : ''}>
                   {enhanced ? (
                     <PanelHeader
                       title={t('common.formula')}
@@ -329,7 +326,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                       </div>
                     </CardHeader>
                   )}
-                  <CardContent className="py-5">
+                  <CardContent>
                     <div className="bg-gray-50 p-4 rounded-lg text-center">
                       {BlockMath && <BlockMath math={formula.latex} />}
                     </div>
@@ -338,24 +335,29 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
               )}
 
               {/* Calculator Input Section */}
-              <Card className={enhanced ? 'enhanced-card gap-0 p-0' : ''}>
-                <CardContent className="py-5">
+              <Card className={enhanced ? 'enhanced-card gap-0' : ''}>
+                <PanelHeader 
+                  title="Parametry výpočtu"
+                  icon={Calculator}
+                  color="gray"
+                  variant="gray"
+                />
+                <CardContent>
                   {children}
                 </CardContent>
               </Card>
 
               {/* In-Content Ad */}
               <div className="flex justify-center py-4">
-                <AdPlaceholder 
-                  size="300x250" 
-                  position="In-Content"
+                <AdSlot 
+                  position="calc-in-content"
                   className="w-[300px] h-[250px]"
                 />
               </div>
 
               {/* Results Section */}
               {resultSection && (
-                <Card className={enhanced ? 'enhanced-card gap-0 p-0' : ''}>
+                <Card className={enhanced ? 'enhanced-card gap-0' : ''}>
                   {enhanced ? (
                     <PanelHeader
                       title={t('common.results')}
@@ -371,7 +373,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                       </div>
                     </CardHeader>
                   )}
-                  <CardContent className="py-5">
+                  <CardContent>
                     {resultSection}
                   </CardContent>
                 </Card>
@@ -379,7 +381,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
 
               {/* Examples and Explanation */}
               {examples && (
-                <Card className={enhanced ? 'enhanced-card gap-0 p-0' : ''}>
+                <Card className={enhanced ? 'enhanced-card gap-0' : ''}>
                   {enhanced ? (
                     <PanelHeader
                       title={examples.title}
@@ -399,7 +401,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                       </div>
                     </CardHeader>
                   )}
-                  <CardContent className="py-5 space-y-4">
+                  <CardContent className=" space-y-4">
                     {examples.scenarios?.map((scenario, index) => (
                       <div key={index} className="border-l-4 border-blue-200 pl-4">
                         <h4 className="font-semibold text-gray-900">{scenario.title}</h4>
@@ -417,7 +419,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
 
               {/* FAQ Section */}
               {faq && faq.length > 0 && (
-                <Card className={enhanced ? 'enhanced-card gap-0 p-0' : ''}>
+                <Card className={enhanced ? 'enhanced-card gap-0' : ''}>
                   {enhanced ? (
                     <PanelHeader
                       title={t('common.faq')}
@@ -433,7 +435,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                       </div>
                     </CardHeader>
                   )}
-                  <CardContent className="py-5">
+                  <CardContent>
                     <SimpleFAQ faq={faq} />
                   </CardContent>
                 </Card>
@@ -442,16 +444,14 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
               {/* Mid-page Ad between FAQ and Related */}
               <div className="flex justify-center py-4">
                 <div className="md:hidden">
-                  <AdPlaceholder 
-                    size="320x50" 
-                    position="Mid Mobile"
+                  <AdSlot 
+                    position="calc-in-content"
                     className="w-[320px] h-[50px]"
                   />
                 </div>
                 <div className="hidden md:block">
-                  <AdPlaceholder 
-                    size="728x90" 
-                    position="Mid Desktop"
+                  <AdSlot 
+                    position="calc-in-content"
                     className="w-[728px] h-[90px]"
                   />
                 </div>
@@ -459,7 +459,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
 
               {/* Related Calculators */}
               {relatedCalculators && relatedCalculators.length > 0 && (
-                <Card className={enhanced ? 'enhanced-card gap-0 p-0' : ''}>
+                <Card className={enhanced ? 'enhanced-card gap-0' : ''}>
                   {enhanced ? (
                     <PanelHeader
                       title={t('common.related_calculators')}
@@ -479,7 +479,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                       </div>
                     </CardHeader>
                   )}
-                  <CardContent className="py-5">
+                  <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {relatedCalculators.map((calc, index) => (
                         <Link key={index} href={calc.href}>
@@ -519,16 +519,15 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
             <div className="lg:col-span-1 space-y-6">
               {/* Sidebar Ad */}
               <div className="hidden lg:block">
-                <AdPlaceholder 
-                  size="300x250" 
-                  position="Sidebar"
+                <AdSlot 
+                  position="calc-sidebar"
                   className="w-full h-[250px]"
                 />
               </div>
 
               {/* Calculator Rating moved near Quick Links (desktop) */}
               <div className="hidden lg:block">
-                <Card className={enhanced ? 'enhanced-card gap-0 p-0' : ''}>
+                <Card className={enhanced ? 'enhanced-card gap-0' : ''}>
                   {enhanced ? (
                     <PanelHeader
                       title={t('common.calculator_rating') || 'Hodnocení kalkulačky'}
@@ -544,7 +543,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                       </div>
                     </CardHeader>
                   )}
-                  <CardContent className="py-5">
+                  <CardContent>
                     <CalculatorRating 
                       calculatorId={calculatorId || 'unknown'} 
                     />
@@ -553,7 +552,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
               </div>
 
               {/* Quick Links */}
-              <Card className={enhanced ? 'enhanced-card gap-0 p-0' : ''}>
+              <Card className={enhanced ? 'enhanced-card gap-0' : ''}>
                 {enhanced ? (
                   <PanelHeader
                     title={t('common.quick_links')}
@@ -570,7 +569,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                     </div>
                   </CardHeader>
                 )}
-                <CardContent className="py-5 space-y-3">
+                <CardContent className=" space-y-3">
                   {/* Static links */}
                   <Link href={`/${locale}`} className="flex items-center gap-2 text-sm hover:text-blue-600 transition-colors">
                     <Home className="w-4 h-4" />
@@ -620,9 +619,8 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
 
               {/* Another Sidebar Ad */}
               <div className="hidden lg:block">
-                <AdPlaceholder 
-                  size="160x600" 
-                  position="Sidebar Bottom"
+                <AdSlot 
+                  position="calc-sidebar"
                   className="w-full h-[600px]"
                 />
               </div>
@@ -636,9 +634,8 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
         {/* Sticky Bottom Ad (Mobile) */}
         <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t z-40 pb-[env(safe-area-inset-bottom)]">
           <div className="flex justify-center p-2">
-            <AdPlaceholder 
-              size="320x50" 
-              position="Sticky Bottom"
+            <AdSlot 
+              position="calc-sticky-bottom"
               className="w-[320px] h-[50px]"
             />
           </div>

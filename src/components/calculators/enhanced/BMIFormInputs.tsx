@@ -26,7 +26,7 @@ const BMIFormInputs: React.FC<BMIFormInputsProps> = ({
   className = ''
 }) => {
   return (
-    <div className={`space-y-6 ${className}`}>
+    <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 ${className}`}>
       {/* Height Input */}
       <div className="group">
         <Label 

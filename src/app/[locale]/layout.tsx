@@ -1,6 +1,7 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { ReactNode } from 'react';
+import MainNavigation from '@/components/navigation/MainNavigation';
 import CookieBanner from '@/components/CookieBanner';
 
 // Define supported locales as a constant to avoid repetition
@@ -46,7 +47,10 @@ export default async function LocaleLayout({
       messages={messages}
       timeZone="Europe/Prague"
     >
-      {children}
+      <MainNavigation />
+      <div className="pt-16">
+        {children}
+      </div>
       <CookieBanner />
     </NextIntlClientProvider>
   );

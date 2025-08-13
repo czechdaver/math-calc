@@ -124,16 +124,112 @@
 ------------------------------------------------------------- */
 
 :root {
-  /* Enhanced Calculator Theme Variables */
+  /* ============================================
+     MathCalc Pro Design System - Enhanced Theme
+     ============================================ */
+  
+  /* === Background System === */
   --enhanced-bg-primary: linear-gradient(135deg, #dbeafe 0%, #ffffff 50%, #e0e7ff 100%);
   --enhanced-bg-secondary: linear-gradient(135deg, #f0f9ff 0%, transparent 50%, #fdf2f8 100%);
-  /* Reduced by ~25% */
+  --enhanced-bg-calculator: linear-gradient(135deg, #dbeafe 0%, #ffffff 50%, #e0e7ff 100%);
+  
+  /* === Shadow System === */
   --enhanced-card-shadow: 0 15px 19px -4px rgb(0 0 0 / 0.1), 0 6px 8px -5px rgb(0 0 0 / 0.1);
   --enhanced-card-shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --enhanced-card-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --enhanced-card-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -1px rgb(0 0 0 / 0.06);
+  
+  /* === Color Theme System === */
+  /* Primary Blue Theme */
   --enhanced-gradient-blue: linear-gradient(to right, #dbeafe, #bfdbfe);
+  --enhanced-blue-50: #eff6ff;
+  --enhanced-blue-100: #dbeafe;
+  --enhanced-blue-200: #bfdbfe;
+  --enhanced-blue-500: #3b82f6;
+  --enhanced-blue-600: #2563eb;
+  --enhanced-blue-700: #1d4ed8;
+  
+  /* Green Theme */
   --enhanced-gradient-green: linear-gradient(to right, #d1fae5, #a7f3d0);
+  --enhanced-green-50: #f0fdf4;
+  --enhanced-green-100: #d1fae5;
+  --enhanced-green-200: #a7f3d0;
+  --enhanced-green-500: #22c55e;
+  --enhanced-green-600: #16a34a;
+  --enhanced-green-700: #15803d;
+  
+  /* Purple/Violet Theme */
   --enhanced-gradient-purple: linear-gradient(to right, #e9d5ff, #f3e8ff);
+  --enhanced-purple-50: #faf5ff;
+  --enhanced-purple-100: #e9d5ff;
+  --enhanced-purple-200: #f3e8ff;
+  --enhanced-purple-500: #a855f7;
+  --enhanced-purple-600: #9333ea;
+  --enhanced-purple-700: #7c3aed;
+  
+  /* Indigo Theme */
   --enhanced-gradient-indigo: linear-gradient(to right, #e0e7ff, #c7d2fe);
+  --enhanced-indigo-50: #eef2ff;
+  --enhanced-indigo-100: #e0e7ff;
+  --enhanced-indigo-200: #c7d2fe;
+  --enhanced-indigo-500: #6366f1;
+  --enhanced-indigo-600: #4f46e5;
+  --enhanced-indigo-700: #4338ca;
+  
+  /* Amber Theme */
+  --enhanced-gradient-amber: linear-gradient(to right, #fef3c7, #fde68a);
+  --enhanced-amber-50: #fffbeb;
+  --enhanced-amber-100: #fef3c7;
+  --enhanced-amber-200: #fde68a;
+  --enhanced-amber-500: #f59e0b;
+  --enhanced-amber-600: #d97706;
+  --enhanced-amber-700: #b45309;
+  
+  /* Red Theme */
+  --enhanced-gradient-red: linear-gradient(to right, #fee2e2, #fecaca);
+  --enhanced-red-50: #fef2f2;
+  --enhanced-red-100: #fee2e2;
+  --enhanced-red-200: #fecaca;
+  --enhanced-red-500: #ef4444;
+  --enhanced-red-600: #dc2626;
+  --enhanced-red-700: #b91c1c;
+  
+  /* Yellow Theme */
+  --enhanced-gradient-yellow: linear-gradient(to right, #fef3c7, #fde047);
+  --enhanced-yellow-50: #fefce8;
+  --enhanced-yellow-100: #fef3c7;
+  --enhanced-yellow-200: #fde047;
+  --enhanced-yellow-500: #eab308;
+  --enhanced-yellow-600: #ca8a04;
+  --enhanced-yellow-700: #a16207;
+  
+  /* === Component Spacing System === */
+  --calc-spacing-xs: 0.25rem;    /* 4px */
+  --calc-spacing-sm: 0.5rem;     /* 8px */
+  --calc-spacing-md: 1rem;       /* 16px */
+  --calc-spacing-lg: 1.5rem;     /* 24px */
+  --calc-spacing-xl: 2rem;       /* 32px */
+  --calc-spacing-2xl: 3rem;      /* 48px */
+  
+  /* === Typography System === */
+  --calc-text-xs: 0.75rem;       /* 12px */
+  --calc-text-sm: 0.875rem;      /* 14px */
+  --calc-text-base: 1rem;        /* 16px */
+  --calc-text-lg: 1.125rem;      /* 18px */
+  --calc-text-xl: 1.25rem;       /* 20px */
+  --calc-text-2xl: 1.5rem;       /* 24px */
+  --calc-text-3xl: 1.875rem;     /* 30px */
+  
+  /* === Border Radius System === */
+  --calc-radius-sm: 0.375rem;    /* 6px */
+  --calc-radius-md: 0.5rem;      /* 8px */
+  --calc-radius-lg: 0.75rem;     /* 12px */
+  --calc-radius-xl: 1rem;        /* 16px */
+  
+  /* === Transition System === */
+  --calc-transition-fast: 150ms ease-in-out;
+  --calc-transition-normal: 200ms ease-in-out;
+  --calc-transition-slow: 300ms ease-in-out;
 }
 
 /* Full-page fixed gradient background layer for enhanced calculators */
@@ -192,28 +288,50 @@
   border-radius: 12px !important;
 }
   
+/* === Enhanced Card Header System === */
 .enhanced-card-header {
   background: var(--enhanced-gradient-blue);
+  border-bottom: 1px solid #e5e7eb;
+  transition: var(--calc-transition-normal);
+}
+
+.enhanced-card-header-blue {
+  background: var(--enhanced-gradient-blue) !important;
   border-bottom: 1px solid #e5e7eb;
 }
   
 .enhanced-card-header-green {
-  background: linear-gradient(to right, #d1fae5, #a7f3d0) !important;
+  background: var(--enhanced-gradient-green) !important;
   border-bottom: 1px solid #e5e7eb;
 }
   
 .enhanced-card-header-purple {
-  background: linear-gradient(to right, #e9d5ff, #f3e8ff) !important;
+  background: var(--enhanced-gradient-purple) !important;
   border-bottom: 1px solid #e5e7eb;
 }
   
 .enhanced-card-header-indigo {
-  background: linear-gradient(to right, #e0e7ff, #c7d2fe) !important;
+  background: var(--enhanced-gradient-indigo) !important;
   border-bottom: 1px solid #e5e7eb;
 }
   
 .enhanced-card-header-amber {
-  background: linear-gradient(to right, #fef3c7, #fde68a) !important; /* yellow-100 to yellow-200 */
+  background: var(--enhanced-gradient-amber) !important;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.enhanced-card-header-red {
+  background: var(--enhanced-gradient-red) !important;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.enhanced-card-header-yellow {
+  background: var(--enhanced-gradient-yellow) !important;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.enhanced-card-header-gray {
+  background: linear-gradient(to right, #f9fafb, #f3f4f6) !important;
   border-bottom: 1px solid #e5e7eb;
 }
   
@@ -328,4 +446,246 @@
 /* Shadow utility to match panel (enhanced-card) shadow without changing background */
 .panel-shadow {
   box-shadow: var(--enhanced-card-shadow);
+}
+
+/* ============================================
+   Enhanced Component Utility Classes
+   ============================================ */
+
+/* === Enhanced Button System === */
+.enhanced-button {
+  transition: var(--calc-transition-normal);
+  border-radius: var(--calc-radius-md);
+  font-weight: 500;
+}
+
+.enhanced-button-blue {
+  background: var(--enhanced-blue-500);
+  color: white;
+  border: 1px solid var(--enhanced-blue-600);
+}
+
+.enhanced-button-blue:hover {
+  background: var(--enhanced-blue-600);
+  box-shadow: var(--enhanced-card-shadow-sm);
+}
+
+.enhanced-button-green {
+  background: var(--enhanced-green-500);
+  color: white;
+  border: 1px solid var(--enhanced-green-600);
+}
+
+.enhanced-button-green:hover {
+  background: var(--enhanced-green-600);
+  box-shadow: var(--enhanced-card-shadow-sm);
+}
+
+.enhanced-button-purple {
+  background: var(--enhanced-purple-500);
+  color: white;
+  border: 1px solid var(--enhanced-purple-600);
+}
+
+.enhanced-button-purple:hover {
+  background: var(--enhanced-purple-600);
+  box-shadow: var(--enhanced-card-shadow-sm);
+}
+
+/* === Enhanced Input System (Color Extensions) === */
+.enhanced-input-blue:focus {
+  border-color: var(--enhanced-blue-500);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+.enhanced-input-green:focus {
+  border-color: var(--enhanced-green-500);
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+}
+
+.enhanced-input-purple:focus {
+  border-color: var(--enhanced-purple-500);
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.2);
+}
+
+/* === Enhanced Badge System === */
+.enhanced-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--calc-spacing-xs) var(--calc-spacing-sm);
+  border-radius: var(--calc-radius-sm);
+  font-size: var(--calc-text-xs);
+  font-weight: 500;
+  transition: var(--calc-transition-fast);
+}
+
+.enhanced-badge-blue {
+  background: var(--enhanced-blue-100);
+  color: var(--enhanced-blue-700);
+  border: 1px solid var(--enhanced-blue-200);
+}
+
+.enhanced-badge-green {
+  background: var(--enhanced-green-100);
+  color: var(--enhanced-green-700);
+  border: 1px solid var(--enhanced-green-200);
+}
+
+.enhanced-badge-amber {
+  background: var(--enhanced-amber-100);
+  color: var(--enhanced-amber-700);
+  border: 1px solid var(--enhanced-amber-200);
+}
+
+.enhanced-badge-red {
+  background: var(--enhanced-red-100);
+  color: var(--enhanced-red-700);
+  border: 1px solid var(--enhanced-red-200);
+}
+
+/* === Enhanced Panel System === */
+.enhanced-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--calc-radius-lg);
+  box-shadow: var(--enhanced-card-shadow);
+  transition: var(--calc-transition-normal);
+}
+
+.enhanced-panel:hover {
+  box-shadow: var(--enhanced-card-shadow-md);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+/* === Enhanced Section System === */
+.enhanced-section {
+  padding: var(--calc-spacing-xl);
+  margin-bottom: var(--calc-spacing-lg);
+}
+
+.enhanced-section-header {
+  display: flex;
+  align-items: center;
+  gap: var(--calc-spacing-sm);
+  margin-bottom: var(--calc-spacing-md);
+  font-size: var(--calc-text-lg);
+  font-weight: 600;
+}
+
+/* === Calculator-Specific Layout Classes === */
+.calc-form-grid {
+  display: grid;
+  gap: var(--calc-spacing-lg);
+}
+
+.calc-form-grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.calc-result-display {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: var(--calc-radius-lg);
+  padding: var(--calc-spacing-lg);
+  box-shadow: var(--enhanced-card-shadow-sm);
+  transition: var(--calc-transition-normal);
+}
+
+.calc-result-value {
+  font-size: var(--calc-text-3xl);
+  font-weight: bold;
+  margin-bottom: var(--calc-spacing-sm);
+}
+
+.calc-result-description {
+  font-size: var(--calc-text-sm);
+  color: #6b7280;
+  margin-bottom: var(--calc-spacing-md);
+}
+
+/* ============================================
+   Globální Glass Morphism Efekty
+   ============================================ */
+
+/* Glass morphism efekt pro dropdown seznamy */
+.glass-dropdown {
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Glass morphism efekt pro combobox položky - odstraněn glass morphism */
+.glass-combobox-item {
+  transition: all 0.2s ease-in-out;
+}
+
+.glass-combobox-item:hover {
+  /* Ponecháváme pouze hover efekt bez glass morphism */
+}
+
+/* Glass morphism pro navigaci - lehčí varianty */
+.glass-nav-light {
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-nav-scrolled {
+  background: rgba(255, 255, 255, 0.20);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Glass morphism pro modály a popovers */
+.glass-modal {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+}
+
+/* Glass morphism pro karty a panely */
+.glass-card-subtle {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Utility třídy pro různé úrovně průhlednosti */
+.glass-light {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+.glass-medium {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(16px);
+}
+
+/* Moderní řešení pro stabilní scrollbar */
+body {
+  scrollbar-gutter: stable;
+}
+
+/* Zachování šířky při scroll lock - použije margin místo padding */
+body[data-scroll-locked="true"] {
+  overflow: hidden !important;
+  margin-right: calc(100vw - 100%) !important;
+  padding-right: 0 !important;
+}
+
+/* Fallback pro inline styles */
+body[style*="overflow: hidden"][style*="padding-right"] {
+  margin-right: calc(100vw - 100%) !important;
+  padding-right: 0 !important;
 }

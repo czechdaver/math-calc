@@ -1,13 +1,14 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Card, CardContent } from '@/components/ui/Card';
 import { Calculator, Info, Columns3 } from 'lucide-react';
+import PanelHeader from '@/components/ui/PanelHeader';
 import BMIFormInputs from './BMIFormInputs';
 import BMIResultCard from './BMIResultCard';
 import BMICategoryDisplay from './BMICategoryDisplay';
 import FAQSection from './FAQSection';
-import AdPlaceholder from './AdPlaceholder';
+import AdSlot from '@/components/ads/AdSlot';
 
 interface BMIResult {
   bmi: number;
@@ -154,14 +155,12 @@ const EnhancedBMICalculator: React.FC<EnhancedBMICalculatorProps> = ({
 
             {/* Calculator Input Section */}
             <Card className="overflow-hidden border-0 shadow-lg">
-              <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 border-b">
-                <CardTitle className="flex items-center gap-3">
-                  <div className="p-2 bg-white rounded-lg shadow-sm">
-                    <Calculator className="w-5 h-5 text-green-600" />
-                  </div>
-                  Calculate Your BMI
-                </CardTitle>
-              </CardHeader>
+              <PanelHeader 
+                title="Calculate Your BMI"
+                icon={Calculator}
+                color="gray"
+                variant="gray"
+              />
               <CardContent className="p-6">
                 <BMIFormInputs
                   height={height}
@@ -176,9 +175,8 @@ const EnhancedBMICalculator: React.FC<EnhancedBMICalculatorProps> = ({
             {/* In-Content Ad */}
             {enableAds && (
               <div className="flex justify-center py-6">
-                <AdPlaceholder 
-                  size="728x90" 
-                  position="In-Content"
+                <AdSlot 
+                  position="calc-in-content"
                   className="w-full max-w-[728px] h-[90px]"
                 />
               </div>
@@ -228,9 +226,8 @@ const EnhancedBMICalculator: React.FC<EnhancedBMICalculatorProps> = ({
             {/* Sidebar Ad */}
             {enableAds && (
               <div className="hidden lg:block">
-                <AdPlaceholder 
-                  size="300x250" 
-                  position="Sidebar"
+                <AdSlot 
+                  position="calc-sidebar"
                   className="w-full h-[250px]"
                 />
               </div>
@@ -249,9 +246,8 @@ const EnhancedBMICalculator: React.FC<EnhancedBMICalculatorProps> = ({
             {/* Another Sidebar Ad */}
             {enableAds && (
               <div className="hidden lg:block">
-                <AdPlaceholder 
-                  size="300x600" 
-                  position="Sidebar Bottom"
+                <AdSlot 
+                  position="calc-sidebar"
                   className="w-full h-[600px]"
                 />
               </div>
@@ -263,9 +259,8 @@ const EnhancedBMICalculator: React.FC<EnhancedBMICalculatorProps> = ({
         {enableAds && (
           <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t z-40 shadow-lg">
             <div className="flex justify-center p-2">
-              <AdPlaceholder 
-                size="320x50" 
-                position="Sticky Bottom"
+              <AdSlot 
+                position="calc-sticky-bottom"
                 className="w-[320px] h-[50px]"
               />
             </div>

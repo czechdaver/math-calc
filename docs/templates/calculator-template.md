@@ -213,6 +213,30 @@ export default function <Name>Calculator() {
 }
 ```
 
+## 3a. Formula Authoring (LaTeX + i18n)
+Follow the Formula Authoring Guide at `docs/development/formula-authoring.md`.
+
+- **Wrap words with `\\text{}`**: e.g., `\\text{With VAT}`, `\\text{rate}`
+- **Use `\\dfrac`** for display fractions
+- **Escape backslashes in JSON**: `"\\dfrac{...}{...}"`
+- Read localized raw LaTeX from messages and pass to the formula renderer
+- Provide safe fallbacks in components
+
+Example i18n JSON entry:
+
+```json
+{
+  "calculators": {
+    "<slug>": {
+      "formula": {
+        "latex": "\\text{total} = \\text{base} \\times (1 + \\text{rate})",
+        "description": "Total equals base multiplied by (1 + rate)."
+      }
+    }
+  }
+}
+```
+
 ### 🎨 Design System Components
 
 **Available shared components:**

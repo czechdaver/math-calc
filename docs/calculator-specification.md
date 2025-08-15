@@ -119,6 +119,14 @@ This document outlines the specifications and requirements for all calculators i
 All UI text must use translation keys from the i18n system
 Common keys should be consistent across all calculators
 
+### Formula Authoring (LaTeX + i18n)
+See the Formula Authoring Guide at `docs/development/formula-authoring.md`.
+- Wrap localized words with `\text{...}`
+- Use `\dfrac` for display fractions
+- Store raw LaTeX in `src/messages/<locale>.json`
+- Escape backslashes in JSON (e.g., "\\dfrac{...}{...}")
+- Provide safe fallback LaTeX in components
+
 ## Accessibility
 
 ### Keyboard Navigation

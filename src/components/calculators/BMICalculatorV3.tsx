@@ -1,6 +1,6 @@
 // src/components/calculators/BMICalculatorV3.tsx
 import React, { useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useMessages } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Ruler, Scale } from 'lucide-react';
@@ -17,6 +17,7 @@ interface BMIResult {
 
 const BMICalculatorV3: React.FC = () => {
   const t = useTranslations();
+  const messages = useMessages() as any;
   const params = useParams();
   const locale = params.locale as string;
   const [height, setHeight] = useState<string>('170');
@@ -179,8 +180,8 @@ const BMICalculatorV3: React.FC = () => {
         ]
       }}
       formula={{
-        latex: 'BMI = \\frac{\\text{váha}\\,(\\mathrm{kg})}{\\left(\\text{výška}\\,(\\mathrm{m})\\right)^2}',
-        description: 'BMI se vypočítá jako váha v kilogramech dělená druhou mocninou výšky v metrech.'
+        latex: messages?.calculators?.bmi_v3?.formula?.latex || 'BMI = \\frac{\\text{weight}\\,(\\mathrm{kg})}{(\\text{height}\\,(\\mathrm{m}))^2}',
+        description: t('calculators.bmi_v3.formula.description')
       }}
       examples={examples}
       faq={faq}

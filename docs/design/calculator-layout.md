@@ -27,6 +27,11 @@ Unifikovaný layout stránky každé kalkulačky, který zajišťuje:
 ### 3. Vzorec (LaTeX)
 - Zobrazení matematického vzorce pomocí LaTeX rendereru (KaTeX).
 - Nad vzorcem krátký popis/použití.
+- Řiďte se: `docs/development/formula-authoring.md`
+  - Slova v LaTeXu vždy v `\text{...}` (např. `\text{sazba}`, `\text{With VAT}`)
+  - Pro zlomky v zobrazeném režimu používejte `\dfrac`
+  - V JSON escapujte zpětná lomítka (např. "\\dfrac{...}{...}")
+  - Lokalizované LaTeX řetězce ukládejte do `src/messages/<locale>.json`
 
 ### 4. Kalkulačka – Vstupní pole
 - Kompaktní formulář s validací (shadcn/ui: `Card`, `Input`, `Select`, `Button`, ...)

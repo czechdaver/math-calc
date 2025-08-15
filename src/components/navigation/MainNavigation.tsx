@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { Menu, X, Calculator, Home, Globe, ChevronDown, List } from 'lucide-react';
+import { Menu, X, Calculator, Home, Globe, ChevronDown, List, Check } from 'lucide-react';
 
 const MainNavigation: React.FC = () => {
   const t = useTranslations();
@@ -142,7 +142,6 @@ const MainNavigation: React.FC = () => {
                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
                 "
               >
-                <Globe className="w-4 h-4" />
                 <span className="text-lg">{currentLanguage.flag}</span>
                 <span className="hidden lg:inline">{currentLanguage.name}</span>
                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isLanguageOpen ? 'rotate-180' : ''}`} />
@@ -167,7 +166,7 @@ const MainNavigation: React.FC = () => {
                         <span className="text-lg">{lang.flag}</span>
                         {lang.name}
                         {lang.code === locale && (
-                          <div className="ml-auto w-2 h-2 bg-blue-700 rounded-full"></div>
+                          <Check className="ml-auto w-4 h-4 text-blue-700" />
                         )}
                       </button>
                     ))}
@@ -238,7 +237,6 @@ const MainNavigation: React.FC = () => {
           <div className="pt-4 mt-4 border-t border-gray-100">
             <div className="px-1 mb-3">
               <div className="flex items-center gap-2 text-sm font-medium text-gray-500 uppercase tracking-wide mb-3">
-                <Globe className="w-4 h-4" />
                 {t('language')}
               </div>
               <div className="space-y-1">
@@ -258,7 +256,7 @@ const MainNavigation: React.FC = () => {
                     <span className="text-xl">{lang.flag}</span>
                     {lang.name}
                     {lang.code === locale && (
-                      <div className="ml-auto w-2 h-2 bg-blue-600 rounded-full"></div>
+                      <Check className="ml-auto w-4 h-4 text-blue-600" />
                     )}
                   </button>
                 ))}

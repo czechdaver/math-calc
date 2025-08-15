@@ -48,7 +48,7 @@
   "fractions_form_prevod": "Formulář pro převod zlomků...",
   "bmi_calculator_title": "Kalkulátor BMI",
   "bmi_calculator_description": "Vypočítejte svůj Body Mass Index (BMI) a zjistěte svou váhovou kategorii podle WHO standardů.",
-  "calculators": {
+  "calculators_legacy": {
     "unit_converter": {
       "title": "Převodník jednotek",
       "description": "Převádějte mezi různými jednotkami měření včetně délky, hmotnosti, teploty, objemu a plochy s přesnými výpočty a užitečnými vzorci.",
@@ -234,6 +234,35 @@
         "tip_percentage": "Zadejte platné procento spropitného (0-100%)",
         "number_of_people": "Zadejte platný počet lidí (1-50)",
         "custom_tip": "Zadejte platné vlastní procento (0-100%)"
+      }
+    },
+    "unit_converter": {
+      "title": "Převodník jednotek",
+      "description": "Převádějte mezi různými jednotkami měření včetně délky, hmotnosti, teploty, objemu a plochy s přesnými výpočty a užitečnými vzorci.",
+      "category": "Kategorie",
+      "value": "Hodnota",
+      "enter_value": "Zadejte hodnotu",
+      "from": "Z",
+      "to": "Na",
+      "swap_units": "Prohodit jednotky",
+      "convert": "Převést",
+      "reset": "Reset",
+      "result": "Výsledek",
+      "quick_conversions": "Rychlé převody",
+      "show_formula": "Zobrazit vzorec",
+      "hide_formula": "Skrýt vzorec",
+      "keyword_converter": "převodník jednotek",
+      "keyword_measurement": "převod měření",
+      "keyword_length": "převod délky",
+      "keyword_weight": "převod hmotnosti",
+      "keyword_temperature": "převod teploty",
+      "keyword_volume": "převod objemu",
+      "keyword_area": "převod plochy"
+    },
+    "bmi_v3": {
+      "formula": {
+        "latex": "BMI = \\frac{\\text{váha}\\,(\\mathrm{kg})}{(\\text{výška}\\,(\\mathrm{m}))^2}",
+        "description": "BMI se vypočítá jako váha v kilogramech dělená druhou mocninou výšky v metrech."
       }
     },
     "age": {
@@ -913,6 +942,120 @@
   },
   "vat_tip": "Zadejte základní částku a sazbu DPH",
   "vat_tip_text": "Sazby DPH se liší podle země: 21% (CZ), 20% (SK). Vždy ověřte aktuální sazby.",
+  "vat_enhanced": {
+    "title": "DPH Kalkulátor",
+    "description": "Pokročilý kalkulátor DPH s podporou více zemí střední Evropy. Výpočet daně z přidané hodnoty v obou směrech.",
+    "country_label": "Země a sazba DPH",
+    "country_help": "Vyberte zemi pro správnou sazbu DPH",
+    "direction_label": "Směr výpočtu",
+    "direction_help": "Vyberte, zda počítáte z částky s DPH nebo bez DPH",
+    "direction_base_to_total": "Bez DPH → S DPH",
+    "direction_base_to_total_desc": "Vypočítám celkovou částku včetně DPH",
+    "direction_total_to_base": "S DPH → Bez DPH", 
+    "direction_total_to_base_desc": "Vypočítám základ bez DPH",
+    "amount_without_vat": "Částka bez DPH",
+    "amount_with_vat": "Částka s DPH",
+    "amount_help_base_to_total": "Zadejte částku bez DPH pro výpočet celkové ceny",
+    "amount_help_total_to_base": "Zadejte celkovou částku s DPH pro výpočet základu",
+    "result_title": "Rozpis DPH",
+    "result_base": "Základ bez DPH",
+    "result_vat": "DPH ({rate}%)",
+    "result_total": "Celkem s DPH",
+    "result_description": "Celková částka s DPH pro {country}",
+    "vat_rate": "Sazba DPH",
+    "disclaimer_title": "Důležité informace",
+    "disclaimer_text": "Kalkulátor používá základní sazby DPH platné pro rok 2024. Pro přesné daňové poradenství se obraťte na odborníka. Výsledky jsou pouze orientační a nenahrazují profesionální konzultaci.",
+    "parameters": "Parametry výpočtu",
+    "errors": {
+      "invalid_amount": "Zadejte platnou částku",
+      "must_be_positive": "Částka musí být větší než 0",
+      "too_large": "Částka je příliš velká"
+    },
+    "countries": {
+      "cz": {
+        "label": "Česká republika",
+        "description": "DPH 21% (základní sazba)"
+      },
+      "sk": {
+        "label": "Slovensko", 
+        "description": "DPH 20% (základní sazba)"
+      },
+      "at": {
+        "label": "Rakousko",
+        "description": "DPH 20% (základní sazba)"
+      },
+      "de": {
+        "label": "Německo",
+        "description": "DPH 19% (základní sazba)"
+      },
+      "pl": {
+        "label": "Polsko",
+        "description": "DPH 23% (základní sazba)"
+      }
+    },
+    "formula": {
+      "base_to_total_latex": "\\text{s DPH} = \\text{bez DPH} \\times (1 + \\text{sazba})",
+      "total_to_base_latex": "\\text{bez DPH} = \\dfrac{\\text{s DPH}}{1 + \\text{sazba}}",
+      "base_to_total_desc": "Výpočet celkové částky: základ se násobí koeficientem (1 + sazba DPH)",
+      "total_to_base_desc": "Výpočet základu: celková částka se dělí koeficientem (1 + sazba DPH)"
+    },
+    "examples": {
+      "title": "Praktické příklady",
+      "description": "Typické situace při výpočtu DPH",
+      "scenario1": {
+        "title": "Tvorba ceny s DPH",
+        "description": "Máte náklady 1000 Kč a potřebujete vypočítat prodejní cenu s DPH",
+        "example": "1000 Kč × 1,21 = 1210 Kč (ČR, 21%)"
+      },
+      "scenario2": {
+        "title": "Analýza faktury",
+        "description": "Na faktuře je 1210 Kč s DPH, potřebujete znát základ",
+        "example": "1210 Kč ÷ 1,21 = 1000 Kč (základ bez DPH)"
+      },
+      "scenario3": {
+        "title": "Mezinárodní obchod",
+        "description": "Porovnání sazeb DPH v různých zemích",
+        "example": "ČR: 21%, SK: 20%, DE: 19%, PL: 23%"
+      }
+    },
+    "faq": [
+      {
+        "question": "Jaké sazby DPH kalkulátor podporuje?",
+        "answer": "Kalkulátor podporuje aktuální základní sazby DPH pro ČR (21%), SK (20%), AT (20%), DE (19%) a PL (23%). Snížené sazby nejsou zahrnuty."
+      },
+      {
+        "question": "Jak se zaokrouhluje výsledek?",
+        "answer": "Všechny výpočty se provádějí s maximální přesností a výsledek se zaokrouhluje na haléře (2 desetinná místa) podle matematických pravidel."
+      },
+      {
+        "question": "Lze kalkulátor použít pro jiné daně?",
+        "answer": "Ano, princip výpočtu je univerzální a lze jej použít pro jakoukoliv procentuální daň nebo poplatek."
+      }
+    ],
+    "seo_keywords": [
+      "DPH kalkulátor",
+      "daň z přidané hodnoty", 
+      "výpočet DPH",
+      "VAT calculator",
+      "česká republika",
+      "slovensko"
+    ],
+    "currency": "Kč",
+    "related_calculators": [
+      {
+        "title": "Kalkulátor čisté mzdy",
+        "description": "Výpočet mzdy po odečtení daní a pojištění",
+        "href": "/calculator/cista-mzda",
+        "category": "finance"
+      },
+      {
+        "title": "Kalkulátor procent", 
+        "description": "Obecný kalkulátor procentuálních výpočtů",
+        "href": "/calculator/procenta",
+        "category": "mathematics"
+      }
+    ]
+  },
   "net_salary_tip": "Zadejte hrubou mzdu a srážky",
   "net_salary_tip_text": "Daňové sazby a srážky se liší podle země a typu zaměstnání.",
   "unit_converter_tip": "Vyberte jednotky a zadejte hodnotu k převodu",

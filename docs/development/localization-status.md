@@ -85,6 +85,37 @@ Systematic implementation of EN and CS localization for all calculators in the m
 }
 ```
 
+### Formula Keys Guidance (LaTeX + i18n)
+See: `docs/development/formula-authoring.md`.
+- Store raw LaTeX per locale in `src/messages/<locale>.json`
+- Wrap words with `\text{...}`; use `\dfrac` for display fractions
+- Escape backslashes in JSON (e.g., "\\dfrac{...}{...}")
+- Provide direction-specific keys when needed (e.g., `base_to_total_latex`, `total_to_base_latex`)
+
+Example (EN):
+```json
+{
+  "vat_enhanced": {
+    "formula": {
+      "base_to_total_latex": "\\text{With VAT} = \\text{Without VAT} \\times (1 + \\text{rate})",
+      "total_to_base_latex": "\\text{Without VAT} = \\dfrac{\\text{With VAT}}{1 + \\text{rate}}"
+    }
+  }
+}
+```
+
+Example (CS):
+```json
+{
+  "vat_enhanced": {
+    "formula": {
+      "base_to_total_latex": "\\text{s DPH} = \\text{bez DPH} \\times (1 + \\text{sazba})",
+      "total_to_base_latex": "\\text{bez DPH} = \\dfrac{\\text{s DPH}}{1 + \\text{sazba}}"
+    }
+  }
+}
+```
+
 ## Implementation Strategy
 
 ### Phase 1: Core Calculators (Priority)

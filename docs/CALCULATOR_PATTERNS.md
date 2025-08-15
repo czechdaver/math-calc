@@ -360,6 +360,14 @@ const t = useTranslations('calculators.[slug]');
 <Button>{t('calculate', { fallback: 'Calculate' })}</Button>
 ```
 
+### Formula Authoring (LaTeX + i18n)
+See the Formula Authoring Guide: [docs/development/formula-authoring.md](./development/formula-authoring.md)
+
+- Wrap natural language with `\text{...}` (e.g., `\text{With VAT}`, `\text{rate}`)
+- Use `\dfrac` for display fractions
+- Escape backslashes in JSON strings (e.g., "\\dfrac{...}{...}")
+- Read localized LaTeX from messages and provide safe fallbacks in components
+
 ## 📊 Performance Metrics
 
 Our established patterns deliver excellent performance:

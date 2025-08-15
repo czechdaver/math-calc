@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useMessages, useLocale } from 'next-intl';
 import { Calculator, Percent, ArrowRightLeft, Flag } from 'lucide-react';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { 
@@ -40,6 +40,8 @@ interface VATResult {
 
 export default function EnhancedVATCalculator() {
   const t = useTranslations();
+  const messages = useMessages() as any;
+  const locale = useLocale();
 
   // Enhanced state management
   const [inputs, setInputs] = useState({
@@ -53,28 +55,28 @@ export default function EnhancedVATCalculator() {
   const countryOptions = [
     { 
       value: 'cz', 
-      label: 'Česká republika', 
-      description: 'DPH 21% (základní sazba)' 
+      label: t('vat_enhanced.countries.cz.label'), 
+      description: t('vat_enhanced.countries.cz.description') 
     },
     { 
       value: 'sk', 
-      label: 'Slovensko', 
-      description: 'DPH 20% (základní sazba)' 
+      label: t('vat_enhanced.countries.sk.label'), 
+      description: t('vat_enhanced.countries.sk.description') 
     },
     { 
       value: 'at', 
-      label: 'Rakousko', 
-      description: 'DPH 20% (základní sazba)' 
+      label: t('vat_enhanced.countries.at.label'), 
+      description: t('vat_enhanced.countries.at.description') 
     },
     { 
       value: 'de', 
-      label: 'Německo', 
-      description: 'DPH 19% (základní sazba)' 
+      label: t('vat_enhanced.countries.de.label'), 
+      description: t('vat_enhanced.countries.de.description') 
     },
     { 
       value: 'pl', 
-      label: 'Polsko', 
-      description: 'DPH 23% (základní sazba)' 
+      label: t('vat_enhanced.countries.pl.label'), 
+      description: t('vat_enhanced.countries.pl.description') 
     }
   ];
 
@@ -82,13 +84,13 @@ export default function EnhancedVATCalculator() {
   const directionOptions = [
     { 
       value: 'base-to-total', 
-      label: 'Bez DPH → S DPH',
-      description: 'Vypočítám celkovou částku včetně DPH'
+      label: t('vat_enhanced.direction_base_to_total'),
+      description: t('vat_enhanced.direction_base_to_total_desc')
     },
     { 
       value: 'total-to-base', 
-      label: 'S DPH → Bez DPH',
-      description: 'Vypočítám základ bez DPH'
+      label: t('vat_enhanced.direction_total_to_base'),
+      description: t('vat_enhanced.direction_total_to_base_desc')
     }
   ];
 
@@ -108,11 +110,11 @@ export default function EnhancedVATCalculator() {
     const amount = parseFloat(inputs.amount.replace(/\s/g, '').replace(',', '.'));
     
     if (!inputs.amount || isNaN(amount)) {
-      newErrors.amount = 'Zadejte platnou částku';
+      newErrors.amount = t('vat_enhanced.errors.invalid_amount');
     } else if (amount <= 0) {
-      newErrors.amount = 'Částka musí být větší než 0';
+      newErrors.amount = t('vat_enhanced.errors.must_be_positive');
     } else if (amount > 999999999) {
-      newErrors.amount = 'Částka je příliš velká';
+      newErrors.amount = t('vat_enhanced.errors.too_large');
     }
     
     setErrors(newErrors);
@@ -166,130 +168,102 @@ export default function EnhancedVATCalculator() {
     }
   };
 
+  // Use localized LaTeX from raw messages (safe for KaTeX)
+  const formulaLatex = inputs.direction === 'base-to-total'
+    ? (messages?.vat_enhanced?.formula?.base_to_total_latex as string) || '\\text{sDPH} = \\text{bezDPH} \\times (1 + \\text{sazba})'
+    : (messages?.vat_enhanced?.formula?.total_to_base_latex as string) || '\\text{bezDPH} = \\dfrac{\\text{sDPH}}{1 + \\text{sazba}}';
+
+  const formulaDescription = inputs.direction === 'base-to-total'
+    ? t('vat_enhanced.formula.base_to_total_desc')
+    : t('vat_enhanced.formula.total_to_base_desc');
+
   return (
     <SimpleCalculatorLayout
-      title="DPH Kalkulátor"
-      description="Pokročilý kalkulátor DPH s podporou více zemí střední Evropy. Výpočet daně z přidané hodnoty v obou směrech."
+      title={t('vat_enhanced.title')}
+      description={t('vat_enhanced.description')}
       category="finance"
       calculatorId="vat"
       enhanced={true}
       seo={{
-        title: 'Pokročilý DPH Kalkulátor | Výpočet daně z přidané hodnoty',
-        description: 'Profesionální kalkulátor DPH pro ČR, SK, AT, DE a PL. Rychlý výpočet s DPH i bez DPH s aktuálními sazbami.',
-        keywords: [
-          'DPH kalkulátor',
-          'daň z přidané hodnoty', 
-          'výpočet DPH',
-          'VAT calculator',
-          'česká republika',
-          'slovensko'
-        ]
+        title: t('vat_enhanced.title') + ' | ' + t('vat_enhanced.description'),
+        description: t('vat_enhanced.description'),
+        keywords: messages?.vat_enhanced?.seo_keywords || []
       }}
       formula={{
-        latex: inputs.direction === 'base-to-total' 
-          ? 'S\\,DPH = Bez\\,DPH \\times (1 + \\text{sazba})'
-          : 'Bez\\,DPH = \\frac{S\\,DPH}{1 + \\text{sazba}}',
-        description: inputs.direction === 'base-to-total'
-          ? 'Výpočet celkové částky: základ se násobí koeficientem (1 + sazba DPH)'
-          : 'Výpočet základu: celková částka se dělí koeficientem (1 + sazba DPH)'
+        latex: formulaLatex,
+        description: formulaDescription
       }}
       resultSection={result && (
         <CalculatorResult
-          title="Rozpis DPH"
-          value={`${result.totalAmount.toLocaleString('cs-CZ', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Kč`}
-          description={`Celková částka s DPH pro ${result.country}`}
+          title={t('vat_enhanced.result_title')}
+          value={`${result.totalAmount.toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${t('vat_enhanced.currency')}`}
+          description={t('vat_enhanced.result_description', {country: result.country})}
           formula={inputs.direction === 'base-to-total' 
-            ? `${result.baseAmount.toFixed(2)} × ${(1 + result.vatRate).toFixed(2)} = ${result.totalAmount.toFixed(2)} Kč`
-            : `${result.totalAmount.toFixed(2)} ÷ ${(1 + result.vatRate).toFixed(2)} = ${result.baseAmount.toFixed(2)} Kč`
+            ? `${result.baseAmount.toFixed(2)} × ${(1 + result.vatRate).toFixed(2)} = ${result.totalAmount.toFixed(2)} ${t('vat_enhanced.currency')}`
+            : `${result.totalAmount.toFixed(2)} ÷ ${(1 + result.vatRate).toFixed(2)} = ${result.baseAmount.toFixed(2)} ${t('vat_enhanced.currency')}`
           }
           additionalInfo={
             <div className="space-y-4">
               <div className="grid grid-cols-3 gap-3">
                 <div className="enhanced-result-grid blue">
                   <div className="font-bold text-blue-600">
-                    {result.baseAmount.toLocaleString('cs-CZ', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Kč
+                    {result.baseAmount.toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {t('vat_enhanced.currency')}
                   </div>
-                  <div className="text-xs text-gray-700">Základ bez DPH</div>
+                  <div className="text-xs text-gray-700">{t('vat_enhanced.result_base')}</div>
                 </div>
                 <div className="enhanced-result-grid amber">
                   <div className="font-bold text-amber-600">
-                    {result.vatAmount.toLocaleString('cs-CZ', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Kč
+                    {result.vatAmount.toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {t('vat_enhanced.currency')}
                   </div>
-                  <div className="text-xs text-gray-700">DPH ({(result.vatRate * 100).toFixed(0)}%)</div>
+                  <div className="text-xs text-gray-700">{t('vat_enhanced.result_vat', {rate: (result.vatRate * 100).toFixed(0)})}</div>
                 </div>
                 <div className="enhanced-result-grid green">
                   <div className="font-bold text-green-600">
-                    {result.totalAmount.toLocaleString('cs-CZ', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Kč
+                    {result.totalAmount.toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {t('vat_enhanced.currency')}
                   </div>
-                  <div className="text-xs text-gray-700">Celkem s DPH</div>
+                  <div className="text-xs text-gray-700">{t('vat_enhanced.result_total')}</div>
                 </div>
               </div>
               <div className="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
-                <strong>Sazba DPH:</strong> {(result.vatRate * 100).toFixed(0)}% ({result.country})
+                <strong>{t('vat_enhanced.vat_rate')}:</strong> {(result.vatRate * 100).toFixed(0)}% ({result.country})
               </div>
             </div>
           }
         />
       )}
       examples={{
-        title: 'Praktické příklady',
-        description: 'Typické situace při výpočtu DPH',
+        title: t('vat_enhanced.examples.title'),
+        description: t('vat_enhanced.examples.description'),
         scenarios: [
           {
-            title: 'Tvorba ceny s DPH',
-            description: 'Máte náklady 1000 Kč a potřebujete vypočítat prodejní cenu s DPH',
-            example: '1000 Kč × 1,21 = 1210 Kč (ČR, 21%)'
+            title: t('vat_enhanced.examples.scenario1.title'),
+            description: t('vat_enhanced.examples.scenario1.description'),
+            example: t('vat_enhanced.examples.scenario1.example')
           },
           {
-            title: 'Analýza faktury',
-            description: 'Na faktuře je 1210 Kč s DPH, potřebujete znát základ',
-            example: '1210 Kč ÷ 1,21 = 1000 Kč (základ bez DPH)'
+            title: t('vat_enhanced.examples.scenario2.title'),
+            description: t('vat_enhanced.examples.scenario2.description'),
+            example: t('vat_enhanced.examples.scenario2.example')
           },
           {
-            title: 'Mezinárodní obchod',
-            description: 'Porovnání sazeb DPH v různých zemích',
-            example: 'ČR: 21%, SK: 20%, DE: 19%, PL: 23%'
+            title: t('vat_enhanced.examples.scenario3.title'),
+            description: t('vat_enhanced.examples.scenario3.description'),
+            example: t('vat_enhanced.examples.scenario3.example')
           }
         ]
       }}
-      faq={[
-        {
-          question: 'Jaké sazby DPH kalkulátor podporuje?',
-          answer: 'Kalkulátor podporuje aktuální základní sazby DPH pro ČR (21%), SK (20%), AT (20%), DE (19%) a PL (23%). Snížené sazby nejsou zahrnuty.'
-        },
-        {
-          question: 'Jak se zaokrouhluje výsledek?',
-          answer: 'Všechny výpočty se provádějí s maximální přesností a výsledek se zaokrouhluje na haléře (2 desetinná místa) podle matematických pravidel.'
-        },
-        {
-          question: 'Lze kalkulátor použít pro jiné daně?',
-          answer: 'Ano, princip výpočtu je univerzální a lze jej použít pro jakoukoliv procentuální daň nebo poplatek.'
-        }
-      ]}
-      relatedCalculators={[
-        {
-          title: 'Kalkulátor čisté mzdy',
-          description: 'Výpočet mzdy po odečtení daní a pojištění',
-          href: '/calculator/cista-mzda', 
-          category: 'finance'
-        },
-        {
-          title: 'Kalkulátor procent',
-          description: 'Obecný kalkulátor procentuálních výpočtů',
-          href: '/calculator/procenta',
-          category: 'mathematics'
-        }
-      ]}
+      faq={messages?.vat_enhanced?.faq || []}
+      relatedCalculators={messages?.vat_enhanced?.related_calculators || []}
     >
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Country Selection */}
         <CalculatorSelect
           id="country"
-          label="Země a sazba DPH"
+          label={t('vat_enhanced.country_label')}
           value={inputs.country}
           onChange={(value) => handleInputChange('country', value)}
           options={countryOptions}
-          helpText="Vyberte zemi pro správnou sazbu DPH"
+          helpText={t('vat_enhanced.country_help')}
           labelIcon={Flag}
           color="indigo"
         />
@@ -297,28 +271,28 @@ export default function EnhancedVATCalculator() {
         {/* Direction Toggle */}
         <CalculatorToggle
           name="direction"
-          label="Směr výpočtu"
+          label={t('vat_enhanced.direction_label')}
           value={inputs.direction}
           onChange={(value) => handleInputChange('direction', value)}
           options={directionOptions}
-          helpText="Vyberte, zda počítáte z částky s DPH nebo bez DPH"
+          helpText={t('vat_enhanced.direction_help')}
           color="amber"
-          layout="vertical"
+          layout="horizontal"
         />
 
         {/* Amount Input */}
         <CalculatorInput
           id="amount"
-          label={inputs.direction === 'base-to-total' ? 'Částka bez DPH' : 'Částka s DPH'}
+          label={inputs.direction === 'base-to-total' ? t('vat_enhanced.amount_without_vat') : t('vat_enhanced.amount_with_vat')}
           value={inputs.amount}
           onChange={(value) => handleInputChange('amount', value)}
           placeholder="1000"
           step="0.01"
           min="0"
-          unit="Kč"
+          unit={t('vat_enhanced.currency')}
           helpText={inputs.direction === 'base-to-total' 
-            ? 'Zadejte částku bez DPH pro výpočet celkové ceny'
-            : 'Zadejte celkovou částku s DPH pro výpočet základu'
+            ? t('vat_enhanced.amount_help_base_to_total')
+            : t('vat_enhanced.amount_help_total_to_base')
           }
           error={errors.amount}
           labelIcon={ArrowRightLeft}
@@ -328,9 +302,8 @@ export default function EnhancedVATCalculator() {
       </div>
 
       {/* Information Disclaimer */}
-      <CalculatorDisclaimer type="info" title="Důležité informace">
-        Kalkulátor používá základní sazby DPH platné pro rok 2024. Pro přesné daňové poradenství 
-        se obraťte na odborníka. Výsledky jsou pouze orientační a nenahrazují profesionální konzultaci.
+      <CalculatorDisclaimer type="info" title={t('vat_enhanced.disclaimer_title')}>
+        {t('vat_enhanced.disclaimer_text')}
       </CalculatorDisclaimer>
     </SimpleCalculatorLayout>
   );

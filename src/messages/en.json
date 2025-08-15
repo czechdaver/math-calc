@@ -48,7 +48,7 @@
   "fractions_form_zkracovani": "Fractions reduction form...",
   "fractions_form_prevod": "Fractions conversion form...",
   "bmi_calculator_title": "BMI Calculator",
-  "calculators": {
+  "calculators_legacy": {
     "unit_converter": {
       "title": "Unit Converter Calculator",
       "description": "Convert between different units of measurement including length, weight, temperature, volume, and area with precise calculations and helpful formulas.",
@@ -230,6 +230,35 @@
         "tip_percentage": "Enter valid tip percentage (0-100%)",
         "number_of_people": "Enter valid number of people (1-50)",
         "custom_tip": "Enter valid custom percentage (0-100%)"
+      }
+    },
+    "unit_converter": {
+      "title": "Unit Converter Calculator",
+      "description": "Convert between different units of measurement including length, weight, temperature, volume, and area with precise calculations and helpful formulas.",
+      "category": "Category",
+      "value": "Value",
+      "enter_value": "Enter value",
+      "from": "From",
+      "to": "To",
+      "swap_units": "Swap units",
+      "convert": "Convert",
+      "reset": "Reset",
+      "result": "Result",
+      "quick_conversions": "Quick Conversions",
+      "show_formula": "Show Formula",
+      "hide_formula": "Hide Formula",
+      "keyword_converter": "unit converter",
+      "keyword_measurement": "measurement conversion",
+      "keyword_length": "length conversion",
+      "keyword_weight": "weight conversion",
+      "keyword_temperature": "temperature conversion",
+      "keyword_volume": "volume conversion",
+      "keyword_area": "area conversion"
+    },
+    "bmi_v3": {
+      "formula": {
+        "latex": "BMI = \\frac{\\text{weight}\\,(\\mathrm{kg})}{(\\text{height}\\,(\\mathrm{m}))^2}",
+        "description": "BMI is calculated as weight in kilograms divided by the square of height in meters."
       }
     },
     "age": {
@@ -895,6 +924,120 @@
   "fractions_calculator_description": "Calculate with fractions - add, subtract, multiply, divide",
   "vat_tip": "Enter base amount and VAT rate",
   "vat_tip_text": "VAT rates vary by country: 21% (CZ), 20% (SK). Always verify current rates.",
+  "vat_enhanced": {
+    "title": "VAT Calculator",
+    "description": "Advanced VAT calculator with support for multiple Central European countries. Calculate Value Added Tax in both directions.",
+    "country_label": "Country and VAT Rate",
+    "country_help": "Select country for correct VAT rate",
+    "direction_label": "Calculation Direction", 
+    "direction_help": "Select whether you calculate from amount with VAT or without VAT",
+    "direction_base_to_total": "Without VAT → With VAT",
+    "direction_base_to_total_desc": "I'll calculate the total amount including VAT",
+    "direction_total_to_base": "With VAT → Without VAT",
+    "direction_total_to_base_desc": "I'll calculate the base amount without VAT", 
+    "amount_without_vat": "Amount without VAT",
+    "amount_with_vat": "Amount with VAT",
+    "amount_help_base_to_total": "Enter amount without VAT to calculate total price",
+    "amount_help_total_to_base": "Enter total amount with VAT to calculate base",
+    "result_title": "VAT Breakdown",
+    "result_base": "Base without VAT",
+    "result_vat": "VAT ({rate}%)",
+    "result_total": "Total with VAT",
+    "result_description": "Total amount with VAT for {country}",
+    "vat_rate": "VAT Rate",
+    "disclaimer_title": "Important Information",
+    "disclaimer_text": "Calculator uses basic VAT rates valid for 2024. For precise tax advice, consult a professional. Results are indicative only and do not replace professional consultation.",
+    "parameters": "Calculation Parameters",
+    "errors": {
+      "invalid_amount": "Enter a valid amount",
+      "must_be_positive": "Amount must be greater than 0",
+      "too_large": "Amount is too large"
+    },
+    "countries": {
+      "cz": {
+        "label": "Czech Republic",
+        "description": "VAT 21% (standard rate)"
+      },
+      "sk": {
+        "label": "Slovakia",
+        "description": "VAT 20% (standard rate)"
+      },
+      "at": {
+        "label": "Austria",
+        "description": "VAT 20% (standard rate)"
+      },
+      "de": {
+        "label": "Germany",
+        "description": "VAT 19% (standard rate)"
+      },
+      "pl": {
+        "label": "Poland",
+        "description": "VAT 23% (standard rate)"
+      }
+    },
+    "formula": {
+      "base_to_total_latex": "\\text{With VAT} = \\text{Without VAT} \\times (1 + \\text{rate})",
+      "total_to_base_latex": "\\text{Without VAT} = \\dfrac{\\text{With VAT}}{1 + \\text{rate}}",
+      "base_to_total_desc": "Total calculation: base amount is multiplied by coefficient (1 + VAT rate)",
+      "total_to_base_desc": "Base calculation: total amount is divided by coefficient (1 + VAT rate)"
+    },
+    "examples": {
+      "title": "Practical Examples",
+      "description": "Typical VAT calculation situations",
+      "scenario1": {
+        "title": "Price creation with VAT",
+        "description": "You have costs of 1000 CZK and need to calculate selling price with VAT",
+        "example": "1000 CZK × 1.21 = 1210 CZK (CZ, 21%)"
+      },
+      "scenario2": {
+        "title": "Invoice analysis",
+        "description": "Invoice shows 1210 CZK with VAT, you need to know the base",
+        "example": "1210 CZK ÷ 1.21 = 1000 CZK (base without VAT)"
+      },
+      "scenario3": {
+        "title": "International trade",
+        "description": "Comparison of VAT rates in different countries",
+        "example": "CZ: 21%, SK: 20%, DE: 19%, PL: 23%"
+      }
+    },
+    "faq": [
+      {
+        "question": "What VAT rates does the calculator support?",
+        "answer": "Calculator supports current standard VAT rates for CZ (21%), SK (20%), AT (20%), DE (19%) and PL (23%). Reduced rates are not included."
+      },
+      {
+        "question": "How is the result rounded?",
+        "answer": "All calculations are performed with maximum precision and the result is rounded to cents (2 decimal places) according to mathematical rules."
+      },
+      {
+        "question": "Can the calculator be used for other taxes?",
+        "answer": "Yes, the calculation principle is universal and can be used for any percentage tax or fee."
+      }
+    ],
+    "seo_keywords": [
+      "VAT calculator",
+      "value added tax", 
+      "VAT calculation",
+      "tax calculator",
+      "czech republic",
+      "slovakia"
+    ],
+    "currency": "CZK",
+    "related_calculators": [
+      {
+        "title": "Net Salary Calculator",
+        "description": "Calculate salary after taxes and insurance",
+        "href": "/calculator/cista-mzda",
+        "category": "finance"
+      },
+      {
+        "title": "Percentage Calculator",
+        "description": "General percentage calculations",
+        "href": "/calculator/procenta", 
+        "category": "mathematics"
+      }
+    ]
+  },
   "net_salary_tip": "Enter gross salary and deductions",
   "net_salary_tip_text": "Tax rates and deductions vary by country and employment type.",
   "unit_converter_tip": "Select units and enter value to convert",

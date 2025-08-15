@@ -51,6 +51,8 @@ export interface SimpleCalculatorLayoutProps {
     latex: string;
     description: string;
   };
+  // Optional class override for the formula container wrapper (e.g., hide scrollbar)
+  formulaContainerClassName?: string;
   
   // Main Content
   children: ReactNode;
@@ -194,6 +196,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
   enhanced = false,
   seo,
   formula,
+  formulaContainerClassName,
   children,
   resultSection,
   examples,
@@ -327,8 +330,12 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                     </CardHeader>
                   )}
                   <CardContent>
-                    <div className="bg-gray-50 p-4 rounded-lg text-center">
-                      {BlockMath && <BlockMath math={formula.latex} />}
+                    <div className={cn("bg-gray-50 p-4 rounded-lg", formulaContainerClassName ? formulaContainerClassName : "overflow-x-auto")}> 
+                      <div className="flex justify-center items-center min-w-full">
+                        <div className="katex-container">
+                          {BlockMath && <BlockMath math={formula.latex} />}
+                        </div>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -349,10 +356,18 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
 
               {/* In-Content Ad */}
               <div className="flex justify-center py-4">
-                <AdSlot 
-                  position="calc-in-content"
-                  className="w-[300px] h-[250px]"
-                />
+                <div className="md:hidden">
+                  <AdSlot 
+                    position="calc-in-content"
+                    className="w-[320px] h-[50px]"
+                  />
+                </div>
+                <div className="hidden md:block">
+                  <AdSlot 
+                    position="calc-in-content"
+                    className="w-[728px] h-[90px]"
+                  />
+                </div>
               </div>
 
               {/* Results Section */}
@@ -543,7 +558,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                       </div>
                     </CardHeader>
                   )}
-                  <CardContent>
+                  <CardContent className="px-3 py-4">
                     <CalculatorRating 
                       calculatorId={calculatorId || 'unknown'} 
                     />

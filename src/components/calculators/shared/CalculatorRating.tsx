@@ -172,7 +172,7 @@ const CalculatorRating: React.FC<CalculatorRatingProps> = ({
           role="radio"
           aria-checked={isFilled}
           aria-label={`${i} ${t('rating.stars', { count: i })}`}
-          className={`p-1 h-auto ${hasRated ? 'cursor-default' : 'cursor-pointer hover:scale-[1.08]'} relative transition-transform duration-150`}
+          className={`p-0.5 sm:p-1 h-auto min-w-0 ${hasRated ? 'cursor-default' : 'cursor-pointer hover:scale-[1.08]'} relative transition-transform duration-150 flex-shrink-0`}
           onClick={() => handleStarClick(i)}
           onMouseEnter={() => {
             if (!hasRated) {
@@ -187,7 +187,7 @@ const CalculatorRating: React.FC<CalculatorRatingProps> = ({
           disabled={hasRated || isLoading}
         >
           <Star
-            className={`w-5 h-5 transition-colors ${
+            className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors ${
               isFilled || isHovered
                 ? 'fill-amber-400 text-amber-400'
                 : 'text-gray-300'
@@ -216,38 +216,38 @@ const CalculatorRating: React.FC<CalculatorRatingProps> = ({
 
   return (
     <div className={`${className}`}>
-      {/* Hlavní řádek - hvězdičky + counter vpravo */}
-      <div className="flex items-center justify-between relative">
+      {/* Hlavní řádek - responzivní layout */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 relative">
         <div 
           role="radiogroup"
-          className="flex items-center gap-1"
+          className="flex items-center gap-0.5 sm:gap-1 flex-shrink-0"
           onMouseEnter={() => hasRated && setShowTooltip(true)}
           onMouseLeave={() => hasRated && setShowTooltip(false)}
         >
           {renderStars()}
         </div>
         
-        {/* Counter průměru a počtu hlasů vpravo - modern pill */}
+        {/* Counter průměru a počtu hlasů - responzivní pozice */}
         {rating.averageRating > 0 && (
-          <div className="ml-3 inline-flex items-center gap-1 rounded-full border border-amber-200 bg-amber-50/60 px-2 py-0.5 text-xs text-amber-700">
+          <div className="inline-flex items-center gap-1 rounded-full border border-amber-200 bg-amber-50/60 px-2 py-0.5 text-xs text-amber-700 flex-shrink-0 self-start sm:self-center">
             <span>{rating.averageRating.toFixed(1)}</span>
             <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
             <span>({rating.reviewCount})</span>
           </div>
         )}
         
-        {/* Tooltip pro již hodnocené - zobrazit nad hvězdičkami */}
+        {/* Tooltip pro již hodnocené - responzivní pozice */}
         {hasRated && showTooltip && (
-          <div className="absolute bottom-full left-0 mb-2 px-3 py-2 bg-black text-white text-xs rounded-md shadow-xl z-50 whitespace-nowrap">
+          <div className="absolute bottom-full left-0 sm:left-4 mb-2 px-3 py-2 bg-black text-white text-xs rounded-md shadow-xl z-50 whitespace-nowrap max-w-[200px] sm:max-w-none">
             {t('rating.already_rated')}
             <div className="absolute -bottom-1 left-4 w-2 h-2 bg-black transform rotate-45"></div>
           </div>
         )}
 
-        {/* Thank you tooltip above stars to avoid layout shift */}
+        {/* Thank you tooltip - responzivní pozice */}
         {showThankYou && (
           <div 
-            className="absolute bottom-full left-0 mb-2 px-3 py-2 bg-emerald-600 text-white text-xs rounded-md shadow-xl z-50 whitespace-nowrap pointer-events-none transition-opacity duration-1000"
+            className="absolute bottom-full left-0 sm:left-4 mb-2 px-3 py-2 bg-emerald-600 text-white text-xs rounded-md shadow-xl z-50 whitespace-nowrap pointer-events-none transition-opacity duration-1000 max-w-[200px] sm:max-w-none"
             style={{ opacity: isThankYouFading ? 0 : 1 }}
             aria-live="polite"
           >

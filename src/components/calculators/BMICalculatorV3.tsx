@@ -7,6 +7,7 @@ import { Ruler, Scale } from 'lucide-react';
 import Message from '@/components/ui/Message';
 import { CalculatorInput, CalculatorResult } from './shared';
 import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
+import { useUnits } from '@/contexts/UnitsContext';
 
 interface BMIResult {
   bmi: number;
@@ -17,11 +18,17 @@ interface BMIResult {
 
 const BMICalculatorV3: React.FC = () => {
   const t = useTranslations();
-  const messages = useMessages() as any;
+  type BmiMessages = { calculators?: { bmi_v3?: { formula?: { latex?: string } } } } | undefined;
+  const messages = (useMessages() as unknown) as BmiMessages;
   const params = useParams();
   const locale = params.locale as string;
-  const [height, setHeight] = useState<string>('170');
-  const [weight, setWeight] = useState<string>('70');
+  const { units, preference } = useUnits();
+  const isUS = preference.unitSet === 'imperial_us';
+  const heightUnit = units.length === 'in' ? 'in' : 'cm';
+  const weightUnit = units.weight === 'lb' ? 'lb' : 'kg';
+
+  const [height, setHeight] = useState<string>(heightUnit === 'in' ? '67' : '170');
+  const [weight, setWeight] = useState<string>(weightUnit === 'lb' ? '154' : '70');
   const [result, setResult] = useState<BMIResult | null>(null);
   const [errors, setErrors] = useState<{ height?: string; weight?: string }>({});
 
@@ -55,17 +62,21 @@ const BMICalculatorV3: React.FC = () => {
     };
   };
 
-  // Validation function
+  // Validation function (unit-aware)
   const validateInputs = (heightStr: string, weightStr: string) => {
     const newErrors: { height?: string; weight?: string } = {};
     
     const heightNum = parseFloat(heightStr);
     const weightNum = parseFloat(weightStr);
     
-    if (!heightStr || isNaN(heightNum) || heightNum < 50 || heightNum > 300) {
+    // Convert inputs to metric for validation bounds
+    const heightCm = heightUnit === 'in' ? heightNum * 2.54 : heightNum;
+    const weightKg = weightUnit === 'lb' ? weightNum / 2.20462262185 : weightNum;
+
+    if (!heightStr || isNaN(heightNum) || heightCm < 50 || heightCm > 300) {
       newErrors.height = t('height_validation_error');
     }
-    if (!weightStr || isNaN(weightNum) || weightNum < 2 || weightNum > 500) {
+    if (!weightStr || isNaN(weightNum) || weightKg < 2 || weightKg > 500) {
       newErrors.weight = t('weight_validation_error');
     }
 
@@ -73,17 +84,20 @@ const BMICalculatorV3: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Effect for real-time calculation
+  // Effect for real-time calculation (unit-aware)
   useEffect(() => {
     if (validateInputs(height, weight)) {
       const heightNum = parseFloat(height);
       const weightNum = parseFloat(weight);
-      const calculatedResult = calculateBMI(heightNum, weightNum);
+      // Convert to metric for computation
+      const heightCm = heightUnit === 'in' ? heightNum * 2.54 : heightNum;
+      const weightKg = weightUnit === 'lb' ? weightNum / 2.20462262185 : weightNum;
+      const calculatedResult = calculateBMI(heightCm, weightKg);
       setResult(calculatedResult);
     } else {
       setResult(null);
     }
-  }, [height, weight]);
+  }, [height, weight, heightUnit, weightUnit]);
 
   // Calculator form using shared components
   const calculatorForm = (
@@ -93,11 +107,11 @@ const BMICalculatorV3: React.FC = () => {
         label={t('height_label') || 'Výška'}
         value={height}
         onChange={setHeight}
-        placeholder="170"
+        placeholder={heightUnit === 'in' ? '67' : '170'}
         step="0.1"
-        min="50"
-        max="300"
-        unit="cm"
+        min={heightUnit === 'in' ? (50 / 2.54).toFixed(1) : '50'}
+        max={heightUnit === 'in' ? (300 / 2.54).toFixed(1) : '300'}
+        unit={heightUnit}
         helpText={t('height_help_text') || 'Zadejte svou výšku v centimetrech (50-300 cm)'}
         error={errors.height}
         quickAdjustSteps={[1, 5, 10]}
@@ -110,11 +124,11 @@ const BMICalculatorV3: React.FC = () => {
         label={t('weight_label') || 'Váha'}
         value={weight}
         onChange={setWeight}
-        placeholder="70"
+        placeholder={weightUnit === 'lb' ? '154' : '70'}
         step="0.1"
-        min="2"
-        max="500"
-        unit="kg"
+        min={weightUnit === 'lb' ? (2 * 2.20462262185).toFixed(1) : '2'}
+        max={weightUnit === 'lb' ? (500 * 2.20462262185).toFixed(0) : '500'}
+        unit={weightUnit}
         helpText={t('weight_help_text') || 'Zadejte svou váhu v kilogramech (2-500 kg)'}
         error={errors.weight}
         quickAdjustSteps={[1, 5, 10]}
@@ -180,7 +194,9 @@ const BMICalculatorV3: React.FC = () => {
         ]
       }}
       formula={{
-        latex: messages?.calculators?.bmi_v3?.formula?.latex || 'BMI = \\frac{\\text{weight}\\,(\\mathrm{kg})}{(\\text{height}\\,(\\mathrm{m}))^2}',
+        latex: isUS
+          ? 'BMI = 703 \\times \\dfrac{\\text{weight}\\,(\\mathrm{lb})}{(\\text{height}\\,(\\mathrm{in}))^2}'
+          : (messages?.calculators?.bmi_v3?.formula?.latex || 'BMI = \\dfrac{\\text{weight}\\,(\\mathrm{kg})}{(\\text{height}\\,(\\mathrm{m}))^2}'),
         description: t('calculators.bmi_v3.formula.description')
       }}
       examples={examples}
@@ -191,7 +207,15 @@ const BMICalculatorV3: React.FC = () => {
           title={t('your_bmi_label') || 'Váš BMI'}
           value={result.bmi.toFixed(1)}
           description={result.category}
-          formula={`BMI = ${parseFloat(weight).toFixed(1)} kg ÷ (${(parseFloat(height) / 100).toFixed(2)} m)² = ${result.bmi.toFixed(1)}`}
+          formula={(() => {
+            const h = parseFloat(height);
+            const w = parseFloat(weight);
+            if (isUS) {
+              const bmiVal = result.bmi.toFixed(1);
+              return `BMI = 703 × ${w.toFixed(1)} ${weightUnit} ÷ (${h.toFixed(1)} ${heightUnit})² = ${bmiVal}`;
+            }
+            return `BMI = ${w.toFixed(1)} ${weightUnit} ÷ (${(h / 100).toFixed(2)} m)² = ${result.bmi.toFixed(1)}`;
+          })()}
           additionalInfo={
             <div className="space-y-4">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">

@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState } from 'react';
 import { useTranslations, useMessages, useLocale } from 'next-intl';
-import { Calculator, Percent, ArrowRightLeft, Flag } from 'lucide-react';
+import { ArrowRightLeft, Flag } from 'lucide-react';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { 
   CalculatorInput,
@@ -40,7 +40,17 @@ interface VATResult {
 
 export default function EnhancedVATCalculator() {
   const t = useTranslations();
-  const messages = useMessages() as any;
+  type FAQItem = { question: string; answer: string };
+  type RelatedCalcItem = { id?: string; title: string; description: string; href: string; category: string };
+  type VatMessages = {
+    vat_enhanced?: {
+      formula?: { base_to_total_latex?: string; total_to_base_latex?: string };
+      faq?: FAQItem[];
+      related_calculators?: RelatedCalcItem[];
+      seo_keywords?: string[];
+    }
+  } | undefined;
+  const messages = (useMessages() as unknown) as VatMessages;
   const locale = useLocale();
 
   // Enhanced state management

@@ -1,6 +1,5 @@
 // src/components/calculators/VATCalculator.tsx
 import React, { useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
@@ -20,7 +19,6 @@ interface VATResult {
 }
 
 const VATCalculator: React.FC = () => {
-  const t = useTranslations();
   const [country, setCountry] = useState<CountryCode>('cz');
   const [direction, setDirection] = useState<CalculationDirection>('base-to-total');
   const [amount, setAmount] = useState<string>('1000');

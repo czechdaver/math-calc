@@ -1,9 +1,9 @@
 import {getRequestConfig} from 'next-intl/server';
-import {locales} from './src/i18n/settings';
+import {isLocale, Locale} from './src/i18n/settings';
 
 export default getRequestConfig(async ({locale}) => {
   // Validate that the incoming `locale` parameter is valid
-  const validLocale = locale && locales.includes(locale as any) ? locale : 'cs';
+  const validLocale: Locale = locale && isLocale(locale) ? locale : 'cs';
 
   return {
     locale: validLocale,

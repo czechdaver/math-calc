@@ -22,6 +22,15 @@ interface BodyFatResult {
   isValid: boolean;
 }
 
+interface BodyFatErrors {
+  weight?: string;
+  height?: string;
+  age?: string;
+  neck?: string;
+  waist?: string;
+  hip?: string;
+}
+
 const BodyFatCalculator: React.FC = () => {
   const t = useTranslations();
   const [weight, setWeight] = useState<string>('70');
@@ -33,10 +42,7 @@ const BodyFatCalculator: React.FC = () => {
   const [waist, setWaist] = useState<string>('85');
   const [hip, setHip] = useState<string>('95');
   const [result, setResult] = useState<BodyFatResult | null>(null);
-  const [errors, setErrors] = useState<{ 
-    weight?: string; height?: string; age?: string; 
-    neck?: string; waist?: string; hip?: string;
-  }>({});
+  const [errors, setErrors] = useState<BodyFatErrors>({});
 
   const formatNumber = (num: number, decimals: number = 1): string => {
     return num.toLocaleString('cs-CZ', {
@@ -106,8 +112,15 @@ const BodyFatCalculator: React.FC = () => {
     };
   };
 
-  const validateInputs = (weightStr: string, heightStr: string, ageStr: string, neckStr: string, waistStr: string, hipStr: string) => {
-    const newErrors: any = {};
+  const validateInputs = (
+    weightStr: string,
+    heightStr: string,
+    ageStr: string,
+    neckStr: string,
+    waistStr: string,
+    hipStr: string
+  ) => {
+    const newErrors: BodyFatErrors = {};
     const weightNum = parseFloat(weightStr);
     const heightNum = parseFloat(heightStr);
     const ageNum = parseFloat(ageStr);

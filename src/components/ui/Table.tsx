@@ -432,6 +432,7 @@ const TableCaption = React.forwardRef<HTMLTableCaptionElement, TableCaptionProps
     )
   }
 )
+TableCaption.displayName = 'TableCaption'
 
 export {
   Table,

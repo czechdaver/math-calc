@@ -2,13 +2,15 @@
 
 import * as React from 'react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import type { ThemeProviderProps } from 'next-themes';
+import { useTheme as useNextTheme } from 'next-themes';
 
 
 /**
  * ThemeProvider component that wraps the application with theme context.
  * Supports light, dark, and system themes with smooth transitions.
  */
-export function ThemeProvider({ children, ...props }: any) {
+export function ThemeProvider({ children, ...props }: React.PropsWithChildren<ThemeProviderProps>) {
   const [mounted, setMounted] = React.useState(false);
 
   // Prevent hydration mismatch by only rendering the provider after mounting
@@ -33,17 +35,8 @@ export function ThemeProvider({ children, ...props }: any) {
   );
 }
 
-/**
- * Custom hook to access the theme context
- * @returns The theme context with current theme and theme setter
- */
-export function useTheme() {
-  const context = React.useContext(NextThemesProvider as any);
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
-}
+// Re-export the official hook with proper typings
+export const useTheme = useNextTheme;
 
 /**
  * Returns the current theme (light/dark) based on the system preference
@@ -79,7 +72,7 @@ export function useSystemTheme() {
  * @returns The current theme ('light' | 'dark')
  */
 export function useCurrentTheme() {
-  const { theme, systemTheme } = useTheme() as any;
+  const { theme, systemTheme } = useNextTheme();
   const systemPreference = useSystemTheme();
   
   if (theme === 'system') {

@@ -1,19 +1,19 @@
 import { Metadata } from 'next';
 import { siteConfig } from '@/config/site';
-import { locales } from '@/i18n';
 import { notFound } from 'next/navigation';
+import { isLocale, Locale } from '@/i18n/settings';
 
 type Props = {
   params: { locale: string };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const locale = params?.locale || 'en';
-  
-  // Validate the locale
-  if (!locales.includes(locale as any)) {
+  const requested = params?.locale ?? 'en';
+  // Validate the locale using a type guard
+  if (!isLocale(requested)) {
     notFound();
   }
+  const locale: Locale = requested;
   
   return {
     title: {

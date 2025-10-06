@@ -5,7 +5,7 @@ import React, { ReactNode, useEffect, useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { ChevronRight, Home, Calculator, Info, ExternalLink, AlertCircle, Heart, BookOpen, HelpCircle, Star } from 'lucide-react';
+import { ChevronRight, Home, Calculator, Info, ExternalLink, Heart, BookOpen, HelpCircle, Star } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
@@ -18,15 +18,14 @@ import PanelHeader from '@/components/ui/PanelHeader';
 import AdSlot from '@/components/ads/AdSlot';
 
 // Dynamically import KaTeX to avoid SSR issues with loading state
-const InlineMath = dynamic(() => import('react-katex').then(mod => mod.InlineMath), { 
-  ssr: false,
-  loading: () => <div className="h-6 bg-gray-100 animate-pulse rounded"></div>
-}) as any;
-
-const BlockMath = dynamic(() => import('react-katex').then(mod => mod.BlockMath), { 
-  ssr: false,
-  loading: () => <div className="h-16 bg-gray-100 animate-pulse rounded"></div>
-}) as any;
+type BlockMathProps = { math: string };
+const BlockMath = dynamic<BlockMathProps>(
+  () => import('react-katex').then(mod => mod.BlockMath),
+  {
+    ssr: false,
+    loading: () => <div className="h-16 bg-gray-100 animate-pulse rounded"></div>
+  }
+);
 
 // Import KaTeX CSS - only when needed
 import 'katex/dist/katex.min.css';

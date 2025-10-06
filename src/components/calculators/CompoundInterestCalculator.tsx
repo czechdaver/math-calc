@@ -73,12 +73,12 @@ const CompoundInterestCalculator: React.FC = () => {
     }
   ];
 
-  const calculate = (inputs: Record<string, any>): CalculatorResult => {
-    const principal = parseFloat(inputs.principal) || 0;
-    const annualRate = parseFloat(inputs.interestRate) / 100 || 0;
-    const years = parseFloat(inputs.years) || 0;
-    const frequency = (inputs.frequency as Frequency) || 'rocne';
-    const monthlyContribution = parseFloat(inputs.monthlyContribution) || 0;
+  const calculate = (inputs: Record<string, unknown>): CalculatorResult => {
+    const principal = parseFloat(String(inputs.principal ?? '')) || 0;
+    const annualRate = (parseFloat(String(inputs.interestRate ?? '')) / 100) || 0;
+    const years = parseFloat(String(inputs.years ?? '')) || 0;
+    const frequency = (String(inputs.frequency ?? 'rocne') as Frequency) || 'rocne';
+    const monthlyContribution = parseFloat(String(inputs.monthlyContribution ?? '')) || 0;
 
     // Map frequency to number of compounding periods per year
     const periodsPerYear: Record<Frequency, number> = {

@@ -15,12 +15,51 @@ import PanelHeader from '@/components/ui/PanelHeader';
 import CategoryCard from '@/components/home/CategoryCard';
 import Footer from '@/components/navigation/Footer';
 
+// Types for calculators data
+type CalculatorCategory = 'math' | 'health' | 'finance' | 'utility';
+type CalculatorItem = {
+  id: string;
+  slug: string;
+  category: CalculatorCategory;
+  popularity: number;
+  titleKey: string;
+  descriptionKey: string;
+  path: string;
+  tags: string[];
+  relatedCategories: string[];
+};
+type CalculatorsData = { calculators: Record<string, CalculatorItem> };
+
+// Runtime type guard to validate calculators JSON structure
+function isCalculatorsData(input: unknown): input is CalculatorsData {
+  if (!input || typeof input !== 'object') return false;
+  const rec = (input as { calculators?: unknown }).calculators;
+  if (!rec || typeof rec !== 'object') return false;
+  // Basic structural check: each value should be an object with required keys
+  for (const value of Object.values(rec as Record<string, unknown>)) {
+    if (!value || typeof value !== 'object') return false;
+    const v = value as Partial<CalculatorItem>;
+    if (
+      typeof v.id !== 'string' ||
+      typeof v.slug !== 'string' ||
+      typeof v.category !== 'string' ||
+      typeof v.popularity !== 'number' ||
+      typeof v.titleKey !== 'string' ||
+      typeof v.descriptionKey !== 'string' ||
+      typeof v.path !== 'string'
+    ) {
+      return false;
+    }
+  }
+  return true;
+}
+
 const HomePage: React.FC = () => {
   const t = useTranslations();
   const tHome = useTranslations('homepage');
   const tCat = useTranslations('categories');
-  const params = useParams();
-  const locale = (params as any)?.locale as string || 'cs';
+  const params = useParams<{ locale: string }>();
+  const locale = params?.locale ?? 'cs';
   const [searchQuery, setSearchQuery] = useState('');
 
   // Apply full-page enhanced background like BMI v3
@@ -36,11 +75,15 @@ const HomePage: React.FC = () => {
   }, []);
 
   // Derive featured calculators from data to match BMI v3
-  const calculators = Object.values((calculatorsJson as any).calculators || {}) as Array<any>;
-  const calculatorsById: Record<string, any> = calculators.reduce((acc, c) => {
-    acc[c.id] = c;
-    return acc;
-  }, {} as Record<string, any>);
+  const rawData: unknown = calculatorsJson;
+  const data: CalculatorsData = isCalculatorsData(rawData)
+    ? rawData
+    : { calculators: {} };
+  const calculators: CalculatorItem[] = Object.values(data.calculators || {});
+  const calculatorsById: Record<string, CalculatorItem> = {};
+  for (const c of calculators) {
+    calculatorsById[c.id] = c;
+  }
 
   const iconComponentForCalculator = (id: string): React.ElementType => {
     switch (id) {
@@ -65,11 +108,11 @@ const HomePage: React.FC = () => {
   const featuredIds = ['percentage', 'bmi', 'vat'];
   const featuredCalculators = featuredIds
     .map((id) => calculatorsById[id])
-    .filter(Boolean)
+    .filter((c): c is CalculatorItem => Boolean(c))
     .map((c) => ({
-      id: c.id as string,
-      name: t(c.titleKey as string),
-      description: t(c.descriptionKey as string),
+      id: c.id,
+      name: t(c.titleKey),
+      description: t(c.descriptionKey),
       Icon: iconComponentForCalculator(c.id),
       href: `/${locale}${c.path}`
     }));

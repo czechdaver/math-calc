@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Calculator, TrendingUp, DollarSign, Calendar, Target, BarChart3 } from 'lucide-react';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { 
@@ -30,26 +29,7 @@ import {
 type CompoundingFrequency = 'daily' | 'monthly' | 'quarterly' | 'semi-annually' | 'annually';
 type ContributionFrequency = 'monthly' | 'quarterly' | 'annually';
 
-interface CompoundInterestResult {
-  finalAmount: number;
-  totalContributions: number;
-  totalInterest: number;
-  initialInvestment: number;
-  yearlyData: Array<{
-    year: number;
-    principal: number;
-    contributions: number;
-    interest: number;
-    total: number;
-  }>;
-  monthlyContribution: number;
-  effectiveAnnualRate: number;
-  isValid: boolean;
-}
-
 export default function EnhancedCompoundInterestCalculator() {
-  const t = useTranslations();
-
   // Complex state for investment calculator
   const [inputs, setInputs] = useState({
     initialAmount: '100000',
@@ -134,7 +114,7 @@ export default function EnhancedCompoundInterestCalculator() {
   };
 
   // Enhanced validation for investment inputs
-  const validateInputs = () => {
+  const validateInputs = useCallback(() => {
     const newErrors: Record<string, string> = {};
     
     const initialAmount = parseFloat(inputs.initialAmount.replace(/\s/g, '').replace(',', '.'));
@@ -185,7 +165,7 @@ export default function EnhancedCompoundInterestCalculator() {
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+  }, [inputs]);
 
   // Complex compound interest calculation with detailed yearly breakdown
   const calculation = useMemo(() => {
@@ -202,12 +182,12 @@ export default function EnhancedCompoundInterestCalculator() {
       const contributionPeriodsPerYear = getContributionPeriods(inputs.contributionFrequency);
       
       // Calculate contribution amount per period
-      const contributionPerPeriod = monthlyContrib * (12 / contributionPeriodsPerYear);
+      const contributionPerPeriod = monthlyContrib * (12 / compoundingPeriodsPerYear);
       
       // Periodic rate
       const periodicRate = annualRate / compoundingPeriodsPerYear;
       
-      let yearlyData: Array<{
+      const yearlyData: Array<{
         year: number;
         principal: number;
         contributions: number;
@@ -221,7 +201,7 @@ export default function EnhancedCompoundInterestCalculator() {
       
       // Calculate year by year
       for (let year = 1; year <= years; year++) {
-        let yearStartAmount = currentPrincipal;
+        const yearStartAmount = currentPrincipal;
         let yearContributions = 0;
         let yearInterest = 0;
         
@@ -282,7 +262,7 @@ export default function EnhancedCompoundInterestCalculator() {
       console.error('Compound interest calculation error:', error);
       return null;
     }
-  }, [inputs]);
+  }, [inputs, validateInputs]);
 
   // Chart data for investment growth visualization
   const chartData = useMemo(() => {
@@ -647,7 +627,7 @@ export default function EnhancedCompoundInterestCalculator() {
         <CalculatorDisclaimer type="info" title="Jak funguje složené úročení">
           Složené úročení je jeden z nejmocnějších nástrojů pro budování bohatství. Čím dříve začnete 
           investovat a čím déle necháte peníze růst, tím větší bude výsledný efekt. Einstein údajně 
-          nazval složené úročení "osmým divem světa".
+          nazval složené úročení &quot;osmým divem světa&quot;.
         </CalculatorDisclaimer>
         
         <CalculatorDisclaimer type="warning" title="Důležité upozornění">

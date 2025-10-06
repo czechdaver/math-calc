@@ -14,14 +14,14 @@ export interface CalculatorInput {
   placeholder?: string;
   helpText?: string;
   unit?: string;
-  defaultValue?: any;
+  defaultValue?: string | number | boolean;
 }
 
 export interface CalculatorResult {
-  value: any;
+  value: string | number | null;
   details?: {
     label: string;
-    value: any;
+    value: string | number;
     unit?: string;
     highlight?: boolean;
   }[];
@@ -40,7 +40,7 @@ interface CalculatorBaseProps {
     keywords: string[];
   };
   inputs: CalculatorInput[];
-  calculate: (inputs: Record<string, any>) => CalculatorResult;
+  calculate: (inputs: Record<string, unknown>) => CalculatorResult;
   resultComponent?: React.ComponentType<{ result: CalculatorResult }>;
   className?: string;
 }
@@ -57,10 +57,11 @@ const CalculatorBase: React.FC<CalculatorBaseProps> = ({
   const t = useTranslations();
   
   // Initialize form state with default values
-  const [formValues, setFormValues] = useState<Record<string, any>>(() => {
-    const initialValues: Record<string, any> = {};
+  const [formValues, setFormValues] = useState<Record<string, string>>(() => {
+    const initialValues: Record<string, string> = {};
     inputs.forEach((input) => {
-      initialValues[input.id] = input.defaultValue ?? '';
+      const dv = input.defaultValue;
+      initialValues[input.id] = dv !== undefined ? String(dv) : '';
     });
     return initialValues;
   });
@@ -103,7 +104,7 @@ const CalculatorBase: React.FC<CalculatorBaseProps> = ({
   };
 
   // Handle input changes
-  const handleInputChange = (id: string, value: any) => {
+  const handleInputChange = (id: string, value: string) => {
     setFormValues((prev) => ({
       ...prev,
       [id]: value,
@@ -137,21 +138,11 @@ const CalculatorBase: React.FC<CalculatorBaseProps> = ({
 
   // Render input field based on type
   const renderInput = (input: CalculatorInput) => {
-    const { id, label, type, placeholder, helpText, unit, options = [], ...rest } = input;
+    const { id, label, type, placeholder, helpText, unit, options = [], defaultValue: _defaultValue, required, min, max, step } = input;
     const inputId = `input-${id}`;
     const error = errors[id];
 
-    const inputProps = {
-      id: inputId,
-      name: id,
-      value: formValues[id] ?? '',
-      onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
-        handleInputChange(id, e.target.value),
-      className: `mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${
-        error ? 'border-red-500' : ''
-      }`,
-      ...rest,
-    };
+    const commonClassName = `mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${error ? 'border-red-500' : ''}`;
 
     return (
       <div key={id} className="mb-4">
@@ -160,7 +151,14 @@ const CalculatorBase: React.FC<CalculatorBaseProps> = ({
         </label>
         <div className="mt-1 relative rounded-md shadow-sm">
           {type === 'select' ? (
-            <select {...inputProps}>
+            <select
+              id={inputId}
+              name={id}
+              value={formValues[id] ?? ''}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange(id, e.target.value)}
+              className={commonClassName}
+              required={required}
+            >
               {options.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
@@ -171,8 +169,16 @@ const CalculatorBase: React.FC<CalculatorBaseProps> = ({
             <>
               <input
                 type={type}
-                {...inputProps}
-                className={`${inputProps.className} pr-10`}
+                id={inputId}
+                name={id}
+                value={formValues[id] ?? ''}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange(id, e.target.value)}
+                className={`${commonClassName} pr-10`}
+                required={required}
+                min={min}
+                max={max}
+                step={step}
+                placeholder={placeholder}
               />
               {unit && (
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -210,7 +216,11 @@ const CalculatorBase: React.FC<CalculatorBaseProps> = ({
           {/* Default result display */}
           {!ResultComponent && (
             <div>
-              <p className="text-2xl font-bold">{result.value}</p>
+              {result.value === null ? (
+                <p className="text-sm text-gray-600">{t('validation.calculation_error')}</p>
+              ) : (
+                <p className="text-2xl font-bold">{result.value}</p>
+              )}
               
               {result.details && result.details.length > 0 && (
                 <div className="mt-4 space-y-2">

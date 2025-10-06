@@ -5,8 +5,8 @@
 
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
-    dataLayer: Record<string, any>[];
+    gtag: (...args: unknown[]) => void;
+    dataLayer: unknown[];
   }
 }
 
@@ -27,7 +27,7 @@ type EventProps = {
   category: string;
   label: string;
   value?: number;
-  [key: string]: any;
+  [key: string]: unknown;
 };
 
 /**
@@ -36,7 +36,7 @@ type EventProps = {
  * @param {string} category - The category of the event (e.g., 'User', 'Form')
  * @param {string} label - A label for the event
  * @param {number} [value] - An optional numeric value associated with the event
- * @param {Record<string, any>} [additionalParams] - Additional parameters to include with the event
+ * @param {Record<string, unknown>} [additionalParams] - Additional parameters to include with the event
  */
 export const event = ({
   action,
@@ -73,12 +73,12 @@ export const exception = (description: string, fatal = false) => {
  * Track a page view with additional parameters
  * @param {string} url - The URL of the page
  * @param {string} [title] - The title of the page
- * @param {Record<string, any>} [additionalParams] - Additional parameters to include with the pageview
+ * @param {Record<string, unknown>} [additionalParams] - Additional parameters to include with the pageview
  */
 export const trackPageView = (
   url: string,
   title?: string,
-  additionalParams: Record<string, any> = {}
+  additionalParams: Record<string, unknown> = {}
 ) => {
   if (!GA_MEASUREMENT_ID) return;
   
@@ -93,9 +93,9 @@ export const trackPageView = (
 /**
  * Track a custom event with a custom name and parameters
  * @param {string} name - The name of the custom event
- * @param {Record<string, any>} params - Parameters to include with the event
+ * @param {Record<string, unknown>} params - Parameters to include with the event
  */
-export const customEvent = (name: string, params: Record<string, any> = {}) => {
+export const customEvent = (name: string, params: Record<string, unknown> = {}) => {
   if (!GA_MEASUREMENT_ID) return;
   
   window.gtag('event', name, params);
@@ -103,9 +103,9 @@ export const customEvent = (name: string, params: Record<string, any> = {}) => {
 
 /**
  * Set user properties in Google Analytics
- * @param {Record<string, any>} properties - User properties to set
+ * @param {Record<string, unknown>} properties - User properties to set
  */
-export const setUserProperties = (properties: Record<string, any>) => {
+export const setUserProperties = (properties: Record<string, unknown>) => {
   if (!GA_MEASUREMENT_ID) return;
   
   window.gtag('set', 'user_properties', properties);
@@ -117,10 +117,9 @@ export const setUserProperties = (properties: Record<string, any>) => {
 export const initDataLayer = () => {
   if (typeof window !== 'undefined') {
     window.dataLayer = window.dataLayer || [];
-    window.gtag = window.gtag || function() {
-      // @ts-ignore
-      window.dataLayer.push(arguments);
-    };
+    window.gtag = window.gtag || ((...args: unknown[]) => {
+      window.dataLayer.push(args);
+    });
     
     // Set the current date
     window.gtag('js', new Date());

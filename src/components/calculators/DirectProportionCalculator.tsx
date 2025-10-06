@@ -38,10 +38,10 @@ const PrimaUmeraCalculator: React.FC = () => {
   ];
 
   // Calculate the direct proportion (přímá úměra)
-  const calculate = (values: Record<string, any>): CalculatorResult => {
-    const a = parseFloat(values.a || '1');
-    const b = parseFloat(values.b || '0');
-    const c = parseFloat(values.c || '0');
+  const calculate = (values: Record<string, unknown>): CalculatorResult => {
+    const a = parseFloat(String(values.a ?? '1'));
+    const b = parseFloat(String(values.b ?? '0'));
+    const c = parseFloat(String(values.c ?? '0'));
     
     if (isNaN(a) || isNaN(b) || isNaN(c) || a === 0) {
       return { value: null };

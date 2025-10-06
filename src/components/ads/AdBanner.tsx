@@ -92,7 +92,6 @@ const AdBanner: React.FC<AdBannerProps> = ({
   // Push ad to Google AdSense
   const pushAd = () => {
     try {
-      // @ts-ignore
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (e) {
       console.error('Google Ads error:', e);

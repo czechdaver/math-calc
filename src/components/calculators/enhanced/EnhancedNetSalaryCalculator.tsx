@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { Calculator, Banknote, User, Building, Receipt, TrendingDown } from 'lucide-react';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Banknote, Building, Receipt } from 'lucide-react';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { 
   CalculatorInput,
@@ -13,6 +12,34 @@ import {
   CalculatorChart,
   CalculatorDisclaimer
 } from '@/components/calculators/shared';
+
+// Czech tax rates and constants (2024) - hoisted to module scope to avoid hook dependency churn
+const TAX_CONSTANTS = {
+  // Social insurance rates
+  socialInsuranceEmployee: 0.065, // 6.5%
+  socialInsuranceEmployer: 0.248, // 24.8%
+  
+  // Health insurance rates  
+  healthInsuranceEmployee: 0.045, // 4.5%
+  healthInsuranceEmployer: 0.09,  // 9%
+  
+  // Income tax
+  incomeTaxRate: 0.15, // 15%
+  superGrossSalaryMultiplier: 1.338, // 133.8% for tax calculation
+  
+  // Tax credits (monthly)
+  basicTaxCredit: 2570,
+  childTaxCredit: 1267,
+  studentTaxCredit: 335,
+  disabilityTaxCredit: 210,
+  
+  // Minimums
+  minimumWage: 18900,
+  
+  // Agreement work limits
+  agreementSocialLimit: 10000,
+  agreementHealthLimit: 10000
+};
 
 /**
  * Enhanced Net Salary Calculator Prototype
@@ -45,8 +72,6 @@ interface SalaryBreakdown {
 }
 
 export default function EnhancedNetSalaryCalculator() {
-  const t = useTranslations();
-
   // Complex state management for multi-section form
   const [inputs, setInputs] = useState({
     grossSalary: '35000',
@@ -61,18 +86,7 @@ export default function EnhancedNetSalaryCalculator() {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   // Tax residency options
-  const residencyOptions = [
-    { 
-      value: 'resident', 
-      label: 'Daňový rezident ČR', 
-      description: 'Standardní daňové sazby a slevy' 
-    },
-    { 
-      value: 'non-resident', 
-      label: 'Daňový nerezident', 
-      description: 'Vyšší daňové sazby, omezené slevy' 
-    }
-  ];
+  // (unused) const residencyOptions can be added back if needed for a select input
 
   // Employment type options
   const employmentOptions = [
@@ -107,36 +121,8 @@ export default function EnhancedNetSalaryCalculator() {
     }
   ];
 
-  // Czech tax rates and constants (2024)
-  const TAX_CONSTANTS = {
-    // Social insurance rates
-    socialInsuranceEmployee: 0.065, // 6.5%
-    socialInsuranceEmployer: 0.248, // 24.8%
-    
-    // Health insurance rates  
-    healthInsuranceEmployee: 0.045, // 4.5%
-    healthInsuranceEmployer: 0.09,  // 9%
-    
-    // Income tax
-    incomeTaxRate: 0.15, // 15%
-    superGrossSalaryMultiplier: 1.338, // 133.8% for tax calculation
-    
-    // Tax credits (monthly)
-    basicTaxCredit: 2570,
-    childTaxCredit: 1267,
-    studentTaxCredit: 335,
-    disabilityTaxCredit: 210,
-    
-    // Minimums
-    minimumWage: 18900,
-    
-    // Agreement work limits
-    agreementSocialLimit: 10000,
-    agreementHealthLimit: 10000
-  };
-
   // Enhanced validation with complex business rules
-  const validateInputs = () => {
+  const validateInputs = useCallback(() => {
     const newErrors: Record<string, string> = {};
     
     const grossSalary = parseFloat(inputs.grossSalary.replace(/\s/g, '').replace(',', '.'));
@@ -177,10 +163,10 @@ export default function EnhancedNetSalaryCalculator() {
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+  }, [inputs]);
 
   // Complex salary calculation with all deductions and tax rules
-  const calculation = useMemo(() => {
+  const calculation = useMemo<SalaryBreakdown | null>(() => {
     if (!validateInputs()) return null;
     
     try {
@@ -221,7 +207,7 @@ export default function EnhancedNetSalaryCalculator() {
       const taxBase = superGrossSalary - pensionContribution - lifeInsurance;
       
       // Income tax before credits
-      let incomeTaxBeforeCredits = taxBase * TAX_CONSTANTS.incomeTaxRate;
+      const incomeTaxBeforeCredits = taxBase * TAX_CONSTANTS.incomeTaxRate;
       
       // Tax credits calculation
       let taxCredits = 0;
@@ -276,7 +262,7 @@ export default function EnhancedNetSalaryCalculator() {
       console.error('Net salary calculation error:', error);
       return null;
     }
-  }, [inputs]);
+  }, [inputs, validateInputs]);
 
   // Chart data for visualizing deductions
   const chartData = useMemo(() => {

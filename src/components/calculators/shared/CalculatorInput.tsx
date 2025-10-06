@@ -127,7 +127,7 @@ const CalculatorInput: React.FC<CalculatorInputProps> = ({
     const current = parseFloat(value);
     if (isNaN(current)) {
       // Initialize to min (if defined) or 0, then apply the step delta
-      let base = !isNaN(minNum as number) ? (minNum as number) : 0;
+      const base = !isNaN(minNum as number) ? (minNum as number) : 0;
       const delta = e.key === 'ArrowUp' ? stepNum : -stepNum;
       let next = base + delta;
       if (!isNaN(minNum as number)) next = Math.max(next, minNum as number);

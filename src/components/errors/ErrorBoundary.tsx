@@ -304,8 +304,9 @@ export const useErrorHandler = () => {
     console.error('Manual error report:', error, errorInfo);
     
     // You could also dispatch to a global error handler here
-    if (typeof window !== 'undefined' && (window as any).reportError) {
-      (window as any).reportError(error);
+    if (typeof window !== 'undefined') {
+      const w = window as Window & { reportError?: (err: Error) => void };
+      w.reportError?.(error);
     }
   }, []);
 };

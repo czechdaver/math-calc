@@ -13,6 +13,12 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 
+// Named error fallback component to satisfy react/display-name
+const CalculatorLoadError: React.FC = () => (
+  <div>Error loading calculator. Please try again.</div>
+);
+CalculatorLoadError.displayName = 'CalculatorLoadError';
+
 // Dynamically import components with loading states
 const LatexRenderer = dynamic(() => import('@/components/utils/LatexRenderer'), {
   loading: () => <Skeleton className="h-6 w-full" />,
@@ -30,7 +36,7 @@ const ProcentoZCislaCalculator = dynamic(
       (mod) => mod.default,
       (err) => {
         console.error('Failed to load calculator component:', err);
-        return () => <div>Error loading calculator. Please try again.</div>;
+        return CalculatorLoadError;
       }
     ),
   {

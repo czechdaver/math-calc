@@ -52,7 +52,7 @@ export function truncateString(str: string, length: number): string {
  * @param wait Wait time in milliseconds
  * @returns Debounced function
  */
-export function debounce<T extends (...args: any[]) => any>(
+export function debounce<T extends (...args: unknown[]) => unknown>(
   func: T,
   wait: number
 ): (...args: Parameters<T>) => void {
@@ -135,17 +135,19 @@ export function formatDate(
  * @param fn Function to memoize
  * @returns Memoized function
  */
-export function memoize<T extends (...args: any[]) => any>(fn: T): T {
-  const cache = new Map();
-  return ((...args: Parameters<T>): ReturnType<T> => {
+export function memoize<Args extends unknown[], R>(
+  fn: (...args: Args) => R
+): (...args: Args) => R {
+  const cache = new Map<string, R>();
+  return (...args: Args): R => {
     const key = JSON.stringify(args);
     if (cache.has(key)) {
-      return cache.get(key);
+      return cache.get(key) as R;
     }
     const result = fn(...args);
     cache.set(key, result);
     return result;
-  }) as T;
+  };
 }
 
 /**
@@ -163,7 +165,7 @@ export function deepClone<T>(obj: T): T {
  * @param key Key to group by
  * @returns Object with grouped arrays
  */
-export function groupBy<T extends Record<string, any>, K extends keyof T>(
+export function groupBy<T extends Record<string, unknown>, K extends keyof T>(
   array: T[],
   key: K
 ): Record<string, T[]> {

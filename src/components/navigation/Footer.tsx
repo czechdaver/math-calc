@@ -18,17 +18,22 @@ const Footer: React.FC = () => {
   const openCookieSettings = () => {
     if (typeof window === 'undefined') return;
     try {
-      // IAB TCF v2 common API
-      if ((window as any).__tcfapi) {
-        (window as any).__tcfapi('displayConsentUi', 2, () => {});
+      // IAB TCF v2 common API or other CMPs
+      const w = window as Window & {
+        __tcfapi?: (command: string, version: number, callback: (...args: unknown[]) => void, parameter?: unknown) => void;
+        __cmp?: (command: string, ...args: unknown[]) => void;
+      };
+      if (typeof w.__tcfapi === 'function') {
+        w.__tcfapi('displayConsentUi', 2, () => {});
         return;
       }
-      // Some CMPs
-      if ((window as any).__cmp) {
-        (window as any).__cmp('showConsentManager');
+      if (typeof w.__cmp === 'function') {
+        w.__cmp('showConsentManager');
         return;
       }
-    } catch (_) {}
+    } catch {
+      // no-op
+    }
     // Fallback custom event for app to listen to
     window.dispatchEvent(new CustomEvent('open-cookie-settings'));
   };

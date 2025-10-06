@@ -3,11 +3,9 @@
 // Issues: Missing CalculatorBase import, type errors in map function
 
 // src/components/calculators/WhatPercentageIsXOfYCalculator.tsx
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslations } from 'next-intl';
-import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorInput, CalculatorResult } from './shared';
-import CalculatorBase from './CalculatorBase';
+import CalculatorBase, { CalculatorInput, CalculatorResult } from './CalculatorBase';
 
 const KolikProcentJeXZYCalculator: React.FC = () => {
   const t = useTranslations();
@@ -37,9 +35,9 @@ const KolikProcentJeXZYCalculator: React.FC = () => {
   ];
 
   // Calculate the percentage
-  const calculate = (values: Record<string, any>) => {
-    const x = parseFloat(values.x || '0');
-    const y = parseFloat(values.y || '1');
+  const calculate = (values: Record<string, unknown>): CalculatorResult => {
+    const x = parseFloat(String(values.x ?? '0'));
+    const y = parseFloat(String(values.y ?? '1'));
     
     if (isNaN(x) || isNaN(y) || y === 0) {
       return { value: null };
@@ -71,7 +69,7 @@ const KolikProcentJeXZYCalculator: React.FC = () => {
   };
 
   // Custom result component to display the calculation details
-  const ResultComponent = ({ result }: { result: any }) => {
+  const ResultComponent = ({ result }: { result: CalculatorResult }) => {
     if (result.value === null) {
       return (
         <div className="text-center py-4 text-muted-foreground">
@@ -87,13 +85,20 @@ const KolikProcentJeXZYCalculator: React.FC = () => {
             {t('vysledek') || 'Výsledek'}
           </div>
           <div className="text-2xl font-bold">
-            {result.value.toFixed(2)} %
+            {Number(result.value).toFixed(2)} %
           </div>
         </div>
 
-        {result.details && (
-          <div className="text-sm text-gray-600 mt-2">
-            {result.details}
+        {result.details && result.details.length > 0 && (
+          <div className="space-y-2">
+            {result.details.map((detail, index) => (
+              <div key={index} className={`flex justify-between ${detail.highlight ? 'font-medium' : ''}`}>
+                <span className="text-muted-foreground">{detail.label}:</span>
+                <span>
+                  {detail.value} {detail.unit || ''}
+                </span>
+              </div>
+            ))}
           </div>
         )}
 

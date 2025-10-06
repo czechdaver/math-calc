@@ -53,11 +53,10 @@ export const GoogleAdsense: React.FC<GoogleAdsenseProps> = ({
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // @ts-ignore
+    // adsbygoogle is injected by the AdSense script and typed in src/types/global.d.ts
     window.adsbygoogle = window.adsbygoogle || [];
     
     // Push page-level configuration
-    // @ts-ignore
     window.adsbygoogle.push({
       google_ad_client: publisherId,
       enable_page_level_ads: true,
@@ -66,9 +65,7 @@ export const GoogleAdsense: React.FC<GoogleAdsenseProps> = ({
 
     // Log page view for ads
     try {
-      // @ts-ignore
       if (window.adsbygoogle && window.adsbygoogle.push) {
-        // @ts-ignore
         window.adsbygoogle.push({});
       }
     } catch (e) {

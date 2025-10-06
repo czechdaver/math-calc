@@ -290,9 +290,10 @@ const Accordion: React.FC<AccordionProps> & { Item: typeof AccordionItem } = ({
   const items = React.Children.map(children, (child, index) => {
     if (!React.isValidElement(child)) return null;
     if (typeof child.props === 'object' && child.props !== null) {
+      const childProps = child.props as Partial<AccordionItemProps> & { _id?: string };
       return {
-        ...child.props,
-        _id: (child.props as any)._id || `accordion-item-${index}`,
+        ...childProps,
+        _id: childProps._id || `accordion-item-${index}`,
       };
     }
     return {
@@ -328,18 +329,37 @@ const Accordion: React.FC<AccordionProps> & { Item: typeof AccordionItem } = ({
     }
     
     if (onChange) {
-      const result = allowMultiple ? newActiveItems : newActiveItems[0] || '';
-      onChange(result as any);
+      onChange(newActiveItems);
     }
   };
 
-  return (
-    <ShadcnAccordion 
-      type={allowMultiple ? 'multiple' : 'single' as any}
-      value={allowMultiple ? activeItems : activeItems[0] || '' as any}
+  return allowMultiple ? (
+    <ShadcnAccordion
+      type="multiple"
+      value={activeItems}
       className={cn('w-full', className)}
-      onValueChange={handleToggle as any}
-      {...props as any}
+    >
+      {items.map((item) => (
+        <AccordionItem
+          key={item._id}
+          {...item}
+          _id={item._id}
+          _isActive={activeItems.includes(item._id)}
+          _onToggle={handleToggle}
+          _allowMultiple={allowMultiple}
+          _variant={variant}
+          _size={size}
+          showChevron={item.showChevron !== undefined ? item.showChevron : showChevron}
+          iconClosed={item.iconClosed !== undefined ? item.iconClosed : iconClosed}
+          iconOpened={item.iconOpened !== undefined ? item.iconOpened : iconOpened}
+        />
+      ))}
+    </ShadcnAccordion>
+  ) : (
+    <ShadcnAccordion
+      type="single"
+      value={activeItems[0] || ''}
+      className={cn('w-full', className)}
     >
       {items.map((item) => (
         <AccordionItem

@@ -54,12 +54,12 @@ const PanelHeader: React.FC<PanelHeaderProps> = ({
     if (!icon) return null;
     // If a React element was passed (e.g., <Icon />), clone it to apply sizing/color
     if (React.isValidElement(icon)) {
-      const el = icon as React.ReactElement<any>;
+      const el = icon as React.ReactElement<{ className?: string }>;
       return (
         <div className="enhanced-icon-wrapper">
           {React.cloneElement(
             el,
-            { className: cn('w-5 h-5', textColor, el.props?.className || '') } as any
+            { className: cn('w-5 h-5', textColor, el.props.className || '') }
           )}
         </div>
       );

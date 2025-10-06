@@ -36,7 +36,7 @@ export async function buildCalculatorMetadata({
   const ns = `calculators.${slug}.seo` as const;
 
   // Attempt to load localized strings; fall back gracefully if missing
-  let t: ((key: string) => any) | null = null;
+  let t: ((key: string) => unknown) | null = null;
   try {
     const tt = await getTranslations({locale, namespace: ns});
     t = (key: string) => tt(key);

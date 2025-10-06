@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent } from '@/components/ui/Card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Calculator, Info, Columns3 } from 'lucide-react';
 import PanelHeader from '@/components/ui/PanelHeader';
 import BMIFormInputs from './BMIFormInputs';

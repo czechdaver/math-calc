@@ -1084,6 +1084,12 @@
     "all_calculators": "All Calculators"
   },
   "open_menu": "Open menu",
+  "close_menu": "Close menu",
   "language": "Language",
+  "units": "Units",
+  "units_auto": "Auto",
+  "units_metric": "Metric",
+  "units_imperial_uk": "British (UK)",
+  "units_imperial_us": "US (Imperial)",
   "kalkulacka": "Calculator"
 }

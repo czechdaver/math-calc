@@ -76,6 +76,11 @@ const UNIT_CATEGORIES = {
 
 type CategoryKey = keyof typeof UNIT_CATEGORIES;
 type UnitKey<T extends CategoryKey> = keyof typeof UNIT_CATEGORIES[T]['units'];
+type UnitDefinition = {
+  name: string;
+  symbol: string;
+  toBase: number | ((val: number) => number);
+};
 
 interface ConversionResult {
   value: number;
@@ -104,8 +109,9 @@ export default function EnhancedUnitConverterCalculator() {
 
     const value = Number(inputValue);
     const category = UNIT_CATEGORIES[selectedCategory];
-    const fromUnitData = (category.units as any)[fromUnit];
-    const toUnitData = (category.units as any)[toUnit];
+    const unitsMap = category.units as Record<string, UnitDefinition>;
+    const fromUnitData = unitsMap[fromUnit];
+    const toUnitData = unitsMap[toUnit];
 
     if (!fromUnitData || !toUnitData) return null;
 
@@ -155,7 +161,7 @@ export default function EnhancedUnitConverterCalculator() {
       category: currentCategory.name,
       formula
     };
-  }, [inputValue, selectedCategory, fromUnit, toUnit]);
+  }, [inputValue, selectedCategory, fromUnit, toUnit, currentCategory.name]);
 
   const handleCalculate = () => {
     const conversionResult = convertUnits;
@@ -226,8 +232,9 @@ export default function EnhancedUnitConverterCalculator() {
   };
 
   const calculateStandardConversion = (value: number, from: string, to: string): number | null => {
-    const fromUnitData = (currentCategory.units as any)[from];
-    const toUnitData = (currentCategory.units as any)[to];
+    const unitsMap = currentCategory.units as Record<string, UnitDefinition>;
+    const fromUnitData = unitsMap[from];
+    const toUnitData = unitsMap[to];
     
     if (!fromUnitData || !toUnitData) return null;
     

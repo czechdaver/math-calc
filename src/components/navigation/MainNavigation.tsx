@@ -1,10 +1,13 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { Menu, X, Calculator, Home, Globe, ChevronDown, List, Check } from 'lucide-react';
+import { Menu, X, Calculator, Home, ChevronDown, List, Check } from 'lucide-react';
+import UnitsDropdown from '@/components/navigation/UnitsDropdown';
+import { useUnits, UnitSet } from '@/contexts/UnitsContext';
+import { createPortal } from 'react-dom';
 
 const MainNavigation: React.FC = () => {
   const t = useTranslations();
@@ -14,6 +17,9 @@ const MainNavigation: React.FC = () => {
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const locale = pathname.split('/')[1] || 'en';
+  const { preference, setUnitSet, setAutoDetect } = useUnits();
+  const langBtnRef = useRef<HTMLButtonElement>(null);
+  const [langMenuPos, setLangMenuPos] = useState<{ top: number; right: number; width: number }>({ top: 0, right: 0, width: 0 });
 
   // Handle scroll effect for navbar
   useEffect(() => {
@@ -28,6 +34,28 @@ const MainNavigation: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Position the language dropdown like Radix Portal so backdrop blur works over page, not header
+  useEffect(() => {
+    if (!isLanguageOpen) return;
+    const update = () => {
+      const el = langBtnRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      setLangMenuPos({
+        top: rect.bottom + 8,
+        right: window.innerWidth - rect.right,
+        width: rect.width,
+      });
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
+  }, [isLanguageOpen]);
 
   // Close mobile menu and language dropdown when route changes or when clicking outside
   useEffect(() => {
@@ -79,6 +107,23 @@ const MainNavigation: React.FC = () => {
 
   const currentLanguage = languages.find(lang => lang.code === locale) || languages[0];
 
+  const unitLabel = useCallback((set: UnitSet) => {
+    switch (set) {
+      case 'metric':
+        return t('units_metric');
+      case 'imperial_uk':
+        return t('units_imperial_uk');
+      case 'imperial_us':
+        return t('units_imperial_us');
+      default:
+        return t('units_metric');
+    }
+  }, [t]);
+
+  const currentUnitsLabel = useMemo(() => {
+    return preference.manualOverride ? unitLabel(preference.unitSet) : t('units_auto');
+  }, [preference, t, unitLabel]);
+
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-300 ${
@@ -112,7 +157,7 @@ const MainNavigation: React.FC = () => {
                   key={item.name}
                   href={`/${locale}${item.href === '/' ? '' : item.href}`}
                   className={`
-                    relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 
+                    relative h-10 px-4 rounded-lg text-sm font-medium transition-all duration-200 
                     flex items-center gap-2 group
                     ${isActive 
                       ? 'text-blue-600 bg-blue-50 shadow-sm' 
@@ -134,46 +179,60 @@ const MainNavigation: React.FC = () => {
             {/* Enhanced Language Selector */}
             <div className="relative ml-6 language-dropdown">
               <button
+                ref={langBtnRef}
                 onClick={() => setIsLanguageOpen(!isLanguageOpen)}
                 className="
-                  flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 
+                  flex items-center gap-2 h-10 px-4 text-sm font-medium text-gray-700 
                   bg-white border border-gray-200 rounded-lg shadow-sm
                   hover:bg-gray-50 hover:border-gray-300 transition-all duration-200
                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
                 "
               >
-                <span className="text-lg">{currentLanguage.flag}</span>
+                <span className="text-base leading-none">{currentLanguage.flag}</span>
                 <span className="hidden lg:inline">{currentLanguage.name}</span>
                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isLanguageOpen ? 'rotate-180' : ''}`} />
               </button>
-              
-              {isLanguageOpen && (
-                <div className="absolute right-0 mt-2 w-40 max-h-[50vh] glass-dropdown rounded-lg z-50 animate-in slide-in-from-top-2 overflow-y-auto">
-                  <div className="py-1">
-                    {languages.map((lang) => (
-                      <button
-                        key={lang.code}
-                        onClick={() => changeLanguage(lang.code)}
-                        className={`
-                          w-full text-left px-4 py-2 text-sm flex items-center gap-3
-                          transition-all duration-150 hover:bg-blue-50/80
-                          ${lang.code === locale 
-                            ? 'bg-blue-50/90 text-blue-700 shadow-sm' 
-                            : 'text-gray-700 hover:text-blue-600'
-                          }
-                        `}
-                      >
-                        <span className="text-lg">{lang.flag}</span>
-                        {lang.name}
-                        {lang.code === locale && (
-                          <Check className="ml-auto w-4 h-4 text-blue-700" />
-                        )}
-                      </button>
-                    ))}
+
+              {isLanguageOpen && typeof window !== 'undefined' && createPortal(
+                (
+                  <div
+                    className="language-dropdown fixed z-[60]"
+                    style={{ top: langMenuPos.top, right: langMenuPos.right }}
+                  >
+                    <div
+                      className="max-h-[50vh] glass-dropdown rounded-lg animate-in slide-in-from-top-2 origin-top-right overflow-y-auto"
+                      style={{ width: langMenuPos.width }}
+                    >
+                      <div className="py-1">
+                        {languages.map((lang) => (
+                          <button
+                            key={lang.code}
+                            onClick={() => changeLanguage(lang.code)}
+                            className={`
+                              w-full text-left px-4 py-2 text-sm flex items-center gap-3
+                              transition-all duration-150 hover:bg-blue-50/80
+                              ${lang.code === locale 
+                                ? 'bg-blue-50/90 text-blue-700 shadow-sm' 
+                                : 'text-gray-700 hover:text-blue-600'
+                              }
+                            `}
+                          >
+                            <span className="text-lg">{lang.flag}</span>
+                            {lang.name}
+                            {lang.code === locale && (
+                              <Check className="ml-auto w-4 h-4 text-blue-700" />
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ),
+                document.body
               )}
             </div>
+            {/* Units selector (desktop) */}
+            <UnitsDropdown />
           </nav>
 
           {/* Enhanced Mobile menu button */}
@@ -260,6 +319,56 @@ const MainNavigation: React.FC = () => {
                     )}
                   </button>
                 ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Units Selector */}
+          <div className="pt-2 mt-2 border-t border-gray-100">
+            <div className="px-1 mb-3">
+              <div className="flex items-center gap-2 text-sm font-medium text-gray-500 uppercase tracking-wide mb-3">
+                {t('units')} <span className="text-gray-400">·</span> <span className="text-gray-500">{currentUnitsLabel}</span>
+              </div>
+              <div className="space-y-1">
+                <button
+                  onClick={() => setAutoDetect()}
+                  className={`
+                    w-full text-left px-4 py-3 text-base font-medium rounded-lg
+                    flex items-center gap-3 transition-all duration-200
+                    ${!preference.manualOverride 
+                      ? 'bg-blue-50 text-blue-600 shadow-sm'
+                      : 'text-gray-700 hover:bg-blue-50/50 hover:text-blue-600'
+                    }
+                  `}
+                >
+                  {t('units_auto')}
+                  {!preference.manualOverride && (
+                    <Check className="ml-auto w-4 h-4 text-blue-600" />
+                  )}
+                </button>
+
+                {(['metric', 'imperial_uk', 'imperial_us'] as UnitSet[]).map((set) => {
+                  const selected = preference.manualOverride && preference.unitSet === set;
+                  return (
+                    <button
+                      key={set}
+                      onClick={() => setUnitSet(set)}
+                      className={`
+                        w-full text-left px-4 py-3 text-base font-medium rounded-lg
+                        flex items-center gap-3 transition-all duration-200
+                        ${selected 
+                          ? 'bg-blue-50 text-blue-600 shadow-sm'
+                          : 'text-gray-700 hover:bg-blue-50/50 hover:text-blue-600'
+                        }
+                      `}
+                    >
+                      {unitLabel(set)}
+                      {selected && (
+                        <Check className="ml-auto w-4 h-4 text-blue-600" />
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>

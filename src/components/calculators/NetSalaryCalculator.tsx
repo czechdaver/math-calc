@@ -37,9 +37,10 @@ const CistaMzdaCalculator: React.FC = () => {
     }
   ];
 
-  const calculate = (inputs: Record<string, any>): CalculatorResult => {
-    const hrubaMzda = parseFloat(inputs.hrubaMzda) || 0;
-    const zeme = inputs.zeme as Country || 'cr';
+  const calculate = (inputs: Record<string, unknown>): CalculatorResult => {
+    const hrubaMzda = parseFloat(String((inputs as Record<string, unknown>).hrubaMzda ?? '0')) || 0;
+    const zemeRaw = String((inputs as Record<string, unknown>).zeme ?? 'cr');
+    const zeme: Country = zemeRaw === 'sk' ? 'sk' : 'cr';
 
     // Tax and insurance rates based on country
     const rates = {

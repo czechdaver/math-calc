@@ -54,10 +54,10 @@ const AnuitniSplatkaCalculator: React.FC = () => {
   };
 
   // Calculate the monthly payment
-  const calculate = (values: Record<string, any>): CalculatorResult => {
-    const J = parseFloat(values.loanAmount || '0'); // Principal amount
-    const r = parseFloat(values.interestRate || '0') / 100; // Annual interest rate as decimal
-    const loanTerm = parseFloat(values.loanTerm || '0'); // Loan term in years
+  const calculate = (values: Record<string, unknown>): CalculatorResult => {
+    const J = parseFloat(String(values.loanAmount ?? '0')); // Principal amount
+    const r = parseFloat(String(values.interestRate ?? '0')) / 100; // Annual interest rate as decimal
+    const loanTerm = parseFloat(String(values.loanTerm ?? '0')); // Loan term in years
 
     if (isNaN(J) || isNaN(r) || isNaN(loanTerm) || J <= 0 || r < 0 || loanTerm <= 0) {
       return { value: null };

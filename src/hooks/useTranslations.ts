@@ -1,7 +1,7 @@
 // Simple translation stub to replace next-intl temporarily
 export function useTranslations(namespace?: string) {
   // Return a function that just returns the key as fallback
-  return (key: string, params?: any) => {
+  return (key: string, _params?: Record<string, unknown>) => {
     // Simple fallback translations for common keys
     const translations: Record<string, string> = {
       'categories.percentages': 'Procenta',

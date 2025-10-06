@@ -200,7 +200,7 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabItem } = ({
   // Generate IDs for tabs if not provided
   const tabs = React.Children.map(children, (child, index) => {
     if (!React.isValidElement(child)) return null;
-    const childProps = child.props as any;
+    const childProps = child.props as Partial<TabItemProps>;
     return {
       ...childProps,
       _id: childProps._id || `tab-${index}`,

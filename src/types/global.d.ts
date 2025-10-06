@@ -1,4 +1,4 @@
 interface Window {
-  gtag: (...args: any[]) => void;
-  adsbygoogle: any[];
+  gtag: (...args: unknown[]) => void;
+  adsbygoogle: unknown[];
 }

@@ -7,7 +7,7 @@
  * @param value The value to validate
  * @returns boolean indicating if the value is a valid number
  */
-export const isValidNumber = (value: any): boolean => {
+export const isValidNumber = (value: unknown): boolean => {
   // Handle null/undefined
   if (value === null || value === undefined) {
     return false;
@@ -73,7 +73,7 @@ export const formatNumber = (value: number, decimals: number = 2): string => {
  * @param defaultValue Default value if parsing fails (default: 0)
  * @returns Parsed number or defaultValue
  */
-export const parseNumber = (value: any, defaultValue: number = 0): number => {
+export const parseNumber = (value: unknown, defaultValue: number = 0): number => {
   if (value === null || value === undefined || value === '') {
     return defaultValue;
   }
@@ -119,7 +119,7 @@ export const parseNumber = (value: any, defaultValue: number = 0): number => {
  * @param number The number to calculate percentage of
  * @returns The calculated percentage value or NaN for invalid inputs
  */
-export const calculatePercentage = (percentage: any, number: any): number => {
+export const calculatePercentage = (percentage: unknown, number: unknown): number => {
   // If either input is a string, return NaN (test expects strict type checking)
   if (typeof percentage === 'string' || typeof number === 'string') {
     return NaN;
@@ -145,7 +145,7 @@ export const calculatePercentage = (percentage: any, number: any): number => {
  * @param newValue The new value
  * @returns The percentage change or NaN for invalid inputs
  */
-export const calculatePercentageChange = (oldValue: any, newValue: any): number => {
+export const calculatePercentageChange = (oldValue: unknown, newValue: unknown): number => {
   // If either input is a string, return NaN (test expects strict type checking)
   if (typeof oldValue === 'string' || typeof newValue === 'string') {
     return NaN;

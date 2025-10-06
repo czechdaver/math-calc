@@ -38,10 +38,10 @@ const NeprimaUmeraCalculator: React.FC = () => {
   ];
 
   // Calculate the indirect proportion (nepřímá úměra)
-  const calculate = (values: Record<string, any>): CalculatorResult => {
-    const a = parseFloat(values.a || '0');
-    const b = parseFloat(values.b || '0');
-    const c = parseFloat(values.c || '1');
+  const calculate = (values: Record<string, unknown>): CalculatorResult => {
+    const a = parseFloat(String(values.a ?? '0'));
+    const b = parseFloat(String(values.b ?? '0'));
+    const c = parseFloat(String(values.c ?? '1'));
     
     if (isNaN(a) || isNaN(b) || isNaN(c) || c === 0) {
       return { value: null };

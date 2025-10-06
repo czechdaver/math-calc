@@ -173,18 +173,18 @@ export interface CalculatorLayoutProps {
    Calculator State Management
    ============================================ */
 
-export interface CalculatorState<T = any> {
+export interface CalculatorState<T = unknown> {
   inputs: T;
-  result: any;
+  result: unknown;
   errors: Record<string, string>;
   isValid: boolean;
   isCalculating: boolean;
 }
 
-export interface CalculatorActions<T = any> {
-  setInput: (key: keyof T, value: any) => void;
+export interface CalculatorActions<T = unknown> {
+  setInput: (key: keyof T, value: unknown) => void;
   setInputs: (inputs: Partial<T>) => void;
-  setResult: (result: any) => void;
+  setResult: (result: unknown) => void;
   setError: (key: string, error: string) => void;
   clearErrors: () => void;
   calculate: () => void;
@@ -214,7 +214,7 @@ export interface CalculatorConfig {
       min?: number;
       max?: number;
       pattern?: string;
-      custom?: (value: any) => string | null;
+      custom?: (value: unknown) => string | null;
     };
   }>;
   calculations: {
@@ -234,11 +234,11 @@ export interface CalculatorConfig {
    Template System Types
    ============================================ */
 
-export interface CalculatorTemplate {
+export interface CalculatorTemplate<P = unknown> {
   type: 'simple' | 'complex' | 'multi-step' | 'chart' | 'table';
   config: CalculatorConfig;
-  component: React.ComponentType<any>;
-  pageWrapper: React.ComponentType<any>;
+  component: React.ComponentType<P>;
+  pageWrapper: React.ComponentType<P>;
 }
 
 export interface TemplateGeneratorOptions {
@@ -265,9 +265,9 @@ export interface TemplateGeneratorOptions {
 
 export interface ValidationRule {
   type: 'required' | 'min' | 'max' | 'pattern' | 'custom';
-  value?: any;
+  value?: unknown;
   message: string;
-  validator?: (value: any) => boolean;
+  validator?: (value: unknown) => boolean;
 }
 
 export interface FieldValidation {

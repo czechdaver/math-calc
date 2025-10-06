@@ -1084,6 +1084,12 @@
     "all_calculators": "Všechny kalkulátory"
   },
   "open_menu": "Otevřít menu",
+  "close_menu": "Zavřít menu",
   "language": "Jazyk",
+  "units": "Jednotky",
+  "units_auto": "Auto",
+  "units_metric": "Metrické",
+  "units_imperial_uk": "Britské (UK)",
+  "units_imperial_us": "Americké (imperiální)",
   "kalkulacka": "Kalkulačka"
 }

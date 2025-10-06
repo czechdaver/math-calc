@@ -1,9 +1,7 @@
 // src/components/calculators/fractionOperations/FractionSubtraction.tsx
 import React from 'react';
 
-interface FractionSubtractionProps {
-  // Add props as needed
-}
+type FractionSubtractionProps = Record<string, never>;
 
 const FractionSubtraction: React.FC<FractionSubtractionProps> = () => {
   return (

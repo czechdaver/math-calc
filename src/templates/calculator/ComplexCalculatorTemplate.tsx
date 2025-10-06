@@ -99,8 +99,7 @@ export default function ComplexCalculatorTemplate() {
       const frequency = frequencies[inputs.frequency as keyof typeof frequencies];
       
       let finalAmount: number;
-      let totalInterest: number;
-      let yearlyData: { label: string; value: number }[] = [];
+      const yearlyData: { label: string; value: number }[] = [];
       
       if (inputs.investmentType === "compound") {
         // Compound interest calculation
@@ -130,7 +129,7 @@ export default function ComplexCalculatorTemplate() {
         }
       }
       
-      totalInterest = finalAmount - principal;
+      const totalInterest = finalAmount - principal;
       
       // Risk adjustment based on risk level
       const riskMultipliers = [0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3];

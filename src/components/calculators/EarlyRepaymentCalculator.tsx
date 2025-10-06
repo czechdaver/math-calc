@@ -143,8 +143,6 @@ const EarlyRepaymentCalculator: React.FC = () => {
     let newMonthlyPayment: number;
     let newLoanTerm: number;
     let newTotalInterest: number;
-    let totalSavings: number;
-    let interestSavings: number;
 
     if (repaymentType === 'reduce_term') {
       // Keep same monthly payment, reduce term
@@ -172,8 +170,8 @@ const EarlyRepaymentCalculator: React.FC = () => {
       newTotalInterest = interestAlreadyPaid + calculateTotalInterest(newBalance, rate, newLoanTerm);
     }
 
-    interestSavings = originalTotalInterest - newTotalInterest;
-    totalSavings = interestSavings;
+    const interestSavings = originalTotalInterest - newTotalInterest;
+    const totalSavings = interestSavings;
 
     return {
       originalMonthlyPayment,

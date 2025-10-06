@@ -62,9 +62,10 @@ const ZlomkyCalculator: React.FC = () => {
   };
 
   // Update operation when form values change
-  const handleFormValuesChange = (values: Record<string, any>) => {
-    if (values.operation && values.operation !== operace) {
-      setOperace(values.operation);
+  const handleFormValuesChange = (values: Record<string, unknown>) => {
+    const op = String(values.operation ?? '');
+    if (op && op !== operace) {
+      setOperace(op);
     }
     // Return empty result to prevent any calculation display
     return { value: null, details: [] };

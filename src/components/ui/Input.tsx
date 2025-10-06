@@ -29,7 +29,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    const id = propId || React.useId()
+    const generatedId = React.useId()
+    const id = propId ?? generatedId
     const hasError = !!error
     const widthClass = fullWidth ? "w-full" : ""
 

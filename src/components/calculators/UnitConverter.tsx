@@ -1,15 +1,11 @@
 // src/components/calculators/UnitConverter.refactored.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
-import CalculatorBase from './CalculatorBase';
-import type { CalculatorInput, CalculatorResult } from './CalculatorBase';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import Tabs from '@/components/ui/Tabs';
-import { cn } from '@/lib/utils';
 import { Info } from 'lucide-react';
 
 type UnitType = 'length' | 'weight' | 'volume' | 'temperature';
@@ -95,7 +91,7 @@ const UnitConverter: React.FC = () => {
   };
 
   // Handle regular unit conversion
-  const convertValue = (value: number, from: string, to: string): number => {
+  const convertValue = useCallback((value: number, from: string, to: string): number => {
     if (unitType === 'temperature') {
       return convertTemperature(value, from, to);
     }
@@ -103,7 +99,7 @@ const UnitConverter: React.FC = () => {
     const factors = unitConversions[unitType].factors as Record<string, number>;
     const valueInBase = value * factors[from];
     return valueInBase / factors[to];
-  };
+  }, [unitType]);
 
   // Update result when inputs change
   useEffect(() => {
@@ -114,7 +110,7 @@ const UnitConverter: React.FC = () => {
     } else {
       setResult(null);
     }
-  }, [inputValue, fromUnit, toUnit, unitType]);
+  }, [inputValue, fromUnit, toUnit, unitType, convertValue]);
 
   // Format the result with appropriate precision
   const formatResult = (value: number | null): string => {

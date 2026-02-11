@@ -77,19 +77,19 @@
 | 29 | Materiály | `/calculator/stavebni/materialy/` | ⬜ NOT_STARTED | 3 | 4 | M | - | - | |
 | 30 | Objem | `/calculator/stavebni/objem/` | ⬜ NOT_STARTED | 3 | 4 | L | - | - | Velký soubor (666 řádků) |
 | 31 | Plocha | `/calculator/stavebni/plocha/` | ⬜ NOT_STARTED | 3 | 4 | M | - | - | |
-| 32 | Area Calculator | N/A | ⬜ NOT_STARTED | 4 | 3 | M | - | - | Komponenta existuje (AreaCalculator.tsx) |
+| 32 | Area Calculator | `/calculator/area/` | ✅ DONE | 4 | 3 | M | 2026-02-11 | 2026-02-11 | Vytvořena route |
 | 33 | Volume Converter | N/A | ⬜ NOT_STARTED | 4 | 3 | M | - | - | Komponenta exists (VolumeConverter.tsx v unitConverters/) |
-| 34 | Age Calculator | N/A | 🔧 NEEDS_ROUTE | 4 | 5 | S | - | - | Komponenta existuje, chybí route |
-| 35 | BMR Calculator | N/A | 🔧 NEEDS_ROUTE | 4 | 5 | S | - | - | Komponenta existuje, chybí route |
-| 36 | Body Fat Calculator | N/A | 🔧 NEEDS_ROUTE | 4 | 5 | M | - | - | Komponenta existuje, chybí route |
-| 37 | Calories Calculator | N/A | 🔧 NEEDS_ROUTE | 4 | 5 | M | - | - | Komponenta existuje, chybí route |
-| 38 | Currency Calculator | N/A | 🔧 NEEDS_ROUTE | 4 | 5 | M | - | - | Komponenta existuje, chybí route |
-| 39 | Discount Calculator | N/A | 🔧 NEEDS_ROUTE | 4 | 5 | S | - | - | Komponenta existuje, chybí route |
-| 40 | Fuel Calculator | N/A | 🔧 NEEDS_ROUTE | 4 | 5 | S | - | - | Komponenta existuje, chybí route |
-| 41 | Ideal Weight Calculator | N/A | 🔧 NEEDS_ROUTE | 4 | 5 | M | - | - | Komponenta existuje, chybí route |
-| 42 | Loan Calculator | N/A | 🔧 NEEDS_ROUTE | 4 | 5 | M | - | - | Komponenta existuje, chybí route |
-| 43 | Time Calculator | N/A | 🔧 NEEDS_ROUTE | 4 | 5 | S | - | - | Komponenta existuje, chybí route |
-| 44 | Tip Calculator | N/A | 🔧 NEEDS_ROUTE | 4 | 5 | S | - | - | Komponenta existuje, chybí route |
+| 34 | Age Calculator | `/calculator/age/` | ✅ DONE | 4 | 5 | S | 2026-02-11 | 2026-02-11 | Vytvořena route |
+| 35 | BMR Calculator | `/calculator/bmr/` | ✅ DONE | 4 | 5 | S | 2026-02-11 | 2026-02-11 | Vytvořena route |
+| 36 | Body Fat Calculator | `/calculator/body-fat/` | ✅ DONE | 4 | 5 | M | 2026-02-11 | 2026-02-11 | Vytvořena route |
+| 37 | Calories Calculator | `/calculator/calories/` | ✅ DONE | 4 | 5 | M | 2026-02-11 | 2026-02-11 | Vytvořena route |
+| 38 | Currency Calculator | `/calculator/currency/` | ✅ DONE | 4 | 5 | M | 2026-02-11 | 2026-02-11 | Vytvořena route |
+| 39 | Discount Calculator | `/calculator/discount/` | ✅ DONE | 4 | 5 | S | 2026-02-11 | 2026-02-11 | Vytvořena route |
+| 40 | Fuel Calculator | `/calculator/fuel/` | ✅ DONE | 4 | 5 | S | 2026-02-11 | 2026-02-11 | Vytvořena route |
+| 41 | Ideal Weight Calculator | `/calculator/ideal-weight/` | ✅ DONE | 4 | 5 | M | 2026-02-11 | 2026-02-11 | Vytvořena route |
+| 42 | Loan Calculator | `/calculator/loan/` | ✅ DONE | 4 | 5 | M | 2026-02-11 | 2026-02-11 | Vytvořena route |
+| 43 | Time Calculator | `/calculator/time/` | ✅ DONE | 4 | 5 | S | 2026-02-11 | 2026-02-11 | Vytvořena route |
+| 44 | Tip Calculator | `/calculator/tip/` | ✅ DONE | 4 | 5 | S | 2026-02-11 | 2026-02-11 | Vytvořena route |
 | 45 | Fraction Addition | N/A | ⬜ NOT_STARTED | 5 | 5 | M | - | - | Placeholder - implementovat |
 | 46 | Fraction Subtraction | N/A | ⬜ NOT_STARTED | 5 | 5 | M | - | - | Placeholder - implementovat |
 | 47 | Fraction Multiplication | N/A | ⬜ NOT_STARTED | 5 | 5 | M | - | - | Placeholder - implementovat |
@@ -225,11 +225,12 @@
 - [ ] Build – prochází bez warningů
 
 ## Aktivní session
-> **Vytváření chybějících rout** - Vytvářím 11-12 chybějících rout pro komponenty bez URL
-> - Age, BMR, BodyFat, Calories, Currency, Discount, Fuel, IdealWeight, Loan, Time, Tip, Area
-> - Stav: 🔄 IN_PROGRESS
+> [Žádná aktivní session]
 
 ## Historie změn
 | Datum | Kalkulačka | Akce | Detail |
 |-------|-----------|------|--------|
 | 2026-02-11 | Vše | Inicializace | Vytvořen refactoring tracker - 62 kalkulaček v 8 batchích |
+| 2026-02-11 | BMI v1 | DONE | Smazán broken route, obnověn z bmi-new |
+| 2026-02-11 | 11 duplicitních route pairs | DONE | Všechny -new placeholdery smazány, původní verze zachovány |
+| 2026-02-11 | 12 chybějících rout | DONE | Vytvořeny page wrappery s CalculatorPageWrapper |

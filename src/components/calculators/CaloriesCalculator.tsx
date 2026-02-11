@@ -3,12 +3,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Activity, User, Zap, Target, TrendingUp } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface CaloriesResult {
   bmr: number;
@@ -25,6 +27,8 @@ interface CaloriesResult {
 
 const CaloriesCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
   const [age, setAge] = useState<string>('30');
   const [weight, setWeight] = useState<string>('70');
   const [height, setHeight] = useState<string>('170');
@@ -495,32 +499,7 @@ const CaloriesCalculator: React.FC = () => {
           answer: t('calculators.calories.faq.q4.answer')
         }
       ]}
-      relatedCalculators={[
-        {
-          title: t('calculators.calories.related.bmi.title'),
-          description: t('calculators.calories.related.bmi.description'),
-          href: "/calculator/bmi",
-          category: t('categories.health')
-        },
-        {
-          title: t('calculators.calories.related.percentage.title'),
-          description: t('calculators.calories.related.percentage.description'),
-          href: "/calculator/procenta/procento-z-cisla",
-          category: t('categories.percentages')
-        },
-        {
-          title: t('calculators.calories.related.unit_converter.title'),
-          description: t('calculators.calories.related.unit_converter.description'),
-          href: "/calculator/prevodnik-jednotek",
-          category: t('categories.practical')
-        },
-        {
-          title: t('calculators.calories.related.net_salary.title'),
-          description: t('calculators.calories.related.net_salary.description'),
-          href: "/calculator/cista-mzda",
-          category: t('categories.financial')
-        }
-      ]}
+      relatedCalculators={getRelatedCalculators('calories', locale, t)}
       schemaData={{
         applicationCategory: "HealthApplication",
         operatingSystem: "Any"

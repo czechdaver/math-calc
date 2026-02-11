@@ -3,12 +3,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Clock, Plus, Minus, Timer } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface TimeResult {
   hours: number;
@@ -23,6 +25,8 @@ interface TimeResult {
 
 const TimeCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
   const [operation, setOperation] = useState<string>('add');
   
   // First time
@@ -576,32 +580,7 @@ const TimeCalculator: React.FC = () => {
           answer: "Sečtěte všechny pracovní úseky nebo odečtěte čas začátku od času konce. Kalkulátor automaticky zpracuje přenosy mezi jednotkami."
         }
       ]}
-      relatedCalculators={[
-        {
-          title: "Kalkulátor věku",
-          description: "Výpočet přesného věku a dní života",
-          href: "/calculator/prakticke-vypocty/kalkulacka-3",
-          category: "Praktické"
-        },
-        {
-          title: "Kalkulátor spropitného",
-          description: "Výpočet spropitného pro restaurace",
-          href: "/calculator/prakticke-vypocty/kalkulacka-1",
-          category: "Praktické"
-        },
-        {
-          title: "Kalkulátor slev",
-          description: "Výpočet slev a úspor",
-          href: "/calculator/prakticke-vypocty/kalkulacka-2",
-          category: "Praktické"
-        },
-        {
-          title: "Převodník jednotek",
-          description: "Převod mezi různými jednotkami",
-          href: "/calculator/prevodnik-jednotek",
-          category: "Praktické"
-        }
-      ]}
+      relatedCalculators={getRelatedCalculators('time', locale, t)}
       schemaData={{
         applicationCategory: "UtilitiesApplication",
         operatingSystem: "Any"

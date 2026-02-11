@@ -3,12 +3,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Package, Truck, Hammer, Palette } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface MaterialResult {
   quantity: number;
@@ -23,6 +25,8 @@ interface MaterialResult {
 
 const MaterialCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
   const [materialType, setMaterialType] = useState<string>('tiles');
   const [area, setArea] = useState<string>('50');
   const [unitPrice, setUnitPrice] = useState<string>('500');
@@ -484,6 +488,8 @@ const MaterialCalculator: React.FC = () => {
     </div>
   );
 
+  const relatedCalculators = getRelatedCalculators('materials', locale, t);
+
   return (
     <SimpleCalculatorLayout
       title={t('calculators.material.title')}
@@ -537,32 +543,7 @@ const MaterialCalculator: React.FC = () => {
           answer: "Vždy kupujte o 5-10% více než vypočteno pro budoucí opravy. U ukončovaných kolekcí kupujte větší rezervu."
         }
       ]}
-      relatedCalculators={[
-        {
-          title: "Kalkulátor plochy",
-          description: "Výpočet plochy různých tvarů",
-          href: "/calculator/stavebni/plocha",
-          category: "Stavební"
-        },
-        {
-          title: "Kalkulátor objemu",
-          description: "Výpočet objemu 3D těles",
-          href: "/calculator/stavebni/objem",
-          category: "Stavební"
-        },
-        {
-          title: "Kalkulátor slev",
-          description: "Výpočet slev a úspor",
-          href: "/calculator/prakticke-vypocty/kalkulacka-2",
-          category: "Praktické"
-        },
-        {
-          title: "Převodník jednotek",
-          description: "Převod mezi různými jednotkami",
-          href: "/calculator/prevodnik-jednotek",
-          category: "Praktické"
-        }
-      ]}
+      relatedCalculators={relatedCalculators}
       schemaData={{
         applicationCategory: "UtilitiesApplication",
         operatingSystem: "Any"

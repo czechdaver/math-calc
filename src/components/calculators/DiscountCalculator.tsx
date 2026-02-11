@@ -3,12 +3,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Tag, Percent, DollarSign, TrendingDown } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface DiscountResult {
   originalPrice: number;
@@ -22,6 +24,8 @@ interface DiscountResult {
 
 const DiscountCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
   const [calculationType, setCalculationType] = useState<string>('percentage');
   const [originalPrice, setOriginalPrice] = useState<string>('1000');
   const [discountPercentage, setDiscountPercentage] = useState<string>('20');
@@ -517,32 +521,7 @@ const DiscountCalculator: React.FC = () => {
           answer: t('calculators.discount.faq.q4.answer')
         }
       ]}
-      relatedCalculators={[
-        {
-          title: t('calculators.discount.related.percentage.title'),
-          description: t('calculators.discount.related.percentage.description'),
-          href: "/calculator/procenta/procento-z-cisla",
-          category: t('categories.percentages')
-        },
-        {
-          title: t('calculators.discount.related.tip.title'),
-          description: t('calculators.discount.related.tip.description'),
-          href: "/calculator/prakticke-vypocty/kalkulacka-1",
-          category: t('categories.practical')
-        },
-        {
-          title: t('calculators.discount.related.vat.title'),
-          description: t('calculators.discount.related.vat.description'),
-          href: "/calculator/dph",
-          category: t('categories.financial')
-        },
-        {
-          title: t('calculators.discount.related.bmi.title'),
-          description: t('calculators.discount.related.bmi.description'),
-          href: "/calculator/bmi",
-          category: t('categories.health')
-        }
-      ]}
+      relatedCalculators={getRelatedCalculators('discount', locale, t)}
       schemaData={{
         applicationCategory: "FinanceApplication",
         operatingSystem: "Any"

@@ -3,12 +3,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Truck, Package, Building } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface ConcreteResult {
   volume: number;
@@ -23,6 +25,8 @@ interface ConcreteResult {
 
 const ConcreteCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
   const [calculationType, setCalculationType] = useState<string>('slab');
   const [concreteGrade, setConcreteGrade] = useState<string>('C20/25');
   
@@ -555,6 +559,8 @@ const ConcreteCalculator: React.FC = () => {
     </div>
   );
 
+  const relatedCalculators = getRelatedCalculators('concrete', locale, t);
+
   return (
     <SimpleCalculatorLayout
       title="Kalkulátor betonu"
@@ -608,32 +614,7 @@ const ConcreteCalculator: React.FC = () => {
           answer: "Počáteční tvrdnutí 24-48 hodin, konečná pevnost za 28 dní. Chraňte před rychlým schnutím a mrazem."
         }
       ]}
-      relatedCalculators={[
-        {
-          title: "Kalkulátor materiálů",
-          description: "Výpočet stavebních materiálů",
-          href: "/calculator/stavebni/materialy",
-          category: "Stavební"
-        },
-        {
-          title: "Kalkulátor objemu",
-          description: "Výpočet objemu 3D těles",
-          href: "/calculator/stavebni/objem",
-          category: "Stavební"
-        },
-        {
-          title: "Kalkulátor plochy",
-          description: "Výpočet plochy různých tvarů",
-          href: "/calculator/stavebni/plocha",
-          category: "Stavební"
-        },
-        {
-          title: "Převodník jednotek",
-          description: "Převod mezi různými jednotkami",
-          href: "/calculator/prevodnik-jednotek",
-          category: "Praktické"
-        }
-      ]}
+      relatedCalculators={relatedCalculators}
       schemaData={{
         applicationCategory: "UtilitiesApplication",
         operatingSystem: "Any"

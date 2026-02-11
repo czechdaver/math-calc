@@ -3,12 +3,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Car, Fuel, MapPin, DollarSign } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface FuelResult {
   fuelConsumption: number;
@@ -22,6 +24,8 @@ interface FuelResult {
 
 const FuelCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
   const [calculationType, setCalculationType] = useState<string>('consumption');
   
   // Common inputs
@@ -628,32 +632,7 @@ const FuelCalculator: React.FC = () => {
           answer: t('calculators.fuel.faq.q4.answer')
         }
       ]}
-      relatedCalculators={[
-        {
-          title: t('calculators.fuel.related.age.title'),
-          description: t('calculators.fuel.related.age.description'),
-          href: "/calculator/prakticke-vypocty/kalkulacka-3",
-          category: t('categories.practical')
-        },
-        {
-          title: t('calculators.fuel.related.time.title'),
-          description: t('calculators.fuel.related.time.description'),
-          href: "/calculator/prakticke-vypocty/kalkulacka-4",
-          category: t('categories.practical')
-        },
-        {
-          title: t('calculators.fuel.related.currency.title'),
-          description: t('calculators.fuel.related.currency.description'),
-          href: "/calculator/prakticke-vypocty/kalkulacka-5",
-          category: t('categories.practical')
-        },
-        {
-          title: t('calculators.fuel.related.unit_converter.title'),
-          description: t('calculators.fuel.related.unit_converter.description'),
-          href: "/calculator/prevodnik-jednotek",
-          category: t('categories.practical')
-        }
-      ]}
+      relatedCalculators={getRelatedCalculators('fuel', locale, t)}
       schemaData={{
         applicationCategory: "UtilitiesApplication",
         operatingSystem: "Any"

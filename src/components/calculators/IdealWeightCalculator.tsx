@@ -3,12 +3,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Scale, User, Target, TrendingUp } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface IdealWeightResult {
   robinson: number;
@@ -25,6 +27,8 @@ interface IdealWeightResult {
 
 const IdealWeightCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
   const [height, setHeight] = useState<string>('170');
   const [gender, setGender] = useState<string>('male');
   const [age, setAge] = useState<string>('30');
@@ -575,32 +579,7 @@ const IdealWeightCalculator: React.FC = () => {
           answer: "Vzorce ideální váhy počítají konkrétní váhu pro vaši výšku. BMI je poměr váhy k výšce na druhou a poskytuje rozpětí zdravých vah."
         }
       ]}
-      relatedCalculators={[
-        {
-          title: "BMI kalkulátor",
-          description: "Výpočet indexu tělesné hmotnosti",
-          href: "/calculator/bmi",
-          category: "Zdraví"
-        },
-        {
-          title: "Kalorie kalkulátor",
-          description: "Denní potřeba kalorií",
-          href: "/calculator/fitness-a-zdravi/kalkulacka-1",
-          category: "Zdraví"
-        },
-        {
-          title: "BMR kalkulátor",
-          description: "Bazální metabolismus",
-          href: "/calculator/fitness-a-zdravi/kalkulacka-2",
-          category: "Zdraví"
-        },
-        {
-          title: "Procento z čísla",
-          description: "Vypočítejte X% z daného čísla",
-          href: "/calculator/procenta/procento-z-cisla",
-          category: "Procenta"
-        }
-      ]}
+      relatedCalculators={getRelatedCalculators('ideal-weight', locale, t)}
       schemaData={{
         applicationCategory: "HealthApplication",
         operatingSystem: "Any"

@@ -3,11 +3,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { AlertCircle, Calculator as CalcIcon, Calendar, Clock, User, Gift } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface AgeResult {
   years: number;
@@ -27,6 +29,8 @@ interface AgeResult {
 
 const AgeCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
   const [birthDate, setBirthDate] = useState<string>('1990-01-01');
   const [targetDate, setTargetDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [result, setResult] = useState<AgeResult | null>(null);
@@ -469,32 +473,7 @@ const AgeCalculator: React.FC = () => {
           answer: "Ano, můžete zadat budoucí datum a zjistit, kolik let budete mít k určitému datu. To je užitečné pro plánování důležitých životních událostí."
         }
       ]}
-      relatedCalculators={[
-        {
-          title: "Kalkulátor spropitného",
-          description: "Výpočet spropitného pro restaurace",
-          href: "/calculator/prakticke-vypocty/kalkulacka-1",
-          category: "Praktické"
-        },
-        {
-          title: "Kalkulátor slev",
-          description: "Výpočet slev a úspor",
-          href: "/calculator/prakticke-vypocty/kalkulacka-2",
-          category: "Praktické"
-        },
-        {
-          title: "Převodník jednotek",
-          description: "Převod mezi různými jednotkami",
-          href: "/calculator/prevodnik-jednotek",
-          category: "Praktické"
-        },
-        {
-          title: "BMI kalkulátor",
-          description: "Výpočet indexu tělesné hmotnosti",
-          href: "/calculator/bmi",
-          category: "Zdraví"
-        }
-      ]}
+      relatedCalculators={getRelatedCalculators('age', locale, t)}
       schemaData={{
         applicationCategory: "UtilitiesApplication",
         operatingSystem: "Any"

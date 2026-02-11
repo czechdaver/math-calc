@@ -3,12 +3,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Activity, User, Target } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface BodyFatResult {
   bodyFatPercentage: number;
@@ -24,6 +26,8 @@ interface BodyFatResult {
 
 const BodyFatCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
   const [weight, setWeight] = useState<string>('70');
   const [height, setHeight] = useState<string>('170');
   const [age, setAge] = useState<string>('30');
@@ -479,32 +483,7 @@ const BodyFatCalculator: React.FC = () => {
           answer: "BMI nerozlišuje mezi svalovou a tukovou hmotou. Sportovci mohou mít vysoké BMI kvůli svalům, ale nízký tělesný tuk. Tělesný tuk je přesnější ukazatel kondice."
         }
       ]}
-      relatedCalculators={[
-        {
-          title: "BMI kalkulátor",
-          description: "Výpočet indexu tělesné hmotnosti",
-          href: "/calculator/bmi",
-          category: "Zdraví"
-        },
-        {
-          title: "Ideální váha kalkulátor",
-          description: "Robinson Miller Devine Hamwi vzorce",
-          href: "/calculator/fitness-a-zdravi/kalkulacka-3",
-          category: "Zdraví"
-        },
-        {
-          title: "BMR kalkulátor",
-          description: "Bazální metabolismus",
-          href: "/calculator/fitness-a-zdravi/kalkulacka-2",
-          category: "Zdraví"
-        },
-        {
-          title: "Kalorie kalkulátor",
-          description: "Denní potřeba kalorií",
-          href: "/calculator/fitness-a-zdravi/kalkulacka-1",
-          category: "Zdraví"
-        }
-      ]}
+      relatedCalculators={getRelatedCalculators('body-fat', locale, t)}
       schemaData={{
         applicationCategory: "HealthApplication",
         operatingSystem: "Any"

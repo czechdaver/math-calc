@@ -3,12 +3,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Square, Triangle, Circle, Hexagon } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface AreaResult {
   area: number;
@@ -20,6 +22,8 @@ interface AreaResult {
 
 const AreaCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
   const [shape, setShape] = useState<string>('rectangle');
   
   // Rectangle/Square dimensions
@@ -665,32 +669,7 @@ const AreaCalculator: React.FC = () => {
           answer: "Závisí na typu materiálu. Například dlažba se počítá +10% na ořez, barva podle pokryvnosti (obvykle 1 litr na 8-12 m²)."
         }
       ]}
-      relatedCalculators={[
-        {
-          title: "Převodník jednotek",
-          description: "Převod mezi různými jednotkami",
-          href: "/calculator/prevodnik-jednotek",
-          category: "Praktické"
-        },
-        {
-          title: "Kalkulátor objemu",
-          description: "Výpočet objemu 3D těles",
-          href: "/calculator/stavebni/objem",
-          category: "Stavební"
-        },
-        {
-          title: "Kalkulátor materiálů",
-          description: "Výpočet potřeby stavebních materiálů",
-          href: "/calculator/stavebni/materialy",
-          category: "Stavební"
-        },
-        {
-          title: "Pythagorova věta",
-          description: "Výpočet stran pravoúhlého trojúhelníku",
-          href: "/calculator/matematicke/pythagoras",
-          category: "Matematické"
-        }
-      ]}
+      relatedCalculators={getRelatedCalculators('area', locale, t)}
       schemaData={{
         applicationCategory: "UtilitiesApplication",
         operatingSystem: "Any"

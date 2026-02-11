@@ -83,10 +83,186 @@
       "category": "utility",
       "popularity": 75,
       "titleKey": "unit_converter_title",
-      "descriptionKey": "unit_converter_description", 
+      "descriptionKey": "unit_converter_description",
       "path": "/calculator/prevodnik-jednotek",
       "tags": ["utility", "conversion", "units"],
       "relatedCategories": ["utility"]
+    },
+    "age": {
+      "id": "age",
+      "slug": "age",
+      "category": "practical",
+      "popularity": 70,
+      "titleKey": "age_calculator_title",
+      "descriptionKey": "age_calculator_description",
+      "path": "/calculator/age",
+      "tags": ["practical", "date", "age"],
+      "relatedCategories": ["practical", "health"]
+    },
+    "area": {
+      "id": "area",
+      "slug": "area",
+      "category": "construction",
+      "popularity": 65,
+      "titleKey": "area_calculator_title",
+      "descriptionKey": "area_calculator_description",
+      "path": "/calculator/area",
+      "tags": ["construction", "geometry", "area"],
+      "relatedCategories": ["construction", "math"]
+    },
+    "calories": {
+      "id": "calories",
+      "slug": "calories",
+      "category": "health",
+      "popularity": 80,
+      "titleKey": "calories_calculator_title",
+      "descriptionKey": "calories_calculator_description",
+      "path": "/calculator/calories",
+      "tags": ["health", "fitness", "calories"],
+      "relatedCategories": ["health", "fitness"]
+    },
+    "currency": {
+      "id": "currency",
+      "slug": "currency",
+      "category": "finance",
+      "popularity": 60,
+      "titleKey": "currency_calculator_title",
+      "descriptionKey": "currency_calculator_description",
+      "path": "/calculator/currency",
+      "tags": ["finance", "currency", "conversion"],
+      "relatedCategories": ["finance"]
+    },
+    "discount": {
+      "id": "discount",
+      "slug": "discount",
+      "category": "practical",
+      "popularity": 70,
+      "titleKey": "discount_calculator_title",
+      "descriptionKey": "discount_calculator_description",
+      "path": "/calculator/discount",
+      "tags": ["practical", "shopping", "discount"],
+      "relatedCategories": ["practical"]
+    },
+    "fuel": {
+      "id": "fuel",
+      "slug": "fuel",
+      "category": "practical",
+      "popularity": 65,
+      "titleKey": "fuel_calculator_title",
+      "descriptionKey": "fuel_calculator_description",
+      "path": "/calculator/fuel",
+      "tags": ["practical", "automotive", "fuel"],
+      "relatedCategories": ["practical"]
+    },
+    "loan": {
+      "id": "loan",
+      "slug": "loan",
+      "category": "finance",
+      "popularity": 75,
+      "titleKey": "loan_calculator_title",
+      "descriptionKey": "loan_calculator_description",
+      "path": "/calculator/loan",
+      "tags": ["finance", "loan", "banking"],
+      "relatedCategories": ["finance"]
+    },
+    "time": {
+      "id": "time",
+      "slug": "time",
+      "category": "practical",
+      "popularity": 65,
+      "titleKey": "time_calculator_title",
+      "descriptionKey": "time_calculator_description",
+      "path": "/calculator/time",
+      "tags": ["practical", "time", "date"],
+      "relatedCategories": ["practical"]
+    },
+    "tip": {
+      "id": "tip",
+      "slug": "tip",
+      "category": "practical",
+      "popularity": 70,
+      "titleKey": "tip_calculator_title",
+      "descriptionKey": "tip_calculator_description",
+      "path": "/calculator/tip",
+      "tags": ["practical", "service", "tip"],
+      "relatedCategories": ["practical"]
+    },
+    "percentage-of-number": {
+      "id": "percentage-of-number",
+      "slug": "procento-z-cisla",
+      "category": "math",
+      "popularity": 85,
+      "titleKey": "percentage_of_number_calculator_title",
+      "descriptionKey": "percentage_of_number_calculator_description",
+      "path": "/calculator/procenta/procento-z-cisla",
+      "tags": ["math", "percentage"],
+      "relatedCategories": ["math"]
+    },
+    "x-is-what-percent-of-y": {
+      "id": "x-is-what-percent-of-y",
+      "slug": "kolik-procent-je-x-z-y",
+      "category": "math",
+      "popularity": 80,
+      "titleKey": "x_is_what_percent_of_y_calculator_title",
+      "descriptionKey": "x_is_what_percent_of_y_calculator_description",
+      "path": "/calculator/procenta/kolik-procent-je-x-z-y",
+      "tags": ["math", "percentage"],
+      "relatedCategories": ["math"]
+    },
+    "y-is-x-what-is-hundred": {
+      "id": "y-is-x-what-is-hundred",
+      "slug": "y-je-x-kolik-je-sto",
+      "category": "math",
+      "popularity": 75,
+      "titleKey": "y_is_x_what_is_hundred_calculator_title",
+      "descriptionKey": "y_is_x_what_is_hundred_calculator_description",
+      "path": "/calculator/procenta/y-je-x-kolik-je-sto",
+      "tags": ["math", "percentage"],
+      "relatedCategories": ["math"]
+    },
+    "concrete": {
+      "id": "concrete",
+      "slug": "beton",
+      "category": "construction",
+      "popularity": 55,
+      "titleKey": "concrete_calculator_title",
+      "descriptionKey": "concrete_calculator_description",
+      "path": "/calculator/stavebni/beton",
+      "tags": ["construction", "concrete", "materials"],
+      "relatedCategories": ["construction"]
+    },
+    "materials": {
+      "id": "materials",
+      "slug": "materialy",
+      "category": "construction",
+      "popularity": 50,
+      "titleKey": "materials_calculator_title",
+      "descriptionKey": "materials_calculator_description",
+      "path": "/calculator/stavebni/materialy",
+      "tags": ["construction", "materials"],
+      "relatedCategories": ["construction"]
+    },
+    "volume": {
+      "id": "volume",
+      "slug": "objem",
+      "category": "construction",
+      "popularity": 60,
+      "titleKey": "volume_calculator_title",
+      "descriptionKey": "volume_calculator_description",
+      "path": "/calculator/stavebni/objem",
+      "tags": ["construction", "geometry", "volume"],
+      "relatedCategories": ["construction", "math"]
+    },
+    "direct-proportion": {
+      "id": "direct-proportion",
+      "slug": "prima-umera",
+      "category": "math",
+      "popularity": 70,
+      "titleKey": "direct_proportion_calculator_title",
+      "descriptionKey": "direct_proportion_calculator_description",
+      "path": "/calculator/trojclenka/prima-umera",
+      "tags": ["math", "proportion"],
+      "relatedCategories": ["math"]
     }
   }
 }

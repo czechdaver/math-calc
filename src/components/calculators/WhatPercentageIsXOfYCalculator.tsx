@@ -5,18 +5,33 @@
 // src/components/calculators/WhatPercentageIsXOfYCalculator.tsx
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorInput, CalculatorResult } from './shared';
+import { useParams } from 'next/navigation';
+import CalculatorBase from '@/components/calculators/CalculatorBase';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
+
+interface CalculationResult {
+  value: number | null;
+  details?: Array<{
+    label: string;
+    value: string;
+    unit?: string;
+    highlight?: boolean;
+  }>;
+  formula?: string;
+  explanation?: string;
+}
 
 const KolikProcentJeXZYCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
 
   // Define calculator inputs
-  const inputs = [
+  const inputs: any[] = [
     {
       id: 'x',
       label: t('hodnota_x_label') || 'Hodnota X',
-      type: 'number',
+      type: 'number' as const,
       required: true,
       placeholder: t('zadejte_hodnotu') || 'Zadejte hodnotu',
       min: 0,
@@ -26,7 +41,7 @@ const KolikProcentJeXZYCalculator: React.FC = () => {
     {
       id: 'y',
       label: t('hodnota_y_label') || 'Hodnota Y',
-      type: 'number',
+      type: 'number' as const,
       required: true,
       placeholder: t('zadejte_hodnotu') || 'Zadejte hodnotu',
       min: 0.0001, // Prevent division by zero
@@ -70,7 +85,7 @@ const KolikProcentJeXZYCalculator: React.FC = () => {
   };
 
   // Custom result component to display the calculation details
-  const ResultComponent = ({ result }: { result: CalculatorResult }) => {
+  const ResultComponent = ({ result }: { result: CalculationResult }) => {
     if (result.value === null) {
       return (
         <div className="text-center py-4 text-muted-foreground">

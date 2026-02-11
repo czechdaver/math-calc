@@ -1,2 +1,10 @@
 node_modules
+<<<<<<< HEAD
+=======
+
+# Next.js build output
+.next/
+*
+# Next.js build output
+>>>>>>> b6fc5ff (chore: add .next/ to gitignore)
 .next/

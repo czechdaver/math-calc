@@ -265,6 +265,90 @@ export default function MyCalculatorPage() {
 19. **Zduplikované utility soubory** - `calculatorUtils.clean.ts`, `calculatorUtils.new.ts`, `calculatorUtils.updated.ts` místo jednéné verze
 20. **`next: "latest"` v package.json** - není připnutý na konkrétní verzi, může způsobit neočekávané breaking changes
 
+---
+
+## Stav sdílené infrastruktury (Shared Infrastructure Status)
+
+**Aktualizováno:** 11. 2. 2026
+**Větev:** `czechdaver/shared-infrastructure-setup`
+
+Před zahájením refaktoringu jednotlivých kalkulaček byla vytvořena robustní sdílená infrastruktura.
+
+### Dokončené úlohy (Phase 1-4)
+
+#### ✅ Vytvořeny sdílené komponenty (10 komponent)
+| Komponenta | Cesta | Řádků | Účel |
+|-----------|-------|-------|------|
+| ErrorBoundary | `src/components/shared/ErrorBoundary.tsx` | 152 | Centralizované ošetření chyb, lokální zprávy |
+| CalculatorPageWrapper | `src/components/shared/CalculatorPageWrapper.tsx` | 77 | Standardizovaný page wrapper (ErrorBoundary + Suspense) |
+| CalculatorSkeleton | `src/components/shared/CalculatorSkeleton.tsx` | 79 | Konzistentní loading stavy |
+| AdPlaceholder | `src/components/shared/AdPlaceholder.tsx` | 28 | Pozice pro reklamy |
+| SimpleBadge | `src/components/shared/SimpleBadge.tsx` | 36 | Badge varianty (default, secondary, outline) |
+| SimpleFAQ | `src/components/shared/SimpleFAQ.tsx` | 61 | Accordion FAQ komponenta |
+
+**Přínos:** 8 duplicitních ErrorBoundary implementací lze odstranit, page wrappery zredukovány z 80+ na ~10 řádků
+
+#### ✅ Modularizovány utility funkce (6 modulů)
+| Modul | Cesta | Řádků | Exporty |
+|-------|-------|-------|---------|
+| calculatorValidation | `src/lib/calculatorValidation.ts` | 174 | `isValidNumber`, `isValidMathExpression` |
+| calculatorFormatting | `src/lib/calculatorFormatting.ts` | 65 | `formatNumber`, `formatNumberWithCommas`, `round` |
+| calculatorMath | `src/lib/calculatorMath.ts` | 158 | `parseNumber`, `convertUnit`, `range` |
+| percentage | `src/utils/math/percentage.ts` | 96 | `calculatePercentage`, `calculatePercentageChange` |
+| expression | `src/utils/math/expression.ts` | 326 | `evaluateMathExpression` |
+| geometry | `src/utils/math/geometry.ts` | 10 | (placeholder) |
+
+**Původní:** calculatorUtils.ts (784 řádků) + 3 duplicitní soubory (1,250 řádků)
+**Nově:** 6 modulů (829 řádků) + re-export vrstva (45 řádků)
+**Redukce:** -1,250 řádků duplicity odstraněno
+
+#### ✅ Vytvořeny custom hooks (7 hooků)
+| Hook | Cesta | Řádků | Účel |
+|------|-------|-------|------|
+| useRatingData | `src/hooks/useRatingData.ts` | 92 | API volání pro hodnocení |
+| useUserRating | `src/hooks/useUserRating.ts` | 50 | LocalStorage pro uživatelské hodnocení |
+| useStarInteraction | `src/hooks/useStarInteraction.ts` | 44 | Hover a tooltip stav |
+| useThankYouMessage | `src/hooks/useThankYouMessage.ts` | 50 | Fade animace pro "děkuji" zprávu |
+| useNumberInput | `src/hooks/useNumberInput.ts` | 130 | Validace číselných inputů |
+| useValidation | `src/hooks/useValidation.ts` | 116 | Obecná form validace |
+| useCalculatorForm | `src/hooks/useCalculatorForm.ts` | 107 | Kompletní form state management |
+
+**Přínos:** Zjednodušený vývoj kalkulaček s předpřipravenou validací
+
+#### ✅ Opraveny kritické problémy
+- **Locale inconsistency:** 5 locales (cs, en, sk, pl, hu) nyní konzistentně v middleware i i18n settings
+- **ThemeProvider:** Integrován do root layout, tmavý režim funkční
+- **Hardcoded barvy:** Nahrazeny sémantickými CSS proměnnými v CalculatorInput a CalculatorResult
+- **Import paths:** Opraveny relativní importy na absolutní s `@/` aliasem
+
+#### ✅ Refaktorovány velké komponenty
+| Komponenta | Před | Po | Zmena |
+|-----------|------|-----|-------|
+| SimpleCalculatorLayout | 516 řádků | 446 řádků | -70 řádků (-14%) |
+| CalculatorRating | 246 řádků | 139 řádků | -107 řádků (-43%) |
+
+### Souhrn metrik
+
+- **Vytvořeno:** 23 nových souborů (10 komponent, 6 utilit, 7 hooků)
+- **Odstraněno:** 3 duplicitní utility soubory (-1,250 řádků)
+- **Upraveno:** 8 souborů (SimpleCalculatorLayout, CalculatorRating, calculatorUtils, i18n settings, layout, CalculatorInput/Result)
+- **Celková redukce kódu:** ~1,400 řádků duplicity odstraněno
+- **Žádné breaking changes:** Všechny existující kalkulačky stále fungují
+
+### Před refaktorováním kalkulaček
+
+Infrastruktura je nyní připravena. Doporučený postup:
+
+1. **Používejte CalculatorPageWrapper** pro nové page wrappery
+2. **Používejte SimpleCalculatorLayout** pro všechny nové kalkulačky
+3. **Používejte CalculatorInput/CalculatorResult** z `shared/`
+4. **Používejte useNumberInput/useCalculatorForm** pro validaci
+5. **Nahraďte hardcoded relatedCalculators** voláním `getRelatedCalculators()`
+
+Viz `docs/target-architecture.md` pro detailní specifikaci cílové architektury.
+
+---
+
 ## Pravidla pro refaktoring
 
 ### Zakladni pravidla

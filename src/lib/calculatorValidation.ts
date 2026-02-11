@@ -1,8 +1,54 @@
 /**
- * Common utility functions for calculator components
+ * Calculator Validation Utilities
+ *
+ * Provides validation functions for calculator inputs and expressions.
  */
 
-// Helper functions for expression validation
+/**
+ * Validates if a value is a valid number
+ * @param value The value to validate
+ * @returns boolean indicating if the value is a valid number
+ */
+export const isValidNumber = (value: any): boolean => {
+  // Handle null/undefined
+  if (value === null || value === undefined) {
+    return false;
+  }
+
+  // Handle empty string/array/object
+  if (value === '' || (Array.isArray(value) && value.length === 0) ||
+      (typeof value === 'object' && Object.keys(value).length === 0)) {
+    return false;
+  }
+
+  // Handle boolean values
+  if (typeof value === 'boolean') {
+    return false;
+  }
+
+  // Convert to number and check
+  const num = Number(value);
+
+  // Check for NaN (which is the only value that's not equal to itself)
+  if (isNaN(num) || num !== num) {
+    return false;
+  }
+
+  // Check for finite numbers
+  return isFinite(num);
+};
+
+/**
+ * Validates if a string is a valid mathematical expression
+ * @param expression The expression to validate
+ * @returns boolean indicating if the expression is valid
+ */
+// Helper function to check if a string is a valid number
+const isValidNumberString = (str: string): boolean => {
+  return /^-?\d+(\.\d+)?([eE][-+]?\d+)?$/.test(str);
+};
+
+// Helper function to check if a character is an operator
 const isMathOperator = (char: string): boolean => ['+', '-', '*', '/', '^'].includes(char);
 const isMathFunction = (str: string): boolean => ['sin', 'cos', 'tan', 'sqrt', 'log', 'pow'].includes(str);
 const isMathConstant = (str: string): boolean => ['PI', 'E'].includes(str);
@@ -16,13 +62,13 @@ export const isValidMathExpression = (expression: string): boolean => {
   if (!expression || typeof expression !== 'string') {
     return false;
   }
-  
+
   // Remove all whitespace for easier processing
   const trimmed = expression.replace(/\s+/g, '');
   if (!trimmed) {
     return false;
   }
-  
+
   // Check for balanced parentheses
   let balance = 0;
   for (const char of trimmed) {
@@ -31,34 +77,34 @@ export const isValidMathExpression = (expression: string): boolean => {
     if (balance < 0) return false; // More closing than opening parentheses
   }
   if (balance !== 0) return false; // Unbalanced parentheses
-  
+
   // Check for valid first and last characters
   const firstChar = trimmed[0];
   const lastChar = trimmed[trimmed.length - 1];
-  
+
   // Expression can't start with */^,)
   if (['*', '/', '^', ')', ','].includes(firstChar)) {
     return false;
   }
-  
+
   // Expression can't end with +-*/^,(
   if (['+', '-', '*', '/', '^', '(', ','].includes(lastChar)) {
     return false;
   }
-  
+
   // Check for valid token sequence
   let i = 0;
   let prevTokenType: string | null = null;
-  
+
   while (i < trimmed.length) {
     const char = trimmed[i];
-    
+
     // Skip whitespace (shouldn't be any at this point, but just in case)
     if (char === ' ') {
       i++;
       continue;
     }
-    
+
     // Check for numbers (including scientific notation)
     const numberMatch = trimmed.slice(i).match(/^-?\d+(\.\d+)?([eE][-+]?\d+)?/);
     if (numberMatch) {
@@ -67,7 +113,7 @@ export const isValidMathExpression = (expression: string): boolean => {
       prevTokenType = 'number';
       continue;
     }
-    
+
     // Check for functions and constants
     let foundFunctionOrConst = false;
     for (const func of ['sin', 'cos', 'tan', 'sqrt', 'log', 'pow', 'PI', 'E']) {
@@ -85,7 +131,7 @@ export const isValidMathExpression = (expression: string): boolean => {
       }
     }
     if (foundFunctionOrConst) continue;
-    
+
     // Check for single-letter variables
     if (/^[a-z]$/i.test(char)) {
       // Variable must be followed by an operator, closing parenthesis, or end of string
@@ -96,7 +142,7 @@ export const isValidMathExpression = (expression: string): boolean => {
       prevTokenType = 'variable';
       continue;
     }
-    
+
     // Check for operators and parentheses
     if (isMathOperator(char) || ['(', ')', ','].includes(char)) {
       // Handle unary minus
@@ -108,20 +154,20 @@ export const isValidMathExpression = (expression: string): boolean => {
           return false;
         }
       }
-      
+
       // Handle function arguments
       if (char === ',' && prevTokenType !== 'number' && prevTokenType !== 'variable' && prevTokenType !== ')') {
         return false; // Comma not between valid expressions
       }
-      
+
       prevTokenType = isMathOperator(char) || char === ',' ? 'operator' : char;
       i++;
       continue;
     }
-    
+
     // If we get here, we encountered an invalid character
     return false;
   }
-  
+
   return true;
 };

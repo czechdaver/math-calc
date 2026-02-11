@@ -33,19 +33,19 @@ const CalculatorResult: React.FC<CalculatorResultProps> = ({
       <CardContent>
         <div className="space-y-4">
           <div className="text-center">
-            <div className="text-3xl font-bold text-blue-600">
-              {typeof value === 'number' ? value.toLocaleString('cs-CZ') : value}
+            <div className="text-3xl font-bold text-primary">
+              {typeof value === 'number' ? value.toLocaleString() : value}
               {unit && <span className="text-lg ml-1">{unit}</span>}
             </div>
             {description && (
-              <div className="text-lg font-semibold text-gray-700 mt-2">
+              <div className="text-lg font-semibold text-foreground mt-2">
                 {description}
               </div>
             )}
           </div>
-          
+
           {formula && (
-            <div className="text-sm text-gray-600 bg-gray-50 p-3 rounded">
+            <div className="text-sm text-muted-foreground bg-muted p-3 rounded">
               <p>{formula}</p>
             </div>
           )}

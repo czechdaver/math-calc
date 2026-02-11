@@ -5,12 +5,15 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { ChevronRight, Home, Calculator, Info, ExternalLink, AlertCircle } from 'lucide-react';
+import { Home, Calculator, Info, ExternalLink, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { getCalculatorCategories, getQuickLinks } from '@/lib/calculatorDataUtils';
 import { CalculatorRating } from '@/components/calculators/shared';
+import AdPlaceholder from '@/components/shared/AdPlaceholder';
+import SimpleBadge from '@/components/shared/SimpleBadge';
+import SimpleFAQ from '@/components/shared/SimpleFAQ';
 
 // Dynamically import KaTeX to avoid SSR issues
 const InlineMath = dynamic(() => import('react-katex').then(mod => mod.InlineMath), { ssr: false }) as any;
@@ -80,78 +83,6 @@ export interface SimpleCalculatorLayoutProps {
     };
   };
 }
-
-// Ad Placeholder Component
-const AdPlaceholder: React.FC<{ 
-  size: string; 
-  position: string; 
-  className?: string;
-}> = ({ size, position, className = '' }) => (
-  <div 
-    className={`bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-500 text-sm ${className}`}
-    style={{ minHeight: size.includes('x') ? size.split('x')[1] + 'px' : '100px' }}
-  >
-    Ad Space ({size}) - {position}
-  </div>
-);
-
-// Simple Badge Component
-const SimpleBadge: React.FC<{ children: ReactNode; variant?: 'default' | 'secondary' | 'outline'; className?: string }> = ({ 
-  children, 
-  variant = 'default', 
-  className = '' 
-}) => {
-  const baseClasses = "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold";
-  const variantClasses = {
-    default: "bg-blue-600 text-white",
-    secondary: "bg-gray-100 text-gray-800",
-    outline: "border border-gray-300 text-gray-700"
-  };
-  
-  return (
-    <span className={`${baseClasses} ${variantClasses[variant]} ${className}`}>
-      {children}
-    </span>
-  );
-};
-
-// Simple FAQ Component
-const SimpleFAQ: React.FC<{ faq: Array<{ question: string; answer: string }> }> = ({ faq }) => {
-  const [openItems, setOpenItems] = useState<number[]>([]);
-
-  const toggleItem = (index: number) => {
-    setOpenItems(prev => 
-      prev.includes(index) 
-        ? prev.filter(i => i !== index)
-        : [...prev, index]
-    );
-  };
-
-  return (
-    <div className="space-y-2">
-      {faq.map((item, index) => (
-        <div key={index} className="border border-gray-200 rounded-lg">
-          <button
-            onClick={() => toggleItem(index)}
-            className="w-full px-4 py-3 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
-          >
-            <span className="font-medium text-gray-900">{item.question}</span>
-            <ChevronRight 
-              className={`w-4 h-4 text-gray-500 transition-transform ${
-                openItems.includes(index) ? 'rotate-90' : ''
-              }`} 
-            />
-          </button>
-          {openItems.includes(index) && (
-            <div className="px-4 pb-3 text-gray-600 text-sm border-t border-gray-100">
-              {item.answer}
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
-  );
-};
 
 // AdBlock Detection Hook
 const useAdBlockDetection = () => {

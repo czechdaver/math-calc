@@ -1,167 +1,70 @@
+// src/components/calculators/shared/CalculatorRating.tsx
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Star } from 'lucide-react';
-// Card removed for cleaner design
 import { Button } from '@/components/ui/Button';
 import { useTranslations } from 'next-intl';
+import { useRatingData } from '@/hooks/useRatingData';
+import { useUserRating } from '@/hooks/useUserRating';
+import { useStarInteraction } from '@/hooks/useStarInteraction';
+import { useThankYouMessage } from '@/hooks/useThankYouMessage';
 
-interface CalculatorRatingProps {
+export interface CalculatorRatingProps {
   calculatorId: string;
   className?: string;
 }
 
-interface RatingData {
-  averageRating: number;
-  reviewCount: number;
-}
-
-interface RatingCounters {
-  "1": number;
-  "2": number;
-  "3": number;
-  "4": number;
-  "5": number;
-}
-
-const CalculatorRating: React.FC<CalculatorRatingProps> = ({ 
-  calculatorId, 
-  className = '' 
+/**
+ * CalculatorRating component - displays interactive star rating for calculators.
+ * Features:
+ * - 5-star interactive rating system
+ * - Average rating display with review count
+ * - Hover effects and tooltips
+ * - LocalStorage-based rate-once enforcement
+ * - "Thank You" message with fade animation
+ * - API integration for rating persistence
+ *
+ * @param calculatorId - Unique identifier for the calculator
+ * @param className - Additional CSS classes
+ */
+const CalculatorRating: React.FC<CalculatorRatingProps> = ({
+  calculatorId,
+  className = ''
 }) => {
   const t = useTranslations();
-  const [rating, setRating] = useState<RatingData>({
-    averageRating: 0,
-    reviewCount: 0
-  });
-  const [userRating, setUserRating] = useState<number>(0);
-  const [hasRated, setHasRated] = useState<boolean>(false);
-  const [hoveredStar, setHoveredStar] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [showThankYou, setShowThankYou] = useState<boolean>(false);
-  const [showTooltip, setShowTooltip] = useState<boolean>(false);
-  const [isThankYouFading, setIsThankYouFading] = useState<boolean>(false);
 
-  // Klíč pro localStorage (jen pro kontrolu, zda už uživatel hodnotil)
-  const userRatingKey = `user_rating_${calculatorId}`;
+  // Custom hooks for separated concerns
+  const { rating, isLoading, loadRatingData, saveRating } = useRatingData();
+  const { hasRated, checkUserRating, saveUserRatingToStorage } = useUserRating();
+  const { hoveredStar, showTooltip, setShowTooltip, handleStarMouseEnter, handleStarMouseLeave } = useStarInteraction();
+  const { showThankYou, isThankYouFading, showThankYouMessage } = useThankYouMessage();
 
-  // Načtení dat při inicializaci
+  // Load data and check user rating on mount
   useEffect(() => {
     loadRatingData();
-    checkUserRating();
+    checkUserRating(calculatorId);
   }, [calculatorId]);
 
-  // Načtení hodnocení ze serveru
-  const loadRatingData = async () => {
-    try {
-      const response = await fetch('/api/ratings');
-      if (response.ok) {
-        const data = await response.json();
-        const calculatorRatings = data.ratings[calculatorId];
-        
-        if (calculatorRatings) {
-          // Výpočet průměru a celkového počtu z counterů
-          const totalCount = Object.values(calculatorRatings as RatingCounters).reduce((sum: number, count: number) => sum + count, 0);
-          const weightedSum = Object.entries(calculatorRatings as RatingCounters).reduce(
-            (sum, [star, count]: [string, number]) => sum + (parseInt(star) * count), 
-            0
-          );
-          const averageRating = totalCount > 0 ? weightedSum / totalCount : 0;
-          
-          setRating({
-            averageRating: Math.round(averageRating * 10) / 10,
-            reviewCount: totalCount
-          });
-        }
-      }
-    } catch (error) {
-      console.error('Error loading rating data:', error);
-    }
+  // Handle star click - save to API and localStorage
+  const handleStarClick = async (starValue: number) => {
+    if (hasRated || isLoading) return;
+
+    await saveRating(calculatorId, starValue);
+    saveUserRatingToStorage(calculatorId, starValue);
+    showThankYouMessage();
   };
 
-  // Kontrola, zda už uživatel hodnotil (localStorage)
-  const checkUserRating = () => {
-    try {
-      const userRated = localStorage.getItem(userRatingKey);
-      if (userRated) {
-        setHasRated(true);
-        setUserRating(parseInt(userRated, 10));
-      }
-    } catch (error) {
-      console.error('Error checking user rating:', error);
-    }
-  };
-
-  // Uložení hodnocení na server
-  const saveRating = async (newUserRating: number) => {
-    if (isLoading || hasRated) return;
-    
-    setIsLoading(true);
-    try {
-      const response = await fetch('/api/ratings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          calculatorId,
-          rating: newUserRating
-        })
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        
-        // Aktualizace lokálního stavu
-        setRating({
-          averageRating: result.averageRating,
-          reviewCount: result.totalCount
-        });
-        
-        // Označení, že uživatel už hodnotil (localStorage)
-        localStorage.setItem(userRatingKey, newUserRating.toString());
-        setUserRating(newUserRating);
-        setHasRated(true);
-        
-        // Zobrazit poděkování na 4 sekundy s fade-out
-        setShowThankYou(true);
-        setIsThankYouFading(false);
-        
-        // Začít fade-out po 3 sekundách
-        setTimeout(() => {
-          setIsThankYouFading(true);
-        }, 3000);
-        
-        // Skrýt komponentu po 4 sekundách
-        setTimeout(() => {
-          setShowThankYou(false);
-          setIsThankYouFading(false);
-        }, 4000);
-      } else {
-        console.error('Failed to save rating');
-      }
-    } catch (error) {
-      console.error('Error saving rating:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // Zpracování kliknutí na hvězdičku
-  const handleStarClick = (starValue: number) => {
-    if (hasRated) return; // Ochrana proti opakovanému hodnocení
-    saveRating(starValue);
-  };
-
-  // Zobrazení hvězdiček
+  // Render interactive stars
   const renderStars = () => {
     const stars = [];
-    // Po hlasování zobrazit průměr, před hlasováním hover nebo průměr
+    // Display average rating after voting, or hover state / average before voting
     const displayRating = hasRated ? rating.averageRating : (hoveredStar || rating.averageRating);
 
     for (let i = 1; i <= 5; i++) {
       const isFilled = i <= displayRating;
       const isHovered = !hasRated && i <= hoveredStar;
-      
+
       stars.push(
         <Button
           key={i}
@@ -169,26 +72,17 @@ const CalculatorRating: React.FC<CalculatorRatingProps> = ({
           size="sm"
           className={`p-1 h-auto ${hasRated ? 'cursor-default' : 'cursor-pointer'} relative`}
           onClick={() => handleStarClick(i)}
-          onMouseEnter={() => {
-            if (!hasRated) {
-              setHoveredStar(i);
-            }
-          }}
-          onMouseLeave={() => {
-            if (!hasRated) {
-              setHoveredStar(0);
-            }
-          }}
+          onMouseEnter={() => handleStarMouseEnter(i, hasRated)}
+          onMouseLeave={() => handleStarMouseLeave(hasRated)}
           disabled={hasRated || isLoading}
         >
           <Star
             className={`w-5 h-5 transition-colors ${
               isFilled || isHovered
                 ? 'fill-yellow-400 text-yellow-400'
-                : 'text-gray-300'
+                : 'text-muted-foreground'
             }`}
           />
-
         </Button>
       );
     }
@@ -197,36 +91,36 @@ const CalculatorRating: React.FC<CalculatorRatingProps> = ({
   };
 
   return (
-    <div className={`${className}`}>
-      {/* Hlavní řádek - hvězdičky + counter vpravo */}
+    <div className={className}>
+      {/* Main row - stars + counter on the right */}
       <div className="flex items-center justify-between relative">
-        <div 
+        <div
           className="flex items-center"
           onMouseEnter={() => hasRated && setShowTooltip(true)}
           onMouseLeave={() => hasRated && setShowTooltip(false)}
         >
           {renderStars()}
         </div>
-        
-        {/* Counter průměru a počtu hlasů vpravo */}
+
+        {/* Average rating and review count */}
         {rating.averageRating > 0 && (
-          <div className="text-sm text-gray-600 ml-3">
+          <div className="text-sm text-muted-foreground ml-3">
             {rating.averageRating.toFixed(1)} ({rating.reviewCount})
           </div>
         )}
-        
-        {/* Tooltip pro již hodnocené - jednodušší pozicování */}
+
+        {/* Tooltip for already rated users */}
         {hasRated && showTooltip && (
-          <div className="absolute top-8 left-0 px-3 py-2 bg-black text-white text-sm rounded-md shadow-xl z-50 whitespace-nowrap">
+          <div className="absolute top-8 left-0 px-3 py-2 bg-foreground text-background text-sm rounded-md shadow-xl z-50 whitespace-nowrap">
             {t('rating.already_rated')}
-            <div className="absolute -top-1 left-4 w-2 h-2 bg-black transform rotate-45"></div>
+            <div className="absolute -top-1 left-4 w-2 h-2 bg-foreground transform rotate-45"></div>
           </div>
         )}
       </div>
-      
-      {/* Call to action texty dole */}
+
+      {/* Thank you message and call-to-action texts */}
       {showThankYou && (
-        <div 
+        <div
           className="mt-1 text-xs text-green-600 transition-opacity duration-1000"
           style={{ opacity: isThankYouFading ? 0 : 1 }}
         >
@@ -234,7 +128,7 @@ const CalculatorRating: React.FC<CalculatorRatingProps> = ({
         </div>
       )}
       {!hasRated && rating.averageRating === 0 && (
-        <div className="mt-1 text-xs text-gray-500">
+        <div className="mt-1 text-xs text-muted-foreground">
           {t('rating.no_reviews')}
         </div>
       )}

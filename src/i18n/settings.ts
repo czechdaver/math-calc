@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-export const locales = ['en', 'cs'] as const;
+export const locales = ['cs', 'en', 'sk', 'pl', 'hu'] as const;
 export type Locale = typeof locales[number];
 
 export function isLocale(value: string): value is Locale {

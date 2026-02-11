@@ -1,4 +1,4 @@
-import { evaluateMathExpression } from '../calculatorUtils.new';
+import { evaluateMathExpression } from '../calculatorUtils';
 
 describe('evaluateMathExpression', () => {
   // Test basic arithmetic

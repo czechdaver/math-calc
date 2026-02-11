@@ -4,7 +4,7 @@
 
 MathCalc Pro je platforma online matematickych a praktickych kalkulacek postavena na Next.js. Cilova skupina jsou studenti, uctari a bezni uzivatele v CR, SR a dalsich stredoevropskych zemich. Projekt vznikl jako prvni pokus s AI asistovanym vyvojem, proto je kvalita kodu nekonzistentni a vyzaduje systematicky refaktoring.
 
-- **Aktualni stav:** ~25 implementovanych kalkulacek z 141+ planovanych
+- **Aktualni stav:** 43 implementovanych kalkulacek (33 hlavni + 6 frakcni operaci + 4 unit konvertory)
 - **MVP kalkulacky (6/6):** BMI, procenta (3 podtypy), DPH, cista mzda, prevodnik jednotek, trojclenka
 - **Jazyky:** cs (vychozi), en, sk, pl, hu
 
@@ -54,7 +54,7 @@ src/
 │   │   └── page.tsx           # Homepage
 │   └── api/ratings/           # API endpoint
 ├── components/
-│   ├── calculators/           # 38 komponent kalkulacek
+│   ├── calculators/           # 43 komponent kalkulacek (33 hlavni + 6 operaci se zlomky + 4 unit konvertory)
 │   │   ├── shared/            # CalculatorInput, CalculatorResult, CalculatorRating
 │   │   ├── fractionOperations/
 │   │   ├── unitConverters/

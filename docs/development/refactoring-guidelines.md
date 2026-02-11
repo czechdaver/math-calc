@@ -5,6 +5,7 @@
 ### ❌ NIKDY NEVYTVÁŘEJTE DUPLIKÁTY
 - **Nikdy nevytvářejte soubory s příponami jako "Refactored", "New", "Updated", apod.**
 - **Nikdy nevytvářejte testovací stránky s příponami "-new", "-test" bez okamžitého odstranění po dokončení**
+- **Verzování se provádí skrz Git větve, ne skrz názvy souborů**
 - **Vždy aktualizujte existující soubory místo vytváření nových verzí**
 
 ### ✅ SPRÁVNÝ POSTUP REFAKTORINGU
@@ -122,3 +123,26 @@ Dodržování těchto pravidel zajistí:
 - Snadnou orientaci pro nové vývojáře
 
 **Pamatujte: Jednoduchość nad složitostí - jeden kalkulátor = jeden soubor!**
+
+---
+
+## Batch 0: Krizové opravy (2026-02-11)
+
+**Cíl:** Vyřešit akutní problémy v kódové bázi
+
+**Dokončeno:**
+1. ✅ Smazán broken BMI v1 (undefined translation keys)
+2. ✅ Obnověna `/bmi` route z `bmi-new`
+3. ✅ Smazáno 11 duplicitních "-new" placeholderů
+4. ✅ Přidán redirect `/bmi` → `/bmi-new` do middleware.ts
+5. ✅ Vytvořeno 12 chybějících rout pro existující komponenty
+
+**Výsledek:**
+- 0 duplicitních route pairs
+- 12 nových funkčních rout
+- -390 řádků duplicity odstraněno
+
+**Poznámky:**
+- Původní page wrappery (dph, procento-z-cisla) mají bohatší obsah ale duplicitní ErrorBoundary
+- Nové wrappery používají `CalculatorPageWrapper` správně
+- V příští refaktoringu převést původní wrappery na `CalculatorPageWrapper` pattern

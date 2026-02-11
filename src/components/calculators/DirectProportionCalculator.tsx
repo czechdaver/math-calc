@@ -1,149 +1,208 @@
-// src/components/calculators/PrimaUmeraCalculator.refactored.tsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import CalculatorBase, { CalculatorInput, CalculatorResult } from './CalculatorBase';
+import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
+import { CalculatorInput, CalculatorResult } from './shared';
+import { Info } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
-const PrimaUmeraCalculator: React.FC = () => {
+interface DirectProportionResult {
+  value: number;
+  a: number;
+  b: number;
+  c: number;
+  isValid: boolean;
+}
+
+const DirectProportionCalculator: React.FC = () => {
   const t = useTranslations();
+  const [a, setA] = useState<string>('1');
+  const [b, setB] = useState<string>('2');
+  const [c, setC] = useState<string>('10');
+  const [result, setResult] = useState<DirectProportionResult | null>(null);
+  const [errors, setErrors] = useState<{ a?: string; b?: string; c?: string }>({});
 
-  // Define calculator inputs
-  const inputs: CalculatorInput[] = [
-    {
-      id: 'a',
-      label: t('label_a') || 'Hodnota A',
-      type: 'number',
-      required: true,
-      placeholder: t('zadejte_hodnotu') || 'Zadejte hodnotu',
-      step: 'any',
-      helpText: t('zadejte_cislo_vetsi_než_nula') || 'Zadejte číslo větší než nula',
-    },
-    {
-      id: 'b',
-      label: t('label_b') || 'Hodnota B',
-      type: 'number',
-      required: true,
-      placeholder: t('zadejte_hodnotu') || 'Zadejte hodnotu',
-      step: 'any',
-      helpText: t('zadejte_cislo') || 'Zadejte číslo',
-    },
-    {
-      id: 'c',
-      label: t('label_c') || 'Hodnota C',
-      type: 'number',
-      required: true,
-      placeholder: t('zadejte_hodnotu') || 'Zadejte hodnotu',
-      step: 'any',
-      helpText: t('zadejte_cislo') || 'Zadejte číslo',
-    },
-  ];
-
-  // Calculate the direct proportion (přímá úměra)
-  const calculate = (values: Record<string, any>): CalculatorResult => {
-    const a = parseFloat(values.a || '1');
-    const b = parseFloat(values.b || '0');
-    const c = parseFloat(values.c || '0');
-    
-    if (isNaN(a) || isNaN(b) || isNaN(c) || a === 0) {
-      return { value: null };
+  // Calculate direct proportion (a : b = c : x)
+  const calculate = (aVal: number, bVal: number, cVal: number): DirectProportionResult => {
+    if (isNaN(aVal) || isNaN(bVal) || isNaN(cVal) || bVal === 0) {
+      return { value: null, a: aVal, b: bVal, c: cVal, isValid: false };
     }
 
-    const result = (c * b) / a;
+    const x = (cVal * bVal) / aVal;
 
     return {
-      value: result,
-      details: [
-        { 
-          label: t('vysledek') || 'Výsledek', 
-          value: result.toFixed(4), 
-          highlight: true 
-        },
-        { 
-          label: t('vypocet') || 'Výpočet', 
-          value: `(${c} × ${b}) / ${a} = ${result.toFixed(4)}` 
-        },
-      ],
-      formula: 'výsledek = (C × B) / A',
-      explanation: t('prima_umera_explanation') || 'Výpočet přímé úměry: (C × B) / A',
+      value: x,
+      a: aVal,
+      b: bVal,
+      c: cVal,
+      isValid: true
     };
   };
 
-  // Custom result component to display the calculation details
-  const ResultComponent = ({ result }: { result: CalculatorResult }) => {
-    if (result.value === null) {
-      return (
-        <div className="text-center py-4 text-muted-foreground">
-          {t('zadejte_platne_hodnoty') || 'Zadejte platné hodnoty pro výpočet'}
-        </div>
-      );
+  // Validation function
+  const validateInputs = () => {
+    const newErrors: { a?: string; b?: string; c?: string } = {};
+
+    const aNum = parseFloat(a);
+    const bNum = parseFloat(b);
+    const cNum = parseFloat(c);
+
+    if (!a || isNaN(aNum) || aNum <= 0) {
+      newErrors.a = 'Zadejte platné kladné číslo větší než 0';
     }
 
-    return (
-      <div className="space-y-4">
-        <div className="bg-primary/10 p-4 rounded-lg border border-primary/20">
-          <div className="text-sm font-medium text-primary/80 mb-1">
-            {t('vysledek') || 'Výsledek'}
-          </div>
-          <div className="text-2xl font-bold">
-            {Number(result.value).toFixed(4)}
-          </div>
-        </div>
+    if (!b || isNaN(bNum) || bNum <= 0) {
+      newErrors.b = 'Zadejte platné kladné číslo větší než 0';
+    }
 
-        {result.details && result.details.length > 0 && (
-          <div className="space-y-2">
-            {result.details.map((detail, index) => (
-              <div key={index} className={`flex justify-between ${detail.highlight ? 'font-medium' : ''}`}>
-                <span className="text-muted-foreground">{detail.label}:</span>
-                <span>
-                  {detail.value} {detail.unit || ''}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
+    if (!c || isNaN(cNum) || cNum <= 0) {
+      newErrors.c = 'Zadejte platné kladné číslo větší než 0';
+    }
 
-        {result.formula && (
-          <div className="mt-4 p-3 bg-muted/50 rounded text-sm font-mono">
-            <div className="font-semibold mb-1">{t('pouzity_vzorec') || 'Použitý vzorec'}:</div>
-            <div>{result.formula}</div>
-          </div>
-        )}
-
-        {result.explanation && (
-          <div className="mt-3 text-sm text-muted-foreground">
-            {result.explanation}
-          </div>
-        )}
-      </div>
-    );
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
+  // Effect for real-time calculation
+  useEffect(() => {
+    if (validateInputs()) {
+      const aNum = parseFloat(a);
+      const bNum = parseFloat(b);
+      const cNum = parseFloat(c);
+      const calculatedResult = calculate(aNum, bNum, cNum);
+      setResult(calculatedResult);
+    } else {
+      setResult(null);
+    }
+  }, [a, b, c]);
+
+  // Related calculators
+  const relatedCalculators = getRelatedCalculators('direct-proportion', 'cs', t);
+
   return (
-    <CalculatorBase
-      id="direct-proportion"
-      title={t('prima_umera_title') || 'Přímá úměra'}
-      description={
-        t('prima_umera_description') || 
-        'Vypočítejte hodnotu přímé úměry podle vzorce: (C × B) / A. Zadejte hodnoty A, B a C pro výpočet.'
-      }
+    <SimpleCalculatorLayout
+      title="Přímá úměra"
+      description="Vypočítejte neznámou hodnotu x v přímé úměře: a : b = c : x"
       category="matematika"
+      calculatorId="direct-proportion"
       seo={{
-        title: t('seo.prima_umera_title') || 'Kalkulačka: Přímá úměra',
-        description: 
-          t('seo.prima_umera_description') || 
-          'Snadno vypočítejte hodnotu přímé úměry podle vzorce (C × B) / A. Ideální pro výpočty s přímými úměrami.',
+        title: 'Kalkulátor: Přímá úměra - Výpočet neznámé x | MathCalc',
+        description: 'Vypočítejte neznámou hodnotu v přímé úměře (a : b = c : x). Ideální pro úměrové výpočty.',
         keywords: [
-          t('seo.klicove_slovo_prima_umera') || 'přímá úměra',
-          t('seo.klicove_slovo_kalkulacka') || 'kalkulačka',
-          t('seo.klicove_slovo_vypocet') || 'výpočet',
-          t('seo.klicove_slovo_matematika') || 'matematika',
-          t('seo.klicove_slovo_vzorec') || 'vzorec',
-        ],
+          'přímá úměra',
+          'kalkulačka',
+          'matematika',
+          'výpočet'
+        ]
       }}
-      inputs={inputs}
-      calculate={calculate}
-      resultComponent={ResultComponent}
-    />
+      formula={{
+        latex: 'x = \\frac{c \\times b}{a}',
+        description: 'V přímé úměře je neznámá x rovna podílu součinu c a b, dělené hodnotou a.'
+      }}
+      examples={{
+        title: 'Příklady přímé úměry',
+        description: 'Praktické příklady výpočtu přímé úměry',
+        scenarios: [
+          {
+            title: 'Výpočet ceny',
+            description: 'Když 5 kg jabek stojí 100 Kč, kolik stojí 10 kg?',
+            example: '10 kg = (10 × 100) / 5 = 200 Kč'
+          },
+          {
+            title: 'Výpočet vzdálenosti',
+            description: 'Auto jede 120 km/h za 3 hodiny. Jakou vzdálenost ujede za 5 hodin?',
+            example: '5 h = (5 × 120) / 3 = 200 km'
+          }
+        ]
+      }}
+      faq={[
+        {
+          question: 'Co je přímá úměra?',
+          answer: 'Přímá úměra je matematický vztah, kde se hodnoty dvou veličin mění úměrně mění ve stejném poměru. Příkladem: když zdvojnásobíte množství suroviny, zdvojnásobíte i nákladů.'
+        },
+        {
+          question: 'Jak se počítá neznámá x?',
+          answer: 'Neznámou x získáte vynásobením hodnoty c a b a vydělením hodnotou a. Vzorec je: x = (c × b) / a'
+        },
+        {
+          question: 'Kdy se používá přímá úměra?',
+          answer: 'Přímá úměry se používají při výpočtu cen, spotřeby materiálů, času, výkonnosti a v mnoha dalších oblastech.'
+        }
+      ]}
+      relatedCalculators={relatedCalculators}
+      resultSection={result && result.isValid && (
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="text-center p-4 bg-blue-50 rounded-lg">
+              <div className="text-sm font-medium text-gray-600">Hodnota A</div>
+              <div className="text-2xl font-bold text-blue-600">{result.a}</div>
+            </div>
+            <div className="text-center p-4 bg-green-50 rounded-lg">
+              <div className="text-sm font-medium text-gray-600">Hodnota B</div>
+              <div className="text-2xl font-bold text-green-600">{result.b}</div>
+            </div>
+            <div className="text-center p-4 bg-purple-50 rounded-lg">
+              <div className="text-sm font-medium text-gray-600">Hodnota C</div>
+              <div className="text-2xl font-bold text-purple-600">{result.c}</div>
+            </div>
+          </div>
+
+          <div className="bg-gray-50 p-4 rounded-lg">
+            <p className="text-sm text-gray-600 mb-2"><strong>Výsledek:</strong></p>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Info className="w-4 h-4 text-blue-600" />
+                <span className="text-xl font-semibold">x = {result.value}</span>
+              </div>
+              <div className="text-xs text-gray-500">
+                {result.b} × {result.a} / {result.a} = <strong>{result.value.toFixed(4)}</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    >
+      <div className="space-y-6">
+        <CalculatorInput
+          id="a"
+          label="Hodnota A"
+          type="number"
+          value={a}
+          onChange={(e) => setA(e.target.value)}
+          placeholder="1"
+          min="0.0001"
+          step="any"
+          helpText="Zadejte hodnotu A (základní hodnota přímé úměry)"
+          error={errors.a}
+        />
+
+        <CalculatorInput
+          id="b"
+          label="Hodnota B"
+          type="number"
+          value={b}
+          onChange={(e) => setB(e.target.value)}
+          placeholder="1"
+          min="0.0001"
+          step="any"
+          helpText="Zadejte hodnotu B (porovnávací hodnota přímé úměry)"
+          error={errors.b}
+        />
+
+        <CalculatorInput
+          id="c"
+          label="Hodnota C"
+          type="number"
+          value={c}
+          onChange={(e) => setC(e.target.value)}
+          placeholder="1"
+          min="0.0001"
+          step="any"
+          helpText="Zadejte výslednou hodnotu přímé úměry"
+          error={errors.c}
+        />
+      </div>
+    </SimpleCalculatorLayout>
   );
 };
 
-export default PrimaUmeraCalculator;
+export default DirectProportionCalculator;

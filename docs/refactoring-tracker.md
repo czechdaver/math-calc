@@ -41,7 +41,13 @@
 | # | Kalkulačka | Route | Stav | Batch | Priorita | Složitost | Zahájeno | Dokončeno | Commit | Poznámky |
 |---|-----------|--------|------|---------|----------|----------|-----------|--------|----------|
 | 1 | BMI v2 | `/calculator/bmi-new/` | 🔗 REFERENCE | - | - | - | - | - | Referenční implementace |
-| 2 | BMI v1 | `/calculator/bmi/` | 🔄 IN_PROGRESS | 0 | 1 | S | 2026-02-11 | - | BROKEN - smazat, redirect na v2 |
+| 2 | BMI v1 | `/calculator/bmi/` | ✅ DONE | 0 | 1 | S | 2026-02-11 | 2026-02-11 | Obnověn z bmi-new |
+| 4 | DPH new | `/calculator/dph-new/` | ✅ DONE | 0 | 1 | M | 2026-02-11 | 2026-02-11 | Smazán, původní je lepší |
+| 6 | Procento z čísla new | `/calculator/procenta/procento-z-cisla-new/` | ✅ DONE | 0 | 1 | S | 2026-02-11 | 2026-02-11 | Smazán, původní je lepší |
+| 12 | Čistá mzda new | `/calculator/cista-mzda-new/` | ✅ DONE | 0 | 1 | M | 2026-02-11 | 2026-02-11 | Smazán placeholder |
+| 14 | Převodník jednotek new | `/calculator/prevodnik-jednotek-new/` | ✅ DONE | 0 | 1 | M | 2026-02-11 | 2026-02-11 | Smazán placeholder |
+| 16 | Zlomky new | `/calculator/zlomky-new/` | ✅ DONE | 0 | 2 | L | 2026-02-11 | 2026-02-11 | Smazán placeholder |
+| 17 | Složené úročení new | `/calculator/slozene-uroceni-new/` | ✅ DONE | 0 | 2 | M | 2026-02-11 | 2026-02-11 | Smazán placeholder |
 | 3 | DPH | `/calculator/dph/` | ⬜ NOT_STARTED | 0 | 1 | M | - | - | Součást duplicitního páru |
 | 4 | DPH new | `/calculator/dph-new/` | ⚠️ DUPLICATE | 0 | 1 | M | - | - | Duplikát - vyřešit v Batch 0 |
 | 5 | Procento z čísla | `/calculator/procenta/procento-z-cisla/` | ⬜ NOT_STARTED | 0 | 1 | S | - | - | Součást duplicitního páru |
@@ -219,10 +225,9 @@
 - [ ] Build – prochází bez warningů
 
 ## Aktivní session
-> **BMI v1** - Smazání broken route a přidání redirectu na `/bmi-new`
-> - Soubor: `src/app/[locale]/calculator/bmi/page.tsx`
+> **Vytváření chybějících rout** - Vytvářím 11-12 chybějících rout pro komponenty bez URL
+> - Age, BMR, BodyFat, Calories, Currency, Discount, Fuel, IdealWeight, Loan, Time, Tip, Area
 > - Stav: 🔄 IN_PROGRESS
-> - Akce: Smazat broken page, přidat redirect do middleware.ts
 
 ## Historie změn
 | Datum | Kalkulačka | Akce | Detail |

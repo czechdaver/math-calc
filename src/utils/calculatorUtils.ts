@@ -2,6 +2,7 @@
  * Common utility functions for calculator components
  */
 
+<<<<<<< HEAD
 /**
  * Validates if a value is a valid number
  * @param value The value to validate
@@ -782,3 +783,35 @@ export const range = (start: number, end: number, step: number = 1): number[] =>
   
   return result;
 };
+=======
+// Re-export validation functions
+export {
+  isValidNumber,
+  isValidMathExpression
+} from '@/lib/calculatorValidation';
+
+// Re-export formatting functions
+export {
+  formatNumber,
+  formatNumberWithCommas,
+  round
+} from '@/lib/calculatorFormatting';
+
+// Re-export math functions
+export {
+  parseNumber,
+  convertUnit,
+  range
+} from '@/lib/calculatorMath';
+
+// Re-export percentage functions
+export {
+  calculatePercentage,
+  calculatePercentageChange
+} from '@/utils/math/percentage';
+
+// Re-export expression evaluation
+export {
+  evaluateMathExpression
+} from '@/utils/math/expression';
+>>>>>>> 7822647 (feat(infra): extract sub-components from SimpleCalculatorLayout)

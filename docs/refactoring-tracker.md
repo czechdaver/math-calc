@@ -41,7 +41,7 @@
 | # | Kalkulačka | Route | Stav | Batch | Priorita | Složitost | Zahájeno | Dokončeno | Commit | Poznámky |
 |---|-----------|--------|------|---------|----------|----------|-----------|--------|----------|
 | 1 | BMI v2 | `/calculator/bmi-new/` | 🔗 REFERENCE | - | - | - | - | - | Referenční implementace |
-| 2 | BMI v1 | `/calculator/bmi/` | ⬜ NOT_STARTED | 0 | 1 | S | - | - | BROKEN - smazat, redirect na v2 |
+| 2 | BMI v1 | `/calculator/bmi/` | 🔄 IN_PROGRESS | 0 | 1 | S | 2026-02-11 | - | BROKEN - smazat, redirect na v2 |
 | 3 | DPH | `/calculator/dph/` | ⬜ NOT_STARTED | 0 | 1 | M | - | - | Součást duplicitního páru |
 | 4 | DPH new | `/calculator/dph-new/` | ⚠️ DUPLICATE | 0 | 1 | M | - | - | Duplikát - vyřešit v Batch 0 |
 | 5 | Procento z čísla | `/calculator/procenta/procento-z-cisla/` | ⬜ NOT_STARTED | 0 | 1 | S | - | - | Součást duplicitního páru |
@@ -219,7 +219,10 @@
 - [ ] Build – prochází bez warningů
 
 ## Aktivní session
-> [Žádná aktivní session]
+> **BMI v1** - Smazání broken route a přidání redirectu na `/bmi-new`
+> - Soubor: `src/app/[locale]/calculator/bmi/page.tsx`
+> - Stav: 🔄 IN_PROGRESS
+> - Akce: Smazat broken page, přidat redirect do middleware.ts
 
 ## Historie změn
 | Datum | Kalkulačka | Akce | Detail |

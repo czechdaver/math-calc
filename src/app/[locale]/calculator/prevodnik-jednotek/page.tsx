@@ -11,7 +11,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from '@/components/ui/Tooltip';
 
 // Dynamically import components with loading states
 const CalculatorComponent = dynamic(() => import('@/components/calculators/UnitConverter'), {

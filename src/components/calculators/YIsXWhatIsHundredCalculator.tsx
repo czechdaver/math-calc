@@ -1,11 +1,13 @@
 // src/components/calculators/YIsXWhatIsHundredCalculator.tsx
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Calculator, AlertCircle } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface CalculationResult {
   result: number;
@@ -14,6 +16,8 @@ interface CalculationResult {
 
 const YJeXKolikJeStoCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
   const [y, setY] = useState<string>('25');
   const [x, setX] = useState<string>('15');
   const [result, setResult] = useState<CalculationResult | null>(null);
@@ -153,21 +157,7 @@ const YJeXKolikJeStoCalculator: React.FC = () => {
     }
   ];
 
-  // Related calculators
-  const relatedCalculators = [
-    {
-      title: 'Kalkulačka procent',
-      description: 'Základní výpočty s procenty',
-      href: '/cs/calculator/procenta',
-      category: 'finance'
-    },
-    {
-      title: 'Kolik procent je X z Y',
-      description: 'Výpočet procentuálního podílu',
-      href: '/cs/calculator/kolik-procent-je-x-z-y',
-      category: 'finance'
-    }
-  ];
+  const relatedCalculators = getRelatedCalculators('y-is-x-what-is-hundred', locale, t);
 
   return (
     <SimpleCalculatorLayout

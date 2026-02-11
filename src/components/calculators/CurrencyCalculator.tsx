@@ -3,12 +3,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, DollarSign, ArrowRightLeft, TrendingUp } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface CurrencyRate {
   code: string;
@@ -28,6 +30,8 @@ interface ConversionResult {
 
 const CurrencyCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
   const [amount, setAmount] = useState<string>('100');
   const [fromCurrency, setFromCurrency] = useState<string>('CZK');
   const [toCurrency, setToCurrency] = useState<string>('EUR');
@@ -425,32 +429,7 @@ const CurrencyCalculator: React.FC = () => {
           answer: "Ano, můžete převádět mezi všemi podporovanými měnami v obou směrech pomocí tlačítka pro prohození měn."
         }
       ]}
-      relatedCalculators={[
-        {
-          title: "Kalkulátor slev",
-          description: "Výpočet slev a úspor",
-          href: "/calculator/prakticke-vypocty/kalkulacka-2",
-          category: "Praktické"
-        },
-        {
-          title: "Kalkulátor spropitného",
-          description: "Výpočet spropitného pro restaurace",
-          href: "/calculator/prakticke-vypocty/kalkulacka-1",
-          category: "Praktické"
-        },
-        {
-          title: "Kalkulátor času",
-          description: "Sčítání a odčítání času",
-          href: "/calculator/prakticke-vypocty/kalkulacka-4",
-          category: "Praktické"
-        },
-        {
-          title: "DPH kalkulátor",
-          description: "Výpočet DPH a cen s daní",
-          href: "/calculator/dph",
-          category: "Finanční"
-        }
-      ]}
+      relatedCalculators={getRelatedCalculators('currency', locale, t)}
       schemaData={{
         applicationCategory: "FinanceApplication",
         operatingSystem: "Any"

@@ -1,12 +1,14 @@
 // src/components/calculators/VATCalculator.tsx
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Info, AlertCircle } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 type CountryCode = 'cz' | 'sk';
 type CalculationDirection = 'base-to-total' | 'total-to-base';
@@ -21,6 +23,8 @@ interface VATResult {
 
 const VATCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
   const [country, setCountry] = useState<CountryCode>('cz');
   const [direction, setDirection] = useState<CalculationDirection>('base-to-total');
   const [amount, setAmount] = useState<string>('1000');
@@ -201,21 +205,7 @@ const VATCalculator: React.FC = () => {
     }
   ];
 
-  // Related calculators
-  const relatedCalculators = [
-    {
-      title: 'Kalkulátor čisté mzdy',
-      description: 'Výpočet čisté mzdy po odečtení daní a pojištění',
-      href: '/calculator/cista-mzda',
-      category: 'finance'
-    },
-    {
-      title: 'Kalkulátor procent',
-      description: 'Výpočet procent z čísla a další procentuální výpočty',
-      href: '/calculator/procenta',
-      category: 'math'
-    }
-  ];
+  const relatedCalculators = getRelatedCalculators('vat', locale, t);
 
   return (
     <SimpleCalculatorLayout

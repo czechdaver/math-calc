@@ -167,7 +167,7 @@ const DirectProportionCalculator: React.FC = () => {
           label="Hodnota A"
           type="number"
           value={a}
-          onChange={(e) => setA(e.target.value)}
+          onChange={setA}
           placeholder="1"
           min="0.0001"
           step="any"
@@ -180,7 +180,7 @@ const DirectProportionCalculator: React.FC = () => {
           label="Hodnota B"
           type="number"
           value={b}
-          onChange={(e) => setB(e.target.value)}
+          onChange={setB}
           placeholder="1"
           min="0.0001"
           step="any"
@@ -193,7 +193,7 @@ const DirectProportionCalculator: React.FC = () => {
           label="Hodnota C"
           type="number"
           value={c}
-          onChange={(e) => setC(e.target.value)}
+          onChange={setC}
           placeholder="1"
           min="0.0001"
           step="any"

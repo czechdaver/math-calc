@@ -3,12 +3,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, CreditCard, TrendingUp, PiggyBank, Calendar } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface LoanResult {
   monthlyPayment: number;
@@ -22,6 +24,8 @@ interface LoanResult {
 
 const LoanCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
   const [loanAmount, setLoanAmount] = useState<string>('500000');
   const [interestRate, setInterestRate] = useState<string>('5.5');
   const [loanTerm, setLoanTerm] = useState<string>('20');
@@ -480,32 +484,7 @@ const LoanCalculator: React.FC = () => {
           answer: "Náklady můžete snížit kratší dobou splatnosti, vyšší splátkou, mimořádnými splátkami nebo refinancováním za lepších podmínek."
         }
       ]}
-      relatedCalculators={[
-        {
-          title: "Složené úročení",
-          description: "Výpočet zhodnocení investic",
-          href: "/calculator/slozene-uroceni",
-          category: "Finanční"
-        },
-        {
-          title: "Anuita",
-          description: "Výpočet anuitních splátek",
-          href: "/calculator/anuita",
-          category: "Finanční"
-        },
-        {
-          title: "Kalkulátor slev",
-          description: "Výpočet slev a úspor",
-          href: "/calculator/prakticke-vypocty/kalkulacka-2",
-          category: "Praktické"
-        },
-        {
-          title: "DPH kalkulátor",
-          description: "Výpočet DPH a cen s daní",
-          href: "/calculator/dph",
-          category: "Finanční"
-        }
-      ]}
+      relatedCalculators={getRelatedCalculators('loan', locale, t)}
       schemaData={{
         applicationCategory: "FinanceApplication",
         operatingSystem: "Any"

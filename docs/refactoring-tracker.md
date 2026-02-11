@@ -5,17 +5,30 @@
 
 ## Legenda stavů
 
+> **Detailní definice DONE stavu:** viz [`DEFINITION_OF_DONE.md`](./DEFINITION_OF_DONE.md)
+
 | Stav | Význam |
 |-------|---------|
 | ⬜ NOT_STARTED | Čeká na refaktoring |
 | 🔄 IN_PROGRESS | Rozpracováno (viz poznámky kde se skončilo) |
-| ✅ DONE | Dokončeno a ověřeno |
+| ✅ DONE | Plně hotovo – viz DEFINTION_OF_DONE.md (i18n cs/en vyžadováno, sk/pl/hu volitelné) |
 | ⚠️ BLOCKED | Nelze pokračovat (viz poznámky) |
 | 🔙 REVERTED | Vráceno kvůli problému |
 | 🔗 REFERENCE | Referenční implementace (nerefaktorovat) |
 | 🔧 NEEDS_ROUTE | Komponenta existuje ale chybí route (vytvořit v Batch 0) |
 | ⚠️ DUPLICATE | Duplicitní route (vyřešit v Batch 0) |
 | ⚠️ PARTIAL | Částečně hotovo - duplicity vyřešeny, ale stále používá CalculatorBase |
+| ~~⚠️ PARTIAL_RELATED~~ | **ZRUŠENO** – vše opraveno, viz Batch 0 Hardcoded fix |
+
+### DONE Checklist (shrnutí)
+
+Kalkulačka je DONE když splňuje:
+- [x] **Architektura:** SimpleCalculatorLayout + CalculatorInput/Result + getRelatedCalculators()
+- [x] **Data:** Záznam v calculators.json s platným ID
+- [x] **Obsah:** LaTeX formula + Examples (min. 2) + FAQ (min. 3)
+- [x] **SEO:** title/description/keywords + Schema.org
+- [x] **i18n:** cs.json + en.json překlady
+- [x] **Anti-patterns:** Žádný CalculatorBase, žádné hardcoded relatedCalculators
 
 ## Legenda priorit
 
@@ -45,11 +58,11 @@
 | 2 | BMI v1 | `/calculator/bmi/` | ✅ DONE | 0 | 1 | S | 2026-02-11 | 2026-02-11 | 772281d | Smazán broken route, redirect na v2 |
 | 3 | DPH | `/calculator/dph/` | ✅ DONE | 0 | 1 | M | 2026-02-11 | 2026-02-11 | 772281d | Duplicita `dph-new` odstraněna |
 | 4 | DPH new | `/calculator/dph-new/` | ✅ DONE | 0 | 1 | M | 2026-02-11 | 2026-02-11 | 772281d | Duplikát smazán |
-| 5 | Procento z čísla | `/calculator/procenta/procento-z-cisla/` | ✅ DONE | 0 | 1 | S | 2026-02-11 | 2026-02-11 | 772281d | Duplicita odstraněna |
+| 5 | Procento z čísla | `/calculator/procenta/procento-z-cisla/` | ✅ DONE | 0 | 1 | S | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
 | 6 | Procento z čísla new | `/calculator/procenta/procento-z-cisla-new/` | ✅ DONE | 0 | 1 | S | 2026-02-11 | 2026-02-11 | 772281d | Duplikát smazán |
-| 7 | Kolik % je X z Y | `/calculator/procenta/kolik-procent-je-x-z-y/` | ✅ DONE | 0 | 1 | S | 2026-02-11 | 2026-02-11 | 772281d | Duplicita odstraněna |
+| 7 | Kolik % je X z Y | `/calculator/procenta/kolik-procent-je-x-z-y/` | ⚠️ PARTIAL | 0 | 1 | S | 2026-02-11 | - | 772281d | Stále používá CalculatorBase |
 | 8 | Kolik % je X z Y new | `/calculator/kolik-procent-je-x-z-y-new/` | ✅ DONE | 0 | 1 | S | 2026-02-11 | 2026-02-11 | 772281d | Duplikát smazán |
-| 9 | Y je X% co je 100% | `/calculator/procenta/y-je-x-kolik-je-sto/` | ✅ DONE | 0 | 1 | S | 2026-02-11 | 2026-02-11 | 772281d | Duplicita odstraněna |
+| 9 | Y je X% co je 100% | `/calculator/procenta/y-je-x-kolik-je-sto/` | ✅ DONE | 0 | 1 | S | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
 | 10 | Y je X% co je 100% new | `/calculator/y-je-x-kolik-je-sto-new/` | ✅ DONE | 0 | 1 | S | 2026-02-11 | 2026-02-11 | 772281d | Duplikát smazán |
 | 11 | Čistá mzda | `/calculator/cista-mzda/` | ⚠️ PARTIAL | 0 | 2 | M | 2026-02-11 | - | 772281d | Duplicita odstraněna, ale stále CalculatorBase |
 | 12 | Čistá mzda new | `/calculator/cista-mzda-new/` | ✅ DONE | 0 | 1 | M | 2026-02-11 | 2026-02-11 | 772281d | Duplikát smazán |
@@ -68,23 +81,23 @@
 | 25 | NPV | `/calculator/financie-rozsirene/npv/` | ⬜ NOT_STARTED | 2 | 3 | L | - | - | - | |
 | 26 | ROI | `/calculator/financie-rozsirene/roi/` | ⬜ NOT_STARTED | 2 | 3 | M | - | - | - | |
 | 27 | Předčasné splacení | `/calculator/financie-rozsirene/predcasne-splaceni/` | ⬜ NOT_STARTED | 2 | 3 | M | - | - | - | |
-| 28 | Age Calculator | `/calculator/age/` | ✅ DONE | 0 | 5 | S | 2026-02-11 | 2026-02-11 | acdc75e | Route vytvořena |
-| 29 | Area Calculator | `/calculator/area/` | ✅ DONE | 0 | 3 | M | 2026-02-11 | 2026-02-11 | acdc75e | Route vytvořena |
-| 30 | BMR Calculator | `/calculator/bmr/` | ✅ DONE | 0 | 5 | S | 2026-02-11 | 2026-02-11 | acdc75e | Route vytvořena |
-| 31 | Body Fat Calculator | `/calculator/body-fat/` | ✅ DONE | 0 | 5 | M | 2026-02-11 | 2026-02-11 | acdc75e | Route vytvořena |
-| 32 | Calories Calculator | `/calculator/calories/` | ✅ DONE | 0 | 5 | M | 2026-02-11 | 2026-02-11 | acdc75e | Route vytvořena |
-| 33 | Currency Calculator | `/calculator/currency/` | ✅ DONE | 0 | 5 | M | 2026-02-11 | 2026-02-11 | acdc75e | Route vytvořena |
-| 34 | Discount Calculator | `/calculator/discount/` | ✅ DONE | 0 | 5 | S | 2026-02-11 | 2026-02-11 | acdc75e | Route vytvořena |
-| 35 | Fuel Calculator | `/calculator/fuel/` | ✅ DONE | 0 | 5 | S | 2026-02-11 | 2026-02-11 | acdc75e | Route vytvořena |
-| 36 | Ideal Weight Calculator | `/calculator/ideal-weight/` | ✅ DONE | 0 | 5 | M | 2026-02-11 | 2026-02-11 | acdc75e | Route vytvořena |
-| 37 | Loan Calculator | `/calculator/loan/` | ✅ DONE | 0 | 5 | M | 2026-02-11 | 2026-02-11 | acdc75e | Route vytvořena |
-| 38 | Time Calculator | `/calculator/time/` | ✅ DONE | 0 | 5 | S | 2026-02-11 | 2026-02-11 | acdc75e | Route vytvořena |
-| 39 | Tip Calculator | `/calculator/tip/` | ✅ DONE | 0 | 5 | S | 2026-02-11 | 2026-02-11 | acdc75e | Route vytvořena |
+| 28 | Age Calculator | `/calculator/age/` | ✅ DONE | 0 | 5 | S | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
+| 29 | Area Calculator | `/calculator/area/` | ✅ DONE | 0 | 3 | M | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
+| 30 | BMR Calculator | `/calculator/bmr/` | ✅ DONE | 0 | 5 | S | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
+| 31 | Body Fat Calculator | `/calculator/body-fat/` | ✅ DONE | 0 | 5 | M | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
+| 32 | Calories Calculator | `/calculator/calories/` | ✅ DONE | 0 | 5 | M | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
+| 33 | Currency Calculator | `/calculator/currency/` | ✅ DONE | 0 | 5 | M | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
+| 34 | Discount Calculator | `/calculator/discount/` | ✅ DONE | 0 | 5 | S | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
+| 35 | Fuel Calculator | `/calculator/fuel/` | ✅ DONE | 0 | 5 | S | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
+| 36 | Ideal Weight Calculator | `/calculator/ideal-weight/` | ✅ DONE | 0 | 5 | M | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
+| 37 | Loan Calculator | `/calculator/loan/` | ✅ DONE | 0 | 5 | M | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
+| 38 | Time Calculator | `/calculator/time/` | ✅ DONE | 0 | 5 | S | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
+| 39 | Tip Calculator | `/calculator/tip/` | ✅ DONE | 0 | 5 | S | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
 | 40 | Volume Converter | N/A | ⬜ NOT_STARTED | 4 | 3 | M | - | - | - | Komponenta exists (VolumeConverter.tsx v unitConverters/) |
-| 41 | Beton | `/calculator/stavebni/beton/` | ⬜ NOT_STARTED | 3 | 4 | L | - | - | - | Velký soubor (649 řádků) |
+| 41 | Beton | `/calculator/stavebni/beton/` | ✅ DONE | 3 | 4 | L | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
 | 42 | Izolace | `/calculator/stavebni/izolace/` | ⬜ NOT_STARTED | 3 | 4 | M | - | - | - | |
-| 43 | Materiály | `/calculator/stavebni/materialy/` | ⬜ NOT_STARTED | 3 | 4 | M | - | - | - | |
-| 44 | Objem | `/calculator/stavebni/objem/` | ⬜ NOT_STARTED | 3 | 4 | L | - | - | - | Velký soubor (666 řádků) |
+| 43 | Materiály | `/calculator/stavebni/materialy/` | ✅ DONE | 3 | 4 | M | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
+| 44 | Objem | `/calculator/stavebni/objem/` | ✅ DONE | 3 | 4 | L | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
 | 45 | Plocha | `/calculator/stavebni/plocha/` | ⬜ NOT_STARTED | 3 | 4 | M | - | - | - | |
 | 46 | Fraction Addition | N/A | ⬜ NOT_STARTED | 5 | 5 | M | - | - | - | Placeholder - implementovat |
 | 47 | Fraction Subtraction | N/A | ⬜ NOT_STARTED | 5 | 5 | M | - | - | - | Placeholder - implementovat |
@@ -107,13 +120,42 @@
 
 ---
 
+## Feature Checklist pro DONE kalkulačky
+
+| # | Kalkulačka | getRelated | Schema | Poznámky |
+|---|-------------|-------------|---------|-----------|
+| 1 | BMI v2 | ✅ | ✅ | Referenční implementace |
+| 2 | Trojčlenka přímá úměra | ✅ | ✅ | Migrace kompletní |
+| 3 | Age Calculator | ✅ | ✅ | Opraveno |
+| 4 | Area Calculator | ✅ | ✅ | Opraveno |
+| 5 | BMR Calculator | ✅ | ✅ | Opraveno |
+| 6 | Body Fat Calculator | ✅ | ✅ | Opraveno |
+| 7 | Calories Calculator | ✅ | ✅ | Opraveno |
+| 8 | Currency Calculator | ✅ | ✅ | Opraveno |
+| 9 | Discount Calculator | ✅ | ✅ | Opraveno |
+| 10 | VAT/DPH Calculator | ✅ | ✅ | Opraveno |
+| 11 | Fuel Calculator | ✅ | ✅ | Opraveno |
+| 12 | Ideal Weight Calculator | ✅ | ✅ | Opraveno |
+| 13 | Loan Calculator | ✅ | ✅ | Opraveno |
+| 14 | Time Calculator | ✅ | ✅ | Opraveno |
+| 15 | Tip Calculator | ✅ | ✅ | Opraveno |
+| 16 | Procento z čísla | ✅ | ✅ | Opraveno |
+| 17 | Y je X% co je 100% | ✅ | ✅ | Opraveno |
+| 18 | Beton | ✅ | ✅ | Opraveno |
+| 19 | Materiály | ✅ | ✅ | Opraveno |
+| 20 | Objem | ✅ | ✅ | Opraveno |
+
+**Stav:** 20/20 s getRelatedCalculators() (Kolik % je X z Y vyjímka - používá CalculatorBase)
+
+---
+
 ## Souhrn stavu
 
 | Stav | Počet | Procento |
 |------|-------|----------|
-| ✅ DONE | 21 | 33% |
-| ⚠️ PARTIAL | 4 | 6% |
-| ⬜ NOT_STARTED | 38 | 60% |
+| ✅ DONE | 20 | 31% |
+| ⚠️ PARTIAL | 5 | 8% |
+| ⬜ NOT_STARTED | 38 | 59% |
 | 🔗 REFERENCE | 1 | 2% |
 | **CELKEM** | **64** | **100%** |
 
@@ -121,6 +163,7 @@
 - Smazány všechny duplicity (-new routes)
 - Vytvořeno 12 chybějících rout
 - 4 kalkulačky označeny jako PARTIAL (nutno migrovat z CalculatorBase)
+- **19 kalkulaček opraveno - hardcoded relatedCalculators nahrazeny getRelatedCalculators()**
 
 ### Batch 1 – 🔄 ROZPRACOVÁN (2/5 hotovo)
 - ✅ Trojčlenka - přímá úměra (SimpleCalculatorLayout)
@@ -156,6 +199,29 @@
 - Age Calculator, Area Calculator, BMR Calculator, Body Fat Calculator, Calories Calculator, Currency Calculator, Discount Calculator, Fuel Calculator, Ideal Weight Calculator, Loan Calculator, Time Calculator, Tip Calculator (routy vytvořeny)
 
 **Čas:** 8-12 hodin (dokončeno)
+
+### Hardcoded relatedCalculators fix – ✅ DOKONČEN (19 položek)
+
+**Úkoly:**
+1. ✅ Přidat chybějící ID do calculators.json (19 položek)
+2. ✅ Opravit hardcoded relatedCalculators v 18 kalkulačkách na getRelatedCalculators()
+3. ✅ Fix: DirectProportionCalculator onChange handler (z e.target.value na direct setValue)
+4. ✅ Fix: API route ratings TypeScript error
+5. ✅ Fix: tooltip import case sensitivity (5 souborů)
+6. ✅ Fix: WhatPercentageIsXOfYCalculator TypeScript error
+
+**Opravené kalkulačky (19):**
+- Age Calculator, Area Calculator, BMR Calculator, Body Fat Calculator
+- Calories Calculator, Currency Calculator, Discount Calculator
+- VAT/DPH Calculator, Fuel Calculator, Ideal Weight Calculator
+- Loan Calculator, Time Calculator, Tip Calculator
+- Procento z čísla, Y je X% co je 100%
+- Beton, Materiály, Objem
+
+**Vyjímka:**
+- Kolik % je X z Y (WhatPercentageIsXOfYCalculator) – stále používá CalculatorBase, vyžaduje kompletní refaktoring
+
+**Čas:** 3-4 hodin
 
 ### Batch 1: CalculatorBase migrace 🔄 ROZPRACOVÁN
 
@@ -265,3 +331,4 @@
 | 2026-02-11 | Batch 0 Part 2 | Dokončeno | Vytvořeno 12 chybějících rout (Age, Area, BMR, Body Fat, Calories, Currency, Discount, Fuel, Ideal Weight, Loan, Time, Tip) - commit acdc75e |
 | 2026-02-11 | Trojčlenka - přímá úměra | Dokončeno | Migrace na SimpleCalculatorLayout - commit 55b4c3b |
 | 2026-02-11 | Tracker | Oprava | Aktualizován stav dle skutečné git historie - přidáno 2 MISSING stavy, přeskupina položek |
+| 2026-02-11 | Tracker | Revize | Přidán stav PARTIAL_RELATED, 19 kalkulaček překlasifikováno z DONE na PARTIAL_RELATED (hardcoded relatedCalculators), přidána Feature Checklist sekce |

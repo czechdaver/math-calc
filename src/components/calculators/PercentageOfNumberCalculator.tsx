@@ -1,11 +1,13 @@
 // src/components/calculators/PercentageOfNumberCalculator.tsx
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Info, AlertCircle } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface PercentageResult {
   result: number;
@@ -16,6 +18,8 @@ interface PercentageResult {
 
 const PercentageOfNumberCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
   const [percentage, setPercentage] = useState<string>('15');
   const [number, setNumber] = useState<string>('1000');
   const [result, setResult] = useState<PercentageResult | null>(null);
@@ -170,21 +174,7 @@ const PercentageOfNumberCalculator: React.FC = () => {
     }
   ];
 
-  // Related calculators
-  const relatedCalculators = [
-    {
-      title: 'Kolik procent je X z Y',
-      description: 'Zjistěte, kolik procent tvoří jedno číslo z druhého',
-      href: '/calculator/kolik-procent-je-x-z-y',
-      category: 'math'
-    },
-    {
-      title: 'Y je X%, kolik je 100%',
-      description: 'Vypočítejte celkovou hodnotu, když znáte část a její procento',
-      href: '/calculator/y-je-x-kolik-je-sto',
-      category: 'math'
-    }
-  ];
+  const relatedCalculators = getRelatedCalculators('percentage-of-number', locale, t);
 
   return (
     <SimpleCalculatorLayout

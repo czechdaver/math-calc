@@ -1,6 +1,9 @@
 # Refactoring Guide
 
-This guide tracks the refactoring status of all 43 calculators and provides the Definition of Done.
+> **Aktuální Definition of Done:** viz [`DEFINITION_OF_DONE.md`](./DEFINITION_OF_DONE.md)
+> **Status tracking:** viz [`refactoring-tracker.md`](./refactoring-tracker.md)
+
+This guide provides quick reference for refactoring calculators. For complete requirements, see DEFINITION_OF_DONE.md.
 
 ## Status Overview
 
@@ -83,40 +86,31 @@ Refactor in priority order:
 
 ## Definition of Done
 
+> **Detailní checklist:** viz [`DEFINITION_OF_DONE.md`](./DEFINITION_OF_DONE.md)
+
 A calculator is considered **DONE** when it meets ALL criteria:
 
-### Must Have (Required)
+### Must Have (Required) – Quick Checklist
 
-- [ ] Uses `SimpleCalculatorLayout` from `@/components/layout/SimpleCalculatorLayout`
+- [ ] Uses `SimpleCalculatorLayout`
 - [ ] Uses `CalculatorInput` and `CalculatorResult` from `@/components/calculators/shared`
+- [ ] Uses `getRelatedCalculators()` (NO hardcoded arrays)
 - [ ] Real-time calculation via `useEffect` (no submit button)
 - [ ] TypeScript result interface defined
 - [ ] Input validation with error messages
-- [ ] Translations in BOTH `cs.json` and `en.json`
-- [ ] Calculator ID assigned for data lookups
+- [ ] Calculator ID in calculators.json
 - [ ] SEO metadata (title, description, keywords)
-
-### Must Have (Content)
-
-- [ ] LaTeX formula displayed with KaTeX
-- [ ] Examples section with at least 2 scenarios
-- [ ] FAQ section with at least 2 questions
-- [ ] Related calculators via `getRelatedCalculators()`
 - [ ] Schema.org structured data
-
-### Must Have (Technical)
-
+- [ ] LaTeX formula
+- [ ] Examples (min. 2 scenarios)
+- [ ] FAQ (min. 3 questions)
+- [ ] Translations in `cs.json` and `en.json`
 - [ ] Page wrapper with ErrorBoundary + Suspense
-- [ ] Dynamic import with `ssr: false`
-- [ ] Skeleton loading state
-- [ ] Responsive design (375px breakpoint)
-- [ ] Dark mode compatible
-- [ ] No TypeScript errors
 - [ ] Component under 250 lines OR logic extracted
 
 ### Must NOT Have (Anti-patterns)
 
-- [ ] No `CalculatorBase` import (legacy pattern)
+- [ ] No `CalculatorBase` import
 - [ ] No hardcoded related calculators array
 - [ ] No inline layout (no unified wrapper)
 - [ ] No file with `-new`, `-old`, `-refactored` suffix

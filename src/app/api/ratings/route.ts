@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
     
     // Výpočet nového průměru a celkového počtu pro response
     const calculatorRatings = data.ratings[calculatorId];
-    const totalCount = Object.values(calculatorRatings).reduce((sum: number, count) => sum + (count as number), 0);
+    const totalCount = Object.values(calculatorRatings).reduce((sum: number, count) => sum + (count as number), 0) as number;
     const weightedSum = Object.entries(calculatorRatings).reduce(
       (sum, [star, count]) => sum + (parseInt(star) * (count as number)), 
       0

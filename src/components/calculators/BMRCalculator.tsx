@@ -3,12 +3,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Heart, User, Flame, Activity } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface BMRResult {
   bmr: number;
@@ -25,6 +27,8 @@ interface BMRResult {
 
 const BMRCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
   const [age, setAge] = useState<string>('30');
   const [weight, setWeight] = useState<string>('70');
   const [height, setHeight] = useState<string>('170');
@@ -504,6 +508,8 @@ const BMRCalculator: React.FC = () => {
     </div>
   );
 
+  const relatedCalculators = getRelatedCalculators('bmr', locale, t);
+
   return (
     <SimpleCalculatorLayout
       title={t('calculators.bmr.title')}
@@ -557,32 +563,7 @@ const BMRCalculator: React.FC = () => {
           answer: t('calculators.bmr.faq.q4.answer')
         }
       ]}
-      relatedCalculators={[
-        {
-          title: t('calculators.bmr.related.calories.title'),
-          description: t('calculators.bmr.related.calories.description'),
-          href: "/calculator/fitness-a-zdravi/kalkulacka-1",
-          category: t('categories.health')
-        },
-        {
-          title: t('calculators.bmr.related.bmi.title'),
-          description: t('calculators.bmr.related.bmi.description'),
-          href: "/calculator/bmi",
-          category: t('categories.health')
-        },
-        {
-          title: t('calculators.bmr.related.percentage.title'),
-          description: t('calculators.bmr.related.percentage.description'),
-          href: "/calculator/procenta/procento-z-cisla",
-          category: t('categories.percentages')
-        },
-        {
-          title: t('calculators.bmr.related.unit_converter.title'),
-          description: t('calculators.bmr.related.unit_converter.description'),
-          href: "/calculator/prevodnik-jednotek",
-          category: t('categories.practical')
-        }
-      ]}
+      relatedCalculators={relatedCalculators}
       schemaData={{
         applicationCategory: "HealthApplication",
         operatingSystem: "Any"

@@ -3,12 +3,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, DollarSign, Users, Receipt, Percent } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface TipResult {
   billAmount: number;
@@ -25,6 +27,8 @@ interface TipResult {
 
 const TipCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
   const [billAmount, setBillAmount] = useState<string>('500');
   const [tipPercentage, setTipPercentage] = useState<string>('15');
   const [numberOfPeople, setNumberOfPeople] = useState<string>('2');
@@ -470,32 +474,7 @@ const TipCalculator: React.FC = () => {
           answer: "Ano, spropitné se počítá z celkové částky účtu včetně DPH. Je to celková částka, kterou zaplatíte za jídlo a pití."
         }
       ]}
-      relatedCalculators={[
-        {
-          title: "Procento z čísla",
-          description: "Vypočítejte X% z daného čísla",
-          href: "/calculator/procenta/procento-z-cisla",
-          category: "Procenta"
-        },
-        {
-          title: "DPH kalkulátor",
-          description: "Výpočet DPH a cen",
-          href: "/calculator/dph",
-          category: "Finance"
-        },
-        {
-          title: "Převodník jednotek",
-          description: "Převod mezi různými jednotkami",
-          href: "/calculator/prevodnik-jednotek",
-          category: "Praktické"
-        },
-        {
-          title: "BMI kalkulátor",
-          description: "Výpočet indexu tělesné hmotnosti",
-          href: "/calculator/bmi",
-          category: "Zdraví"
-        }
-      ]}
+      relatedCalculators={getRelatedCalculators('tip', locale, t)}
       schemaData={{
         applicationCategory: "FinanceApplication",
         operatingSystem: "Any"

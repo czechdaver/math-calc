@@ -1,172 +1,86 @@
 # MathCalc Pro - Development Guide
 
-## 🎯 Project Philosophy: Simplicity Over Complexity
+## Project Philosophy: Simplicity Over Complexity
 
 **Core Principle:** We prefer simple, robust solutions over complex architectures.
 
-**AI Note:** This guide is designed to be regularly reviewed and updated by AI systems.
+## AI Development Guidelines
 
-### Why Simplicity?
+**For AI Systems (Windsurf/Cascade):**
 
-During project development, we learned that:
-- Simple solutions are more reliable
-- Less code = fewer bugs
-- Easier maintenance and extension
-- Faster onboarding of new developers
-- Better debugging and troubleshooting
+1. **Always check documentation** before making changes
+2. **Follow simplicity-first principle** in all implementations
+3. **Update documentation** when adding new features
+4. **Validate all changes** with provided test commands
+5. **Maintain fallback mechanisms** for all critical functions
 
-**AI Development Rule:** Always choose the simplest solution that meets requirements.
+**Required AI Actions:**
+- Review this documentation before each development session
+- Update relevant sections when implementing new features
+- Ensure all code examples remain executable
+- Maintain consistency with project philosophy
 
-## 🛠️ Technical Guidelines
+## Development Workflow
 
-**AI Rule:** These guidelines must be followed in all development decisions.
-
-### 1. Preferred Approaches
-
-✅ **DO:**
-- Use standard Next.js conventions
-- Implement basic library configurations
-- Write explicit error handling
-- Add fallback mechanisms for all critical functions
-- Create simple middleware solutions
-- Build straightforward components without unnecessary abstractions
-
-❌ **DON'T:**
-- Use custom solutions where standard ones suffice
-- Implement premature optimizations
-- Create complex abstract layers
-- Use experimental features in production
-- Configure without fallback mechanisms
-
-**AI Validation:** Before implementing any feature, verify it follows these guidelines.
-
-### 2. Konkrétní příklady
-
-#### ✅ Dobrý přístup - next-intl konfigurace:
-```typescript
-// next-intl.config.ts
-export default getRequestConfig(async ({locale}) => {
-  const validLocale = locale || 'cs'; // Fallback!
-  
-  return {
-    locale: validLocale,
-    messages: (await import(`./src/messages/${validLocale}.json`)).default
-  };
-});
-```
-
-#### ❌ Špatný přístup - bez fallback:
-```typescript
-// Nebezpečné - může způsobit 500 chyby
-export default getRequestConfig(async ({locale}) => {
-  return {
-    locale,
-    messages: (await import(`./src/messages/${locale}.json`)).default
-  };
-});
-```
-
-## 📁 Struktura projektu
-
-```
-/docs
-  /development/          # Vývojářská dokumentace
-    - README.md         # Tento soubor
-    - troubleshooting-guide.md  # Řešení problémů
-  /requirements/        # Specifikace projektu
-    - project-specifications.md  # Hlavní specifikace
-
-/src
-  /app                  # Next.js App Router
-    /[locale]          # Lokalizované routy
-  /components          # Komponenty
-  /messages           # i18n překlady
-```
-
-## 🚀 Rychlý start
-
-### 1. Instalace
+### 1. Installation
 ```bash
 npm install
-```
-
-### 2. Spuštění
-```bash
 npm run dev
 ```
 
-### 3. Testování rout
+### 2. Validation
 ```bash
-# Test základních rout
-curl -I http://localhost:3000/
+# Test basic routes
 curl -I http://localhost:3000/cs
 curl -I http://localhost:3000/en
 ```
 
-## 🐛 Troubleshooting
-
-### Časté problémy:
-
-1. **404/500 chyby na lokalizovaných routách**
-   - Zkontroluj fallback mechanismy v next-intl.config.ts
-   - Ověř middleware konfiguraci
-   - Viz: [troubleshooting-guide.md](./troubleshooting-guide.md)
-
-2. **Problémy s async params**
-   - Next.js 15 vyžaduje `Promise<{locale}>` v layout props
-   - Vždy await params před použitím
-
-3. **i18n problémy**
-   - Ověř existenci message souborů
-   - Zkontroluj fallback hodnoty
-
-## 📋 Checklist pro nové funkce
-
-Před implementací nové funkce:
-
-- [ ] **Jednoduchost**: Je toto nejjednodušší možné řešení?
-- [ ] **Robustnost**: Existují fallback mechanismy?
-- [ ] **Čitelnost**: Je kód snadno pochopitelný?
-- [ ] **Testovatelnost**: Lze snadno testovat a debugovat?
-- [ ] **Kompatibilita**: Funguje ve všech podporovaných prostředích?
-- [ ] **Dokumentace**: Je řešení zdokumentováno?
-
-## 🔧 Nástroje a příkazy
-
-### Development
+### 3. Testing
 ```bash
-npm run dev          # Spuštění dev serveru
-npm run build        # Build produkce
-npm run start        # Spuštění produkční verze
-npm run lint         # Linting
+# Run tests
+npm test
+
+# Watch mode during development
+npm run test:watch
+
+# Type checking
+npx tsc --noEmit
 ```
 
-### Debugging
+### 4. Build
 ```bash
-# Testování HTTP status kódů
-curl -I http://localhost:3000/
-curl -I http://localhost:3000/cs
-curl -I http://localhost:3000/en
+# Production build
+npm run build
 
-# Sledování server logů
-npm run dev | grep -E "(error|Error|404|500)"
+# Production server
+npm start
 ```
 
-## 📚 Další dokumentace
+### 5. Linting
+```bash
+npm run lint
+```
 
-- [Specifikace projektu](../requirements/project-specifications.md)
-- [Průvodce řešením problémů](./troubleshooting-guide.md)
-- [Next.js dokumentace](https://nextjs.org/docs)
-- [next-intl dokumentace](https://next-intl-docs.vercel.app/)
+## Troubleshooting
 
-## 💡 Tipy pro vývojáře
+For common issues and solutions, see [Troubleshooting Guide](./troubleshooting-guide.md).
 
-1. **Vždy testuj lokalizované routy** po změnách v konfiguraci
-2. **Používej server logy** pro debugging problémů
-3. **Implementuj fallback mechanismy** pro všechny kritické funkce
-4. **Preferuj explicitní kód** před "chytrými" optimalizacemi
-5. **Dokumentuj neobvyklá řešení** pro budoucí vývojáře
+## Additional Documentation
+
+- [Project Specifications](../requirements/project-specifications.md) - Main specs with simplicity philosophy
+- [Technical Specifications](../requirements/tech-specs.md) - Detailed technical requirements
+- [Testing Strategy](../requirements/testing-strategy.md) - Testing approach and best practices
+- [Refactoring Guidelines](./refactoring-guidelines.md) - Rules for code refactoring
+- [Calculator Status](./calculator-status-audit.md) - Current implementation status
+
+## Tips
+
+1. **Always choose the simplest working solution**
+2. **Implement fallback mechanisms** for all critical functions
+3. **Write explicit error handling** - no silent failures
+4. **Document your changes** - keep docs in sync with code
+5. **Test before committing** - ensure nothing is broken
 
 ---
 
-**Motto:** "Nejlepší kód je ten, který funguje spolehlivě a dá se snadno pochopit."
+**Project Motto:** "The best code is code that works reliably and can be easily understood."

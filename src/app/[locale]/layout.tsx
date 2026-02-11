@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { ReactNode } from 'react';
 import Script from 'next/script';
 import CookieBanner from '@/components/CookieBanner';
+import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import '@/styles/globals.css';
 
 // Define supported locales as a constant to avoid repetition
@@ -82,14 +83,16 @@ export default async function LocaleLayout({
         />
       </head>
       <body>
-        <NextIntlClientProvider 
-          locale={locale}
-          messages={messages}
-          timeZone="Europe/Prague"
-        >
-          {children}
-          <CookieBanner />
-        </NextIntlClientProvider>
+        <ThemeProvider>
+          <NextIntlClientProvider
+            locale={locale}
+            messages={messages}
+            timeZone="Europe/Prague"
+          >
+            {children}
+            <CookieBanner />
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

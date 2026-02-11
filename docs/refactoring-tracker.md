@@ -63,7 +63,7 @@
 | 15 | Trojčlenka new | `/calculator/trojclenka-new/` | ⚠️ DUPLICATE | 0 | 2 | M | - | - | Duplikát kategorie - vyřešit v Batch 0 |
 | 16 | Zlomky new | `/calculator/zlomky-new/` | ⚠️ DUPLICATE | 0 | 2 | L | - | - | Duplikát - vyřešit v Batch 0 |
 | 17 | Složené úročení new | `/calculator/slozene-uroceni-new/` | ⚠️ DUPLICATE | 0 | 2 | M | - | - | Duplikát - vyřešit v Batch 0 |
-| 18 | Trojčlenka - přímá úměra | `/calculator/trojclenka/prima-umera/` | ⬜ NOT_STARTED | 1 | 2 | M | - | - | Používá CalculatorBase |
+| 18 | Trojčlenka - přímá úměra | `/calculator/trojclenka/prima-umera/` | 🔄 IN_PROGRESS | 1 | 2 | M | 2026-02-11 | - | Používá CalculatorBase |
 | 19 | Trojčlenka - nepřímá úměra | `/calculator/trojclenka/neprima-umera/` | ⬜ NOT_STARTED | 1 | 2 | M | - | - | Používá CalculatorBase |
 | 20 | Zlomky | `/calculator/zlomky/` | ⬜ NOT_STARTED | 1 | 2 | L | - | - | CalculatorBase, má duplikát |
 | 21 | Složené úročení | `/calculator/financie-rozsirene/slozene-uroceni/` | ⬜ NOT_STARTED | 1 | 2 | M | - | - | CalculatorBase, má duplikát |
@@ -225,7 +225,11 @@
 - [ ] Build – prochází bez warningů
 
 ## Aktivní session
-> [Žádná aktivní session]
+> **Trojčlenka - přímá úměra** - Migrace z CalculatorBase na SimpleCalculatorLayout
+> - Komponenta: DirectProportionCalculator
+> - Soubor: src/components/calculators/DirectProportionCalculator.tsx
+> - Route: /calculator/trojclenka/prima-umera/
+> - Stav: 🔄 IN_PROGRESS
 
 ## Historie změn
 | Datum | Kalkulačka | Akce | Detail |

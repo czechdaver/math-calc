@@ -37,7 +37,7 @@ const CalculatorInput: React.FC<CalculatorInputProps> = ({
 }) => {
   return (
     <div className={`mb-4 ${className}`}>
-      <Label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-2">
+      <Label htmlFor={id} className="block text-sm font-medium text-foreground mb-2">
         {label}
       </Label>
       <div className="flex items-center space-x-2">
@@ -50,17 +50,17 @@ const CalculatorInput: React.FC<CalculatorInputProps> = ({
           step={step}
           min={min}
           max={max}
-          className={`flex-1 ${error ? 'border-red-500' : ''}`}
+          className={`flex-1 ${error ? 'border-destructive' : ''}`}
         />
-        {unit && <span className="text-gray-500">{unit}</span>}
+        {unit && <span className="text-muted-foreground">{unit}</span>}
       </div>
       {helpText && (
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-sm text-muted-foreground mt-1">
           {helpText}
         </p>
       )}
       {error && (
-        <p className="text-red-500 text-xs flex items-center gap-1 mt-1">
+        <p className="text-destructive text-xs flex items-center gap-1 mt-1">
           <AlertCircle className="w-3 h-3" />
           {error}
         </p>

@@ -1,5 +1,7 @@
 # MathCalc Pro – Master Prompt pro Claude Code
 
+> **Důležité:** Přečti nejprve [`docs/target-architecture.md`](docs/target-architecture.md) pro kompletní popis cílové architektury po refaktoringu. Tento dokument obsahuje detailní specifikaci struktur, rozhraní a migračního plánu.
+
 ## Kontext projektu
 
 MathCalc Pro je platforma online matematickych a praktickych kalkulacek postavena na Next.js. Cilova skupina jsou studenti, uctari a bezni uzivatele v CR, SR a dalsich stredoevropskych zemich. Projekt vznikl jako prvni pokus s AI asistovanym vyvojem, proto je kvalita kodu nekonzistentni a vyzaduje systematicky refaktoring.
@@ -191,26 +193,77 @@ export default function MyCalculatorPage() {
 
 ## Zname problemy
 
-### Kriticke
-1. **Duplicitni routy** - existuji `bmi` + `bmi-new`, `dph` + `dph-new`, `zlomky` + `zlomky-new` (porusuje vlastni pravidla v `docs/development/refactoring-guidelines.md`)
-2. **Stara BMI v1** (`src/app/[locale]/calculator/bmi/page.tsx`) - broken kod s nedefinovanymi promennymi, pouziva stary pattern
+**Poznámka: Tento seznam je výsledkem komplexní analýzy kódové báze ze dne 11. 2. 2026. Podrobná analýza viz `docs/code-analysis.md`.**
 
-### Vysoke
-3. **Nekonzistentni layouty** - nektere kalkulacky pouzivaji `SimpleCalculatorLayout`, jine stary `CalculatorBase`, jine inline layout
-4. **Hardcoded related calculators** - vetsina kalkulacek ma hardcoded pole misto `getRelatedCalculators()`
-5. **Smisene i18n patterny** - nektere soubory stale referencuji `next-i18next` misto `next-intl`
-6. **Zadna sdilena ErrorBoundary** - kazda stranka reimplementuje vlastni
+### Kritické (Critical)
 
-### Stredni
-7. **Placeholder kalkulacky** - fitness-a-zdravi a prakticke-vypocty jsou genericke placeholdery (`kalkulacka-1` az `kalkulacka-6`)
-8. **Minimalni testy** - pouze BMICalculator ma testy
-9. **tsconfig strict: false** - TypeScript neni v strict modu
-10. **Chybejici ESLint/Prettier konfigurace** - pouziva se jen default Next.js ESLint
+1. **11 duplicitních route pairs** - existují duplicitní routy porušující vlastní pravidla v `docs/development/refactoring-guidelines.md`:
+   - `bmi` + `bmi-new`
+   - `dph` + `dph-new`
+   - `zlomky` + `zlomky-new`
+   - `cista-mzda` + `cista-mzda-new`
+   - `prevodnik-jednotek` + `prevodnik-jednotek-new`
+   - `procenta/procento-z-cisla` + `procenta/procento-z-cisla-new`
+   - `procenta/kolik-procent-je-x-z-y` + `kolik-procent-je-x-z-y-new`
+   - `procenta/y-je-x-kolik-je-sto` + `y-je-x-kolik-je-sto-new`
+   - `trojclenka` (složka) + `trojclenka-new`
+   - `financie-rozsirene/slozene-uroceni` + `slozene-uroceni-new`
 
-### Nizke
-11. **`next: "latest"` v package.json** - neni pinnuty na konkretni verzi, muze zpusobit neocekavane breaking changes
-12. **Chybejici CI/CD** - zadny GitHub Actions pipeline
-13. **Chybejici deployment konfigurace** - zadny Vercel/Netlify setup
+2. **Broken BMI v1** (`src/app/[locale]/calculator/bmi/page.tsx`) - nefunkční kód s nedefinovanými proměnnými (`bmi_title`, `bmi_seo_description`), nutno smazat
+
+3. **12 prázdných placeholder komponent** - všechny neimplementované:
+   - **6 fraction operations** (`src/components/calculators/fractionOperations/`) - všechny mají pouze 18 řádků s textem "bude implementováno později"
+   - **6 fitness calculators** (`fitness-a-zdravi/kalkulacka-{1-6}`) - generické placeholdery
+   - **6 practical calculators** (`prakticke-vypocty/kalkulacka-{1-6}`) - prázdné placeholdery
+
+### Vysoke (High)
+
+4. **CalculatorBase anti-pattern** - 10+ kalkulaček stále používá starý `CalculatorBase` místo `SimpleCalculatorLayout`:
+   - DirectProportionCalculator (trojclenka/prima-umera)
+   - InverseProportionCalculator (trojclenka/neprima-umera)
+   - FractionsCalculator (zlomky)
+   - CompoundInterestCalculator (financie-rozsirene/slozene-uroceni)
+   - AnnuityPaymentCalculator (financie-rozsirene/anuitni-splatka)
+   - WhatPercentageIsXOfYCalculator (procenta)
+   - A další 2+
+
+5. **Hardcoded relatedCalculators** - 23 souborů má hardcoded pole (~1500 řádků duplicity) místo centralizovaného `getRelatedCalculators()`:
+   - VATCalculator, PercentageOfNumberCalculator, YIsXWhatIsHundredCalculator
+   - IRRCalculator, NPVCalculator, ROICalculator
+   - CompoundInterestCalculator, AnnuityPaymentCalculator, EarlyRepaymentCalculator
+   - A dalších 13+
+
+6. **Chybějící sdílený ErrorBoundary** - 8 duplicitních implementací třídy ErrorBoundary v page wrapperech místo jedné sdílené komponenty
+
+7. **Podužívání sdílených komponent** - 20+ souborů používá manual forms místo `CalculatorInput` a `CalculatorResult` z `shared/`
+
+8. **Zakázané testy** - pouze BMICalculator má testy (~2.6% pokrytí), žádné testy pro ostatní 42 kalkulaček
+
+9. **TypeScript strict: false** - `tsconfig.json` má `"strict": false`, žádná typová bezpečnost, mnoho `any` typů
+
+### Střední (Medium)
+
+10. **Neaktualizované SEO** - `src/components/seo/SeoMetadata.tsx` používá deprecated `next/head` místo Next.js 14 metadata API
+11. **Inconsistente page wrappery** - 3 různé vzory:
+    - Modern (BMI v2): ErrorBoundary + Suspense only (82 řádků)
+    - Card-based (DPH, Procenta, Cista mzda): grid s 2/3 layout (130+ řádků)
+    - Async/Await (DPH-new): async component
+12. **Velké soubory** - několik komponent překračuje doporučených 250 řádků:
+    - VolumeCalculator (666 řádků)
+    - ConcreteCalculator (649 řádků)
+    - IRRCalculator (555 řádků)
+    - CalculatorRating (246 řádků)
+13. **Locale inconsistency** - middleware podporuje 5 locales (cs, en, sk, pl, hu), ale `src/i18n/settings.ts` definuje pouze 2 (en, cs)
+14. **calculatorUtils.ts 785 řádků** - příliš velký soubor, měl by být rozdělen na menší moduly
+15. **ThemeContext používá next/router** - nekompatibilní s App Routerem, mělo by používat `next/navigation`
+
+### Nízké (Low)
+
+16. **Chybějící ESLint/Prettier konfigurace** - používá se jen default Next.js ESLint, žádné `.eslintrc` nebo `.prettierrc`
+17. **Chybějící CI/CD pipeline** - žádné GitHub Actions pro automated testing
+18. **Chybějící deployment konfigurace** - žádná Vercel/Netlify setup
+19. **Zduplikované utility soubory** - `calculatorUtils.clean.ts`, `calculatorUtils.new.ts`, `calculatorUtils.updated.ts` místo jednéné verze
+20. **`next: "latest"` v package.json** - není připnutý na konkrétní verzi, může způsobit neočekávané breaking changes
 
 ## Pravidla pro refaktoring
 
@@ -251,26 +304,107 @@ export default function MyCalculatorPage() {
 
 ## Prioritni poradi refaktoringu
 
-### Faze 1: Uklid duplikatu (PRVNI)
-Odstranit duplicitni routy (`-new` varianty) - nahradit puvodni refaktorovanou verzi.
+**Poznámka: Prioritizace založena na skutečném stavu kódu z analýzy ze dne 11. 2. 2026. Více viz `docs/code-analysis.md`.**
 
-### Faze 2: MVP kalkulacky (VYSOKA PRIORITA)
-1. **Procenta** (3 podkalkulacky) - nejvice navstevovane
-2. **DPH** - business kriticka
-3. **Prevodnik jednotek** - popularni utilita
-4. **Trojclenka** (2 podkalkulacky) - vzdelavaci dulezitost
-5. **Cista mzda** - komplexni ale dulezita
+### Faze 0: Krizové opravy (TÝDEN PŘED VŠECHNO)
 
-### Faze 3: Rozsirene kalkulacky (STREDNI PRIORITA)
-6. **Zlomky** - prepsat na SimpleCalculatorLayout
-7. **Slozene uroceni** - financni kalkulacky
-8. **Anuitni splatka**
-9. **Zbyvajici financni** (IRR, NPV, ROI, predcasne splaceni)
+1. **Smazat broken BMI v1 route** - odstranit `src/app/[locale]/calculator/bmi/page.tsx`, nastavit redirect na `/bmi-new/`
+2. **Vytvořit shared ErrorBoundary** - nová komponenta `src/components/shared/ErrorBoundary.tsx`, nahradit 8 duplicitních implementací
+3. **Opravit locale inconsistency** - sjednotit `src/middleware.ts` (5 locales) s `src/i18n/settings.ts` (pouze 2)
 
-### Faze 4: Implementace chybejicich (NIZKA PRIORITA)
-10. **Nahradit placeholder kalkulacky** (zdravi, prakticke)
-11. **Stavebni kalkulacky** - dodelat
-12. **Nove kategorie** - pokrocila matematika, specializovane
+### Faze 1: Uklid duplikatu (TÝDEN 1-2)
+
+4. **Vyřešit 11 duplicitních route pairs** - pro každý pár:
+    - Ověřit která varianta je novější/lépější
+    - Smazat `-new` variantu a nahradit původní
+    - NEBO nahradit původní `-new` variantou a smazat původní
+    - Upravit `src/data/calculators.json` a přidat přesměrování
+    - **Výsledek:** 11 smazaných route, 0 duplikát
+
+5. **Smazat CalculatorBase.tsx** - po migraci všech uživatelů na SimpleCalculatorLayout
+
+### Faze 2: Základní refaktoring (TÝDEN 3-10)
+
+6. **Migrovat 10 CalculatorBase uživatelů** - přepsat na SimpleCalculatorLayout pattern:
+    - DirectProportionCalculator (trojclenka/prima-umera)
+    - InverseProportionCalculator (trojclenka/neprima-umera)
+    - FractionsCalculator (zlomky)
+    - CompoundInterestCalculator (financie-rozsirene/slozene-uroceni)
+    - AnnuityPaymentCalculator (financie-rozsirene/anuitni-splatka)
+    - WhatPercentageIsXOfYCalculator (procenta)
+    - YIsXWhatIsHundredCalculator (procenta)
+    - NetSalaryCalculator (cista-mzda)
+    - UnitConverter (prevodnik-jednotek)
+    - A další 2+
+
+7. **Nahradit 23 hardcoded relatedCalculators** - použít `getRelatedCalculators(calculatorId, locale, t)` všude, odstranit ~1500 řádků duplicity
+
+8. **Standardizovat page wrappery** - všechny na BMI v2 pattern (ErrorBoundary + Suspense + dynamic import), odstranit Card layouty z page files
+
+9. **Používat CalculatorInput/CalculatorResult** - nahradit manual forms ve 20+ souborech sdílenými komponentami
+
+### Faze 3: Implementace placeholerů (TÝDEN 11-20)
+
+10. **Implementovat 6 fraction operations** - plně funkční komponenty:
+    - FractionAddition - sčítání zlomků
+    - FractionSubtraction - odčítání zlomků
+    - FractionMultiplication - násobení zlomků
+    - FractionDivision - dělení zlomků
+    - FractionSimplification - zjednodušení zlomků
+    - FractionConversion - konverze zlomků na desetinná čísla
+
+11. **Implementovat 6 fitness calculators** - nahradit generic placeholdery specifickými funkcemi:
+    - Výpočet kalorií
+    - BMI pro děti a dospělé
+    - Tělesný tuk
+    - BMR (bazální metabolismus)
+    - TDEE (denní výdej energie)
+    - Ideální váha
+
+12. **Implementovat 6 practical calculators** - nahradit generic placeholdery:
+    - Převod měn
+    - Výpočet úroku
+    - Slevové procento
+    - Marže
+    - Převod číselných soustav
+    - Výpočet daně z příjmu
+
+### Faze 4: Kvalita kódu (TÝDEN 21-30)
+
+13. **Povolit TypeScript strict mode** - změnit `"strict": false` na `"strict": true` v `tsconfig.json`, opravit všechny type errors
+
+14. **Přidat testy** - alespoň pro MVP kalkulačky:
+    - BMI (vylepšit stávající)
+    - DPH
+    - Procenta (všechny 3 varianty)
+    - Cistá mzda
+    - Převodník jednotek
+    - Trojclenka
+
+15. **Rozdělit velké soubory** - extrahovat logiku do menších souborů:
+    - VolumeCalculator (666 řádků) → pod 250
+    - ConcreteCalculator (649 řádků) → pod 250
+    - IRRCalculator (555 řádků) → pod 250
+    - CalculatorRating (246 řádků) → pod 150 s custom hooks
+
+16. **Aktualizovat SEO** - přepsat `src/components/seo/SeoMetadata.tsx` použitím Next.js 14 metadata API:
+    - Open Graph tags
+    - Twitter Card support
+    - Canonical URLs
+    - Hreflang tags pro i18n
+    - Schema.org structured data
+
+17. **Refaktorovat CalculatorRating** - zmenšit na <150 řádků, extrahovat custom hooks, použít i18n pro všechny texty
+
+### Faze 5: Infrastruktura (TÝDEN 31-40)
+
+18. **Přidat ESLint/Prettier** - vytvořit `.eslintrc` a `.prettierrc` pro enforcement code style
+19. **Vytvořit CI/CD pipeline** - GitHub Actions pro automated testing (lint, unit tests, build)
+20. **Rozdělit calculatorUtils.ts** - rozdělit 785 řádků na menší moduly (validation.ts, formatting.ts, math.ts)
+21. **Opravit ThemeContext** - migrovat z `next/router` na `next/navigation` pro kompatibilitu s App Routerem
+22. **Přidat E2E testy** - Playwright pro end-to-end testing kritických user flows
+
+### Celkový odhad: 35-45 hodin fokusované práce
 
 ## Stav refaktoringu
 

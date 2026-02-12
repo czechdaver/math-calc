@@ -1,9 +1,12 @@
-// src/app/[locale]/calculator/stavebni/beton/page.tsx
-import React from 'react';
-import ConcreteCalculator from '@/components/calculators/ConcreteCalculator';
+'use client';
+import dynamic from 'next/dynamic';
+import { CalculatorPageWrapper } from '@/components/shared/CalculatorPageWrapper';
 
-const ConcreteCalculatorPage: React.FC = () => {
-  return <ConcreteCalculator />;
-};
+const ConcreteCalculator = dynamic(
+  () => import('@/components/calculators/ConcreteCalculator'),
+  { ssr: false }
+);
 
-export default ConcreteCalculatorPage;
+export default function ConcreteCalculatorPage() {
+  return <CalculatorPageWrapper calculatorComponent={ConcreteCalculator} calculatorId="concrete" />;
+}

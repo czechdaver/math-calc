@@ -1,9 +1,12 @@
-// src/app/[locale]/calculator/stavebni/objem/page.tsx
-import React from 'react';
-import VolumeCalculator from '@/components/calculators/VolumeCalculator';
+'use client';
+import dynamic from 'next/dynamic';
+import { CalculatorPageWrapper } from '@/components/shared/CalculatorPageWrapper';
 
-const VolumeCalculatorPage: React.FC = () => {
-  return <VolumeCalculator />;
-};
+const VolumeCalculator = dynamic(
+  () => import('@/components/calculators/VolumeCalculator'),
+  { ssr: false }
+);
 
-export default VolumeCalculatorPage;
+export default function VolumeCalculatorPage() {
+  return <CalculatorPageWrapper calculatorComponent={VolumeCalculator} calculatorId="volume" />;
+}

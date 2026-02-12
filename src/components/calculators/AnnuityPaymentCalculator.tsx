@@ -1,166 +1,173 @@
-// src/components/calculators/AnuitniSplatkaCalculator.refactored.tsx
-import React from 'react';
+// src/components/calculators/AnnuityPaymentCalculator.tsx
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import CalculatorBase, { CalculatorInput, CalculatorResult } from './CalculatorBase';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/label';
-import { Info } from 'lucide-react';
+import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
+import { CalculatorInput, CalculatorResult } from './shared';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
+import { useFinanceFormatting } from '@/hooks/useFinanceFormatting';
 
-const AnuitniSplatkaCalculator: React.FC = () => {
-  const t = useTranslations('calculator');
-  
-  // Define inputs for the calculator
-  const inputs: CalculatorInput[] = [
-    {
-      id: 'loanAmount',
-      label: t('loan_amount_label'),
-      type: 'number',
-      required: true,
-      min: 0,
-      step: 'any',
-      placeholder: '100000',
-      helpText: t('loan_amount_help')
-    },
-    {
-      id: 'interestRate',
-      label: t('annual_interest_rate_label'),
-      type: 'number',
-      required: true,
-      min: 0,
-      max: 100,
-      step: '0.01',
-      placeholder: '5.5',
-      helpText: t('annual_interest_rate_help'),
-      unit: '%'
-    },
-    {
-      id: 'loanTerm',
-      label: t('loan_term_label'),
-      type: 'number',
-      required: true,
-      min: 1,
-      max: 50,
-      step: '1',
-      placeholder: '30',
-      helpText: t('loan_term_help'),
-      unit: t('years')
+interface AnnuityResult {
+  monthlyPayment: number;
+  totalPayment: number;
+  totalInterest: number;
+  numPayments: number;
+}
+
+const AnnuityPaymentCalculator: React.FC = () => {
+  const t = useTranslations();
+  const { formatCurrency, locale } = useFinanceFormatting();
+
+  const [loanAmount, setLoanAmount] = useState<string>('100000');
+  const [interestRate, setInterestRate] = useState<string>('5.5');
+  const [loanTerm, setLoanTerm] = useState<string>('30');
+  const [errors, setErrors] = useState<{ loanAmount?: string; interestRate?: string; loanTerm?: string }>({});
+  const [result, setResult] = useState<AnnuityResult | null>(null);
+
+  const validateInputs = (amount: string, rate: string, term: string) => {
+    const newErrors: { loanAmount?: string; interestRate?: string; loanTerm?: string } = {};
+    const amountNum = parseFloat(amount);
+    const rateNum = parseFloat(rate);
+    const termNum = parseFloat(term);
+
+    if (!amount || isNaN(amountNum) || amountNum <= 0) {
+      newErrors.loanAmount = t('annuity_validation_loan_amount');
     }
-  ];
-
-  // Format number to 2 decimal places as string
-  const formatCurrency = (value: number): string => {
-    return value.toFixed(2);
+    if (!rate || isNaN(rateNum) || rateNum < 0 || rateNum > 100) {
+      newErrors.interestRate = t('annuity_validation_interest_rate');
+    }
+    if (!term || isNaN(termNum) || termNum < 1 || termNum > 50) {
+      newErrors.loanTerm = t('annuity_validation_loan_term');
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  // Calculate the monthly payment
-  const calculate = (values: Record<string, any>): CalculatorResult => {
-    const J = parseFloat(values.loanAmount || '0'); // Principal amount
-    const r = parseFloat(values.interestRate || '0') / 100; // Annual interest rate as decimal
-    const loanTerm = parseFloat(values.loanTerm || '0'); // Loan term in years
+  useEffect(() => {
+    if (validateInputs(loanAmount, interestRate, loanTerm)) {
+      const principal = parseFloat(loanAmount);
+      const rate = parseFloat(interestRate) / 100;
+      const months = parseFloat(loanTerm) * 12;
+      const monthlyRate = rate / 12;
 
-    if (isNaN(J) || isNaN(r) || isNaN(loanTerm) || J <= 0 || r < 0 || loanTerm <= 0) {
-      return { value: null };
-    }
+      let monthlyPayment: number;
+      if (monthlyRate === 0) {
+        monthlyPayment = principal / months;
+      } else {
+        monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, months)) /
+          (Math.pow(1 + monthlyRate, months) - 1);
+      }
 
-    // Convert annual rate to monthly and years to months
-    const monthlyRate = r / 12;
-    const numPayments = loanTerm * 12;
+      const totalPayment = monthlyPayment * months;
+      const totalInterest = totalPayment - principal;
 
-    let monthlyPayment: number;
-    if (monthlyRate === 0) {
-      // Special case for 0% interest
-      monthlyPayment = J / numPayments;
+      setResult({ monthlyPayment, totalPayment, totalInterest, numPayments: months });
     } else {
-      // Standard annuity formula: M = P * [i(1 + i)^n] / [(1 + i)^n - 1]
-      monthlyPayment = J * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / 
-                     (Math.pow(1 + monthlyRate, numPayments) - 1);
+      setResult(null);
     }
+  }, [loanAmount, interestRate, loanTerm]);
 
-    // Calculate total payment and total interest
-    const totalPayment = monthlyPayment * numPayments;
-    const totalInterest = totalPayment - J;
-
-    return {
-      value: monthlyPayment,
-      details: [
-        { label: t('monthly_payment'), value: formatCurrency(monthlyPayment), unit: t('currency'), highlight: true },
-        { label: t('total_payment'), value: formatCurrency(totalPayment), unit: t('currency') },
-        { label: t('total_interest'), value: formatCurrency(totalInterest), unit: t('currency') },
-        { label: t('loan_term_months'), value: numPayments.toString(), unit: t('months') }
-      ],
-      formula: 'M = P * [i(1 + i)^n] / [(1 + i)^n - 1]',
-      explanation: t('monthly_payment_explanation')
-    };
-  };
-
-  // Custom result component to display the calculation details
-  const ResultComponent = ({ result }: { result: CalculatorResult }) => {
-    if (result.value === null) {
-      return (
-        <div className="text-center py-4 text-muted-foreground">
-          {t('enter_valid_values')}
-        </div>
-      );
-    }
-
-    return (
-      <div className="space-y-4">
-        <div className="bg-primary/10 p-4 rounded-lg border border-primary/20">
-          <div className="text-sm font-medium text-primary/80 mb-1">
-            {t('monthly_payment')}
-          </div>
-          <div className="text-2xl font-bold">
-            {formatCurrency(Number(result.value))} {t('currency')}
-          </div>
-        </div>
-
-        {result.details && result.details.length > 0 && (
-          <div className="space-y-2">
-            {result.details.map((detail, index) => (
-              <div key={index} className={`flex justify-between ${detail.highlight ? 'font-medium' : ''}`}>
-                <span className="text-muted-foreground">{detail.label}:</span>
-                <span>
-                  {detail.value} {detail.unit}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {result.formula && (
-          <div className="mt-4 p-3 bg-muted/50 rounded text-xs font-mono">
-            <div className="font-medium mb-1">{t('formula')}:</div>
-            <div>{result.formula}</div>
-            {result.explanation && (
-              <div className="mt-2 text-muted-foreground">{result.explanation}</div>
-            )}
-          </div>
-        )}
-      </div>
-    );
-  };
+  const relatedCalculators = getRelatedCalculators('annuity-payment', locale, t);
 
   return (
-    <CalculatorBase
-      id="annuity-payment"
-      title={t('anuitni_splatka_title')}
-      description={t('anuitni_splatka_description')}
+    <SimpleCalculatorLayout
+      title={t('annuity_payment_calculator_title')}
+      description={t('annuity_payment_calculator_description')}
       category="finance"
+      calculatorId="annuity-payment"
       seo={{
-        title: t('anuitni_splatka_seo_title'),
-        description: t('anuitni_splatka_seo_description'),
-        keywords: [
-          t('anuitni_splatka_keyword_1'),
-          t('anuitni_splatka_keyword_2'),
-          t('anuitni_splatka_keyword_3')
-        ]
+        title: t('annuity_seo_title'),
+        description: t('annuity_seo_description'),
+        keywords: t('annuity_seo_keywords').split(','),
       }}
-      inputs={inputs}
-      calculate={calculate}
-      resultComponent={ResultComponent}
-    />
+      formula={{
+        latex: String.raw`M = P \cdot \frac{i(1+i)^n}{(1+i)^n - 1}`,
+        description: t('annuity_formula_desc'),
+      }}
+      examples={{
+        title: t('annuity_examples_title'),
+        description: t('annuity_examples_desc'),
+        scenarios: [
+          { title: t('annuity_example_1_title'), description: t('annuity_example_1_desc'), example: t('annuity_example_1_calc') },
+          { title: t('annuity_example_2_title'), description: t('annuity_example_2_desc'), example: t('annuity_example_2_calc') },
+          { title: t('annuity_example_3_title'), description: t('annuity_example_3_desc'), example: t('annuity_example_3_calc') },
+        ],
+      }}
+      faq={[
+        { question: t('annuity_faq_1_q'), answer: t('annuity_faq_1_a') },
+        { question: t('annuity_faq_2_q'), answer: t('annuity_faq_2_a') },
+        { question: t('annuity_faq_3_q'), answer: t('annuity_faq_3_a') },
+        { question: t('annuity_faq_4_q'), answer: t('annuity_faq_4_a') },
+      ]}
+      relatedCalculators={relatedCalculators}
+      schemaData={{ applicationCategory: 'FinanceApplication', operatingSystem: 'Any' }}
+      resultSection={result && (
+        <CalculatorResult
+          title={t('annuity_monthly_payment')}
+          value={formatCurrency(result.monthlyPayment)}
+          formula={`M = ${formatCurrency(parseFloat(loanAmount))} × i(1+i)^${result.numPayments} / ((1+i)^${result.numPayments} - 1)`}
+          additionalInfo={
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">{t('annuity_total_payment')}:</span>
+                <span className="font-mono">{formatCurrency(result.totalPayment)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">{t('annuity_total_interest')}:</span>
+                <span className="font-mono">{formatCurrency(result.totalInterest)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">{t('annuity_loan_term_months')}:</span>
+                <span className="font-mono">{result.numPayments}</span>
+              </div>
+            </div>
+          }
+        />
+      )}
+    >
+      <div className="space-y-6">
+        <CalculatorInput
+          id="loanAmount"
+          label={t('annuity_loan_amount_label')}
+          value={loanAmount}
+          onChange={setLoanAmount}
+          placeholder="100000"
+          min="0"
+          step="1000"
+          unit={t('finance_currency_label')}
+          helpText={t('annuity_loan_amount_help')}
+          error={errors.loanAmount}
+        />
+        <CalculatorInput
+          id="interestRate"
+          label={t('annuity_interest_rate_label')}
+          value={interestRate}
+          onChange={setInterestRate}
+          placeholder="5.5"
+          min="0"
+          max="100"
+          step="0.1"
+          unit="%"
+          helpText={t('annuity_interest_rate_help')}
+          error={errors.interestRate}
+        />
+        <CalculatorInput
+          id="loanTerm"
+          label={t('annuity_loan_term_label')}
+          value={loanTerm}
+          onChange={setLoanTerm}
+          placeholder="30"
+          min="1"
+          max="50"
+          step="1"
+          unit={t('finance_years_short')}
+          helpText={t('annuity_loan_term_help')}
+          error={errors.loanTerm}
+        />
+      </div>
+    </SimpleCalculatorLayout>
   );
 };
 
-export default AnuitniSplatkaCalculator;
+export default AnnuityPaymentCalculator;

@@ -1,9 +1,12 @@
-// src/app/[locale]/calculator/stavebni/izolace/page.tsx
-import React from 'react';
-import InsulationCalculator from '@/components/calculators/InsulationCalculator';
+'use client';
+import dynamic from 'next/dynamic';
+import { CalculatorPageWrapper } from '@/components/shared/CalculatorPageWrapper';
 
-const InsulationCalculatorPage: React.FC = () => {
-  return <InsulationCalculator />;
-};
+const InsulationCalculator = dynamic(
+  () => import('@/components/calculators/InsulationCalculator'),
+  { ssr: false }
+);
 
-export default InsulationCalculatorPage;
+export default function InsulationCalculatorPage() {
+  return <CalculatorPageWrapper calculatorComponent={InsulationCalculator} calculatorId="insulation" />;
+}

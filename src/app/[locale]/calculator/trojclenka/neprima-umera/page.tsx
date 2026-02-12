@@ -1,90 +1,14 @@
-// src/app/[locale]/calculator/proportions/inverse-proportion/page.tsx
 'use client';
 
 import React from 'react';
-import dynamic from 'next/dynamic';
-import { useTranslations } from 'next-intl';
-import LatexRenderer from '@/components/utils/LatexRenderer';
-import SeoMetadata from '@/components/seo/SeoMetadata';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import InverseProportionCalculator from '@/components/calculators/InverseProportionCalculator';
+import { CalculatorPageWrapper } from '@/components/shared/CalculatorPageWrapper';
 
-// Dynamically import the calculator component with SSR disabled
-const NeprimaUmeraCalculator = dynamic(
-  () => import('@/components/calculators/InverseProportionCalculator'),
-  { ssr: false }
-);
-
-const NeprimaUmeraPage: React.FC = () => {
-  const t = useTranslations();
-  
-  // Get translations
-  const seoTitle = t('neprima_umera_title') || 'Nepřímá úměra';
-  const seoDescription = t('neprima_umera_seo_description') || 'Vypočítejte hodnotu nepřímé úměry podle vzorce: (A × B) / C';
-  const formula = t('neprima_umera_formula') || '\\text{Výsledek} = \\frac{A \\times B}{C}';
-  const explanation = t('neprima_umera_explanation') || 'Nepřímá úměra popisuje vztah, kdy s rostoucí hodnotou jedné veličiny klesá hodnota druhé veličiny a naopak. Vzorec pro výpočet je (A × B) / C.';
-
+export default function InverseProportionPage() {
   return (
-    <div className="container mx-auto p-4">
-      <SeoMetadata title={seoTitle} description={seoDescription} />
-
-      <h1 className="text-3xl font-bold mb-6">{seoTitle}</h1>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
-          <Card>
-            <CardHeader>
-              <CardTitle>{t('kalkulacka') || 'Kalkulačka'}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <NeprimaUmeraCalculator />
-            </CardContent>
-          </Card>
-        </div>
-        
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>{t('jak_pocitat')} {t('neprima_umera_title')?.toLowerCase()}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="prose prose-sm dark:prose-invert max-w-none">
-                <p>{explanation}</p>
-                <div className="mt-4 p-3 bg-muted/50 rounded">
-                  <LatexRenderer formula={formula} displayMode={true} />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>{t('priklady_pouziti') || 'Příklady použití'}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2 list-disc pl-5">
-                <li>{t('priklad1_neprima_umera') || 'Výpočet spotřeby paliva na danou vzdálenost'}</li>
-                <li>{t('priklad2_neprima_umera') || 'Stanovení počtu pracovníků pro daný úkol'}</li>
-                <li>{t('priklad3_neprima_umera') || 'Výpočet rychlosti a času jízdy'}</li>
-              </ul>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-
-      <div className="mt-8">
-        <h2 className="text-2xl font-semibold mb-4">{t('dalsi_informace') || 'Další informace'}</h2>
-        <div className="prose prose-sm dark:prose-invert max-w-none">
-          <p>
-            {t('neprima_umera_dalsi_info') || 
-            'Nepřímá úměra je matematický vztah, který popisuje závislost mezi dvěma veličinami, ' +
-            'kdy s rostoucí hodnotou jedné veličiny klesá hodnota druhé veličiny a naopak. ' +
-            'Tento vztah se často používá v praktických výpočtech, jako je výpočet času, ' +
-            'rychlosti, počtu pracovníků a podobně.'}
-          </p>
-        </div>
-      </div>
-    </div>
+    <CalculatorPageWrapper
+      calculatorComponent={InverseProportionCalculator}
+      calculatorId="inverse-proportion"
+    />
   );
-};
-
-export default NeprimaUmeraPage;
+}

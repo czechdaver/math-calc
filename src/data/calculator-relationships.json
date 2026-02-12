@@ -25,6 +25,21 @@
       "maxCount": 3,
       "priorityOrder": ["vat", "discount", "tip", "compound-interest"]
     },
+    "percentage-of-number": {
+      "related": ["x-is-what-percent-of-y", "y-is-x-what-is-hundred", "percentage"],
+      "maxCount": 3,
+      "priorityOrder": ["x-is-what-percent-of-y", "y-is-x-what-is-hundred", "percentage", "vat"]
+    },
+    "x-is-what-percent-of-y": {
+      "related": ["percentage-of-number", "y-is-x-what-is-hundred", "percentage"],
+      "maxCount": 3,
+      "priorityOrder": ["percentage-of-number", "y-is-x-what-is-hundred", "percentage", "vat"]
+    },
+    "y-is-x-what-is-hundred": {
+      "related": ["percentage-of-number", "x-is-what-percent-of-y", "percentage"],
+      "maxCount": 3,
+      "priorityOrder": ["percentage-of-number", "x-is-what-percent-of-y", "percentage", "vat"]
+    },
     "vat": {
       "related": ["percentage", "net-salary", "discount"],
       "maxCount": 3,
@@ -39,6 +54,71 @@
       "related": ["percentage", "bmi", "bmr"],
       "maxCount": 3,
       "priorityOrder": ["percentage", "bmi", "bmr"]
+    },
+    "annuity-payment": {
+      "related": ["early-repayment", "npv", "roi"],
+      "maxCount": 3,
+      "priorityOrder": ["early-repayment", "npv", "roi", "irr", "net-salary"]
+    },
+    "roi": {
+      "related": ["irr", "npv", "annuity-payment"],
+      "maxCount": 3,
+      "priorityOrder": ["irr", "npv", "annuity-payment", "early-repayment"]
+    },
+    "npv": {
+      "related": ["irr", "roi", "annuity-payment"],
+      "maxCount": 3,
+      "priorityOrder": ["irr", "roi", "annuity-payment", "early-repayment"]
+    },
+    "irr": {
+      "related": ["npv", "roi", "annuity-payment"],
+      "maxCount": 3,
+      "priorityOrder": ["npv", "roi", "annuity-payment", "early-repayment"]
+    },
+    "early-repayment": {
+      "related": ["annuity-payment", "roi", "npv"],
+      "maxCount": 3,
+      "priorityOrder": ["annuity-payment", "roi", "npv", "irr"]
+    },
+    "direct-proportion": {
+      "related": ["inverse-proportion", "percentage", "fractions"],
+      "maxCount": 3,
+      "priorityOrder": ["inverse-proportion", "percentage", "fractions"]
+    },
+    "inverse-proportion": {
+      "related": ["direct-proportion", "percentage", "fractions"],
+      "maxCount": 3,
+      "priorityOrder": ["direct-proportion", "percentage", "fractions"]
+    },
+    "compound-interest": {
+      "related": ["annuity-payment", "roi", "npv"],
+      "maxCount": 3,
+      "priorityOrder": ["annuity-payment", "roi", "npv", "irr"]
+    },
+    "fractions": {
+      "related": ["percentage", "direct-proportion", "inverse-proportion"],
+      "maxCount": 3,
+      "priorityOrder": ["percentage", "direct-proportion", "inverse-proportion"]
+    },
+    "concrete": {
+      "related": ["volume", "area", "insulation"],
+      "maxCount": 3,
+      "priorityOrder": ["volume", "area", "insulation", "materials"]
+    },
+    "volume": {
+      "related": ["area", "concrete", "unit-converter"],
+      "maxCount": 3,
+      "priorityOrder": ["area", "concrete", "unit-converter", "insulation"]
+    },
+    "area": {
+      "related": ["volume", "concrete", "insulation"],
+      "maxCount": 3,
+      "priorityOrder": ["volume", "concrete", "insulation", "unit-converter"]
+    },
+    "insulation": {
+      "related": ["concrete", "volume", "area"],
+      "maxCount": 3,
+      "priorityOrder": ["concrete", "volume", "area", "materials"]
     }
   },
   "fallbackStrategy": {

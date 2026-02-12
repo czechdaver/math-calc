@@ -263,6 +263,105 @@
       "path": "/calculator/trojclenka/prima-umera",
       "tags": ["math", "proportion"],
       "relatedCategories": ["math"]
+    },
+    "annuity-payment": {
+      "id": "annuity-payment",
+      "slug": "anuitni-splatka",
+      "category": "finance",
+      "popularity": 75,
+      "titleKey": "annuity_payment_calculator_title",
+      "descriptionKey": "annuity_payment_calculator_description",
+      "path": "/calculator/financie-rozsirene/anuitni-splatka",
+      "tags": ["finance", "loan", "annuity", "payment"],
+      "relatedCategories": ["finance"]
+    },
+    "roi": {
+      "id": "roi",
+      "slug": "roi",
+      "category": "finance",
+      "popularity": 70,
+      "titleKey": "roi_calculator_title",
+      "descriptionKey": "roi_calculator_description",
+      "path": "/calculator/financie-rozsirene/roi",
+      "tags": ["finance", "investment", "roi", "return"],
+      "relatedCategories": ["finance"]
+    },
+    "npv": {
+      "id": "npv",
+      "slug": "npv",
+      "category": "finance",
+      "popularity": 65,
+      "titleKey": "npv_calculator_title",
+      "descriptionKey": "npv_calculator_description",
+      "path": "/calculator/financie-rozsirene/npv",
+      "tags": ["finance", "investment", "npv", "present-value"],
+      "relatedCategories": ["finance"]
+    },
+    "irr": {
+      "id": "irr",
+      "slug": "irr",
+      "category": "finance",
+      "popularity": 65,
+      "titleKey": "irr_calculator_title",
+      "descriptionKey": "irr_calculator_description",
+      "path": "/calculator/financie-rozsirene/irr",
+      "tags": ["finance", "investment", "irr", "return-rate"],
+      "relatedCategories": ["finance"]
+    },
+    "early-repayment": {
+      "id": "early-repayment",
+      "slug": "predcasne-splaceni",
+      "category": "finance",
+      "popularity": 70,
+      "titleKey": "early_repayment_calculator_title",
+      "descriptionKey": "early_repayment_calculator_description",
+      "path": "/calculator/financie-rozsirene/predcasne-splaceni",
+      "tags": ["finance", "loan", "repayment", "mortgage"],
+      "relatedCategories": ["finance"]
+    },
+    "inverse-proportion": {
+      "id": "inverse-proportion",
+      "slug": "neprima-umera",
+      "category": "math",
+      "popularity": 65,
+      "titleKey": "inverse_proportion_calculator_title",
+      "descriptionKey": "inverse_proportion_calculator_description",
+      "path": "/calculator/trojclenka/neprima-umera",
+      "tags": ["math", "proportion", "inverse"],
+      "relatedCategories": ["math"]
+    },
+    "compound-interest": {
+      "id": "compound-interest",
+      "slug": "slozene-uroceni",
+      "category": "finance",
+      "popularity": 75,
+      "titleKey": "compound_interest_calculator_title",
+      "descriptionKey": "compound_interest_calculator_description",
+      "path": "/calculator/financie-rozsirene/slozene-uroceni",
+      "tags": ["finance", "investment", "interest", "compound"],
+      "relatedCategories": ["finance"]
+    },
+    "fractions": {
+      "id": "fractions",
+      "slug": "zlomky",
+      "category": "math",
+      "popularity": 70,
+      "titleKey": "fractions_calculator_title",
+      "descriptionKey": "fractions_calculator_description",
+      "path": "/calculator/zlomky",
+      "tags": ["math", "fractions", "calculation"],
+      "relatedCategories": ["math"]
+    },
+    "insulation": {
+      "id": "insulation",
+      "slug": "izolace",
+      "category": "construction",
+      "popularity": 60,
+      "titleKey": "insulation_calculator_title",
+      "descriptionKey": "insulation_calculator_description",
+      "path": "/calculator/stavebni/izolace",
+      "tags": ["construction", "insulation", "thermal", "energy"],
+      "relatedCategories": ["construction"]
     }
   }
 }

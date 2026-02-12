@@ -1,9 +1,12 @@
-// src/app/[locale]/calculator/stavebni/plocha/page.tsx
-import React from 'react';
-import AreaCalculator from '@/components/calculators/AreaCalculator';
+'use client';
+import dynamic from 'next/dynamic';
+import { CalculatorPageWrapper } from '@/components/shared/CalculatorPageWrapper';
 
-const AreaCalculatorPage: React.FC = () => {
-  return <AreaCalculator />;
-};
+const AreaCalculator = dynamic(
+  () => import('@/components/calculators/AreaCalculator'),
+  { ssr: false }
+);
 
-export default AreaCalculatorPage;
+export default function AreaCalculatorPage() {
+  return <CalculatorPageWrapper calculatorComponent={AreaCalculator} calculatorId="area" />;
+}

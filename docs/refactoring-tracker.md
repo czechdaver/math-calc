@@ -1,7 +1,7 @@
 # Refactoring Tracker – Online Kalkulačky
 
 > Automaticky aktualizováno při refaktoringu.
-> Poslední update: 2026-02-11
+> Poslední update: 2026-02-12
 
 ## Legenda stavů
 
@@ -60,27 +60,27 @@ Kalkulačka je DONE když splňuje:
 | 4 | DPH new | `/calculator/dph-new/` | ✅ DONE | 0 | 1 | M | 2026-02-11 | 2026-02-11 | 772281d | Duplikát smazán |
 | 5 | Procento z čísla | `/calculator/procenta/procento-z-cisla/` | ✅ DONE | 0 | 1 | S | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
 | 6 | Procento z čísla new | `/calculator/procenta/procento-z-cisla-new/` | ✅ DONE | 0 | 1 | S | 2026-02-11 | 2026-02-11 | 772281d | Duplikát smazán |
-| 7 | Kolik % je X z Y | `/calculator/procenta/kolik-procent-je-x-z-y/` | ⚠️ PARTIAL | 0 | 1 | S | 2026-02-11 | - | 772281d | Stále používá CalculatorBase |
+| 7 | Kolik % je X z Y | `/calculator/procenta/kolik-procent-je-x-z-y/` | ✅ DONE | 3 | 1 | S | 2026-02-11 | 2026-02-12 | batch-3 | Migrace z CalculatorBase na SimpleCalculatorLayout, překlady cs/en |
 | 8 | Kolik % je X z Y new | `/calculator/kolik-procent-je-x-z-y-new/` | ✅ DONE | 0 | 1 | S | 2026-02-11 | 2026-02-11 | 772281d | Duplikát smazán |
 | 9 | Y je X% co je 100% | `/calculator/procenta/y-je-x-kolik-je-sto/` | ✅ DONE | 0 | 1 | S | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
 | 10 | Y je X% co je 100% new | `/calculator/y-je-x-kolik-je-sto-new/` | ✅ DONE | 0 | 1 | S | 2026-02-11 | 2026-02-11 | 772281d | Duplikát smazán |
-| 11 | Čistá mzda | `/calculator/cista-mzda/` | ⚠️ PARTIAL | 0 | 2 | M | 2026-02-11 | - | 772281d | Duplicita odstraněna, ale stále CalculatorBase |
+| 11 | Čistá mzda | `/calculator/cista-mzda/` | ✅ DONE | 1 | 2 | M | 2026-02-12 | 2026-02-12 | batch-1 | 184→140ř, hook useNetSalaryCalculator, CZ/SK support |
 | 12 | Čistá mzda new | `/calculator/cista-mzda-new/` | ✅ DONE | 0 | 1 | M | 2026-02-11 | 2026-02-11 | 772281d | Duplikát smazán |
-| 13 | Převodník jednotek | `/calculator/prevodnik-jednotek/` | ⚠️ PARTIAL | 0 | 2 | M | 2026-02-11 | - | 772281d | Duplicita odstraněna, ale stále CalculatorBase |
+| 13 | Převodník jednotek | `/calculator/prevodnik-jednotek/` | ✅ DONE | 1 | 2 | L | 2026-02-12 | 2026-02-12 | batch-1 | 313→167ř, hook useUnitConverter, Tabs/Select/swap zachovány |
 | 14 | Převodník jednotek new | `/calculator/prevodnik-jednotek-new/` | ✅ DONE | 0 | 1 | M | 2026-02-11 | 2026-02-11 | 772281d | Duplikát smazán |
 | 15 | Trojčlenka new | `/calculator/trojclenka-new/` | ✅ DONE | 0 | 2 | M | 2026-02-11 | 2026-02-11 | 772281d | Duplikát kategorie smazán |
 | 16 | Zlomky new | `/calculator/zlomky-new/` | ✅ DONE | 0 | 2 | L | 2026-02-11 | 2026-02-11 | 772281d | Duplikát smazán |
 | 17 | Složené úročení new | `/calculator/slozene-uroceni-new/` | ✅ DONE | 0 | 2 | M | 2026-02-11 | 2026-02-11 | 772281d | Duplikát smazán |
 | 18 | Anuita new | `/calculator/anuita-new/` | ✅ DONE | 0 | 2 | M | 2026-02-11 | 2026-02-11 | 772281d | Duplikát smazán |
 | 19 | Trojčlenka - přímá úměra | `/calculator/trojclenka/prima-umera/` | ✅ DONE | 1 | 2 | M | 2026-02-11 | 2026-02-11 | 55b4c3b | Migrována na SimpleCalculatorLayout |
-| 20 | Trojčlenka - nepřímá úměra | `/calculator/trojclenka/neprima-umera/` | ⬜ NOT_STARTED | 1 | 2 | M | - | - | - | Používá CalculatorBase |
-| 21 | Zlomky | `/calculator/zlomky/` | ⚠️ PARTIAL | 1 | 2 | L | 2026-02-11 | - | 772281d | Duplicita odstraněna, ale stále CalculatorBase |
-| 22 | Složené úročení | `/calculator/financie-rozsirene/slozene-uroceni/` | ⚠️ PARTIAL | 1 | 2 | M | 2026-02-11 | - | 772281d | Duplicita odstraněna, ale stále CalculatorBase |
-| 23 | Anuitní splátka | `/calculator/financie-rozsirene/anuitni-splatka/` | ⬜ NOT_STARTED | 2 | 3 | M | - | - | - | Používá CalculatorBase |
-| 24 | IRR | `/calculator/financie-rozsirene/irr/` | ⬜ NOT_STARTED | 2 | 3 | L | - | - | - | Velký soubor (555 řádků) |
-| 25 | NPV | `/calculator/financie-rozsirene/npv/` | ⬜ NOT_STARTED | 2 | 3 | L | - | - | - | |
-| 26 | ROI | `/calculator/financie-rozsirene/roi/` | ⬜ NOT_STARTED | 2 | 3 | M | - | - | - | |
-| 27 | Předčasné splacení | `/calculator/financie-rozsirene/predcasne-splaceni/` | ⬜ NOT_STARTED | 2 | 3 | M | - | - | - | |
+| 20 | Trojčlenka - nepřímá úměra | `/calculator/trojclenka/neprima-umera/` | ✅ DONE | 1 | 2 | M | 2026-02-12 | 2026-02-12 | batch-1 | Přepis z CalculatorBase na SimpleCalculatorLayout, LaTeX, FAQ, examples |
+| 21 | Zlomky | `/calculator/zlomky/` | ✅ DONE | 1 | 2 | L | 2026-02-12 | 2026-02-12 | batch-1 | 129→106ř, přepis na SimpleCalculatorLayout, sub-komponenty zachovány |
+| 22 | Složené úročení | `/calculator/financie-rozsirene/slozene-uroceni/` | ✅ DONE | 1 | 2 | M | 2026-02-12 | 2026-02-12 | batch-1 | 193→169ř, hook useCompoundInterestCalculator, CalculatorSelect |
+| 23 | Anuitní splátka | `/calculator/financie-rozsirene/anuitni-splatka/` | ✅ DONE | 2 | 3 | M | 2026-02-12 | 2026-02-12 | batch-2 | 166→173ř, přepis z CalculatorBase na SimpleCalculatorLayout, hook useFinanceFormatting |
+| 24 | IRR | `/calculator/financie-rozsirene/irr/` | ✅ DONE | 2 | 3 | L | 2026-02-12 | 2026-02-12 | batch-2 | 554→189ř, hook useIRRCalculator, CashFlowEditor, sdílená calculateNPV |
+| 25 | NPV | `/calculator/financie-rozsirene/npv/` | ✅ DONE | 2 | 3 | L | 2026-02-12 | 2026-02-12 | batch-2 | 519→200ř, hook useNPVCalculator, CashFlowEditor |
+| 26 | ROI | `/calculator/financie-rozsirene/roi/` | ✅ DONE | 2 | 3 | M | 2026-02-12 | 2026-02-12 | batch-2 | 575→241ř, hook useROICalculator, CalculatorInput |
+| 27 | Předčasné splacení | `/calculator/financie-rozsirene/predcasne-splaceni/` | ✅ DONE | 2 | 3 | M | 2026-02-12 | 2026-02-12 | batch-2 | 625→279ř, hook useEarlyRepaymentCalculator, CalculatorInput |
 | 28 | Age Calculator | `/calculator/age/` | ✅ DONE | 0 | 5 | S | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
 | 29 | Area Calculator | `/calculator/area/` | ✅ DONE | 0 | 3 | M | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
 | 30 | BMR Calculator | `/calculator/bmr/` | ✅ DONE | 0 | 5 | S | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
@@ -93,12 +93,12 @@ Kalkulačka je DONE když splňuje:
 | 37 | Loan Calculator | `/calculator/loan/` | ✅ DONE | 0 | 5 | M | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
 | 38 | Time Calculator | `/calculator/time/` | ✅ DONE | 0 | 5 | S | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
 | 39 | Tip Calculator | `/calculator/tip/` | ✅ DONE | 0 | 5 | S | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
-| 40 | Volume Converter | N/A | ⬜ NOT_STARTED | 4 | 3 | M | - | - | - | Komponenta exists (VolumeConverter.tsx v unitConverters/) |
-| 41 | Beton | `/calculator/stavebni/beton/` | ✅ DONE | 3 | 4 | L | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
-| 42 | Izolace | `/calculator/stavebni/izolace/` | ⬜ NOT_STARTED | 3 | 4 | M | - | - | - | |
+| 40 | Volume Converter | N/A | ✅ DONE | 4 | 3 | M | 2026-02-12 | 2026-02-12 | batch-4 | Redundantní – UnitConverter má 10 volume jednotek. Orphaned komponenty smazány (4 soubory), SEO doplněno. |
+| 41 | Beton | `/calculator/stavebni/beton/` | ✅ DONE | 3 | 4 | L | 2026-02-11 | 2026-02-12 | batch-3 | 630→163ř, hook useConcreteCalculator, CalculatorPageWrapper, překlady cs/en |
+| 42 | Izolace | `/calculator/stavebni/izolace/` | ✅ DONE | 3 | 4 | M | 2026-02-12 | 2026-02-12 | batch-3 | 515→265ř, hook useInsulationCalculator, CalculatorPageWrapper, překlady cs/en |
 | 43 | Materiály | `/calculator/stavebni/materialy/` | ✅ DONE | 3 | 4 | M | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
-| 44 | Objem | `/calculator/stavebni/objem/` | ✅ DONE | 3 | 4 | L | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
-| 45 | Plocha | `/calculator/stavebni/plocha/` | ⬜ NOT_STARTED | 3 | 4 | M | - | - | - | |
+| 44 | Objem | `/calculator/stavebni/objem/` | ✅ DONE | 3 | 4 | L | 2026-02-11 | 2026-02-12 | batch-3 | 647→171ř, hook useVolumeCalculator, CalculatorPageWrapper, překlady cs/en |
+| 45 | Plocha | `/calculator/stavebni/plocha/` | ✅ DONE | 3 | 4 | M | 2026-02-12 | 2026-02-12 | batch-3 | CalculatorPageWrapper standardizován |
 | 46 | Fraction Addition | N/A | ⬜ NOT_STARTED | 5 | 5 | M | - | - | - | Placeholder - implementovat |
 | 47 | Fraction Subtraction | N/A | ⬜ NOT_STARTED | 5 | 5 | M | - | - | - | Placeholder - implementovat |
 | 48 | Fraction Multiplication | N/A | ⬜ NOT_STARTED | 5 | 5 | M | - | - | - | Placeholder - implementovat |
@@ -145,7 +145,23 @@ Kalkulačka je DONE když splňuje:
 | 19 | Materiály | ✅ | ✅ | Opraveno |
 | 20 | Objem | ✅ | ✅ | Opraveno |
 
-**Stav:** 20/20 s getRelatedCalculators() (Kolik % je X z Y vyjímka - používá CalculatorBase)
+| 21 | Trojčlenka - nepřímá úměra | ✅ | ✅ | Batch 1 |
+| 22 | Zlomky | ✅ | ✅ | Batch 1 |
+| 23 | Složené úročení | ✅ | ✅ | Batch 1 |
+| 24 | Čistá mzda | ✅ | ✅ | Batch 1 |
+| 25 | Převodník jednotek | ✅ | ✅ | Batch 1 |
+| 26 | Anuitní splátka | ✅ | ✅ | Batch 2 |
+| 27 | IRR | ✅ | ✅ | Batch 2 |
+| 28 | NPV | ✅ | ✅ | Batch 2 |
+| 29 | ROI | ✅ | ✅ | Batch 2 |
+| 30 | Předčasné splacení | ✅ | ✅ | Batch 2 |
+| 31 | Kolik % je X z Y | ✅ | ✅ | Batch 3 |
+| 32 | Beton | ✅ | ✅ | Batch 3 |
+| 33 | Objem | ✅ | ✅ | Batch 3 |
+| 34 | Plocha | ✅ | ✅ | Batch 3 |
+| 35 | Izolace | ✅ | ✅ | Batch 3 |
+
+**Stav:** 35/35 s getRelatedCalculators()
 
 ---
 
@@ -153,9 +169,8 @@ Kalkulačka je DONE když splňuje:
 
 | Stav | Počet | Procento |
 |------|-------|----------|
-| ✅ DONE | 20 | 31% |
-| ⚠️ PARTIAL | 5 | 8% |
-| ⬜ NOT_STARTED | 38 | 59% |
+| ✅ DONE | 31 | 48% |
+| ⬜ NOT_STARTED | 32 | 50% |
 | 🔗 REFERENCE | 1 | 2% |
 | **CELKEM** | **64** | **100%** |
 
@@ -165,13 +180,14 @@ Kalkulačka je DONE když splňuje:
 - 4 kalkulačky označeny jako PARTIAL (nutno migrovat z CalculatorBase)
 - **19 kalkulaček opraveno - hardcoded relatedCalculators nahrazeny getRelatedCalculators()**
 
-### Batch 1 – 🔄 ROZPRACOVÁN (2/5 hotovo)
+### Batch 1 – ✅ DOKONČEN (6/6 hotovo)
 - ✅ Trojčlenka - přímá úměra (SimpleCalculatorLayout)
-- ⬜ Trojčlenka - nepřímá úměra (CalculatorBase)
-- ⚠️ Zlomky (CalculatorBase)
-- ⚠️ Složené úročení (CalculatorBase)
-- ⚠️ Čistá mzda (CalculatorBase)
-- ⚠️ Převodník jednotek (CalculatorBase)
+- ✅ Trojčlenka - nepřímá úměra (SimpleCalculatorLayout) – přepsáno 2026-02-12
+- ✅ Zlomky (SimpleCalculatorLayout) – přepsáno 2026-02-12
+- ✅ Složené úročení (SimpleCalculatorLayout + useCompoundInterestCalculator) – přepsáno 2026-02-12
+- ✅ Čistá mzda (SimpleCalculatorLayout + useNetSalaryCalculator) – přepsáno 2026-02-12
+- ✅ Převodník jednotek (SimpleCalculatorLayout + useUnitConverter) – přepsáno 2026-02-12
+- ✅ DirectProportion i18n fix – hardcoded CZ text nahrazen translation klíči
 
 ---
 
@@ -223,52 +239,56 @@ Kalkulačka je DONE když splňuje:
 
 **Čas:** 3-4 hodin
 
-### Batch 1: CalculatorBase migrace 🔄 ROZPRACOVÁN
+### Batch 1: CalculatorBase migrace ✅ DOKONČEN
 
 **Kalkulačky:**
 - ✅ Trojčlenka - přímá úměra (SimpleCalculatorLayout)
-- ⬜ Trojčlenka - nepřímá úměra (CalculatorBase)
-- ⚠️ Zlomky (CalculatorBase - duplicity vyřešeny v Batch 0)
-- ⚠️ Složené úročení (CalculatorBase - duplicity vyřešeny v Batch 0)
-- ⚠️ Čistá mzda (CalculatorBase - duplicity vyřešeny v Batch 0)
-- ⚠️ Převodník jednotek (CalculatorBase - duplicity vyřešeny v Batch 0)
+- ✅ Trojčlenka - nepřímá úměra (SimpleCalculatorLayout)
+- ✅ Zlomky (SimpleCalculatorLayout)
+- ✅ Složené úročení (SimpleCalculatorLayout + useCompoundInterestCalculator)
+- ✅ Čistá mzda (SimpleCalculatorLayout + useNetSalaryCalculator)
+- ✅ Převodník jednotek (SimpleCalculatorLayout + useUnitConverter)
+- ✅ DirectProportion i18n fix (hardcoded CZ → translation keys)
 
-**Stav:** 1/6 hotovo (2/6 pokud počítáme PARTIAL)
-**Očekávaný čas:** 8-10 hodin
+**Nové hooks:** useCompoundInterestCalculator.ts, useNetSalaryCalculator.ts, useUnitConverter.ts
+**Nové překlady:** ~195 klíčů v cs.json a en.json
+**Stav:** 6/6 hotovo + 1 fix
+**Čas:** Dokončeno 2026-02-12
 
-### Batch 2: Finance
-
-**Kalkulačky:**
-- Anuitní splátka (CalculatorBase → SimpleCalculatorLayout)
-- IRR (zmenšení pod 250 řádků)
-- NPV (ověření stavu, refaktoring)
-- ROI (ověření stavu, refaktoring)
-- Předčasné splacení (ověření stavu, refaktoring)
-
-**Složitost:** M-L
-**Očekávaný čas:** 10-12 hodin
-
-### Batch 3: Stavební - velké soubory
+### Batch 2: Finance ✅ DOKONČEN
 
 **Kalkulačky:**
-- Beton (zmenšení z 649 řádků)
-- Objem (zmenšení z 666 řádků)
-- Plocha (ověření stavu)
-- Materiály (ověření stavu)
-- Izolace (ověření stavu)
+- ✅ Anuitní splátka (166→173ř, hook useFinanceFormatting)
+- ✅ IRR (554→189ř, hook useIRRCalculator, CashFlowEditor)
+- ✅ NPV (519→200ř, hook useNPVCalculator, CashFlowEditor)
+- ✅ ROI (575→241ř, hook useROICalculator)
+- ✅ Předčasné splacení (625→279ř, hook useEarlyRepaymentCalculator)
 
-**Složitost:** L
-**Očekávaný čas:** 12-15 hodin
+**Stav:** 5/5 hotovo
+**Čas:** Dokončeno 2026-02-12
 
-### Batch 4: Ostatní hotové komponenty
+### Batch 3: Stavební - velké soubory ✅ DOKONČEN
 
 **Kalkulačky:**
-- Volume Converter (unitConverters)
+- ✅ Beton (630→163ř, hook useConcreteCalculator, CalculatorPageWrapper)
+- ✅ Objem (647→171ř, hook useVolumeCalculator, CalculatorPageWrapper)
+- ✅ Plocha (CalculatorPageWrapper standardizován)
+- ✅ Materiály (beze změny – již splňovalo)
+- ✅ Izolace (515→265ř, hook useInsulationCalculator, nová route + data)
+- ✅ Kolik % je X z Y (167→223ř, migrace z CalculatorBase na SimpleCalculatorLayout)
 
-**Poznámka:** Většina kalkulaček z tohoto batchu už má routy z Batch 0
+**Nové hooks:** useConcreteCalculator.ts, useVolumeCalculator.ts, useInsulationCalculator.ts
+**Nové překlady:** ~180 klíčů v cs.json a en.json (concrete, volume, insulation, x_percent_of_y)
+**Stav:** 6/6 hotovo
+**Čas:** Dokončeno 2026-02-12
 
-**Složitost:** S-M
-**Očekávaný čas:** 1-2 hodin
+### Batch 4: Ostatní hotové komponenty ✅ DOKONČEN
+
+**Kalkulačky:**
+- ✅ Volume Converter – redundantní (UnitConverter má 10 volume jednotek), orphaned komponenty smazány (VolumeConverter, LengthConverter, WeightConverter, TemperatureConverter), SEO doplněno u UnitConverter
+
+**Stav:** 1/1 hotovo
+**Čas:** Dokončeno 2026-02-12
 
 ### Batch 5: Fraction operations
 
@@ -332,3 +352,7 @@ Kalkulačka je DONE když splňuje:
 | 2026-02-11 | Trojčlenka - přímá úměra | Dokončeno | Migrace na SimpleCalculatorLayout - commit 55b4c3b |
 | 2026-02-11 | Tracker | Oprava | Aktualizován stav dle skutečné git historie - přidáno 2 MISSING stavy, přeskupina položek |
 | 2026-02-11 | Tracker | Revize | Přidán stav PARTIAL_RELATED, 19 kalkulaček překlasifikováno z DONE na PARTIAL_RELATED (hardcoded relatedCalculators), přidána Feature Checklist sekce |
+| 2026-02-12 | Batch 2 Finance | Dokončeno | 5 finančních kalkulaček migrováno na SimpleCalculatorLayout (anuitní splátka, IRR, NPV, ROI, předčasné splacení) |
+| 2026-02-12 | Batch 1 Remaining | Dokončeno | 5 kalkulaček migrováno (nepřímá úměra, zlomky, složené úročení, čistá mzda, převodník jednotek) + DirectProportion i18n fix. 3 nové hooks, ~195 translation klíčů cs/en |
+| 2026-02-12 | Batch 3 Stavební | Dokončeno | 6 kalkulaček: beton (630→163ř), objem (647→171ř), izolace (515→265ř), plocha (wrapper), kolik % je X z Y (167→223ř). 3 nové hooks, ~180 translation klíčů cs/en |
+| 2026-02-12 | Batch 4 | Dokončeno | Volume Converter redundantní – smazány 4 orphaned unitConverter komponenty, SEO doplněno u UnitConverter |

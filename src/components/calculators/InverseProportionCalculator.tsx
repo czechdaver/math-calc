@@ -1,149 +1,187 @@
-// src/components/calculators/NeprimaUmeraCalculator.refactored.tsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import CalculatorBase, { CalculatorInput, CalculatorResult } from './CalculatorBase';
+import { useParams } from 'next/navigation';
+import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
+import { CalculatorInput } from './shared';
+import { Info } from 'lucide-react';
+import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
-const NeprimaUmeraCalculator: React.FC = () => {
+interface InverseProportionResult {
+  value: number;
+  a: number;
+  b: number;
+  c: number;
+  isValid: boolean;
+}
+
+const InverseProportionCalculator: React.FC = () => {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params.locale as string;
+  const [a, setA] = useState<string>('6');
+  const [b, setB] = useState<string>('4');
+  const [c, setC] = useState<string>('3');
+  const [result, setResult] = useState<InverseProportionResult | null>(null);
+  const [errors, setErrors] = useState<{ a?: string; b?: string; c?: string }>({});
 
-  // Define calculator inputs
-  const inputs: CalculatorInput[] = [
-    {
-      id: 'a',
-      label: t('label_a') || 'Hodnota A',
-      type: 'number',
-      required: true,
-      placeholder: t('zadejte_hodnotu') || 'Zadejte hodnotu',
-      step: 'any',
-      helpText: t('zadejte_cislo') || 'Zadejte číslo',
-    },
-    {
-      id: 'b',
-      label: t('label_b') || 'Hodnota B',
-      type: 'number',
-      required: true,
-      placeholder: t('zadejte_hodnotu') || 'Zadejte hodnotu',
-      step: 'any',
-      helpText: t('zadejte_cislo') || 'Zadejte číslo',
-    },
-    {
-      id: 'c',
-      label: t('label_c') || 'Hodnota C',
-      type: 'number',
-      required: true,
-      placeholder: t('zadejte_hodnotu') || 'Zadejte hodnotu',
-      step: 'any',
-      helpText: t('zadejte_cislo_ruzne_od_nuly') || 'Zadejte číslo různé od nuly',
-    },
-  ];
-
-  // Calculate the indirect proportion (nepřímá úměra)
-  const calculate = (values: Record<string, any>): CalculatorResult => {
-    const a = parseFloat(values.a || '0');
-    const b = parseFloat(values.b || '0');
-    const c = parseFloat(values.c || '1');
-    
-    if (isNaN(a) || isNaN(b) || isNaN(c) || c === 0) {
-      return { value: null };
+  const calculate = (aVal: number, bVal: number, cVal: number): InverseProportionResult => {
+    if (isNaN(aVal) || isNaN(bVal) || isNaN(cVal) || cVal === 0) {
+      return { value: 0, a: aVal, b: bVal, c: cVal, isValid: false };
     }
-
-    const result = (a * b) / c;
-
-    return {
-      value: result,
-      details: [
-        { 
-          label: t('vysledek') || 'Výsledek', 
-          value: result.toFixed(4), 
-          highlight: true 
-        },
-        { 
-          label: t('vypocet') || 'Výpočet', 
-          value: `(${a} × ${b}) / ${c} = ${result.toFixed(4)}` 
-        },
-      ],
-      formula: 'výsledek = (A × B) / C',
-      explanation: t('neprima_umera_explanation') || 'Výpočet nepřímé úměry: (A × B) / C',
-    };
+    const x = (aVal * bVal) / cVal;
+    return { value: x, a: aVal, b: bVal, c: cVal, isValid: true };
   };
 
-  // Custom result component to display the calculation details
-  const ResultComponent = ({ result }: { result: CalculatorResult }) => {
-    if (result.value === null) {
-      return (
-        <div className="text-center py-4 text-muted-foreground">
-          {t('zadejte_platne_hodnoty') || 'Zadejte platné hodnoty pro výpočet'}
-        </div>
-      );
+  const validateInputs = () => {
+    const newErrors: { a?: string; b?: string; c?: string } = {};
+    const aNum = parseFloat(a);
+    const bNum = parseFloat(b);
+    const cNum = parseFloat(c);
+
+    if (!a || isNaN(aNum) || aNum <= 0) {
+      newErrors.a = t('inverse_proportion_validation_positive');
+    }
+    if (!b || isNaN(bNum) || bNum <= 0) {
+      newErrors.b = t('inverse_proportion_validation_positive');
+    }
+    if (!c || isNaN(cNum) || cNum <= 0) {
+      newErrors.c = t('inverse_proportion_validation_positive');
     }
 
-    return (
-      <div className="space-y-4">
-        <div className="bg-primary/10 p-4 rounded-lg border border-primary/20">
-          <div className="text-sm font-medium text-primary/80 mb-1">
-            {t('vysledek') || 'Výsledek'}
-          </div>
-          <div className="text-2xl font-bold">
-            {Number(result.value).toFixed(4)}
-          </div>
-        </div>
-
-        {result.details && result.details.length > 0 && (
-          <div className="space-y-2">
-            {result.details.map((detail, index) => (
-              <div key={index} className={`flex justify-between ${detail.highlight ? 'font-medium' : ''}`}>
-                <span className="text-muted-foreground">{detail.label}:</span>
-                <span>
-                  {detail.value} {detail.unit || ''}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {result.formula && (
-          <div className="mt-4 p-3 bg-muted/50 rounded text-sm font-mono">
-            <div className="font-semibold mb-1">{t('pouzity_vzorec') || 'Použitý vzorec'}:</div>
-            <div>{result.formula}</div>
-          </div>
-        )}
-
-        {result.explanation && (
-          <div className="mt-3 text-sm text-muted-foreground">
-            {result.explanation}
-          </div>
-        )}
-      </div>
-    );
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
+
+  useEffect(() => {
+    if (validateInputs()) {
+      setResult(calculate(parseFloat(a), parseFloat(b), parseFloat(c)));
+    } else {
+      setResult(null);
+    }
+  }, [a, b, c]);
+
+  const relatedCalculators = getRelatedCalculators('inverse-proportion', locale, t);
 
   return (
-    <CalculatorBase
-      id="inverse-proportion"
-      title={t('neprima_umera_title') || 'Nepřímá úměra'}
-      description={
-        t('neprima_umera_description') || 
-        'Vypočítejte hodnotu nepřímé úměry podle vzorce: (A × B) / C. Zadejte hodnoty A, B a C pro výpočet.'
-      }
+    <SimpleCalculatorLayout
+      title={t('inverse_proportion_title')}
+      description={t('inverse_proportion_description')}
       category="matematika"
+      calculatorId="inverse-proportion"
       seo={{
-        title: t('seo.neprima_umera_title') || 'Kalkulačka: Nepřímá úměra',
-        description: 
-          t('seo.neprima_umera_description') || 
-          'Snadno vypočítejte hodnotu nepřímé úměry podle vzorce (A × B) / C. Ideální pro výpočty s nepřímými úměrami.',
+        title: t('inverse_proportion_seo_title'),
+        description: t('inverse_proportion_seo_description'),
         keywords: [
-          t('seo.klicove_slovo_neprima_umera') || 'nepřímá úměra',
-          t('seo.klicove_slovo_kalkulacka') || 'kalkulačka',
-          t('seo.klicove_slovo_vypocet') || 'výpočet',
-          t('seo.klicove_slovo_matematika') || 'matematika',
-          t('seo.klicove_slovo_vzorec') || 'vzorec',
-        ],
+          t('inverse_proportion_keyword_1'),
+          t('inverse_proportion_keyword_2'),
+          t('inverse_proportion_keyword_3'),
+          t('inverse_proportion_keyword_4')
+        ]
       }}
-      inputs={inputs}
-      calculate={calculate}
-      resultComponent={ResultComponent}
-    />
+      formula={{
+        latex: String.raw`x = \frac{A \times B}{C}`,
+        description: t('inverse_proportion_formula_desc')
+      }}
+      examples={{
+        title: t('inverse_proportion_examples_title'),
+        description: t('inverse_proportion_examples_desc'),
+        scenarios: [
+          {
+            title: t('inverse_proportion_example_1_title'),
+            description: t('inverse_proportion_example_1_desc'),
+            example: t('inverse_proportion_example_1_calc')
+          },
+          {
+            title: t('inverse_proportion_example_2_title'),
+            description: t('inverse_proportion_example_2_desc'),
+            example: t('inverse_proportion_example_2_calc')
+          },
+          {
+            title: t('inverse_proportion_example_3_title'),
+            description: t('inverse_proportion_example_3_desc'),
+            example: t('inverse_proportion_example_3_calc')
+          }
+        ]
+      }}
+      faq={[
+        { question: t('inverse_proportion_faq_1_q'), answer: t('inverse_proportion_faq_1_a') },
+        { question: t('inverse_proportion_faq_2_q'), answer: t('inverse_proportion_faq_2_a') },
+        { question: t('inverse_proportion_faq_3_q'), answer: t('inverse_proportion_faq_3_a') }
+      ]}
+      relatedCalculators={relatedCalculators}
+      schemaData={{ applicationCategory: "UtilityApplication", operatingSystem: "Any" }}
+      resultSection={result && result.isValid && (
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="text-center p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg">
+              <div className="text-sm font-medium text-muted-foreground">{t('inverse_proportion_value_a')}</div>
+              <div className="text-2xl font-bold text-blue-600">{result.a}</div>
+            </div>
+            <div className="text-center p-4 bg-green-50 dark:bg-green-950/30 rounded-lg">
+              <div className="text-sm font-medium text-muted-foreground">{t('inverse_proportion_value_b')}</div>
+              <div className="text-2xl font-bold text-green-600">{result.b}</div>
+            </div>
+            <div className="text-center p-4 bg-purple-50 dark:bg-purple-950/30 rounded-lg">
+              <div className="text-sm font-medium text-muted-foreground">{t('inverse_proportion_value_c')}</div>
+              <div className="text-2xl font-bold text-purple-600">{result.c}</div>
+            </div>
+          </div>
+
+          <div className="bg-muted/50 p-4 rounded-lg">
+            <p className="text-sm text-muted-foreground mb-2"><strong>{t('inverse_proportion_result_label')}:</strong></p>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Info className="w-4 h-4 text-blue-600" />
+                <span className="text-xl font-semibold">x = {result.value.toFixed(4)}</span>
+              </div>
+              <div className="text-xs text-muted-foreground">
+                ({result.a} × {result.b}) / {result.c} = <strong>{result.value.toFixed(4)}</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    >
+      <div className="space-y-6">
+        <CalculatorInput
+          id="a"
+          label={t('inverse_proportion_value_a')}
+          type="number"
+          value={a}
+          onChange={setA}
+          placeholder="6"
+          min="0.0001"
+          step="any"
+          helpText={t('inverse_proportion_help_a')}
+          error={errors.a}
+        />
+        <CalculatorInput
+          id="b"
+          label={t('inverse_proportion_value_b')}
+          type="number"
+          value={b}
+          onChange={setB}
+          placeholder="4"
+          min="0.0001"
+          step="any"
+          helpText={t('inverse_proportion_help_b')}
+          error={errors.b}
+        />
+        <CalculatorInput
+          id="c"
+          label={t('inverse_proportion_value_c')}
+          type="number"
+          value={c}
+          onChange={setC}
+          placeholder="3"
+          min="0.0001"
+          step="any"
+          helpText={t('inverse_proportion_help_c')}
+          error={errors.c}
+        />
+      </div>
+    </SimpleCalculatorLayout>
   );
 };
 
-export default NeprimaUmeraCalculator;
+export default InverseProportionCalculator;

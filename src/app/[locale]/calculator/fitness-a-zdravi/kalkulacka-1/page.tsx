@@ -1,8 +1,6 @@
-// src/app/[locale]/calculator/fitness-a-zdravi/kalkulacka-1/page.tsx
-'use client';
+import { redirect } from 'next/navigation';
 
-import CaloriesCalculator from '@/components/calculators/CaloriesCalculator';
-
-export default function CaloriesCalculatorPage() {
-  return <CaloriesCalculator />;
+export default async function CaloriesRedirect({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  redirect(`/${locale}/calculator/calories`);
 }

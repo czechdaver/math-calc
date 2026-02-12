@@ -362,6 +362,28 @@
       "path": "/calculator/stavebni/izolace",
       "tags": ["construction", "insulation", "thermal", "energy"],
       "relatedCategories": ["construction"]
+    },
+    "macro-calculator": {
+      "id": "macro-calculator",
+      "slug": "makro-kalkulator",
+      "category": "health",
+      "popularity": 75,
+      "titleKey": "macro_title",
+      "descriptionKey": "macro_description",
+      "path": "/calculator/fitness-a-zdravi/makro-kalkulator",
+      "tags": ["health", "fitness", "nutrition", "macros", "protein"],
+      "relatedCategories": ["health", "fitness"]
+    },
+    "water-intake": {
+      "id": "water-intake",
+      "slug": "prijem-vody",
+      "category": "health",
+      "popularity": 70,
+      "titleKey": "water_title",
+      "descriptionKey": "water_description",
+      "path": "/calculator/fitness-a-zdravi/prijem-vody",
+      "tags": ["health", "fitness", "hydration", "water"],
+      "relatedCategories": ["health", "fitness"]
     }
   }
 }

@@ -1,13 +1,6 @@
-// src/app/[locale]/calculator/health-fitness/kalkulacka-5/page.tsx
-import React from 'react';
+import { redirect } from 'next/navigation';
 
-const FitnessAZdraviKalkulacka5Page: React.FC = () => {
-  return (
-    <div>
-      <h1>Fitness a zdraví - Kalkulačka 5</h1>
-      <p>Tato kalkulačka bude implementována později.</p>
-    </div>
-  );
-};
-
-export default FitnessAZdraviKalkulacka5Page;
+export default async function MacroRedirect({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  redirect(`/${locale}/calculator/fitness-a-zdravi/makro-kalkulator`);
+}

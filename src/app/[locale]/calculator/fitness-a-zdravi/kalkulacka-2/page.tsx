@@ -1,8 +1,6 @@
-// src/app/[locale]/calculator/fitness-a-zdravi/kalkulacka-2/page.tsx
-'use client';
+import { redirect } from 'next/navigation';
 
-import BMRCalculator from '@/components/calculators/BMRCalculator';
-
-export default function BMRCalculatorPage() {
-  return <BMRCalculator />;
+export default async function BMRRedirect({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  redirect(`/${locale}/calculator/bmr`);
 }

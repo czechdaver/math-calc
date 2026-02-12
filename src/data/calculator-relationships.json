@@ -119,6 +119,16 @@
       "related": ["concrete", "volume", "area"],
       "maxCount": 3,
       "priorityOrder": ["concrete", "volume", "area", "materials"]
+    },
+    "macro-calculator": {
+      "related": ["calories", "bmr", "bmi"],
+      "maxCount": 3,
+      "priorityOrder": ["calories", "bmr", "bmi", "water-intake", "body-fat"]
+    },
+    "water-intake": {
+      "related": ["calories", "macro-calculator", "bmi"],
+      "maxCount": 3,
+      "priorityOrder": ["calories", "macro-calculator", "bmi", "bmr"]
     }
   },
   "fallbackStrategy": {

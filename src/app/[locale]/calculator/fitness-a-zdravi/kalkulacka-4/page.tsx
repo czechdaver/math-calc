@@ -1,8 +1,6 @@
-// src/app/[locale]/calculator/fitness-a-zdravi/kalkulacka-4/page.tsx
-'use client';
+import { redirect } from 'next/navigation';
 
-import BodyFatCalculator from '@/components/calculators/BodyFatCalculator';
-
-export default function BodyFatCalculatorPage() {
-  return <BodyFatCalculator />;
+export default async function BodyFatRedirect({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  redirect(`/${locale}/calculator/body-fat`);
 }

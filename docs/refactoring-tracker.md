@@ -111,12 +111,12 @@ Kalkulačka je DONE když splňuje:
 | 55 | Fitness: Body Fat (redirect) | `/calculator/fitness-a-zdravi/kalkulacka-4/` | ✅ DONE | 6 | 5 | S | 2026-02-12 | 2026-02-12 | batch-6 | Duplikát /calculator/body-fat/ → async redirect |
 | 56 | Macro Calculator | `/calculator/fitness-a-zdravi/makro-kalkulator/` | ✅ DONE | 6 | 5 | M | 2026-02-12 | 2026-02-12 | batch-6 | Nová kalkulačka: Mifflin-St Jeor BMR, makra (protein, sacharidy, tuky), 87 překladových klíčů cs/en |
 | 57 | Water Intake Calculator | `/calculator/fitness-a-zdravi/prijem-vody/` | ✅ DONE | 6 | 5 | S | 2026-02-12 | 2026-02-12 | batch-6 | Nová kalkulačka: 33ml/kg + aktivita + klima, CalculatorPageWrapper |
-| 58 | Praktické: Tip (redirect) | `/calculator/prakticke-vypocty/kalkulacka-1/` | 🔄 IN_PROGRESS | 7 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/tip/ → redirect |
-| 59 | Praktické: Discount (redirect) | `/calculator/prakticke-vypocty/kalkulacka-2/` | 🔄 IN_PROGRESS | 7 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/discount/ → redirect |
-| 60 | Praktické: Age (redirect) | `/calculator/prakticke-vypocty/kalkulacka-3/` | 🔄 IN_PROGRESS | 7 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/age/ → redirect |
-| 61 | Praktické: Time (redirect) | `/calculator/prakticke-vypocty/kalkulacka-4/` | 🔄 IN_PROGRESS | 7 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/time/ → redirect |
-| 62 | Praktické: Currency (redirect) | `/calculator/prakticke-vypocty/kalkulacka-5/` | 🔄 IN_PROGRESS | 7 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/currency/ → redirect |
-| 63 | Praktické: Fuel (redirect) | `/calculator/prakticke-vypocty/kalkulacka-6/` | 🔄 IN_PROGRESS | 7 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/fuel/ → redirect |
+| 58 | Praktické: Tip (redirect) | `/calculator/prakticke-vypocty/kalkulacka-1/` | ✅ DONE | 7 | 5 | S | 2026-02-12 | 2026-02-12 | 9b9c631 | Duplikát /calculator/tip/ → async redirect |
+| 59 | Praktické: Discount (redirect) | `/calculator/prakticke-vypocty/kalkulacka-2/` | ✅ DONE | 7 | 5 | S | 2026-02-12 | 2026-02-12 | 9b9c631 | Duplikát /calculator/discount/ → async redirect |
+| 60 | Praktické: Age (redirect) | `/calculator/prakticke-vypocty/kalkulacka-3/` | ✅ DONE | 7 | 5 | S | 2026-02-12 | 2026-02-12 | 9b9c631 | Duplikát /calculator/age/ → async redirect |
+| 61 | Praktické: Time (redirect) | `/calculator/prakticke-vypocty/kalkulacka-4/` | ✅ DONE | 7 | 5 | S | 2026-02-12 | 2026-02-12 | 9b9c631 | Duplikát /calculator/time/ → async redirect |
+| 62 | Praktické: Currency (redirect) | `/calculator/prakticke-vypocty/kalkulacka-5/` | ✅ DONE | 7 | 5 | S | 2026-02-12 | 2026-02-12 | 9b9c631 | Duplikát /calculator/currency/ → async redirect |
+| 63 | Praktické: Fuel (redirect) | `/calculator/prakticke-vypocty/kalkulacka-6/` | ✅ DONE | 7 | 5 | S | 2026-02-12 | 2026-02-12 | 9b9c631 | Duplikát /calculator/fuel/ → async redirect |
 
 ---
 
@@ -178,8 +178,7 @@ Kalkulačka je DONE když splňuje:
 
 | Stav | Počet | Procento |
 |------|-------|----------|
-| ✅ DONE | 43 | 67% |
-| ⬜ NOT_STARTED | 20 | 31% |
+| ✅ DONE | 63 | 98% |
 | 🔗 REFERENCE | 1 | 2% |
 | **CELKEM** | **64** | **100%** |
 
@@ -330,15 +329,18 @@ Kalkulačka je DONE když splňuje:
 **Stav:** 6/6 hotovo
 **Čas:** Dokončeno 2026-02-12
 
-### Batch 7: Praktické placeholdery
+### Batch 7: Praktické placeholdery ✅ DOKONČEN
 
 **Kalkulačky:**
-- Praktické kalkulačka 1-6
-- Map existujících komponent: Currency, Discount, Fuel, Loan, Time, Tip
-- Doplnit chybějící
+- ✅ kalkulacka-1 → redirect na /calculator/tip (duplikát)
+- ✅ kalkulacka-2 → redirect na /calculator/discount (duplikát)
+- ✅ kalkulacka-3 → redirect na /calculator/age (duplikát)
+- ✅ kalkulacka-4 → redirect na /calculator/time (duplikát)
+- ✅ kalkulacka-5 → redirect na /calculator/currency (duplikát)
+- ✅ kalkulacka-6 → redirect na /calculator/fuel (duplikát)
 
-**Složitost:** L
-**Očekávaný čas:** 12-15 hodin
+**Stav:** 6/6 hotovo
+**Čas:** Dokončeno 2026-02-12
 
 ---
 
@@ -357,7 +359,7 @@ Kalkulačka je DONE když splňuje:
 - [ ] Build – prochází bez warningů
 
 ## Aktivní session
-> **Batch 7 Praktické:** 6 redirectů (duplicate elimination: tip, discount, age, time, currency, fuel)
+> Žádná aktivní session – VŠECHNY BATCHE DOKONČENY (0–7)
 
 ## Historie změn
 
@@ -375,3 +377,4 @@ Kalkulačka je DONE když splňuje:
 | 2026-02-12 | Batch 4 | Dokončeno | Volume Converter redundantní – smazány 4 orphaned unitConverter komponenty, SEO doplněno u UnitConverter |
 | 2026-02-12 | Batch 5 Fractions | Dokončeno | 6 fraction operací implementováno (addition, subtraction, multiplication, division, simplification, conversion). Nový src/utils/math/fractions.ts, ~30 translation klíčů cs/en |
 | 2026-02-12 | Batch 6 Fitness | Dokončeno | 4 redirecty (duplicate elimination: calories, bmr, ideal-weight, body-fat) + 2 nové kalkulačky (MacroCalculator, WaterIntakeCalculator). 87 translation klíčů cs/en, data entries aktualizovány |
+| 2026-02-12 | Batch 7 Praktické | Dokončeno | 6 redirectů (duplicate elimination: tip, discount, age, time, currency, fuel). Všechny batche 0–7 dokončeny (63/63 + 1 reference = 64 položek) |

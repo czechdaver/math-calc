@@ -1,9 +1,9 @@
-// src/app/[locale]/calculator/financie-rozsirene/predcasne-splaceni/page.tsx
-import React from 'react';
-import EarlyRepaymentCalculator from '@/components/calculators/EarlyRepaymentCalculator';
+'use client';
+import dynamic from 'next/dynamic';
+import { CalculatorPageWrapper } from '@/components/shared/CalculatorPageWrapper';
 
-const EarlyRepaymentPage: React.FC = () => {
-  return <EarlyRepaymentCalculator />;
-};
+const EarlyRepaymentCalculator = dynamic(() => import('@/components/calculators/EarlyRepaymentCalculator'), { ssr: false });
 
-export default EarlyRepaymentPage;
+export default function EarlyRepaymentCalculatorPage() {
+  return <CalculatorPageWrapper calculatorComponent={EarlyRepaymentCalculator} calculatorId="early-repayment" />;
+}

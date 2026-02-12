@@ -129,6 +129,51 @@
       "related": ["calories", "macro-calculator", "bmi"],
       "maxCount": 3,
       "priorityOrder": ["calories", "macro-calculator", "bmi", "bmr"]
+    },
+    "age": {
+      "related": ["time", "bmi", "ideal-weight"],
+      "maxCount": 3,
+      "priorityOrder": ["time", "bmi", "ideal-weight"]
+    },
+    "calories": {
+      "related": ["bmr", "bmi", "macro-calculator"],
+      "maxCount": 3,
+      "priorityOrder": ["bmr", "bmi", "macro-calculator", "water-intake"]
+    },
+    "currency": {
+      "related": ["unit-converter", "percentage", "vat"],
+      "maxCount": 3,
+      "priorityOrder": ["unit-converter", "percentage", "vat"]
+    },
+    "discount": {
+      "related": ["percentage", "percentage-of-number", "tip"],
+      "maxCount": 3,
+      "priorityOrder": ["percentage", "percentage-of-number", "tip", "vat"]
+    },
+    "fuel": {
+      "related": ["unit-converter", "discount", "currency"],
+      "maxCount": 3,
+      "priorityOrder": ["unit-converter", "discount", "currency"]
+    },
+    "loan": {
+      "related": ["annuity-payment", "early-repayment", "compound-interest"],
+      "maxCount": 3,
+      "priorityOrder": ["annuity-payment", "early-repayment", "compound-interest", "irr"]
+    },
+    "materials": {
+      "related": ["concrete", "volume", "area"],
+      "maxCount": 3,
+      "priorityOrder": ["concrete", "volume", "area", "insulation"]
+    },
+    "time": {
+      "related": ["age", "unit-converter", "percentage"],
+      "maxCount": 3,
+      "priorityOrder": ["age", "unit-converter", "percentage"]
+    },
+    "tip": {
+      "related": ["percentage", "percentage-of-number", "discount"],
+      "maxCount": 3,
+      "priorityOrder": ["percentage", "percentage-of-number", "discount"]
     }
   },
   "fallbackStrategy": {

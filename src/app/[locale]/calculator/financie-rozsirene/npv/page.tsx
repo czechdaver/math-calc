@@ -1,9 +1,9 @@
-// src/app/[locale]/calculator/financie-rozsirene/npv/page.tsx
-import React from 'react';
-import NPVCalculator from '@/components/calculators/NPVCalculator';
+'use client';
+import dynamic from 'next/dynamic';
+import { CalculatorPageWrapper } from '@/components/shared/CalculatorPageWrapper';
 
-const NPVPage: React.FC = () => {
-  return <NPVCalculator />;
-};
+const NPVCalculator = dynamic(() => import('@/components/calculators/NPVCalculator'), { ssr: false });
 
-export default NPVPage;
+export default function NPVCalculatorPage() {
+  return <CalculatorPageWrapper calculatorComponent={NPVCalculator} calculatorId="npv" />;
+}

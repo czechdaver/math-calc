@@ -31,9 +31,8 @@ const VATCalculator: React.FC = () => {
   const [result, setResult] = useState<VATResult | null>(null);
   const [errors, setErrors] = useState<{ amount?: string }>({});
 
-  // Calculate VAT
   const calculateVAT = (amountNum: number, countryCode: CountryCode, calcDirection: CalculationDirection): VATResult => {
-    const vatRate = countryCode === 'cz' ? 0.21 : 0.20; // 21% for CZ, 20% for SK
+    const vatRate = countryCode === 'cz' ? 0.21 : 0.20;
     let baseAmount, totalAmount, vatAmount;
 
     if (calcDirection === 'base-to-total') {
@@ -46,66 +45,51 @@ const VATCalculator: React.FC = () => {
       vatAmount = totalAmount - baseAmount;
     }
 
-    return {
-      baseAmount,
-      vatAmount,
-      totalAmount,
-      vatRate,
-      isValid: true
-    };
+    return { baseAmount, vatAmount, totalAmount, vatRate, isValid: true };
   };
 
-  // Validation function
   const validateInputs = (amountStr: string) => {
     const newErrors: { amount?: string } = {};
-    
     const amountNum = parseFloat(amountStr);
-    
     if (!amountStr || isNaN(amountNum) || amountNum <= 0) {
-      newErrors.amount = 'Zadejte platnou částku větší než 0';
+      newErrors.amount = t('vat_amount_error');
     }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  // Effect for real-time calculation
   useEffect(() => {
     if (validateInputs(amount)) {
       const amountNum = parseFloat(amount);
-      const calculatedResult = calculateVAT(amountNum, country, direction);
-      setResult(calculatedResult);
+      setResult(calculateVAT(amountNum, country, direction));
     } else {
       setResult(null);
     }
   }, [amount, country, direction]);
 
-  // Calculator form
   const calculatorForm = (
     <div className="space-y-6">
-      {/* Country Selection */}
       <div className="space-y-2">
         <Label htmlFor="country" className="text-sm font-medium">
-          Země
+          {t('vat_country_label')}
         </Label>
         <Select value={country} onValueChange={(value: CountryCode) => setCountry(value)}>
           <SelectTrigger>
-            <SelectValue placeholder="Vyberte zemi" />
+            <SelectValue placeholder={t('vat_country_placeholder')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="cz">Česká republika (21%)</SelectItem>
-            <SelectItem value="sk">Slovensko (20%)</SelectItem>
+            <SelectItem value="cz">{t('vat_country_cz')}</SelectItem>
+            <SelectItem value="sk">{t('vat_country_sk')}</SelectItem>
           </SelectContent>
         </Select>
         <p className="text-gray-500 text-xs">
-          Vyberte zemi pro správnou sazbu DPH
+          {t('vat_country_help')}
         </p>
       </div>
 
-      {/* Direction Selection */}
       <div className="space-y-2">
         <Label className="text-sm font-medium">
-          Typ výpočtu
+          {t('vat_direction_label')}
         </Label>
         <div className="space-y-2">
           <div className="flex items-center space-x-2">
@@ -118,7 +102,7 @@ const VATCalculator: React.FC = () => {
               onChange={(e) => setDirection(e.target.value as CalculationDirection)}
               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
             />
-            <Label htmlFor="base-to-total">Bez DPH → S DPH</Label>
+            <Label htmlFor="base-to-total">{t('vat_direction_base_to_total')}</Label>
           </div>
           <div className="flex items-center space-x-2">
             <input
@@ -130,18 +114,17 @@ const VATCalculator: React.FC = () => {
               onChange={(e) => setDirection(e.target.value as CalculationDirection)}
               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
             />
-            <Label htmlFor="total-to-base">S DPH → Bez DPH</Label>
+            <Label htmlFor="total-to-base">{t('vat_direction_total_to_base')}</Label>
           </div>
         </div>
         <p className="text-gray-500 text-xs">
-          Vyberte směr výpočtu DPH
+          {t('vat_direction_help')}
         </p>
       </div>
 
-      {/* Amount Input */}
       <div className="space-y-2">
         <Label htmlFor="amount" className="text-sm font-medium">
-          {direction === 'base-to-total' ? 'Částka bez DPH' : 'Částka s DPH'}
+          {direction === 'base-to-total' ? t('vat_amount_label_base') : t('vat_amount_label_total')}
         </Label>
         <div className="relative">
           <Input
@@ -155,7 +138,7 @@ const VATCalculator: React.FC = () => {
             step="0.01"
           />
           <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-            Kč
+            {t('vat_currency')}
           </span>
         </div>
         {errors.amount && (
@@ -165,110 +148,98 @@ const VATCalculator: React.FC = () => {
           </p>
         )}
         <p className="text-gray-500 text-xs">
-          Zadejte částku pro výpočet DPH
+          {t('vat_amount_help')}
         </p>
       </div>
     </div>
   );
 
-  // Examples for SimpleCalculatorLayout
   const examples = {
-    title: 'Příklady výpočtu DPH',
-    description: 'Praktické příklady výpočtu DPH pro různé situace',
+    title: t('vat_examples_title'),
+    description: t('vat_examples_description'),
     scenarios: [
       {
-        title: 'Výpočet DPH z částky bez DPH',
-        description: 'Máte částku 1000 Kč bez DPH a chcete zjistit celkovou částku s DPH.',
-        example: '1000 × 1.21 = 1210 Kč (DPH: 210 Kč)'
+        title: t('vat_example1_title'),
+        description: t('vat_example1_description'),
+        example: t('vat_example1_example')
       },
       {
-        title: 'Výpočet základu z částky s DPH',
-        description: 'Máte celkovou částku 1210 Kč s DPH a chcete zjistit základ bez DPH.',
-        example: '1210 ÷ 1.21 = 1000 Kč (DPH: 210 Kč)'
+        title: t('vat_example2_title'),
+        description: t('vat_example2_description'),
+        example: t('vat_example2_example')
       }
     ]
   };
 
-  // FAQ for SimpleCalculatorLayout
   const faq = [
-    {
-      question: 'Jaká je aktuální sazba DPH v ČR a SK?',
-      answer: 'V České republice je základní sazba DPH 21%, na Slovensku 20%. Existují také snížené sazby pro určité druhy zboží a služeb.'
-    },
-    {
-      question: 'Jak se počítá DPH z částky bez DPH?',
-      answer: 'Částka s DPH = Částka bez DPH × (1 + sazba DPH). Například: 1000 × 1.21 = 1210 Kč.'
-    },
-    {
-      question: 'Jak se počítá základ z částky s DPH?',
-      answer: 'Částka bez DPH = Částka s DPH ÷ (1 + sazba DPH). Například: 1210 ÷ 1.21 = 1000 Kč.'
-    }
+    { question: t('vat_faq1_q'), answer: t('vat_faq1_a') },
+    { question: t('vat_faq2_q'), answer: t('vat_faq2_a') },
+    { question: t('vat_faq3_q'), answer: t('vat_faq3_a') }
   ];
 
   const relatedCalculators = getRelatedCalculators('vat', locale, t);
 
   return (
     <SimpleCalculatorLayout
-      title="DPH Kalkulátor"
-      description="Vypočítejte DPH (daň z přidané hodnoty) pro Českou republiku a Slovensko. Převod mezi částkami s DPH a bez DPH."
+      title={t('vat_title')}
+      description={t('vat_description')}
       category="finance"
+      calculatorId="vat"
       seo={{
-        title: 'DPH Kalkulátor - Výpočet daně z přidané hodnoty | MathCalc',
-        description: 'Bezplatný DPH kalkulátor pro výpočet daně z přidané hodnoty. Podporuje sazby pro ČR (21%) a SK (20%). Převod mezi částkami s DPH a bez DPH.',
-        keywords: [
-          'DPH kalkulátor',
-          'daň z přidané hodnoty',
-          'výpočet DPH',
-          'kalkulátor s DPH',
-          'kalkulátor bez DPH'
-        ]
+        title: t('vat_seo_title'),
+        description: t('vat_seo_description'),
+        keywords: t('vat_seo_keywords').split(',')
       }}
       formula={{
-        latex: direction === 'base-to-total' 
+        latex: direction === 'base-to-total'
           ? 'S\\,DPH = Bez\\,DPH \\times (1 + sazba)'
           : 'Bez\\,DPH = \\frac{S\\,DPH}{1 + sazba}',
         description: direction === 'base-to-total'
-          ? 'Pro výpočet částky s DPH se základ násobí koeficientem (1 + sazba DPH).'
-          : 'Pro výpočet základu se částka s DPH dělí koeficientem (1 + sazba DPH).'
+          ? t('vat_formula_base_desc')
+          : t('vat_formula_total_desc')
       }}
       examples={examples}
       faq={faq}
       relatedCalculators={relatedCalculators}
+      schemaData={{
+        applicationCategory: "FinanceApplication",
+        operatingSystem: "Any"
+      }}
       resultSection={result && (
         <Card className="mt-6">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Info className="w-5 h-5" />
-              Výsledek výpočtu DPH
+              {t('vat_result_title')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="text-center p-4 bg-blue-50 rounded-lg">
-                  <div className="text-sm font-medium text-gray-600">Bez DPH</div>
+                  <div className="text-sm font-medium text-gray-600">{t('vat_result_base')}</div>
                   <div className="text-2xl font-bold text-blue-600">
-                    {result.baseAmount.toFixed(2)} Kč
+                    {result.baseAmount.toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {t('vat_currency')}
                   </div>
                 </div>
                 <div className="text-center p-4 bg-yellow-50 rounded-lg">
-                  <div className="text-sm font-medium text-gray-600">DPH ({(result.vatRate * 100).toFixed(0)}%)</div>
+                  <div className="text-sm font-medium text-gray-600">{t('vat_result_vat')} ({(result.vatRate * 100).toFixed(0)}%)</div>
                   <div className="text-2xl font-bold text-yellow-600">
-                    {result.vatAmount.toFixed(2)} Kč
+                    {result.vatAmount.toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {t('vat_currency')}
                   </div>
                 </div>
                 <div className="text-center p-4 bg-green-50 rounded-lg">
-                  <div className="text-sm font-medium text-gray-600">S DPH</div>
+                  <div className="text-sm font-medium text-gray-600">{t('vat_result_total')}</div>
                   <div className="text-2xl font-bold text-green-600">
-                    {result.totalAmount.toFixed(2)} Kč
+                    {result.totalAmount.toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {t('vat_currency')}
                   </div>
                 </div>
               </div>
-              
+
               <div className="text-sm text-gray-600 bg-gray-50 p-3 rounded">
-                <p><strong>Výpočet:</strong> {direction === 'base-to-total' 
-                  ? `${result.baseAmount.toFixed(2)} × ${(1 + result.vatRate).toFixed(2)} = ${result.totalAmount.toFixed(2)} Kč`
-                  : `${result.totalAmount.toFixed(2)} ÷ ${(1 + result.vatRate).toFixed(2)} = ${result.baseAmount.toFixed(2)} Kč`
+                <p><strong>{t('vat_result_calculation')}:</strong> {direction === 'base-to-total'
+                  ? `${result.baseAmount.toFixed(2)} × ${(1 + result.vatRate).toFixed(2)} = ${result.totalAmount.toFixed(2)} ${t('vat_currency')}`
+                  : `${result.totalAmount.toFixed(2)} ÷ ${(1 + result.vatRate).toFixed(2)} = ${result.baseAmount.toFixed(2)} ${t('vat_currency')}`
                 }</p>
               </div>
             </div>

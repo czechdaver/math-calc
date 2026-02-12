@@ -1,9 +1,9 @@
-// src/app/[locale]/calculator/financie-rozsirene/roi/page.tsx
-import React from 'react';
-import ROICalculator from '@/components/calculators/ROICalculator';
+'use client';
+import dynamic from 'next/dynamic';
+import { CalculatorPageWrapper } from '@/components/shared/CalculatorPageWrapper';
 
-const ROIPage: React.FC = () => {
-  return <ROICalculator />;
-};
+const ROICalculator = dynamic(() => import('@/components/calculators/ROICalculator'), { ssr: false });
 
-export default ROIPage;
+export default function ROICalculatorPage() {
+  return <CalculatorPageWrapper calculatorComponent={ROICalculator} calculatorId="roi" />;
+}

@@ -1,9 +1,9 @@
-// src/app/[locale]/calculator/stavebni/materialy/page.tsx
-import React from 'react';
-import MaterialCalculator from '@/components/calculators/MaterialCalculator';
+'use client';
+import dynamic from 'next/dynamic';
+import { CalculatorPageWrapper } from '@/components/shared/CalculatorPageWrapper';
 
-const MaterialCalculatorPage: React.FC = () => {
-  return <MaterialCalculator />;
-};
+const MaterialCalculator = dynamic(() => import('@/components/calculators/MaterialCalculator'), { ssr: false });
 
-export default MaterialCalculatorPage;
+export default function MaterialCalculatorPage() {
+  return <CalculatorPageWrapper calculatorComponent={MaterialCalculator} calculatorId="materials" />;
+}

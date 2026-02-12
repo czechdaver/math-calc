@@ -105,12 +105,12 @@ Kalkulačka je DONE když splňuje:
 | 49 | Fraction Division | `/calculator/zlomky/` | ✅ DONE | 5 | 5 | S | 2026-02-12 | 2026-02-12 | batch-5 | Implementováno: flip & multiply, validace dělení nulou |
 | 50 | Fraction Simplification | `/calculator/zlomky/` | ✅ DONE | 5 | 5 | S | 2026-02-12 | 2026-02-12 | batch-5 | Implementováno: GCD, krok-po-kroku, detekce základního tvaru |
 | 51 | Fraction Conversion | `/calculator/zlomky/` | ✅ DONE | 5 | 5 | M | 2026-02-12 | 2026-02-12 | batch-5 | Implementováno: 4 typy konverze (improper↔mixed, fraction↔decimal) |
-| 52 | Fitness: Calories (redirect) | `/calculator/fitness-a-zdravi/kalkulacka-1/` | 🔄 IN_PROGRESS | 6 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/calories/ → redirect |
-| 53 | Fitness: BMR (redirect) | `/calculator/fitness-a-zdravi/kalkulacka-2/` | 🔄 IN_PROGRESS | 6 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/bmr/ → redirect |
-| 54 | Fitness: Ideal Weight (redirect) | `/calculator/fitness-a-zdravi/kalkulacka-3/` | 🔄 IN_PROGRESS | 6 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/ideal-weight/ → redirect |
-| 55 | Fitness: Body Fat (redirect) | `/calculator/fitness-a-zdravi/kalkulacka-4/` | 🔄 IN_PROGRESS | 6 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/body-fat/ → redirect |
-| 56 | Macro Calculator | `/calculator/fitness-a-zdravi/makro-kalkulator/` | 🔄 IN_PROGRESS | 6 | 5 | M | 2026-02-12 | - | - | Nová kalkulačka: denní makra (protein, sacharidy, tuky) |
-| 57 | Water Intake Calculator | `/calculator/fitness-a-zdravi/prijem-vody/` | 🔄 IN_PROGRESS | 6 | 5 | S | 2026-02-12 | - | - | Nová kalkulačka: doporučený denní příjem vody |
+| 52 | Fitness: Calories (redirect) | `/calculator/fitness-a-zdravi/kalkulacka-1/` | ✅ DONE | 6 | 5 | S | 2026-02-12 | 2026-02-12 | batch-6 | Duplikát /calculator/calories/ → async redirect |
+| 53 | Fitness: BMR (redirect) | `/calculator/fitness-a-zdravi/kalkulacka-2/` | ✅ DONE | 6 | 5 | S | 2026-02-12 | 2026-02-12 | batch-6 | Duplikát /calculator/bmr/ → async redirect |
+| 54 | Fitness: Ideal Weight (redirect) | `/calculator/fitness-a-zdravi/kalkulacka-3/` | ✅ DONE | 6 | 5 | S | 2026-02-12 | 2026-02-12 | batch-6 | Duplikát /calculator/ideal-weight/ → async redirect |
+| 55 | Fitness: Body Fat (redirect) | `/calculator/fitness-a-zdravi/kalkulacka-4/` | ✅ DONE | 6 | 5 | S | 2026-02-12 | 2026-02-12 | batch-6 | Duplikát /calculator/body-fat/ → async redirect |
+| 56 | Macro Calculator | `/calculator/fitness-a-zdravi/makro-kalkulator/` | ✅ DONE | 6 | 5 | M | 2026-02-12 | 2026-02-12 | batch-6 | Nová kalkulačka: Mifflin-St Jeor BMR, makra (protein, sacharidy, tuky), 87 překladových klíčů cs/en |
+| 57 | Water Intake Calculator | `/calculator/fitness-a-zdravi/prijem-vody/` | ✅ DONE | 6 | 5 | S | 2026-02-12 | 2026-02-12 | batch-6 | Nová kalkulačka: 33ml/kg + aktivita + klima, CalculatorPageWrapper |
 | 58 | Praktické kalkulačka 1 | `/calculator/prakticke-vypocty/kalkulacka-1/` | ⬜ NOT_STARTED | 7 | 5 | L | - | - | - | Placeholder - implementovat |
 | 59 | Praktické kalkulačka 2 | `/calculator/prakticke-vypocty/kalkulacka-2/` | ⬜ NOT_STARTED | 7 | 5 | L | - | - | - | Placeholder - implementovat |
 | 60 | Praktické kalkulačka 3 | `/calculator/prakticke-vypocty/kalkulacka-3/` | ⬜ NOT_STARTED | 7 | 5 | L | - | - | - | Placeholder - implementovat |
@@ -167,8 +167,10 @@ Kalkulačka je DONE když splňuje:
 | 40 | Fraction Division | ✅ | ✅ | Batch 5 |
 | 41 | Fraction Simplification | ✅ | ✅ | Batch 5 |
 | 42 | Fraction Conversion | ✅ | ✅ | Batch 5 |
+| 43 | Macro Calculator | ✅ | ✅ | Batch 6 |
+| 44 | Water Intake Calculator | ✅ | ✅ | Batch 6 |
 
-**Stav:** 42/42 s getRelatedCalculators()
+**Stav:** 44/44 s getRelatedCalculators()
 
 ---
 
@@ -176,8 +178,8 @@ Kalkulačka je DONE když splňuje:
 
 | Stav | Počet | Procento |
 |------|-------|----------|
-| ✅ DONE | 37 | 58% |
-| ⬜ NOT_STARTED | 26 | 41% |
+| ✅ DONE | 43 | 67% |
+| ⬜ NOT_STARTED | 20 | 31% |
 | 🔗 REFERENCE | 1 | 2% |
 | **CELKEM** | **64** | **100%** |
 
@@ -312,15 +314,21 @@ Kalkulačka je DONE když splňuje:
 **Stav:** 6/6 hotovo
 **Čas:** Dokončeno 2026-02-12
 
-### Batch 6: Fitness placeholdery
+### Batch 6: Fitness placeholdery ✅ DOKONČEN
 
 **Kalkulačky:**
-- Fitness kalkulačka 1-6
-- Map existujících komponent: BMR, Body Fat, Calories, Ideal Weight
-- Doplnit chybějící: TDEE, BMI pro děti, atd.
+- ✅ kalkulacka-1 → redirect na /calculator/calories (duplikát)
+- ✅ kalkulacka-2 → redirect na /calculator/bmr (duplikát)
+- ✅ kalkulacka-3 → redirect na /calculator/ideal-weight (duplikát)
+- ✅ kalkulacka-4 → redirect na /calculator/body-fat (duplikát)
+- ✅ kalkulacka-5 → redirect na /calculator/fitness-a-zdravi/makro-kalkulator (nová)
+- ✅ kalkulacka-6 → redirect na /calculator/fitness-a-zdravi/prijem-vody (nová)
 
-**Složitost:** L
-**Očekávaný čas:** 12-15 hodin
+**Nové komponenty:** MacroCalculator.tsx (~150ř), WaterIntakeCalculator.tsx (~120ř)
+**Nové překlady:** 87 klíčů cs/en (48 macro_* + 39 water_*)
+**Data:** calculators.json + calculator-relationships.json aktualizovány
+**Stav:** 6/6 hotovo
+**Čas:** Dokončeno 2026-02-12
 
 ### Batch 7: Praktické placeholdery
 
@@ -349,7 +357,7 @@ Kalkulačka je DONE když splňuje:
 - [ ] Build – prochází bez warningů
 
 ## Aktivní session
-> **Batch 6 Fitness:** 4 redirecty (duplicate elimination) + 2 nové kalkulačky (Macro, Water Intake)
+> Žádná aktivní session
 
 ## Historie změn
 
@@ -366,3 +374,4 @@ Kalkulačka je DONE když splňuje:
 | 2026-02-12 | Batch 3 Stavební | Dokončeno | 6 kalkulaček: beton (630→163ř), objem (647→171ř), izolace (515→265ř), plocha (wrapper), kolik % je X z Y (167→223ř). 3 nové hooks, ~180 translation klíčů cs/en |
 | 2026-02-12 | Batch 4 | Dokončeno | Volume Converter redundantní – smazány 4 orphaned unitConverter komponenty, SEO doplněno u UnitConverter |
 | 2026-02-12 | Batch 5 Fractions | Dokončeno | 6 fraction operací implementováno (addition, subtraction, multiplication, division, simplification, conversion). Nový src/utils/math/fractions.ts, ~30 translation klíčů cs/en |
+| 2026-02-12 | Batch 6 Fitness | Dokončeno | 4 redirecty (duplicate elimination: calories, bmr, ideal-weight, body-fat) + 2 nové kalkulačky (MacroCalculator, WaterIntakeCalculator). 87 translation klíčů cs/en, data entries aktualizovány |

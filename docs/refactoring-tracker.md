@@ -99,12 +99,12 @@ Kalkulačka je DONE když splňuje:
 | 43 | Materiály | `/calculator/stavebni/materialy/` | ✅ DONE | 3 | 4 | M | 2026-02-11 | 2026-02-11 | fix-related | Hardcoded relatedCalculators opraveny |
 | 44 | Objem | `/calculator/stavebni/objem/` | ✅ DONE | 3 | 4 | L | 2026-02-11 | 2026-02-12 | batch-3 | 647→171ř, hook useVolumeCalculator, CalculatorPageWrapper, překlady cs/en |
 | 45 | Plocha | `/calculator/stavebni/plocha/` | ✅ DONE | 3 | 4 | M | 2026-02-12 | 2026-02-12 | batch-3 | CalculatorPageWrapper standardizován |
-| 46 | Fraction Addition | N/A | ⬜ NOT_STARTED | 5 | 5 | M | - | - | - | Placeholder - implementovat |
-| 47 | Fraction Subtraction | N/A | ⬜ NOT_STARTED | 5 | 5 | M | - | - | - | Placeholder - implementovat |
-| 48 | Fraction Multiplication | N/A | ⬜ NOT_STARTED | 5 | 5 | M | - | - | - | Placeholder - implementovat |
-| 49 | Fraction Division | N/A | ⬜ NOT_STARTED | 5 | 5 | M | - | - | - | Placeholder - implementovat |
-| 50 | Fraction Simplification | N/A | ⬜ NOT_STARTED | 5 | 5 | M | - | - | - | Placeholder - implementovat |
-| 51 | Fraction Conversion | N/A | ⬜ NOT_STARTED | 5 | 5 | M | - | - | - | Placeholder - implementovat |
+| 46 | Fraction Addition | `/calculator/zlomky/` | ✅ DONE | 5 | 5 | S | 2026-02-12 | 2026-02-12 | batch-5 | Implementováno: 4 inputy, real-time výpočet, krok-po-kroku, LCD |
+| 47 | Fraction Subtraction | `/calculator/zlomky/` | ✅ DONE | 5 | 5 | S | 2026-02-12 | 2026-02-12 | batch-5 | Implementováno: 4 inputy, real-time výpočet, krok-po-kroku, LCD |
+| 48 | Fraction Multiplication | `/calculator/zlomky/` | ✅ DONE | 5 | 5 | S | 2026-02-12 | 2026-02-12 | batch-5 | Implementováno: 4 inputy, real-time výpočet, krok-po-kroku |
+| 49 | Fraction Division | `/calculator/zlomky/` | ✅ DONE | 5 | 5 | S | 2026-02-12 | 2026-02-12 | batch-5 | Implementováno: flip & multiply, validace dělení nulou |
+| 50 | Fraction Simplification | `/calculator/zlomky/` | ✅ DONE | 5 | 5 | S | 2026-02-12 | 2026-02-12 | batch-5 | Implementováno: GCD, krok-po-kroku, detekce základního tvaru |
+| 51 | Fraction Conversion | `/calculator/zlomky/` | ✅ DONE | 5 | 5 | M | 2026-02-12 | 2026-02-12 | batch-5 | Implementováno: 4 typy konverze (improper↔mixed, fraction↔decimal) |
 | 52 | Fitness kalkulačka 1 | `/calculator/fitness-a-zdravi/kalkulacka-1/` | ⬜ NOT_STARTED | 6 | 5 | L | - | - | - | Placeholder - implementovat |
 | 53 | Fitness kalkulačka 2 | `/calculator/fitness-a-zdravi/kalkulacka-2/` | ⬜ NOT_STARTED | 6 | 5 | L | - | - | - | Placeholder - implementovat |
 | 54 | Fitness kalkulačka 3 | `/calculator/fitness-a-zdravi/kalkulacka-3/` | ⬜ NOT_STARTED | 6 | 5 | L | - | - | - | Placeholder - implementovat |
@@ -160,8 +160,15 @@ Kalkulačka je DONE když splňuje:
 | 33 | Objem | ✅ | ✅ | Batch 3 |
 | 34 | Plocha | ✅ | ✅ | Batch 3 |
 | 35 | Izolace | ✅ | ✅ | Batch 3 |
+| 36 | Volume Converter | ✅ | ✅ | Batch 4 (redundantní, SEO doplněno) |
+| 37 | Fraction Addition | ✅ | ✅ | Batch 5 |
+| 38 | Fraction Subtraction | ✅ | ✅ | Batch 5 |
+| 39 | Fraction Multiplication | ✅ | ✅ | Batch 5 |
+| 40 | Fraction Division | ✅ | ✅ | Batch 5 |
+| 41 | Fraction Simplification | ✅ | ✅ | Batch 5 |
+| 42 | Fraction Conversion | ✅ | ✅ | Batch 5 |
 
-**Stav:** 35/35 s getRelatedCalculators()
+**Stav:** 42/42 s getRelatedCalculators()
 
 ---
 
@@ -169,8 +176,8 @@ Kalkulačka je DONE když splňuje:
 
 | Stav | Počet | Procento |
 |------|-------|----------|
-| ✅ DONE | 31 | 48% |
-| ⬜ NOT_STARTED | 32 | 50% |
+| ✅ DONE | 37 | 58% |
+| ⬜ NOT_STARTED | 26 | 41% |
 | 🔗 REFERENCE | 1 | 2% |
 | **CELKEM** | **64** | **100%** |
 
@@ -290,18 +297,20 @@ Kalkulačka je DONE když splňuje:
 **Stav:** 1/1 hotovo
 **Čas:** Dokončeno 2026-02-12
 
-### Batch 5: Fraction operations
+### Batch 5: Fraction operations ✅ DOKONČEN
 
 **Kalkulačky:**
-- Fraction Addition
-- Fraction Subtraction
-- Fraction Multiplication
-- Fraction Division
-- Fraction Simplification
-- Fraction Conversion
+- ✅ Fraction Addition (75ř, CalculatorInput, additionSteps, LCD)
+- ✅ Fraction Subtraction (75ř, CalculatorInput, subtractionSteps, LCD)
+- ✅ Fraction Multiplication (75ř, CalculatorInput, multiplicationSteps)
+- ✅ Fraction Division (76ř, CalculatorInput, divisionSteps, flip & multiply)
+- ✅ Fraction Simplification (67ř, GCD, detekce základního tvaru)
+- ✅ Fraction Conversion (169ř, 4 typy: improper↔mixed, fraction↔decimal)
 
-**Složitost:** M
-**Očekávaný čas:** 8-10 hodin
+**Nové soubory:** `src/utils/math/fractions.ts` (sdílené math utility – gcd, lcm, simplify, operations, steps)
+**Nové překlady:** ~30 klíčů cs/en (inputy, chybové hlášky, kroky řešení, typy konverze)
+**Stav:** 6/6 hotovo
+**Čas:** Dokončeno 2026-02-12
 
 ### Batch 6: Fitness placeholdery
 
@@ -356,3 +365,4 @@ Kalkulačka je DONE když splňuje:
 | 2026-02-12 | Batch 1 Remaining | Dokončeno | 5 kalkulaček migrováno (nepřímá úměra, zlomky, složené úročení, čistá mzda, převodník jednotek) + DirectProportion i18n fix. 3 nové hooks, ~195 translation klíčů cs/en |
 | 2026-02-12 | Batch 3 Stavební | Dokončeno | 6 kalkulaček: beton (630→163ř), objem (647→171ř), izolace (515→265ř), plocha (wrapper), kolik % je X z Y (167→223ř). 3 nové hooks, ~180 translation klíčů cs/en |
 | 2026-02-12 | Batch 4 | Dokončeno | Volume Converter redundantní – smazány 4 orphaned unitConverter komponenty, SEO doplněno u UnitConverter |
+| 2026-02-12 | Batch 5 Fractions | Dokončeno | 6 fraction operací implementováno (addition, subtraction, multiplication, division, simplification, conversion). Nový src/utils/math/fractions.ts, ~30 translation klíčů cs/en |

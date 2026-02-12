@@ -105,12 +105,12 @@ Kalkulačka je DONE když splňuje:
 | 49 | Fraction Division | `/calculator/zlomky/` | ✅ DONE | 5 | 5 | S | 2026-02-12 | 2026-02-12 | batch-5 | Implementováno: flip & multiply, validace dělení nulou |
 | 50 | Fraction Simplification | `/calculator/zlomky/` | ✅ DONE | 5 | 5 | S | 2026-02-12 | 2026-02-12 | batch-5 | Implementováno: GCD, krok-po-kroku, detekce základního tvaru |
 | 51 | Fraction Conversion | `/calculator/zlomky/` | ✅ DONE | 5 | 5 | M | 2026-02-12 | 2026-02-12 | batch-5 | Implementováno: 4 typy konverze (improper↔mixed, fraction↔decimal) |
-| 52 | Fitness kalkulačka 1 | `/calculator/fitness-a-zdravi/kalkulacka-1/` | ⬜ NOT_STARTED | 6 | 5 | L | - | - | - | Placeholder - implementovat |
-| 53 | Fitness kalkulačka 2 | `/calculator/fitness-a-zdravi/kalkulacka-2/` | ⬜ NOT_STARTED | 6 | 5 | L | - | - | - | Placeholder - implementovat |
-| 54 | Fitness kalkulačka 3 | `/calculator/fitness-a-zdravi/kalkulacka-3/` | ⬜ NOT_STARTED | 6 | 5 | L | - | - | - | Placeholder - implementovat |
-| 55 | Fitness kalkulačka 4 | `/calculator/fitness-a-zdravi/kalkulacka-4/` | ⬜ NOT_STARTED | 6 | 5 | L | - | - | - | Placeholder - implementovat |
-| 56 | Fitness kalkulačka 5 | `/calculator/fitness-a-zdravi/kalkulacka-5/` | ⬜ NOT_STARTED | 6 | 5 | L | - | - | - | Placeholder - implementovat |
-| 57 | Fitness kalkulačka 6 | `/calculator/fitness-a-zdravi/kalkulacka-6/` | ⬜ NOT_STARTED | 6 | 5 | L | - | - | - | Placeholder - implementovat |
+| 52 | Fitness: Calories (redirect) | `/calculator/fitness-a-zdravi/kalkulacka-1/` | 🔄 IN_PROGRESS | 6 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/calories/ → redirect |
+| 53 | Fitness: BMR (redirect) | `/calculator/fitness-a-zdravi/kalkulacka-2/` | 🔄 IN_PROGRESS | 6 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/bmr/ → redirect |
+| 54 | Fitness: Ideal Weight (redirect) | `/calculator/fitness-a-zdravi/kalkulacka-3/` | 🔄 IN_PROGRESS | 6 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/ideal-weight/ → redirect |
+| 55 | Fitness: Body Fat (redirect) | `/calculator/fitness-a-zdravi/kalkulacka-4/` | 🔄 IN_PROGRESS | 6 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/body-fat/ → redirect |
+| 56 | Macro Calculator | `/calculator/fitness-a-zdravi/makro-kalkulator/` | 🔄 IN_PROGRESS | 6 | 5 | M | 2026-02-12 | - | - | Nová kalkulačka: denní makra (protein, sacharidy, tuky) |
+| 57 | Water Intake Calculator | `/calculator/fitness-a-zdravi/prijem-vody/` | 🔄 IN_PROGRESS | 6 | 5 | S | 2026-02-12 | - | - | Nová kalkulačka: doporučený denní příjem vody |
 | 58 | Praktické kalkulačka 1 | `/calculator/prakticke-vypocty/kalkulacka-1/` | ⬜ NOT_STARTED | 7 | 5 | L | - | - | - | Placeholder - implementovat |
 | 59 | Praktické kalkulačka 2 | `/calculator/prakticke-vypocty/kalkulacka-2/` | ⬜ NOT_STARTED | 7 | 5 | L | - | - | - | Placeholder - implementovat |
 | 60 | Praktické kalkulačka 3 | `/calculator/prakticke-vypocty/kalkulacka-3/` | ⬜ NOT_STARTED | 7 | 5 | L | - | - | - | Placeholder - implementovat |
@@ -349,7 +349,7 @@ Kalkulačka je DONE když splňuje:
 - [ ] Build – prochází bez warningů
 
 ## Aktivní session
-> [Žádná aktivní session]
+> **Batch 6 Fitness:** 4 redirecty (duplicate elimination) + 2 nové kalkulačky (Macro, Water Intake)
 
 ## Historie změn
 

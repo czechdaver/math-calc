@@ -1,8 +1,6 @@
-// src/app/[locale]/calculator/prakticke-vypocty/kalkulacka-6/page.tsx
-'use client';
+import { redirect } from 'next/navigation';
 
-import FuelCalculator from '@/components/calculators/FuelCalculator';
-
-export default function FuelCalculatorPage() {
-  return <FuelCalculator />;
+export default async function FuelRedirect({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  redirect(`/${locale}/calculator/fuel`);
 }

@@ -1,8 +1,6 @@
-// src/app/[locale]/calculator/prakticke-vypocty/kalkulacka-1/page.tsx
-'use client';
+import { redirect } from 'next/navigation';
 
-import TipCalculator from '@/components/calculators/TipCalculator';
-
-export default function TipCalculatorPage() {
-  return <TipCalculator />;
+export default async function TipRedirect({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  redirect(`/${locale}/calculator/tip`);
 }

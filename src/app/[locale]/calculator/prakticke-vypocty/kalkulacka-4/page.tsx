@@ -1,8 +1,6 @@
-// src/app/[locale]/calculator/prakticke-vypocty/kalkulacka-4/page.tsx
-'use client';
+import { redirect } from 'next/navigation';
 
-import TimeCalculator from '@/components/calculators/TimeCalculator';
-
-export default function TimeCalculatorPage() {
-  return <TimeCalculator />;
+export default async function TimeRedirect({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  redirect(`/${locale}/calculator/time`);
 }

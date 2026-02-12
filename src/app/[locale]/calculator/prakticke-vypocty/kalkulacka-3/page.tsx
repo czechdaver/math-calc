@@ -1,8 +1,6 @@
-// src/app/[locale]/calculator/prakticke-vypocty/kalkulacka-3/page.tsx
-'use client';
+import { redirect } from 'next/navigation';
 
-import AgeCalculator from '@/components/calculators/AgeCalculator';
-
-export default function AgeCalculatorPage() {
-  return <AgeCalculator />;
+export default async function AgeRedirect({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  redirect(`/${locale}/calculator/age`);
 }

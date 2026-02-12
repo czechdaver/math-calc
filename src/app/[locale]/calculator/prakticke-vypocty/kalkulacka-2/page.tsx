@@ -1,8 +1,6 @@
-// src/app/[locale]/calculator/prakticke-vypocty/kalkulacka-2/page.tsx
-'use client';
+import { redirect } from 'next/navigation';
 
-import DiscountCalculator from '@/components/calculators/DiscountCalculator';
-
-export default function DiscountCalculatorPage() {
-  return <DiscountCalculator />;
+export default async function DiscountRedirect({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  redirect(`/${locale}/calculator/discount`);
 }

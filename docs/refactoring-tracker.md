@@ -111,12 +111,12 @@ Kalkulačka je DONE když splňuje:
 | 55 | Fitness: Body Fat (redirect) | `/calculator/fitness-a-zdravi/kalkulacka-4/` | ✅ DONE | 6 | 5 | S | 2026-02-12 | 2026-02-12 | batch-6 | Duplikát /calculator/body-fat/ → async redirect |
 | 56 | Macro Calculator | `/calculator/fitness-a-zdravi/makro-kalkulator/` | ✅ DONE | 6 | 5 | M | 2026-02-12 | 2026-02-12 | batch-6 | Nová kalkulačka: Mifflin-St Jeor BMR, makra (protein, sacharidy, tuky), 87 překladových klíčů cs/en |
 | 57 | Water Intake Calculator | `/calculator/fitness-a-zdravi/prijem-vody/` | ✅ DONE | 6 | 5 | S | 2026-02-12 | 2026-02-12 | batch-6 | Nová kalkulačka: 33ml/kg + aktivita + klima, CalculatorPageWrapper |
-| 58 | Praktické kalkulačka 1 | `/calculator/prakticke-vypocty/kalkulacka-1/` | ⬜ NOT_STARTED | 7 | 5 | L | - | - | - | Placeholder - implementovat |
-| 59 | Praktické kalkulačka 2 | `/calculator/prakticke-vypocty/kalkulacka-2/` | ⬜ NOT_STARTED | 7 | 5 | L | - | - | - | Placeholder - implementovat |
-| 60 | Praktické kalkulačka 3 | `/calculator/prakticke-vypocty/kalkulacka-3/` | ⬜ NOT_STARTED | 7 | 5 | L | - | - | - | Placeholder - implementovat |
-| 61 | Praktické kalkulačka 4 | `/calculator/prakticke-vypocty/kalkulacka-4/` | ⬜ NOT_STARTED | 7 | 5 | L | - | - | - | Placeholder - implementovat |
-| 62 | Praktické kalkulačka 5 | `/calculator/prakticke-vypocty/kalkulacka-5/` | ⬜ NOT_STARTED | 7 | 5 | L | - | - | - | Placeholder - implementovat |
-| 63 | Praktické kalkulačka 6 | `/calculator/prakticke-vypocty/kalkulacka-6/` | ⬜ NOT_STARTED | 7 | 5 | L | - | - | - | Placeholder - implementovat |
+| 58 | Praktické: Tip (redirect) | `/calculator/prakticke-vypocty/kalkulacka-1/` | 🔄 IN_PROGRESS | 7 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/tip/ → redirect |
+| 59 | Praktické: Discount (redirect) | `/calculator/prakticke-vypocty/kalkulacka-2/` | 🔄 IN_PROGRESS | 7 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/discount/ → redirect |
+| 60 | Praktické: Age (redirect) | `/calculator/prakticke-vypocty/kalkulacka-3/` | 🔄 IN_PROGRESS | 7 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/age/ → redirect |
+| 61 | Praktické: Time (redirect) | `/calculator/prakticke-vypocty/kalkulacka-4/` | 🔄 IN_PROGRESS | 7 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/time/ → redirect |
+| 62 | Praktické: Currency (redirect) | `/calculator/prakticke-vypocty/kalkulacka-5/` | 🔄 IN_PROGRESS | 7 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/currency/ → redirect |
+| 63 | Praktické: Fuel (redirect) | `/calculator/prakticke-vypocty/kalkulacka-6/` | 🔄 IN_PROGRESS | 7 | 5 | S | 2026-02-12 | - | - | Duplikát /calculator/fuel/ → redirect |
 
 ---
 
@@ -357,7 +357,7 @@ Kalkulačka je DONE když splňuje:
 - [ ] Build – prochází bez warningů
 
 ## Aktivní session
-> Žádná aktivní session
+> **Batch 7 Praktické:** 6 redirectů (duplicate elimination: tip, discount, age, time, currency, fuel)
 
 ## Historie změn
 

@@ -15,7 +15,7 @@
 
 - **Doména:** mathcalc.pro
 - **Jazyky:** cs (výchozí), en, sk, pl, hu
-- **Aktuální stav:** 43 kalkulaček implementováno, refaktoring probíhá
+- **Aktuální stav:** 45 kalkulaček implementováno, refaktoring dokončen (batche 0–7)
 - **Cíl:** 141+ kalkulaček, 5 plně lokalizovaných jazyků, TypeScript strict mode
 
 ### 1.1 Technický stack
@@ -516,26 +516,29 @@ Před každým commitem ověř:
 
 ### 11.1 Co je hotovo
 
-- ✅ **Sdílená infrastruktura:** 10 komponent, 6 utility modulů, 7 custom hooků (23 nových souborů)
+- ✅ **Všechny batche 0–7 dokončeny** (63/63 kalkulaček + 1 reference = 64 položek)
+- ✅ **Sdílená infrastruktura:** 10 komponent, 6 utility modulů, 14 custom hooků
 - ✅ **Batch 0:** Smazány všechny duplikáty (-new routes), vytvořeno 12 chybějících rout
-- ✅ **Redukce kódu:** ~1 400 řádků duplicity odstraněno, 3 duplicitní utility soubory smazány
+- ✅ **Batch 1:** 6 CalculatorBase migrací (trojčlenka, zlomky, složené úročení, čistá mzda, převodník)
+- ✅ **Batch 2:** 5 finančních kalkulaček (anuitní splátka, IRR 554→189ř, NPV 519→200ř, ROI, předčasné splacení)
+- ✅ **Batch 3:** 6 stavebních + math (beton 630→163ř, objem 647→171ř, izolace, plocha, kolik % je X z Y)
+- ✅ **Batch 4:** Volume Converter (redundantní, SEO doplněno, orphaned komponenty smazány)
+- ✅ **Batch 5:** 6 fraction operací implementováno (sdílené `src/utils/math/fractions.ts`)
+- ✅ **Batch 6:** 4 fitness redirecty + 2 nové kalkulačky (MacroCalculator, WaterIntakeCalculator)
+- ✅ **Batch 7:** 6 praktických redirectů (tip, discount, age, time, currency, fuel)
+- ✅ **Hardcoded relatedCalculators** nahrazeny `getRelatedCalculators()` ve všech 44 kalkulačkách
+- ✅ **Page wrappery** standardizovány na `CalculatorPageWrapper`
+- ✅ **Redukce kódu:** ~5 000+ řádků duplicity odstraněno
 - ✅ **BMI v2** = referenční implementace
-- ✅ **Trojčlenka přímá úměra** migrována na SimpleCalculatorLayout
-- ✅ **Locale konzistence:** 5 locales sjednoceno v middleware i i18n settings
-- ✅ **CalculatorRating:** Refaktorován z 246 na 139 řádků
 
 ### 11.2 Co zbývá (prioritně)
 
-1. **Batch 1 (rozpracováno 1/6):** Migrovat zbylé CalculatorBase kalkulačky – nepřímá úměra, zlomky, složené úročení, čistá mzda, převodník jednotek
-2. **Batch 2:** Finance – anuitní splátka, IRR (zmenšit z 555ř), NPV, ROI, předčasné splacení
-3. **Batch 3:** Stavební – zmenšit velké soubory: beton (649ř), objem (666ř)
-4. **Nahradit 23 hardcoded relatedCalculators** – ~1 500 řádků zbytečné duplicity
-5. **Standardizovat page wrappery** – 3 různé vzory → 1 (CalculatorPageWrapper)
-6. **Nové kalkulačky:** Implementovat podle roadmapu sekce 8
-7. **TypeScript strict mode:** Povolit a opravit chyby
-8. **Testy:** Pokrytí je 2.6% (pouze BMI) – alespoň MVP kalkulačky
-9. **Kompletní překlady:** Doplnit sk, pl, hu
-10. **Implementovat 12 placeholderů:** 6 fraction operations, 6 fitness/praktické
+1. **Nové kalkulačky:** Implementovat podle roadmapu sekce 8 (cíl: 141+)
+2. **TypeScript strict mode:** Povolit a opravit chyby
+3. **Testy:** Pokrytí je 2.6% (pouze BMI) – alespoň MVP kalkulačky
+4. **Kompletní překlady:** Doplnit sk, pl, hu
+5. **SEO obsah:** Doplnit vzdělávací obsah (1500+ slov) u high-CPC kalkulaček
+6. **Country-specific kalkulačky:** OSVČ CZ, PIT-37 PL, KATA HU, DPH SK 2025/2026
 
 ### 11.3 Známé technické dluhy
 
@@ -545,8 +548,6 @@ Před každým commitem ověř:
 | SEO deprecated `next/head` | `src/components/seo/SeoMetadata.tsx` | Vysoké |
 | `next/router` místo `next/navigation` | `src/context/ThemeContext.tsx` | Střední |
 | `next: "latest"` nepřipnuté | `package.json` | Střední |
-| 10+ kalkulaček na CalculatorBase | Různé komponenty | Vysoké |
-| 23 hardcoded relatedCalculators | Různé komponenty (~1500ř) | Vysoké |
 | Test coverage 2.6% | Pouze BMI | Vysoké |
 | Chybí ESLint/Prettier | Žádná konfigurace | Nízké |
 | Chybí CI/CD pipeline | Žádné GitHub Actions | Nízké |

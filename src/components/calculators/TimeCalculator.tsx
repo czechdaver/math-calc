@@ -146,7 +146,7 @@ const TimeCalculator: React.FC = () => {
       newErrors.hours1 = t('time_error_hours');
     }
     if (!m1 || isNaN(minutes1Num) || minutes1Num < 0 || minutes1Num > 59) {
-      newErrors.minutes1 = t('time_error_minutes');
+      newErrors.minutes1 = t('time_error_minutes_range');
     }
     if (!s1 || isNaN(seconds1Num) || seconds1Num < 0 || seconds1Num > 59) {
       newErrors.seconds1 = t('time_error_seconds');
@@ -197,11 +197,11 @@ const TimeCalculator: React.FC = () => {
       {/* Operation Type */}
       <div className="space-y-2">
         <Label htmlFor="operation" className="text-sm font-medium">
-          Operace
+          {t('time_label_operation')}
         </Label>
         <Select value={operation} onValueChange={setOperation}>
           <SelectTrigger>
-            <SelectValue placeholder="Vyberte operaci" />
+            <SelectValue placeholder={t('time_label_operation_placeholder')} />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="add">Sčítání časů</SelectItem>
@@ -217,8 +217,12 @@ const TimeCalculator: React.FC = () => {
       <div className="space-y-4">
         <div className="text-sm font-medium text-gray-700 flex items-center gap-2">
           <Clock className="w-4 h-4" />
-          První čas
+          {t('time_label_first_time')}
         </div>
+        <div className="space-y-2">
+          <Label htmlFor="hours1" className="text-sm font-medium">
+            {t('time_label_hours')}
+          </Label>
         
         <div className="grid grid-cols-3 gap-4">
           <div className="space-y-2">

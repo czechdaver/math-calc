@@ -81,7 +81,7 @@ const FuelCalculator: React.FC = () => {
     
     const priceNum = parseFloat(fuelPrice);
     if (!fuelPrice || isNaN(priceNum) || priceNum <= 0) {
-      newErrors.fuelPrice = 'Zadejte platnou cenu paliva';
+      newErrors.fuelPrice = t('fuel_error_fuel_price');
     }
 
     if (type === 'consumption') {
@@ -89,30 +89,30 @@ const FuelCalculator: React.FC = () => {
       const fuelNum = parseFloat(fuelUsed);
       
       if (!distance || isNaN(distanceNum) || distanceNum <= 0) {
-        newErrors.distance = 'Zadejte platnou vzdálenost';
+        newErrors.distance = t('fuel_error_distance');
       }
       if (!fuelUsed || isNaN(fuelNum) || fuelNum <= 0) {
-        newErrors.fuelUsed = 'Zadejte platné množství paliva';
+        newErrors.fuelUsed = t('fuel_error_fuel_used');
       }
     } else if (type === 'cost') {
       const distanceNum = parseFloat(distance);
       const consumptionNum = parseFloat(consumption);
       
       if (!distance || isNaN(distanceNum) || distanceNum <= 0) {
-        newErrors.distance = 'Zadejte platnou vzdálenost';
+        newErrors.distance = t('fuel_error_distance');
       }
       if (!consumption || isNaN(consumptionNum) || consumptionNum <= 0) {
-        newErrors.consumption = 'Zadejte platnou spotřebu';
+        newErrors.consumption = t('fuel_error_consumption');
       }
     } else if (type === 'trip') {
       const tripDistanceNum = parseFloat(tripDistance);
       const carConsumptionNum = parseFloat(carConsumption);
       
       if (!tripDistance || isNaN(tripDistanceNum) || tripDistanceNum <= 0) {
-        newErrors.tripDistance = 'Zadejte platnou vzdálenost cesty';
+        newErrors.tripDistance = t('fuel_error_trip_distance');
       }
       if (!carConsumption || isNaN(carConsumptionNum) || carConsumptionNum <= 0) {
-        newErrors.carConsumption = 'Zadejte platnou spotřebu vozidla';
+        newErrors.carConsumption = t('fuel_error_car_consumption');
       }
     }
 

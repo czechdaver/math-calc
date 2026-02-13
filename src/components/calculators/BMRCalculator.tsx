@@ -36,8 +36,8 @@ const BMRCalculator: React.FC = () => {
   const [bodyFat, setBodyFat] = useState<string>('');
   const [formula, setFormula] = useState<string>('mifflin');
   const [result, setResult] = useState<BMRResult | null>(null);
-  const [errors, setErrors] = useState<{ 
-    age?: string; weight?: string; height?: string; bodyFat?: string 
+  const [errors, setErrors] = useState<{
+    age?: string; weight?: string; height?: string; bodyFat?: string
   }>({});
 
   // Format number with Czech locale
@@ -88,10 +88,10 @@ const BMRCalculator: React.FC = () => {
   // Get formula description
   const getFormulaDescription = (formulaType: string): string => {
     switch (formulaType) {
-      case 'mifflin': return 'Mifflin-St Jeor (nejpřesnější pro většinu lidí)';
-      case 'harris': return 'Harris-Benedict (původní rovnice)';
-      case 'katch': return 'Katch-McArdle (vyžaduje % tělesného tuku)';
-      default: return 'Mifflin-St Jeor';
+      case 'mifflin': return t('calculators.bmr.help_formula_mifflin');
+      case 'harris': return t('calculators.bmr.help_formula_harris');
+      case 'katch': return t('calculators.bmr.help_formula_katch');
+      default: return t('calculators.bmr.help_formula_mifflin');
     }
   };
 
@@ -104,11 +104,11 @@ const BMRCalculator: React.FC = () => {
     bodyFatNum?: number
   ): BMRResult => {
     const isMale = genderStr === 'male';
-    
+
     const bmrMifflin = calculateMifflinBMR(weightNum, heightNum, ageNum, isMale);
     const bmrHarris = calculateHarrisBMR(weightNum, heightNum, ageNum, isMale);
     const bmrKatch = bodyFatNum ? calculateKatchBMR(weightNum, bodyFatNum) : 0;
-    
+
     // Use selected formula as primary BMR
     let primaryBMR = bmrMifflin;
     switch (formula) {
@@ -139,26 +139,26 @@ const BMRCalculator: React.FC = () => {
   // Validation function
   const validateInputs = (ageStr: string, weightStr: string, heightStr: string, bodyFatStr: string) => {
     const newErrors: { age?: string; weight?: string; height?: string; bodyFat?: string } = {};
-    
+
     const ageNum = parseFloat(ageStr);
     const weightNum = parseFloat(weightStr);
     const heightNum = parseFloat(heightStr);
     const bodyFatNum = bodyFatStr ? parseFloat(bodyFatStr) : undefined;
 
     if (!ageStr || isNaN(ageNum) || ageNum < 15 || ageNum > 120) {
-      newErrors.age = 'Zadejte platný věk (15-120 let)';
+      newErrors.age = t('calculators.bmr.error_age_invalid');
     }
 
     if (!weightStr || isNaN(weightNum) || weightNum < 30 || weightNum > 300) {
-      newErrors.weight = 'Zadejte platnou váhu (30-300 kg)';
+      newErrors.weight = t('calculators.bmr.error_weight_invalid');
     }
 
     if (!heightStr || isNaN(heightNum) || heightNum < 100 || heightNum > 250) {
-      newErrors.height = 'Zadejte platnou výšku (100-250 cm)';
+      newErrors.height = t('calculators.bmr.error_height_invalid');
     }
 
     if (bodyFatStr && (!isNaN(bodyFatNum!) && (bodyFatNum! < 5 || bodyFatNum! > 50))) {
-      newErrors.bodyFat = 'Zadejte platné % tělesného tuku (5-50%)';
+      newErrors.bodyFat = t('calculators.bmr.error_bodyfat_invalid');
     }
 
     setErrors(newErrors);
@@ -185,16 +185,16 @@ const BMRCalculator: React.FC = () => {
       {/* Formula Selection */}
       <div className="space-y-2">
         <Label htmlFor="formula" className="text-sm font-medium">
-          Vzorec pro výpočet
+          {t('calculators.bmr.label_formula')}
         </Label>
         <Select value={formula} onValueChange={setFormula}>
           <SelectTrigger>
-            <SelectValue placeholder="Vyberte vzorec" />
+            <SelectValue placeholder={t('calculators.bmr.placeholder_select_formula')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="mifflin">Mifflin-St Jeor (doporučeno)</SelectItem>
-            <SelectItem value="harris">Harris-Benedict</SelectItem>
-            <SelectItem value="katch">Katch-McArdle</SelectItem>
+            <SelectItem value="mifflin">{t('calculators.bmr.result_mifflin')} ({t('calculators.bmr.result_most_accurate')})</SelectItem>
+            <SelectItem value="harris">{t('calculators.bmr.result_harris')}</SelectItem>
+            <SelectItem value="katch">{t('calculators.bmr.result_katch')}</SelectItem>
           </SelectContent>
         </Select>
         <p className="text-gray-500 text-xs">
@@ -204,12 +204,12 @@ const BMRCalculator: React.FC = () => {
 
       {/* Personal Information */}
       <div className="space-y-4">
-        <div className="text-sm font-medium text-gray-700">Osobní údaje</div>
-        
+        <div className="text-sm font-medium text-gray-700">{t('calculators.bmr.label_personal_data')}</div>
+
         {/* Age */}
         <div className="space-y-2">
           <Label htmlFor="age" className="text-sm font-medium">
-            Věk
+            {t('calculators.bmr.label_age')}
           </Label>
           <div className="relative">
             <Input
@@ -217,14 +217,14 @@ const BMRCalculator: React.FC = () => {
               type="number"
               value={age}
               onChange={(e) => setAge(e.target.value)}
-              placeholder="30"
+              placeholder={t('calculators.bmr.placeholder_age')}
               className={`pr-12 ${errors.age ? 'border-red-500' : ''}`}
               min="15"
               max="120"
               step="1"
             />
             <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-              let
+              {t('calculators.bmr.unit_years')}
             </span>
           </div>
           {errors.age && (
@@ -234,14 +234,14 @@ const BMRCalculator: React.FC = () => {
             </p>
           )}
           <p className="text-gray-500 text-xs">
-            Váš věk v letech
+            {t('calculators.bmr.help_age')}
           </p>
         </div>
 
         {/* Weight */}
         <div className="space-y-2">
           <Label htmlFor="weight" className="text-sm font-medium">
-            Váha
+            {t('calculators.bmr.label_weight')}
           </Label>
           <div className="relative">
             <Input
@@ -249,14 +249,14 @@ const BMRCalculator: React.FC = () => {
               type="number"
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
-              placeholder="70"
+              placeholder={t('calculators.bmr.placeholder_weight')}
               className={`pr-12 ${errors.weight ? 'border-red-500' : ''}`}
               min="30"
               max="300"
               step="0.1"
             />
             <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-              kg
+              {t('calculators.bmr.unit_kg')}
             </span>
           </div>
           {errors.weight && (
@@ -266,14 +266,14 @@ const BMRCalculator: React.FC = () => {
             </p>
           )}
           <p className="text-gray-500 text-xs">
-            Vaše současná váha v kilogramech
+            {t('calculators.bmr.help_weight')}
           </p>
         </div>
 
         {/* Height */}
         <div className="space-y-2">
           <Label htmlFor="height" className="text-sm font-medium">
-            Výška
+            {t('calculators.bmr.label_height')}
           </Label>
           <div className="relative">
             <Input
@@ -281,14 +281,14 @@ const BMRCalculator: React.FC = () => {
               type="number"
               value={height}
               onChange={(e) => setHeight(e.target.value)}
-              placeholder="170"
+              placeholder={t('calculators.bmr.placeholder_height')}
               className={`pr-12 ${errors.height ? 'border-red-500' : ''}`}
               min="100"
               max="250"
               step="1"
             />
             <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-              cm
+              {t('calculators.bmr.unit_cm')}
             </span>
           </div>
           {errors.height && (
@@ -298,33 +298,33 @@ const BMRCalculator: React.FC = () => {
             </p>
           )}
           <p className="text-gray-500 text-xs">
-            Vaše výška v centimetrech
+            {t('calculators.bmr.help_height')}
           </p>
         </div>
 
         {/* Gender */}
         <div className="space-y-2">
           <Label htmlFor="gender" className="text-sm font-medium">
-            Pohlaví
+            {t('calculators.bmr.label_gender')}
           </Label>
           <Select value={gender} onValueChange={setGender}>
             <SelectTrigger>
-              <SelectValue placeholder="Vyberte pohlaví" />
+              <SelectValue placeholder={t('calculators.bmr.placeholder_select_formula')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="male">Muž</SelectItem>
-              <SelectItem value="female">Žena</SelectItem>
+              <SelectItem value="male">{t('calculators.bmr.summary_male')}</SelectItem>
+              <SelectItem value="female">{t('calculators.bmr.summary_female')}</SelectItem>
             </SelectContent>
           </Select>
           <p className="text-gray-500 text-xs">
-            Pohlaví ovlivňuje bazální metabolismus
+            {t('calculators.bmr.help_age')}
           </p>
         </div>
 
         {/* Body Fat (optional, required for Katch-McArdle) */}
         <div className="space-y-2">
           <Label htmlFor="bodyFat" className="text-sm font-medium">
-            Tělesný tuk {formula === 'katch' && <span className="text-red-500">*</span>}
+            {t('calculators.bmr.label_bodyfat')} {formula === 'katch' && <span className="text-red-500">*</span>}
           </Label>
           <div className="relative">
             <Input
@@ -332,14 +332,14 @@ const BMRCalculator: React.FC = () => {
               type="number"
               value={bodyFat}
               onChange={(e) => setBodyFat(e.target.value)}
-              placeholder="15"
+              placeholder={t('calculators.bmr.placeholder_bodyfat')}
               className={`pr-12 ${errors.bodyFat ? 'border-red-500' : ''}`}
               min="5"
               max="50"
               step="0.1"
             />
             <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-              %
+              {t('calculators.bmr.unit_percent')}
             </span>
           </div>
           {errors.bodyFat && (
@@ -349,9 +349,9 @@ const BMRCalculator: React.FC = () => {
             </p>
           )}
           <p className="text-gray-500 text-xs">
-            {formula === 'katch' 
-              ? 'Povinné pro Katch-McArdle vzorec' 
-              : 'Volitelné (pro přesnější výpočet)'}
+            {formula === 'katch'
+              ? t('calculators.bmr.help_formula_katch')
+              : t('calculators.bmr.help_formula_mifflin')}
           </p>
         </div>
       </div>
@@ -361,20 +361,20 @@ const BMRCalculator: React.FC = () => {
         <CardContent className="p-4">
           <div className="text-center">
             <div className="text-sm font-medium text-blue-800 mb-2">
-              Vaše údaje
+              {t('calculators.bmr.summary_title')}
             </div>
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div>
-                <div className="font-semibold text-blue-900">Věk/Pohlaví</div>
-                <div className="text-blue-700">{age} let, {gender === 'male' ? 'muž' : 'žena'}</div>
+                <div className="font-semibold text-blue-900">{t('calculators.bmr.summary_age_gender')}</div>
+                <div className="text-blue-700">{age} {t('calculators.bmr.unit_years')}, {gender === 'male' ? t('calculators.bmr.summary_male') : t('calculators.bmr.summary_female')}</div>
               </div>
               <div>
-                <div className="font-semibold text-blue-900">Tělo</div>
-                <div className="text-blue-700">{weight} kg, {height} cm</div>
+                <div className="font-semibold text-blue-900">{t('calculators.bmr.label_weight')}/{t('calculators.bmr.label_height')}</div>
+                <div className="text-blue-700">{weight} {t('calculators.bmr.unit_kg')}, {height} {t('calculators.bmr.unit_cm')}</div>
               </div>
             </div>
             <div className="mt-2 text-xs text-blue-600">
-              Vzorec: {getFormulaDescription(formula)}
+              {t('calculators.bmr.summary_formula_label')} {getFormulaDescription(formula)}
             </div>
           </div>
         </CardContent>
@@ -393,7 +393,7 @@ const BMRCalculator: React.FC = () => {
               {formatNumber(result.bmr)}
             </div>
             <div className="text-sm text-red-700 mt-1">
-              Bazální metabolismus
+              {t('calculators.bmr.result_bmr')}
             </div>
             <div className="text-xs text-red-600 mt-1">
               BMR ({getFormulaDescription(formula).split(' ')[0]})
@@ -410,14 +410,14 @@ const BMRCalculator: React.FC = () => {
             <div className="flex items-center justify-center gap-2 mb-2">
               <Flame className={`w-4 h-4 ${formula === 'mifflin' ? 'text-green-600' : 'text-gray-600'}`} />
               <div className={`text-sm font-medium ${formula === 'mifflin' ? 'text-green-700' : 'text-gray-700'}`}>
-                Mifflin-St Jeor
+                {t('calculators.bmr.result_mifflin')}
               </div>
             </div>
             <div className={`text-xl font-bold ${formula === 'mifflin' ? 'text-green-800' : 'text-gray-800'}`}>
-              {formatNumber(result.bmrMifflin)} kcal
+              {formatNumber(result.bmrMifflin)} {t('calculators.bmr.result_kcal')}
             </div>
             <div className={`text-xs mt-1 ${formula === 'mifflin' ? 'text-green-600' : 'text-gray-600'}`}>
-              Nejpřesnější
+              {t('calculators.bmr.result_most_accurate')}
             </div>
           </CardContent>
         </Card>
@@ -427,14 +427,14 @@ const BMRCalculator: React.FC = () => {
             <div className="flex items-center justify-center gap-2 mb-2">
               <Activity className={`w-4 h-4 ${formula === 'harris' ? 'text-blue-600' : 'text-gray-600'}`} />
               <div className={`text-sm font-medium ${formula === 'harris' ? 'text-blue-700' : 'text-gray-700'}`}>
-                Harris-Benedict
+                {t('calculators.bmr.result_harris')}
               </div>
             </div>
             <div className={`text-xl font-bold ${formula === 'harris' ? 'text-blue-800' : 'text-gray-800'}`}>
-              {formatNumber(result.bmrHarris)} kcal
+              {formatNumber(result.bmrHarris)} {t('calculators.bmr.result_kcal')}
             </div>
             <div className={`text-xs mt-1 ${formula === 'harris' ? 'text-blue-600' : 'text-gray-600'}`}>
-              Původní vzorec
+              {t('calculators.bmr.result_original_formula')}
             </div>
           </CardContent>
         </Card>
@@ -444,14 +444,14 @@ const BMRCalculator: React.FC = () => {
             <div className="flex items-center justify-center gap-2 mb-2">
               <User className={`w-4 h-4 ${formula === 'katch' ? 'text-purple-600' : 'text-gray-600'}`} />
               <div className={`text-sm font-medium ${formula === 'katch' ? 'text-purple-700' : 'text-gray-700'}`}>
-                Katch-McArdle
+                {t('calculators.bmr.result_katch')}
               </div>
             </div>
             <div className={`text-xl font-bold ${formula === 'katch' ? 'text-purple-800' : 'text-gray-800'}`}>
-              {result.bmrKatch > 0 ? formatNumber(result.bmrKatch) : '---'} kcal
+              {result.bmrKatch > 0 ? formatNumber(result.bmrKatch) : '---'} {t('calculators.bmr.result_kcal')}
             </div>
             <div className={`text-xs mt-1 ${formula === 'katch' ? 'text-purple-600' : 'text-gray-600'}`}>
-              {result.bmrKatch > 0 ? 'Podle % tuku' : 'Vyžaduje % tuku'}
+              {result.bmrKatch > 0 ? t('calculators.bmr.result_based_on_fat') : t('calculators.bmr.result_requires_fat')}
             </div>
           </CardContent>
         </Card>
@@ -461,19 +461,19 @@ const BMRCalculator: React.FC = () => {
       <Card className="bg-gray-50 border-gray-200">
         <CardContent className="p-4">
           <div className="text-center">
-            <div className="text-sm text-gray-800 font-medium mb-3">Rozložení BMR:</div>
+            <div className="text-sm text-gray-800 font-medium mb-3">{t('calculators.bmr.breakdown_title')}</div>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between items-center">
-                <span className="text-gray-700">Bazální metabolismus:</span>
-                <span className="font-mono text-gray-900 font-semibold">{formatNumber(result.bmr)} kcal/den</span>
+                <span className="text-gray-700">{t('calculators.bmr.breakdown_bmr')}</span>
+                <span className="font-mono text-gray-900 font-semibold">{formatNumber(result.bmr)} {t('calculators.bmr.breakdown_per_day')}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-700">Za hodinu:</span>
-                <span className="font-mono text-gray-900">{formatNumber(result.bmr / 24)} kcal/h</span>
+                <span className="text-gray-700">{t('calculators.bmr.breakdown_per_hour')}</span>
+                <span className="font-mono text-gray-900">{formatNumber(result.bmr / 24)} {t('calculators.bmr.breakdown_per_hour_unit')}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-700">Za minutu:</span>
-                <span className="font-mono text-gray-900">{(result.bmr / 24 / 60).toFixed(2)} kcal/min</span>
+                <span className="text-gray-700">{t('calculators.bmr.breakdown_per_minute')}</span>
+                <span className="font-mono text-gray-900">{(result.bmr / 24 / 60).toFixed(2)} {t('calculators.bmr.breakdown_per_minute_unit')}</span>
               </div>
             </div>
           </div>
@@ -486,15 +486,14 @@ const BMRCalculator: React.FC = () => {
           <div className="flex items-start gap-3">
             <Heart className="w-5 h-5 text-red-600 mt-0.5" />
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">Co je bazální metabolismus (BMR)?</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">{t('calculators.bmr.info_title')}</h4>
               <p className="text-gray-600 text-sm">
-                BMR je množství energie, které vaše tělo potřebuje pro základní životní funkce v úplném klidu - 
-                dýchání, krevní oběh, buněčná produkce, zpracování živin, syntéza proteinů a transport iontů.
+                {t('calculators.bmr.info_description')}
               </p>
               <div className="mt-2 text-xs text-gray-500">
-                Vzorec: {getFormulaDescription(formula)} | 
-                BMR: {formatNumber(result.bmr)} kcal/den | 
-                Věk: {result.age} let, {result.gender === 'male' ? 'muž' : 'žena'}
+                {t('calculators.bmr.summary_formula_label')} {getFormulaDescription(formula)} |
+                BMR: {formatNumber(result.bmr)} {t('calculators.bmr.breakdown_per_day')} |
+                {t('calculators.bmr.label_age')}: {result.age} {t('calculators.bmr.unit_years')}, {result.gender === 'male' ? t('calculators.bmr.summary_male') : t('calculators.bmr.summary_female')}
               </div>
             </div>
           </div>
@@ -504,7 +503,7 @@ const BMRCalculator: React.FC = () => {
   ) : (
     <div className="text-center py-8 text-gray-500">
       <CalcIcon className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-      <p>Zadejte vaše údaje pro výpočet bazálního metabolismu</p>
+      <p>{t('calculators.bmr.empty_message')}</p>
     </div>
   );
 

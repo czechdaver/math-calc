@@ -38,9 +38,9 @@ const AgeCalculator: React.FC = () => {
     birthDate?: string; targetDate?: string;
   }>({});
 
-  // Format number with Czech locale
+  // Format number with current locale
   const formatNumber = (num: number): string => {
-    return num.toLocaleString('cs-CZ');
+    return num.toLocaleString(locale);
   };
 
   // Get zodiac sign
@@ -48,18 +48,18 @@ const AgeCalculator: React.FC = () => {
     const month = date.getMonth() + 1;
     const day = date.getDate();
 
-    if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return 'Beran ♈';
-    if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return 'Býk ♉';
-    if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return 'Blíženci ♊';
-    if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return 'Rak ♋';
-    if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return 'Lev ♌';
-    if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return 'Panna ♍';
-    if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return 'Váhy ♎';
-    if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return 'Štír ♏';
-    if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return 'Střelec ♐';
-    if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) return 'Kozoroh ♑';
-    if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return 'Vodnář ♒';
-    return 'Ryby ♓';
+    if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return t('age_zodiac_aries');
+    if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return t('age_zodiac_taurus');
+    if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return t('age_zodiac_gemini');
+    if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return t('age_zodiac_cancer');
+    if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return t('age_zodiac_leo');
+    if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return t('age_zodiac_virgo');
+    if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return t('age_zodiac_libra');
+    if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return t('age_zodiac_scorpio');
+    if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return t('age_zodiac_sagittarius');
+    if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) return t('age_zodiac_capricorn');
+    if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return t('age_zodiac_aquarius');
+    return t('age_zodiac_pisces');
   };
 
   // Calculate next birthday
@@ -127,7 +127,7 @@ const AgeCalculator: React.FC = () => {
 
   // Format date for display
   const formatDate = (date: Date): string => {
-    return date.toLocaleDateString('cs-CZ', {
+    return date.toLocaleDateString(locale, {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -144,17 +144,17 @@ const AgeCalculator: React.FC = () => {
     const today = new Date();
 
     if (!birthDateStr || isNaN(birthDateObj.getTime())) {
-      newErrors.birthDate = 'Zadejte platné datum narození';
+      newErrors.birthDate = t('age_error_birth_date');
     } else if (birthDateObj > today) {
-      newErrors.birthDate = 'Datum narození nemůže být v budoucnosti';
+      newErrors.birthDate = t('age_error_birth_future');
     } else if (birthDateObj.getFullYear() < 1900) {
-      newErrors.birthDate = 'Datum narození musí být po roce 1900';
+      newErrors.birthDate = t('age_error_birth_before_1900');
     }
 
     if (!targetDateStr || isNaN(targetDateObj.getTime())) {
-      newErrors.targetDate = 'Zadejte platné cílové datum';
+      newErrors.targetDate = t('age_error_target_date');
     } else if (targetDateObj < birthDateObj) {
-      newErrors.targetDate = 'Cílové datum musí být po datu narození';
+      newErrors.targetDate = t('age_error_target_before_birth');
     }
 
     setErrors(newErrors);
@@ -253,16 +253,16 @@ const AgeCalculator: React.FC = () => {
         <CardContent className="p-4">
           <div className="text-center">
             <div className="text-sm font-medium text-blue-800 mb-2">
-              Výpočet věku
+              {t('age_summary_title')}
             </div>
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div>
-                <div className="font-semibold text-blue-900">Narození</div>
-                <div className="text-blue-700">{new Date(birthDate).toLocaleDateString('cs-CZ')}</div>
+                <div className="font-semibold text-blue-900">{t('age_summary_birth')}</div>
+                <div className="text-blue-700">{new Date(birthDate).toLocaleDateString(locale)}</div>
               </div>
               <div>
-                <div className="font-semibold text-blue-900">Cílové datum</div>
-                <div className="text-blue-700">{new Date(targetDate).toLocaleDateString('cs-CZ')}</div>
+                <div className="font-semibold text-blue-900">{t('age_summary_target')}</div>
+                <div className="text-blue-700">{new Date(targetDate).toLocaleDateString(locale)}</div>
               </div>
             </div>
           </div>
@@ -279,13 +279,13 @@ const AgeCalculator: React.FC = () => {
         <div className="inline-flex items-center gap-4 p-6 bg-green-50 rounded-xl">
           <div className="text-center">
             <div className="text-3xl font-bold text-green-900">
-              {result.years} let
+              {result.years} {t('age_unit_years')}
             </div>
             <div className="text-sm text-green-700 mt-1">
-              {result.months} měsíců, {result.days} dní
+              {result.months} {t('age_unit_months')}, {result.days} {t('age_unit_days')}
             </div>
             <div className="text-xs text-green-600 mt-1">
-              Přesný věk
+              {t('age_exact_age')}
             </div>
           </div>
           <User className="w-8 h-8 text-green-600" />
@@ -299,8 +299,8 @@ const AgeCalculator: React.FC = () => {
             <div className="text-lg font-bold text-blue-800">
               {formatNumber(result.totalDays)}
             </div>
-            <div className="text-sm text-blue-700 mt-1">Dní</div>
-            <div className="text-xs text-blue-600 mt-1">Celkem</div>
+            <div className="text-sm text-blue-700 mt-1">{t('age_unit_days')}</div>
+            <div className="text-xs text-blue-600 mt-1">{t('age_total')}</div>
           </CardContent>
         </Card>
 
@@ -309,8 +309,8 @@ const AgeCalculator: React.FC = () => {
             <div className="text-lg font-bold text-purple-800">
               {formatNumber(result.totalWeeks)}
             </div>
-            <div className="text-sm text-purple-700 mt-1">Týdnů</div>
-            <div className="text-xs text-purple-600 mt-1">Celkem</div>
+            <div className="text-sm text-purple-700 mt-1">{t('age_unit_weeks')}</div>
+            <div className="text-xs text-purple-600 mt-1">{t('age_total')}</div>
           </CardContent>
         </Card>
 
@@ -319,8 +319,8 @@ const AgeCalculator: React.FC = () => {
             <div className="text-lg font-bold text-orange-800">
               {formatNumber(result.totalHours)}
             </div>
-            <div className="text-sm text-orange-700 mt-1">Hodin</div>
-            <div className="text-xs text-orange-600 mt-1">Celkem</div>
+            <div className="text-sm text-orange-700 mt-1">{t('age_unit_hours')}</div>
+            <div className="text-xs text-orange-600 mt-1">{t('age_total')}</div>
           </CardContent>
         </Card>
 
@@ -329,8 +329,8 @@ const AgeCalculator: React.FC = () => {
             <div className="text-lg font-bold text-red-800">
               {formatNumber(result.totalMinutes)}
             </div>
-            <div className="text-sm text-red-700 mt-1">Minut</div>
-            <div className="text-xs text-red-600 mt-1">Celkem</div>
+            <div className="text-sm text-red-700 mt-1">{t('age_unit_minutes')}</div>
+            <div className="text-xs text-red-600 mt-1">{t('age_total')}</div>
           </CardContent>
         </Card>
       </div>
@@ -340,23 +340,23 @@ const AgeCalculator: React.FC = () => {
         <CardContent className="p-4">
           <div className="flex items-center gap-2 mb-3">
             <Gift className="w-5 h-5 text-yellow-600" />
-            <h4 className="font-semibold text-yellow-900">Další narozeniny</h4>
+            <h4 className="font-semibold text-yellow-900">{t('age_next_birthday')}</h4>
           </div>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between items-center">
-              <span className="text-yellow-700">Datum:</span>
+              <span className="text-yellow-700">{t('age_label_date')}</span>
               <span className="font-mono text-yellow-900">{formatDate(result.nextBirthday)}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-yellow-700">Za:</span>
+              <span className="text-yellow-700">{t('age_label_in')}</span>
               <span className="font-mono text-yellow-900">
-                {result.daysUntilBirthday} {result.daysUntilBirthday === 1 ? 'den' : 
-                 result.daysUntilBirthday < 5 ? 'dny' : 'dní'}
+                {result.daysUntilBirthday} {result.daysUntilBirthday === 1 ? t('age_day_1') :
+                 result.daysUntilBirthday < 5 ? t('age_day_2_4') : t('age_day_5_plus')}
               </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-yellow-700">Věk:</span>
-              <span className="font-mono text-yellow-900">{result.years + 1} let</span>
+              <span className="text-yellow-700">{t('age_label_age')}</span>
+              <span className="font-mono text-yellow-900">{result.years + 1} {t('age_unit_years')}</span>
             </div>
           </div>
         </CardContent>
@@ -367,13 +367,13 @@ const AgeCalculator: React.FC = () => {
         <CardContent className="p-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
             <Calendar className="w-5 h-5 text-indigo-600" />
-            <div className="text-sm font-medium text-indigo-700">Znamení zvěrokruhu</div>
+            <div className="text-sm font-medium text-indigo-700">{t('age_zodiac_sign')}</div>
           </div>
           <div className="text-xl font-bold text-indigo-800">
             {result.zodiacSign}
           </div>
           <div className="text-xs text-indigo-600 mt-1">
-            Podle data narození
+            {t('age_zodiac_based_on_birth')}
           </div>
         </CardContent>
       </Card>
@@ -384,29 +384,29 @@ const AgeCalculator: React.FC = () => {
           <div className="flex items-start gap-3">
             <Clock className="w-5 h-5 text-green-600 mt-0.5" />
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">Detailní informace</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">{t('age_detail_title')}</h4>
               <div className="space-y-1 text-sm text-gray-600">
                 <div className="flex justify-between">
-                  <span>Datum narození:</span>
+                  <span>{t('age_detail_birth_date')}</span>
                   <span className="font-mono">{formatDate(result.birthDate)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Cílové datum:</span>
+                  <span>{t('age_detail_target_date')}</span>
                   <span className="font-mono">{formatDate(result.targetDate)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Přesný věk:</span>
-                  <span className="font-mono">{result.years} let, {result.months} měsíců, {result.days} dní</span>
+                  <span>{t('age_detail_exact_age')}</span>
+                  <span className="font-mono">{result.years} {t('age_unit_years')}, {result.months} {t('age_unit_months')}, {result.days} {t('age_unit_days')}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Celkem dní:</span>
-                  <span className="font-mono">{formatNumber(result.totalDays)} dní</span>
+                  <span>{t('age_detail_total_days')}</span>
+                  <span className="font-mono">{formatNumber(result.totalDays)} {t('age_unit_days')}</span>
                 </div>
               </div>
               <div className="mt-2 text-xs text-gray-500">
-                Znamení: {result.zodiacSign} | 
-                Další narozeniny za: {result.daysUntilBirthday} dní | 
-                Celkem: {formatNumber(result.totalDays)} dní života
+                {t('age_zodiac_sign')}: {result.zodiacSign} |
+                {t('age_next_birthday')} {t('age_label_in')}: {result.daysUntilBirthday} {t('age_unit_days')} |
+                {t('age_total')}: {formatNumber(result.totalDays)} {t('age_unit_days')}
               </div>
             </div>
           </div>
@@ -425,52 +425,53 @@ const AgeCalculator: React.FC = () => {
       title={t('calculators.age.title')}
       description={t('calculators.age.description')}
       category={t('categories.practical')}
+      calculatorId="age"
       seo={{
-        title: "Kalkulátor věku - Výpočet přesného věku a dní života | MathCalc",
-        description: "Bezplatný kalkulátor věku. Vypočítejte přesný věk, celkový počet dní života, další narozeniny a znamení zvěrokruhu.",
-        keywords: ["věk", "kalkulátor věku", "datum narození", "narozeniny", "dny života", "znamení", "zvěrokruh", "výpočet věku"]
+        title: t('age_seo_title'),
+        description: t('age_seo_description'),
+        keywords: t('age_seo_keywords').split(',')
       }}
       formula={{
-        latex: "Věk = Cílové\\,datum - Datum\\,narození",
-        description: "Přesný věk se počítá po letech, měsících a dnech. Celkové dny = (Cílové datum - Datum narození) ÷ 24 hodin."
+        latex: t('age_formula_latex'),
+        description: t('age_formula_description')
       }}
       examples={{
-        title: "Příklady výpočtu věku",
-        description: "Různé způsoby použití kalkulátoru věku",
+        title: t('age_examples_title'),
+        description: t('age_examples_description'),
         scenarios: [
           {
-            title: "Současný věk",
-            description: "Narození 1990-01-01, dnes",
-            example: "34 let, 0 měsíců, 4 dny (přibližně)"
+            title: t('age_example_1_title'),
+            description: t('age_example_1_description'),
+            example: t('age_example_1_example')
           },
           {
-            title: "Věk k určitému datu",
-            description: "Kolik let budu mít 1. ledna 2030?",
-            example: "Užitečné pro plánování důchodu"
+            title: t('age_example_2_title'),
+            description: t('age_example_2_description'),
+            example: t('age_example_2_example')
           },
           {
-            title: "Dny do narozenin",
-            description: "Kdy budou další narozeniny?",
-            example: "Za 127 dní, budete mít 35 let"
+            title: t('age_example_3_title'),
+            description: t('age_example_3_description'),
+            example: t('age_example_3_example')
           }
         ]
       }}
       faq={[
         {
-          question: "Jak se počítá přesný věk?",
-          answer: "Přesný věk se počítá od data narození po roky, měsíce a dny. Nejdříve se odečtou roky, pak měsíce a nakonec dny s přihlédnutím k délce měsíců."
+          question: t('age_faq_1_q'),
+          answer: t('age_faq_1_a')
         },
         {
-          question: "Proč je důležité znát přesný věk?",
-          answer: "Přesný věk je potřeba pro právní dokumenty, pojištění, důchody, nebo jen ze zvědavosti. Některé věkové limity se počítají přesně na dny."
+          question: t('age_faq_2_q'),
+          answer: t('age_faq_2_a')
         },
         {
-          question: "Jak funguje výpočet znamení zvěrokruhu?",
-          answer: "Znamení zvěrokruhu se určuje podle data narození. Každé znamení má své období v roce, například Beran je od 21. března do 19. dubna."
+          question: t('age_faq_3_q'),
+          answer: t('age_faq_3_a')
         },
         {
-          question: "Lze počítat věk do budoucnosti?",
-          answer: "Ano, můžete zadat budoucí datum a zjistit, kolik let budete mít k určitému datu. To je užitečné pro plánování důležitých životních událostí."
+          question: t('age_faq_4_q'),
+          answer: t('age_faq_4_a')
         }
       ]}
       relatedCalculators={getRelatedCalculators('age', locale, t)}

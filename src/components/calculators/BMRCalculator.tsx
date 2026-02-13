@@ -515,6 +515,7 @@ const BMRCalculator: React.FC = () => {
       title={t('calculators.bmr.title')}
       description={t('calculators.bmr.description')}
       category={t('categories.health')}
+      calculatorId="bmr"
       seo={{
         title: t('calculators.bmr.seo.title'),
         description: t('calculators.bmr.seo.description'),

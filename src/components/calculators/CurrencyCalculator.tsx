@@ -381,6 +381,7 @@ const CurrencyCalculator: React.FC = () => {
       title={t('calculators.currency.title')}
       description={t('calculators.currency.description')}
       category={t('categories.practical')}
+      calculatorId="currency"
       seo={{
         title: "Kalkulátor měn - Převod měn s aktuálními kurzy | MathCalc",
         description: "Bezplatný kalkulátor měn. Převádějte CZK, EUR, USD, GBP a další měny s aktuálními směnnými kurzy.",

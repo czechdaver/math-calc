@@ -358,8 +358,29 @@ Kalkulačka je DONE když splňuje:
 - [ ] UX – popisky, nápovědy, české chybové hlášky
 - [ ] Build – prochází bez warningů
 
+## Consistency Pass (2026-02-12)
+
+Hloubkový audit odhalil nedostatky u "DONE" kalkulaček. Opraveno:
+
+**Opraveno:**
+- ✅ 9 page wrapperů standardizováno na CalculatorPageWrapper (IRR, NPV, ROI, předčasné splacení, materiály, DPH, procento z čísla, Y je X%, BMI)
+- ✅ Smazán dph-test/ adresář
+- ✅ 10 chybějících vztahů přidáno do calculator-relationships.json (age, calories, currency, discount, fuel, loan, materials, time, tip)
+- ✅ schemaData přidáno do VATCalculator, PercentageOfNumberCalculator, YIsXWhatIsHundredCalculator
+- ✅ Hardcoded text extrahován z 4 kalkulaček (VAT, IdealWeight, PercentageOfNumber, YIsXWhatIsHundred) → 164 nových translation klíčů cs/en
+- ✅ IdealWeightCalculator zredukován z 594→268 řádků
+
+**Zbývající zjištěné problémy (neopraveno - lower priority):**
+
+| Problém | Počet | Kalkulačky | Závažnost |
+|---------|-------|-----------|-----------|
+| Chybí `calculatorId` prop | 12 | Age, Area, BMR, BodyFat, Calories, Currency, Discount, Fuel, Loan, Material, Time, Tip | Střední |
+| Hardcoded CZ text (zbývající) | ~19 souborů | AgeCalc (zodiac), AreaCalc (errors), BMRCalc (formulas), BodyFatCalc (categories), CaloriesCalc (activity), CurrencyCalc (names), DiscountCalc (modes), FuelCalc (errors), LoanCalc (errors), MaterialCalc (names), TimeCalc (labels), TipCalc (SEO), BMI (fallbacks), ConcreteCalc (category+keywords), VolumeCalc (category+keywords), InsulationCalc (keywords), WhatPercentageCalc (keywords+errors) | Vysoké |
+| Hardcoded CZ v keyword arrays | ~7 souborů | BMI, Concrete, Volume, Insulation, WhatPercentage, Tip, Discount | Nízké (SEO only) |
+| Hardcoded "Kč" currency | ~5 souborů | Insulation, NetSalary, Loan, Material, Fuel | Střední |
+
 ## Aktivní session
-> Žádná aktivní session – VŠECHNY BATCHE DOKONČENY (0–7)
+> Žádná aktivní session
 
 ## Historie změn
 
@@ -378,3 +399,4 @@ Kalkulačka je DONE když splňuje:
 | 2026-02-12 | Batch 5 Fractions | Dokončeno | 6 fraction operací implementováno (addition, subtraction, multiplication, division, simplification, conversion). Nový src/utils/math/fractions.ts, ~30 translation klíčů cs/en |
 | 2026-02-12 | Batch 6 Fitness | Dokončeno | 4 redirecty (duplicate elimination: calories, bmr, ideal-weight, body-fat) + 2 nové kalkulačky (MacroCalculator, WaterIntakeCalculator). 87 translation klíčů cs/en, data entries aktualizovány |
 | 2026-02-12 | Batch 7 Praktické | Dokončeno | 6 redirectů (duplicate elimination: tip, discount, age, time, currency, fuel). Všechny batche 0–7 dokončeny (63/63 + 1 reference = 64 položek) |
+| 2026-02-12 | Consistency Pass | Dokončeno | 9 page wrapperů → CalculatorPageWrapper, smazán dph-test/, 10 relationships přidáno, schemaData přidáno do 3 kalkulaček, hardcoded text extrahován ze 4 kalkulaček (164 translation klíčů cs/en), IdealWeight 594→268ř. Audit odhalil 12 calculatorId, ~19 souborů s CZ text. |

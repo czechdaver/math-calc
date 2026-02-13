@@ -118,9 +118,9 @@ const TimeCalculator: React.FC = () => {
   // Get operation description
   const getOperationDescription = (op: string): string => {
     switch (op) {
-      case 'add': return 'Sčítání časů';
-      case 'subtract': return 'Odčítání časů';
-      default: return 'Sčítání časů';
+      case 'add': return t('time_operation_add');
+      case 'subtract': return t('time_operation_subtract');
+      default: return t('time_operation_add');
     }
   };
 
@@ -143,24 +143,24 @@ const TimeCalculator: React.FC = () => {
 
     // Validate first time
     if (!h1 || isNaN(hours1Num) || hours1Num < 0 || hours1Num > 999) {
-      newErrors.hours1 = 'Zadejte platné hodiny (0-999)';
+      newErrors.hours1 = t('time_error_hours');
     }
     if (!m1 || isNaN(minutes1Num) || minutes1Num < 0 || minutes1Num > 59) {
-      newErrors.minutes1 = 'Zadejte platné minuty (0-59)';
+      newErrors.minutes1 = t('time_error_minutes');
     }
     if (!s1 || isNaN(seconds1Num) || seconds1Num < 0 || seconds1Num > 59) {
-      newErrors.seconds1 = 'Zadejte platné sekundy (0-59)';
+      newErrors.seconds1 = t('time_error_seconds');
     }
 
     // Validate second time
     if (!h2 || isNaN(hours2Num) || hours2Num < 0 || hours2Num > 999) {
-      newErrors.hours2 = 'Zadejte platné hodiny (0-999)';
+      newErrors.hours2 = t('time_error_hours');
     }
     if (!m2 || isNaN(minutes2Num) || minutes2Num < 0 || minutes2Num > 59) {
-      newErrors.minutes2 = 'Zadejte platné minuty (0-59)';
+      newErrors.minutes2 = t('time_error_minutes');
     }
     if (!s2 || isNaN(seconds2Num) || seconds2Num < 0 || seconds2Num > 59) {
-      newErrors.seconds2 = 'Zadejte platné sekundy (0-59)';
+      newErrors.seconds2 = t('time_error_seconds');
     }
 
     setErrors(newErrors);
@@ -532,10 +532,11 @@ const TimeCalculator: React.FC = () => {
       title={t('calculators.time.title')}
       description={t('calculators.time.description')}
       category={t('categories.practical')}
+      calculatorId="time"
       seo={{
-        title: "Kalkulátor času - Sčítání a odčítání času HH:MM:SS | MathCalc",
-        description: "Bezplatný kalkulátor času. Sčítejte a odčítejte časy, vypočítejte pracovní dobu, přestávky a časové intervaly.",
-        keywords: ["čas", "kalkulátor času", "sčítání času", "odčítání času", "pracovní doba", "přestávky", "HH:MM:SS", "hodiny minuty sekundy"]
+        title: t('time_seo_title'),
+        description: t('time_seo_description'),
+        keywords: t('time_seo_keywords').split(',')
       }}
       formula={{
         latex: "Výsledek = Čas_1 \\pm Čas_2",

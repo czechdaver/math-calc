@@ -426,6 +426,7 @@ const TipCalculator: React.FC = () => {
       title={t('calculators.tip.title')}
       description={t('calculators.tip.description')}
       category={t('categories.practical')}
+      calculatorId="tip"
       seo={{
         title: "Kalkulátor spropitného - Výpočet spropitného pro restaurace | MathCalc",
         description: "Bezplatný kalkulátor spropitného. Vypočítejte správnou výši spropitného podle kvality obsluhy a rozdělte účet mezi více lidí.",

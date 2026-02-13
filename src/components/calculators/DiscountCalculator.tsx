@@ -473,6 +473,7 @@ const DiscountCalculator: React.FC = () => {
       title={t('calculators.discount.title')}
       description={t('calculators.discount.description')}
       category={t('categories.practical')}
+      calculatorId="discount"
       seo={{
         title: t('calculators.discount.seo.title'),
         description: t('calculators.discount.seo.description'),

@@ -43,7 +43,7 @@ const BodyFatCalculator: React.FC = () => {
   }>({});
 
   const formatNumber = (num: number, decimals: number = 1): string => {
-    return num.toLocaleString('cs-CZ', {
+    return num.toLocaleString(locale, {
       minimumFractionDigits: decimals,
       maximumFractionDigits: decimals,
     });
@@ -69,17 +69,17 @@ const BodyFatCalculator: React.FC = () => {
 
   const getBodyFatCategory = (bodyFat: number, isMale: boolean): { category: string; color: string; isHealthy: boolean } => {
     if (isMale) {
-      if (bodyFat < 6) return { category: 'Velmi nízký', color: 'text-red-600', isHealthy: false };
-      if (bodyFat < 14) return { category: 'Atletický', color: 'text-green-600', isHealthy: true };
-      if (bodyFat < 18) return { category: 'Fitness', color: 'text-blue-600', isHealthy: true };
-      if (bodyFat < 25) return { category: 'Průměrný', color: 'text-yellow-600', isHealthy: true };
-      return { category: 'Obézní', color: 'text-red-600', isHealthy: false };
+      if (bodyFat < 6) return { category: t('bodyfat_category_very_low'), color: 'text-red-600', isHealthy: false };
+      if (bodyFat < 14) return { category: t('bodyfat_category_athletic'), color: 'text-green-600', isHealthy: true };
+      if (bodyFat < 18) return { category: t('bodyfat_category_fitness'), color: 'text-blue-600', isHealthy: true };
+      if (bodyFat < 25) return { category: t('bodyfat_category_average'), color: 'text-yellow-600', isHealthy: true };
+      return { category: t('bodyfat_category_obese'), color: 'text-red-600', isHealthy: false };
     } else {
-      if (bodyFat < 16) return { category: 'Velmi nízký', color: 'text-red-600', isHealthy: false };
-      if (bodyFat < 21) return { category: 'Atletický', color: 'text-green-600', isHealthy: true };
-      if (bodyFat < 25) return { category: 'Fitness', color: 'text-blue-600', isHealthy: true };
-      if (bodyFat < 32) return { category: 'Průměrný', color: 'text-yellow-600', isHealthy: true };
-      return { category: 'Obézní', color: 'text-red-600', isHealthy: false };
+      if (bodyFat < 16) return { category: t('bodyfat_category_very_low'), color: 'text-red-600', isHealthy: false };
+      if (bodyFat < 21) return { category: t('bodyfat_category_athletic'), color: 'text-green-600', isHealthy: true };
+      if (bodyFat < 25) return { category: t('bodyfat_category_fitness'), color: 'text-blue-600', isHealthy: true };
+      if (bodyFat < 32) return { category: t('bodyfat_category_average'), color: 'text-yellow-600', isHealthy: true };
+      return { category: t('bodyfat_category_obese'), color: 'text-red-600', isHealthy: false };
     }
   };
 
@@ -117,13 +117,13 @@ const BodyFatCalculator: React.FC = () => {
     const ageNum = parseFloat(ageStr);
 
     if (!weightStr || isNaN(weightNum) || weightNum < 30 || weightNum > 300) {
-      newErrors.weight = 'Zadejte platnou váhu (30-300 kg)';
+      newErrors.weight = t('bodyfat_error_weight');
     }
     if (!heightStr || isNaN(heightNum) || heightNum < 100 || heightNum > 250) {
-      newErrors.height = 'Zadejte platnou výšku (100-250 cm)';
+      newErrors.height = t('bodyfat_error_height');
     }
     if (!ageStr || isNaN(ageNum) || ageNum < 15 || ageNum > 120) {
-      newErrors.age = 'Zadejte platný věk (15-120 let)';
+      newErrors.age = t('bodyfat_error_age');
     }
 
     if (method === 'navy') {
@@ -132,13 +132,13 @@ const BodyFatCalculator: React.FC = () => {
       const hipNum = parseFloat(hipStr);
 
       if (!neckStr || isNaN(neckNum) || neckNum < 20 || neckNum > 60) {
-        newErrors.neck = 'Zadejte platný obvod krku (20-60 cm)';
+        newErrors.neck = t('bodyfat_error_neck');
       }
       if (!waistStr || isNaN(waistNum) || waistNum < 50 || waistNum > 200) {
-        newErrors.waist = 'Zadejte platný obvod pasu (50-200 cm)';
+        newErrors.waist = t('bodyfat_error_waist');
       }
       if (gender === 'female' && (!hipStr || isNaN(hipNum) || hipNum < 60 || hipNum > 200)) {
-        newErrors.hip = 'Zadejte platný obvod boků (60-200 cm)';
+        newErrors.hip = t('bodyfat_error_hip');
       }
     }
 
@@ -164,26 +164,26 @@ const BodyFatCalculator: React.FC = () => {
   const calculatorForm = (
     <div className="space-y-6">
       <div className="space-y-2">
-        <Label htmlFor="method" className="text-sm font-medium">Metoda výpočtu</Label>
+        <Label htmlFor="method" className="text-sm font-medium">{t('bodyfat_label_method')}</Label>
         <Select value={method} onValueChange={setMethod}>
           <SelectTrigger>
-            <SelectValue placeholder="Vyberte metodu" />
+            <SelectValue placeholder={t('bodyfat_placeholder_method')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="navy">US Navy metoda (přesnější)</SelectItem>
-            <SelectItem value="bmi">BMI odhad (jednodušší)</SelectItem>
+            <SelectItem value="navy">{t('bodyfat_method_navy')}</SelectItem>
+            <SelectItem value="bmi">{t('bodyfat_method_bmi')}</SelectItem>
           </SelectContent>
         </Select>
         <p className="text-gray-500 text-xs">
-          {method === 'navy' ? 'Vyžaduje měření obvodu krku, pasu a boků' : 'Odhad založený na BMI a věku'}
+          {method === 'navy' ? t('bodyfat_hint_navy') : t('bodyfat_hint_bmi')}
         </p>
       </div>
 
       <div className="space-y-4">
-        <div className="text-sm font-medium text-gray-700">Základní údaje</div>
-        
+        <div className="text-sm font-medium text-gray-700">{t('bodyfat_section_basic')}</div>
+
         <div className="space-y-2">
-          <Label htmlFor="weight" className="text-sm font-medium">Váha</Label>
+          <Label htmlFor="weight" className="text-sm font-medium">{t('bodyfat_label_weight')}</Label>
           <div className="relative">
             <Input
               id="weight" type="number" value={weight} onChange={(e) => setWeight(e.target.value)}
@@ -200,7 +200,7 @@ const BodyFatCalculator: React.FC = () => {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="height" className="text-sm font-medium">Výška</Label>
+          <Label htmlFor="height" className="text-sm font-medium">{t('bodyfat_label_height')}</Label>
           <div className="relative">
             <Input
               id="height" type="number" value={height} onChange={(e) => setHeight(e.target.value)}
@@ -217,7 +217,7 @@ const BodyFatCalculator: React.FC = () => {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="age" className="text-sm font-medium">Věk</Label>
+          <Label htmlFor="age" className="text-sm font-medium">{t('bodyfat_label_age')}</Label>
           <div className="relative">
             <Input
               id="age" type="number" value={age} onChange={(e) => setAge(e.target.value)}
@@ -234,14 +234,14 @@ const BodyFatCalculator: React.FC = () => {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="gender" className="text-sm font-medium">Pohlaví</Label>
+          <Label htmlFor="gender" className="text-sm font-medium">{t('bodyfat_label_gender')}</Label>
           <Select value={gender} onValueChange={setGender}>
             <SelectTrigger>
-              <SelectValue placeholder="Vyberte pohlaví" />
+              <SelectValue placeholder={t('bodyfat_placeholder_gender')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="male">Muž</SelectItem>
-              <SelectItem value="female">Žena</SelectItem>
+              <SelectItem value="male">{t('bodyfat_gender_male')}</SelectItem>
+              <SelectItem value="female">{t('bodyfat_gender_female')}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -249,10 +249,10 @@ const BodyFatCalculator: React.FC = () => {
 
       {method === 'navy' && (
         <div className="space-y-4">
-          <div className="text-sm font-medium text-gray-700">Tělesné míry (US Navy metoda)</div>
-          
+          <div className="text-sm font-medium text-gray-700">{t('bodyfat_section_measures')}</div>
+
           <div className="space-y-2">
-            <Label htmlFor="neck" className="text-sm font-medium">Obvod krku</Label>
+            <Label htmlFor="neck" className="text-sm font-medium">{t('bodyfat_label_neck')}</Label>
             <div className="relative">
               <Input
                 id="neck" type="number" value={neck} onChange={(e) => setNeck(e.target.value)}
@@ -266,11 +266,11 @@ const BodyFatCalculator: React.FC = () => {
                 <AlertCircle className="w-3 h-3" />{errors.neck}
               </p>
             )}
-            <p className="text-gray-500 text-xs">Měřte pod ohryzkem, nejužší místo</p>
+            <p className="text-gray-500 text-xs">{t('bodyfat_hint_neck')}</p>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="waist" className="text-sm font-medium">Obvod pasu</Label>
+            <Label htmlFor="waist" className="text-sm font-medium">{t('bodyfat_label_waist')}</Label>
             <div className="relative">
               <Input
                 id="waist" type="number" value={waist} onChange={(e) => setWaist(e.target.value)}
@@ -285,13 +285,13 @@ const BodyFatCalculator: React.FC = () => {
               </p>
             )}
             <p className="text-gray-500 text-xs">
-              {gender === 'male' ? 'Měřte v úrovni pupku' : 'Měřte nejužší místo'}
+              {gender === 'male' ? t('bodyfat_hint_waist_male') : t('bodyfat_hint_waist_female')}
             </p>
           </div>
 
           {gender === 'female' && (
             <div className="space-y-2">
-              <Label htmlFor="hip" className="text-sm font-medium">Obvod boků</Label>
+              <Label htmlFor="hip" className="text-sm font-medium">{t('bodyfat_label_hip')}</Label>
               <div className="relative">
                 <Input
                   id="hip" type="number" value={hip} onChange={(e) => setHip(e.target.value)}
@@ -305,7 +305,7 @@ const BodyFatCalculator: React.FC = () => {
                   <AlertCircle className="w-3 h-3" />{errors.hip}
                 </p>
               )}
-              <p className="text-gray-500 text-xs">Měřte nejširší místo boků</p>
+              <p className="text-gray-500 text-xs">{t('bodyfat_hint_hip')}</p>
             </div>
           )}
         </div>
@@ -314,19 +314,19 @@ const BodyFatCalculator: React.FC = () => {
       <Card className="bg-blue-50 border-blue-200">
         <CardContent className="p-4">
           <div className="text-center">
-            <div className="text-sm font-medium text-blue-800 mb-2">Vaše údaje</div>
+            <div className="text-sm font-medium text-blue-800 mb-2">{t('bodyfat_summary_title')}</div>
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div>
-                <div className="font-semibold text-blue-900">Profil</div>
-                <div className="text-blue-700">{gender === 'male' ? 'Muž' : 'Žena'}, {age} let</div>
+                <div className="font-semibold text-blue-900">{t('bodyfat_summary_profile')}</div>
+                <div className="text-blue-700">{gender === 'male' ? t('bodyfat_gender_male') : t('bodyfat_gender_female')}, {age} let</div>
               </div>
               <div>
-                <div className="font-semibold text-blue-900">Tělo</div>
+                <div className="font-semibold text-blue-900">{t('bodyfat_summary_body')}</div>
                 <div className="text-blue-700">{weight} kg, {height} cm</div>
               </div>
             </div>
             <div className="mt-2 text-xs text-blue-600">
-              Metoda: {method === 'navy' ? 'US Navy (přesnější)' : 'BMI odhad (jednodušší)'}
+              {t('bodyfat_label_method')}: {method === 'navy' ? t('bodyfat_method_navy') : t('bodyfat_method_bmi')}
             </div>
           </div>
         </CardContent>
@@ -342,9 +342,9 @@ const BodyFatCalculator: React.FC = () => {
             <div className="text-3xl font-bold text-green-900">
               {formatNumber(result.bodyFatPercentage)}%
             </div>
-            <div className="text-sm text-green-700 mt-1">Tělesný tuk</div>
+            <div className="text-sm text-green-700 mt-1">{t('bodyfat_result_body_fat')}</div>
             <div className="text-xs text-green-600 mt-1">
-              {result.method === 'navy' ? 'US Navy metoda' : 'BMI odhad'}
+              {result.method === 'navy' ? t('bodyfat_method_navy') : t('bodyfat_method_bmi')}
             </div>
           </div>
           <Activity className="w-8 h-8 text-green-600" />
@@ -360,7 +360,7 @@ const BodyFatCalculator: React.FC = () => {
             </div>
           </div>
           <div className="text-xs text-gray-600">
-            {result.isHealthy ? 'Zdravé rozpětí' : 'Mimo zdravé rozpětí'}
+            {result.isHealthy ? t('bodyfat_healthy_range') : t('bodyfat_unhealthy_range')}
           </div>
         </CardContent>
       </Card>
@@ -371,9 +371,9 @@ const BodyFatCalculator: React.FC = () => {
             <div className="text-lg font-bold text-blue-800">
               {formatNumber(result.fatMass)} kg
             </div>
-            <div className="text-sm text-blue-700 mt-1">Tuková hmota</div>
+            <div className="text-sm text-blue-700 mt-1">{t('bodyfat_result_fat_mass')}</div>
             <div className="text-xs text-blue-600 mt-1">
-              {formatNumber(result.bodyFatPercentage)}% z celkové váhy
+              {formatNumber(result.bodyFatPercentage)}% {t('bodyfat_of_total_weight')}
             </div>
           </CardContent>
         </Card>
@@ -383,9 +383,9 @@ const BodyFatCalculator: React.FC = () => {
             <div className="text-lg font-bold text-green-800">
               {formatNumber(result.leanMass)} kg
             </div>
-            <div className="text-sm text-green-700 mt-1">Svalová hmota</div>
+            <div className="text-sm text-green-700 mt-1">{t('bodyfat_result_lean_mass')}</div>
             <div className="text-xs text-green-600 mt-1">
-              {formatNumber(100 - result.bodyFatPercentage)}% z celkové váhy
+              {formatNumber(100 - result.bodyFatPercentage)}% {t('bodyfat_of_total_weight')}
             </div>
           </CardContent>
         </Card>
@@ -393,12 +393,12 @@ const BodyFatCalculator: React.FC = () => {
 
       <Card className="bg-gray-50 border-gray-200">
         <CardContent className="p-4 text-center">
-          <div className="text-sm text-gray-700 mb-2">Pro porovnání:</div>
+          <div className="text-sm text-gray-700 mb-2">{t('bodyfat_comparison')}</div>
           <div className="text-lg font-bold text-gray-800">
             BMI: {formatNumber(result.bmi)}
           </div>
           <div className="text-xs text-gray-600 mt-1">
-            Tělesný tuk je přesnější než BMI pro fitness
+            {t('bodyfat_vs_bmi_note')}
           </div>
         </CardContent>
       </Card>
@@ -408,15 +408,14 @@ const BodyFatCalculator: React.FC = () => {
           <div className="flex items-start gap-3">
             <User className="w-5 h-5 text-green-600 mt-0.5" />
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">Co je tělesný tuk?</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">{t('bodyfat_what_is_title')}</h4>
               <p className="text-gray-600 text-sm">
-                Tělesný tuk je procento vaší celkové váhy tvořené tukem. Na rozdíl od BMI 
-                rozlišuje mezi tukovou a svalovou hmotou, což poskytuje přesnější obraz o vaší kondici.
+                {t('bodyfat_what_is_desc')}
               </p>
               <div className="mt-2 text-xs text-gray-500">
-                Metoda: {result.method === 'navy' ? 'US Navy (přesnější)' : 'BMI odhad'} | 
-                Tělesný tuk: {formatNumber(result.bodyFatPercentage)}% | 
-                Kategorie: {result.category}
+                {t('bodyfat_label_method')}: {result.method === 'navy' ? t('bodyfat_method_navy') : t('bodyfat_method_bmi')} |
+                {t('bodyfat_result_body_fat')}: {formatNumber(result.bodyFatPercentage)}% |
+                {result.category}
               </div>
             </div>
           </div>
@@ -426,61 +425,62 @@ const BodyFatCalculator: React.FC = () => {
   ) : (
     <div className="text-center py-8 text-gray-500">
       <CalcIcon className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-      <p>Zadejte vaše údaje pro výpočet tělesného tuku</p>
+      <p>{t('bodyfat_empty_message')}</p>
     </div>
   );
 
   return (
     <SimpleCalculatorLayout
-      title="Tělesný tuk kalkulátor"
-      description="Vypočítejte procento tělesného tuku pomocí US Navy metody nebo BMI odhadu. Zjistěte složení těla, tukovou a svalovou hmotu s doporučeními pro zdraví."
-      category="Zdraví"
+      title={t('bodyfat_page_title')}
+      description={t('bodyfat_page_description')}
+      category={t('bodyfat_page_category')}
+      calculatorId="body-fat"
       seo={{
-        title: "Tělesný tuk kalkulátor - US Navy metoda BMI odhad | MathCalc",
-        description: "Bezplatný kalkulátor tělesného tuku. Výpočet pomocí US Navy metody nebo BMI s analýzou složení těla a zdravotními doporučeními.",
-        keywords: ["tělesný tuk", "body fat", "US Navy", "BMI", "složení těla", "tuková hmota", "svalová hmota", "fitness", "zdraví"]
+        title: t('bodyfat_seo_title'),
+        description: t('bodyfat_seo_description'),
+        keywords: t('bodyfat_seo_keywords').split(',')
       }}
       formula={{
-        latex: "BF\\% = \\frac{495}{1.0324 - 0.19077 \\times \\log_{10}(pas - krk) + 0.15456 \\times \\log_{10}(výška)} - 450",
-        description: "US Navy vzorec pro muže. Pro ženy se používají jiné koeficienty a zahrnuje se obvod boků."
+        latex: t('bodyfat_formula_latex'),
+        description: t('bodyfat_formula_description')
       }}
       examples={{
-        title: "Příklady výpočtu tělesného tuku",
-        description: "Porovnání různých metod a profilů",
+        title: t('bodyfat_examples_title'),
+        description: t('bodyfat_examples_description'),
         scenarios: [
           {
-            title: "Muž, atletický typ",
-            description: "Navy: 12%, BMI odhad: 15%",
-            example: "Navy metoda je přesnější pro sportovce"
+            title: t('bodyfat_example_1_title'),
+            description: t('bodyfat_example_1_description'),
+            example: t('bodyfat_example_1_example')
           },
           {
-            title: "Žena, průměrná kondice",
-            description: "Navy: 28%, BMI odhad: 25%",
-            example: "Ženy mají přirozeně vyšší tělesný tuk"
+            title: t('bodyfat_example_2_title'),
+            description: t('bodyfat_example_2_description'),
+            example: t('bodyfat_example_2_example')
           },
           {
-            title: "Rozdíl mezi metodami",
-            description: "Navy vs BMI: rozdíl 2-5%",
-            example: "Navy metoda je obecně přesnější"
+            title: t('bodyfat_example_3_title'),
+            description: t('bodyfat_example_3_description'),
+            example: t('bodyfat_example_3_example')
           }
         ]
       }}
       faq={[
         {
-          question: "Která metoda je přesnější?",
-          answer: "US Navy metoda je obecně přesnější, protože používá skutečné tělesné míry. BMI odhad je jednodušší, ale méně přesný, zejména u sportovců s vyšší svalovou hmotou."
+          question: t('bodyfat_faq_1_q'),
+          answer: t('bodyfat_faq_1_a')
         },
         {
-          question: "Jaký je zdravý tělesný tuk?",
-          answer: "Pro muže: 6-24% (atletický 6-13%, fitness 14-17%, průměrný 18-24%). Pro ženy: 16-31% (atletický 16-20%, fitness 21-24%, průměrný 25-31%)."
+          question: t('bodyfat_faq_2_q'),
+          answer: t('bodyfat_faq_2_a')
         },
         {
-          question: "Jak měřit tělesné míry?",
-          answer: "Krk: nejužší místo pod ohryzkem. Pas u mužů: v úrovni pupku, u žen: nejužší místo. Boky u žen: nejširší místo. Měřte ráno na lačno."
+          question: t('bodyfat_faq_3_q'),
+          answer: t('bodyfat_faq_3_a')
         },
         {
-          question: "Proč je tělesný tuk lepší než BMI?",
-          answer: "BMI nerozlišuje mezi svalovou a tukovou hmotou. Sportovci mohou mít vysoké BMI kvůli svalům, ale nízký tělesný tuk. Tělesný tuk je přesnější ukazatel kondice."
+          question: t('bodyfat_faq_4_q'),
+          answer: t('bodyfat_faq_4_a')
         }
       ]}
       relatedCalculators={getRelatedCalculators('body-fat', locale, t)}

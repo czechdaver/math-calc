@@ -419,19 +419,18 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
             <Card className="max-w-md w-full">
               <CardHeader>
-                <CardTitle>Podpořte náš web</CardTitle>
+                <CardTitle>{t('layout_adblock_title')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-gray-600">
-                  Zjistili jsme, že používáte blokování reklam. Naše kalkulátory jsou zdarma díky reklamám. 
-                  Prosím zvažte vypnutí AdBlocku pro náš web.
+                  {t('layout_adblock_message')}
                 </p>
                 <div className="flex gap-2">
                   <Button 
                     onClick={() => setShowModal(false)}
                     className="flex-1"
                   >
-                    Rozumím
+                    {t('layout_adblock_button')}
                   </Button>
                 </div>
               </CardContent>

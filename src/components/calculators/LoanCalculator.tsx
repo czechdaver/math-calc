@@ -436,6 +436,7 @@ const LoanCalculator: React.FC = () => {
       title="Kalkulátor půjček"
       description="Vypočítejte měsíční splátky úvěru, celkové náklady a úroky. Naplánujte si hypotéku, osobní půjčku nebo jiný úvěr."
       category="Praktické"
+      calculatorId="loan"
       seo={{
         title: "Kalkulátor půjček - Výpočet splátek úvěru a hypotéky | MathCalc",
         description: "Bezplatný kalkulátor půjček. Vypočítejte měsíční splátky, celkové náklady a úroky pro hypotéky, osobní půjčky a úvěry.",

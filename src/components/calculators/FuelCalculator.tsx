@@ -584,6 +584,7 @@ const FuelCalculator: React.FC = () => {
       title={t('calculators.fuel.title')}
       description={t('calculators.fuel.description')}
       category={t('categories.practical')}
+      calculatorId="fuel"
       seo={{
         title: t('calculators.fuel.seo.title'),
         description: t('calculators.fuel.seo.description'),

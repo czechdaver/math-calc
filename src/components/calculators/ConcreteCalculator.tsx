@@ -94,12 +94,12 @@ const ConcreteCalculator: React.FC = () => {
     <SimpleCalculatorLayout
       title={t('concrete_title')}
       description={t('concrete_description')}
-      category="Stavební"
+      category={t('concrete_category')}
       calculatorId="concrete"
       seo={{
         title: t('concrete_seo_title'),
         description: t('concrete_seo_desc'),
-        keywords: ['beton', 'cement', 'písek', 'štěrk', 'stavba', 'kalkulátor betonu'],
+        keywords: t('concrete_seo_keywords').split(','),
       }}
       formula={{
         latex: String.raw`V_{beton} = V_{konstrukce} \times 1{,}05 \quad M_{cement} = \frac{V \times r_{cement}}{r_{celk}} \times 1500`,

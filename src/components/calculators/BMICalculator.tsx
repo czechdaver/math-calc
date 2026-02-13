@@ -175,6 +175,10 @@ const BMICalculator: React.FC = () => {
       examples={examples}
       faq={faq}
       relatedCalculators={relatedCalculators}
+      schemaData={{
+        applicationCategory: "HealthApplication",
+        operatingSystem: "Any"
+      }}
       resultSection={result && (
         <CalculatorResult
           title={t('your_bmi_label') || 'Váš BMI'}

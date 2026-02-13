@@ -47,7 +47,7 @@ const AreaCalculator: React.FC = () => {
 
   // Format area
   const formatArea = (area: number): string => {
-    return area.toLocaleString('cs-CZ', {
+    return area.toLocaleString(locale, {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2
     }) + ' m²';
@@ -55,7 +55,7 @@ const AreaCalculator: React.FC = () => {
 
   // Format perimeter
   const formatPerimeter = (perimeter: number): string => {
-    return perimeter.toLocaleString('cs-CZ', {
+    return perimeter.toLocaleString(locale, {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2
     }) + ' m';
@@ -70,40 +70,40 @@ const AreaCalculator: React.FC = () => {
       const widthNum = parseFloat(width);
       
       if (!length || isNaN(lengthNum) || lengthNum <= 0) {
-        newErrors.length = 'Zadejte platnou délku';
+        newErrors.length = t('area_error_length');
       }
       if (shapeType === 'rectangle' && (!width || isNaN(widthNum) || widthNum <= 0)) {
-        newErrors.width = 'Zadejte platnou šířku';
+        newErrors.width = t('area_error_width');
       }
     } else if (shapeType === 'circle') {
       const radiusNum = parseFloat(radius);
-      
+
       if (!radius || isNaN(radiusNum) || radiusNum <= 0) {
-        newErrors.radius = 'Zadejte platný poloměr';
+        newErrors.radius = t('area_error_radius');
       }
     } else if (shapeType === 'triangle') {
       const baseNum = parseFloat(base);
       const heightNum = parseFloat(height);
-      
+
       if (!base || isNaN(baseNum) || baseNum <= 0) {
-        newErrors.base = 'Zadejte platnou základnu';
+        newErrors.base = t('area_error_base');
       }
       if (!height || isNaN(heightNum) || heightNum <= 0) {
-        newErrors.height = 'Zadejte platnou výšku';
+        newErrors.height = t('area_error_height');
       }
     } else if (shapeType === 'trapezoid') {
       const topNum = parseFloat(topBase);
       const bottomNum = parseFloat(bottomBase);
       const heightNum = parseFloat(trapHeight);
-      
+
       if (!topBase || isNaN(topNum) || topNum <= 0) {
-        newErrors.topBase = 'Zadejte platnou horní základnu';
+        newErrors.topBase = t('area_error_top_base');
       }
       if (!bottomBase || isNaN(bottomNum) || bottomNum <= 0) {
-        newErrors.bottomBase = 'Zadejte platnou dolní základnu';
+        newErrors.bottomBase = t('area_error_bottom_base');
       }
       if (!trapHeight || isNaN(heightNum) || heightNum <= 0) {
-        newErrors.trapHeight = 'Zadejte platnou výšku';
+        newErrors.trapHeight = t('area_error_height');
       }
     }
 
@@ -188,12 +188,12 @@ const AreaCalculator: React.FC = () => {
   // Get shape description
   const getShapeDescription = (shapeType: string): string => {
     switch (shapeType) {
-      case 'rectangle': return 'Obdélník';
-      case 'square': return 'Čtverec';
-      case 'circle': return 'Kruh';
-      case 'triangle': return 'Trojúhelník';
-      case 'trapezoid': return 'Lichoběžník';
-      default: return 'Obdélník';
+      case 'rectangle': return t('area_shape_rectangle');
+      case 'square': return t('area_shape_square');
+      case 'circle': return t('area_shape_circle');
+      case 'triangle': return t('area_shape_triangle');
+      case 'trapezoid': return t('area_shape_trapezoid');
+      default: return t('area_shape_rectangle');
     }
   };
 
@@ -247,22 +247,22 @@ const AreaCalculator: React.FC = () => {
       {/* Shape Selection */}
       <div className="space-y-2">
         <Label htmlFor="shape" className="text-sm font-medium">
-          Tvar
+          {t('area_label_shape')}
         </Label>
         <Select value={shape} onValueChange={setShape}>
           <SelectTrigger>
-            <SelectValue placeholder="Vyberte tvar" />
+            <SelectValue placeholder={t('area_placeholder_shape')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="rectangle">Obdélník</SelectItem>
-            <SelectItem value="square">Čtverec</SelectItem>
-            <SelectItem value="circle">Kruh</SelectItem>
-            <SelectItem value="triangle">Trojúhelník</SelectItem>
-            <SelectItem value="trapezoid">Lichoběžník</SelectItem>
+            <SelectItem value="rectangle">{t('area_shape_rectangle')}</SelectItem>
+            <SelectItem value="square">{t('area_shape_square')}</SelectItem>
+            <SelectItem value="circle">{t('area_shape_circle')}</SelectItem>
+            <SelectItem value="triangle">{t('area_shape_triangle')}</SelectItem>
+            <SelectItem value="trapezoid">{t('area_shape_trapezoid')}</SelectItem>
           </SelectContent>
         </Select>
         <p className="text-gray-500 text-xs">
-          {getShapeDescription(shape)} - výpočet plochy a obvodu
+          {getShapeDescription(shape)} - {t('area_calc_hint')}
         </p>
       </div>
 
@@ -271,7 +271,7 @@ const AreaCalculator: React.FC = () => {
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="length" className="text-sm font-medium">
-              {shape === 'square' ? 'Strana (m)' : 'Délka (m)'}
+              {shape === 'square' ? t('area_label_side') : t('area_label_length')}
             </Label>
             <Input
               id="length"
@@ -294,7 +294,7 @@ const AreaCalculator: React.FC = () => {
           {shape === 'rectangle' && (
             <div className="space-y-2">
               <Label htmlFor="width" className="text-sm font-medium">
-                Šířka (m)
+                {t('area_label_width')}
               </Label>
               <Input
                 id="width"
@@ -321,7 +321,7 @@ const AreaCalculator: React.FC = () => {
       {shape === 'circle' && (
         <div className="space-y-2">
           <Label htmlFor="radius" className="text-sm font-medium">
-            Poloměr (m)
+            {t('area_label_radius')}
           </Label>
           <Input
             id="radius"
@@ -347,7 +347,7 @@ const AreaCalculator: React.FC = () => {
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="base" className="text-sm font-medium">
-              Základna (m)
+              {t('area_label_base')}
             </Label>
             <Input
               id="base"
@@ -369,7 +369,7 @@ const AreaCalculator: React.FC = () => {
 
           <div className="space-y-2">
             <Label htmlFor="height" className="text-sm font-medium">
-              Výška (m)
+              {t('area_label_height')}
             </Label>
             <Input
               id="height"
@@ -396,7 +396,7 @@ const AreaCalculator: React.FC = () => {
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="topBase" className="text-sm font-medium">
-              Horní základna (m)
+              {t('area_label_top_base')}
             </Label>
             <Input
               id="topBase"
@@ -418,7 +418,7 @@ const AreaCalculator: React.FC = () => {
 
           <div className="space-y-2">
             <Label htmlFor="bottomBase" className="text-sm font-medium">
-              Dolní základna (m)
+              {t('area_label_bottom_base')}
             </Label>
             <Input
               id="bottomBase"
@@ -440,7 +440,7 @@ const AreaCalculator: React.FC = () => {
 
           <div className="space-y-2">
             <Label htmlFor="trapHeight" className="text-sm font-medium">
-              Výška (m)
+              {t('area_label_height')}
             </Label>
             <Input
               id="trapHeight"
@@ -468,14 +468,14 @@ const AreaCalculator: React.FC = () => {
           <div className="text-center">
             <div className="text-sm font-medium text-blue-800 mb-2 flex items-center justify-center gap-2">
               {getShapeIcon(shape)}
-              Výpočet plochy - {getShapeDescription(shape)}
+              {t('area_summary_calc')} - {getShapeDescription(shape)}
             </div>
             <div className="text-lg font-semibold text-blue-900">
               {shape === 'rectangle' && `${length} × ${width} m`}
               {shape === 'square' && `${length} × ${length} m`}
               {shape === 'circle' && `r = ${radius} m`}
-              {shape === 'triangle' && `základna ${base} m, výška ${height} m`}
-              {shape === 'trapezoid' && `${topBase}/${bottomBase} m, výška ${trapHeight} m`}
+              {shape === 'triangle' && `${t('area_label_triangle_base')} ${base} m, ${t('area_label_triangle_height')} ${height} m`}
+              {shape === 'trapezoid' && `${topBase}/${bottomBase} m, ${t('area_label_triangle_height')} ${trapHeight} m`}
             </div>
           </div>
         </CardContent>
@@ -494,7 +494,7 @@ const AreaCalculator: React.FC = () => {
               {formatArea(result.area)}
             </div>
             <div className="text-sm text-green-700 mt-1">
-              Plocha {getShapeDescription(result.shape).toLowerCase()}u
+              {t('area_result_area_of')} {getShapeDescription(result.shape).toLowerCase()}
             </div>
           </div>
           {getShapeIcon(result.shape)}
@@ -508,7 +508,7 @@ const AreaCalculator: React.FC = () => {
             <div className="text-lg font-bold text-blue-800">
               {formatArea(result.area)}
             </div>
-            <div className="text-sm text-blue-700 mt-1">Plocha</div>
+            <div className="text-sm text-blue-700 mt-1">{t('area_result_area')}</div>
           </CardContent>
         </Card>
 
@@ -517,7 +517,7 @@ const AreaCalculator: React.FC = () => {
             <div className="text-lg font-bold text-purple-800">
               {formatPerimeter(result.perimeter)}
             </div>
-            <div className="text-sm text-purple-700 mt-1">Obvod</div>
+            <div className="text-sm text-purple-700 mt-1">{t('area_result_perimeter')}</div>
           </CardContent>
         </Card>
       </div>
@@ -528,54 +528,54 @@ const AreaCalculator: React.FC = () => {
           <div className="flex items-start gap-3">
             <CalcIcon className="w-5 h-5 text-green-600 mt-0.5" />
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">Detailní výpočet</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">{t('area_detail_title')}</h4>
               <div className="space-y-1 text-sm text-gray-600">
                 <div className="flex justify-between">
-                  <span>Tvar:</span>
+                  <span>{t('area_detail_shape')}</span>
                   <span className="font-mono">{getShapeDescription(result.shape)}</span>
                 </div>
                 {result.shape === 'rectangle' && (
                   <>
                     <div className="flex justify-between">
-                      <span>Délka:</span>
+                      <span>{t('area_detail_length')}</span>
                       <span className="font-mono">{result.dimensions.length} m</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Šířka:</span>
+                      <span>{t('area_detail_width')}</span>
                       <span className="font-mono">{result.dimensions.width} m</span>
                     </div>
                   </>
                 )}
                 {result.shape === 'square' && (
                   <div className="flex justify-between">
-                    <span>Strana:</span>
+                    <span>{t('area_detail_side')}</span>
                     <span className="font-mono">{result.dimensions.side} m</span>
                   </div>
                 )}
                 {result.shape === 'circle' && (
                   <div className="flex justify-between">
-                    <span>Poloměr:</span>
+                    <span>{t('area_detail_radius')}</span>
                     <span className="font-mono">{result.dimensions.radius} m</span>
                   </div>
                 )}
                 {result.shape === 'triangle' && (
                   <>
                     <div className="flex justify-between">
-                      <span>Základna:</span>
+                      <span>{t('area_detail_base')}</span>
                       <span className="font-mono">{result.dimensions.base} m</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Výška:</span>
+                      <span>{t('area_detail_height')}</span>
                       <span className="font-mono">{result.dimensions.height} m</span>
                     </div>
                   </>
                 )}
                 <div className="border-t pt-1 flex justify-between font-semibold">
-                  <span>Plocha:</span>
+                  <span>{t('area_result_area')}:</span>
                   <span className="font-mono">{formatArea(result.area)}</span>
                 </div>
                 <div className="flex justify-between font-semibold">
-                  <span>Obvod:</span>
+                  <span>{t('area_result_perimeter')}:</span>
                   <span className="font-mono">{formatPerimeter(result.perimeter)}</span>
                 </div>
               </div>
@@ -587,23 +587,23 @@ const AreaCalculator: React.FC = () => {
       {/* Practical Applications */}
       <Card>
         <CardContent className="p-4">
-          <h4 className="font-semibold text-gray-900 mb-3">Praktické využití</h4>
+          <h4 className="font-semibold text-gray-900 mb-3">{t('area_practical_title')}</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
             <div className="p-3 bg-green-50 rounded">
-              <div className="font-medium text-green-800 mb-1">Stavebnictví</div>
-              <div className="text-green-700">Výpočet plochy podlahy, stěn, střechy</div>
+              <div className="font-medium text-green-800 mb-1">{t('area_practical_construction_title')}</div>
+              <div className="text-green-700">{t('area_practical_construction_desc')}</div>
             </div>
             <div className="p-3 bg-blue-50 rounded">
-              <div className="font-medium text-blue-800 mb-1">Zahradnictví</div>
-              <div className="text-blue-700">Plocha trávníku, záhonů, dlažby</div>
+              <div className="font-medium text-blue-800 mb-1">{t('area_practical_garden_title')}</div>
+              <div className="text-blue-700">{t('area_practical_garden_desc')}</div>
             </div>
             <div className="p-3 bg-purple-50 rounded">
-              <div className="font-medium text-purple-800 mb-1">Malování</div>
-              <div className="text-purple-700">Potřeba barvy podle plochy stěn</div>
+              <div className="font-medium text-purple-800 mb-1">{t('area_practical_painting_title')}</div>
+              <div className="text-purple-700">{t('area_practical_painting_desc')}</div>
             </div>
             <div className="p-3 bg-orange-50 rounded">
-              <div className="font-medium text-orange-800 mb-1">Materiály</div>
-              <div className="text-orange-700">Množství dlažby, koberce, izolace</div>
+              <div className="font-medium text-orange-800 mb-1">{t('area_practical_materials_title')}</div>
+              <div className="text-orange-700">{t('area_practical_materials_desc')}</div>
             </div>
           </div>
         </CardContent>
@@ -612,61 +612,62 @@ const AreaCalculator: React.FC = () => {
   ) : (
     <div className="text-center py-8 text-gray-500">
       <Square className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-      <p>Zadejte rozměry pro výpočet plochy</p>
+      <p>{t('area_empty_message')}</p>
     </div>
   );
 
   return (
     <SimpleCalculatorLayout
-      title="Kalkulátor plochy"
-      description="Vypočítejte plochu a obvod různých geometrických tvarů. Užitečné pro stavebnictví, zahradnictví a plánování materiálů."
-      category="Stavební"
+      title={t('area_page_title')}
+      description={t('area_page_description')}
+      category={t('area_page_category')}
+      calculatorId="area"
       seo={{
-        title: "Kalkulátor plochy - Výpočet plochy obdélníku, kruhu, trojúhelníku | MathCalc",
-        description: "Bezplatný kalkulátor plochy. Vypočítejte plochu a obvod obdélníku, čtverce, kruhu, trojúhelníku a lichoběžníku.",
-        keywords: ["plocha", "obvod", "obdélník", "čtverec", "kruh", "trojúhelník", "lichoběžník", "geometrie", "stavebnictví", "kalkulátor plochy"]
+        title: t('area_seo_title'),
+        description: t('area_seo_description'),
+        keywords: t('area_seo_keywords').split(',')
       }}
       formula={{
-        latex: "S_{obdélník} = a \\times b \\quad S_{kruh} = \\pi r^2 \\quad S_{trojúhelník} = \\frac{1}{2} \\times a \\times v",
-        description: "Vzorce pro výpočet plochy různých geometrických tvarů podle jejich specifických rozměrů."
+        latex: t('area_formula_latex'),
+        description: t('area_formula_description')
       }}
       examples={{
-        title: "Příklady výpočtu plochy",
-        description: "Praktické použití kalkulátoru plochy",
+        title: t('area_examples_title'),
+        description: t('area_examples_description'),
         scenarios: [
           {
-            title: "Místnost",
-            description: "Obdélník 5 × 4 m = 20 m²",
-            example: "Výpočet plochy podlahy pro dlažbu"
+            title: t('area_example_1_title'),
+            description: t('area_example_1_description'),
+            example: t('area_example_1_example')
           },
           {
-            title: "Kruhový bazén",
-            description: "Kruh r = 3 m = 28,27 m²",
-            example: "Plocha bazénu pro výpočet chemie"
+            title: t('area_example_2_title'),
+            description: t('area_example_2_description'),
+            example: t('area_example_2_example')
           },
           {
-            title: "Trojúhelníkový pozemek",
-            description: "Trojúhelník 15 × 10 m = 75 m²",
-            example: "Plocha pozemku pro osázení trávníkem"
+            title: t('area_example_3_title'),
+            description: t('area_example_3_description'),
+            example: t('area_example_3_example')
           }
         ]
       }}
       faq={[
         {
-          question: "Jak vypočítat plochu nepravidelného tvaru?",
-          answer: "Nepravidelný tvar rozdělte na menší pravidelné tvary (obdélníky, trojúhelníky), vypočítejte jejich plochy a sečtěte je."
+          question: t('area_faq_1_q'),
+          answer: t('area_faq_1_a')
         },
         {
-          question: "Jaký je rozdíl mezi plochou a obvodem?",
-          answer: "Plocha je velikost povrchu (m²), obvod je délka okraje tvaru (m). Plocha se používá pro materiály, obvod pro ohraničení."
+          question: t('area_faq_2_q'),
+          answer: t('area_faq_2_a')
         },
         {
-          question: "Jak převést jednotky plochy?",
-          answer: "1 m² = 10 000 cm², 1 ha = 10 000 m², 1 km² = 1 000 000 m². Při převodu se násobí/dělí druhou mocninou převodního čísla."
+          question: t('area_faq_3_q'),
+          answer: t('area_faq_3_a')
         },
         {
-          question: "Kolik materiálu potřebuji na danou plochu?",
-          answer: "Závisí na typu materiálu. Například dlažba se počítá +10% na ořez, barva podle pokryvnosti (obvykle 1 litr na 8-12 m²)."
+          question: t('area_faq_4_q'),
+          answer: t('area_faq_4_a')
         }
       ]}
       relatedCalculators={getRelatedCalculators('area', locale, t)}

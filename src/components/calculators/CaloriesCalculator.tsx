@@ -39,9 +39,9 @@ const CaloriesCalculator: React.FC = () => {
     age?: string; weight?: string; height?: string 
   }>({});
 
-  // Format number with Czech locale
+  // Format number with locale
   const formatNumber = (num: number): string => {
-    return num.toLocaleString('cs-CZ', {
+    return num.toLocaleString(locale, {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     });
@@ -76,12 +76,12 @@ const CaloriesCalculator: React.FC = () => {
   // Get activity level description
   const getActivityDescription = (level: string): string => {
     switch (level) {
-      case 'sedentary': return 'Sedavý životní styl (žádné cvičení)';
-      case 'light': return 'Lehká aktivita (cvičení 1-3× týdně)';
-      case 'moderate': return 'Střední aktivita (cvičení 3-5× týdně)';
-      case 'active': return 'Vysoká aktivita (cvičení 6-7× týdně)';
-      case 'extreme': return 'Extrémní aktivita (intenzivní cvičení + fyzická práce)';
-      default: return 'Střední aktivita';
+      case 'sedentary': return t('calories_activity_sedentary_desc');
+      case 'light': return t('calories_activity_light_desc');
+      case 'moderate': return t('calories_activity_moderate_desc');
+      case 'active': return t('calories_activity_active_desc');
+      case 'extreme': return t('calories_activity_extreme_desc');
+      default: return t('calories_activity_moderate_desc');
     }
   };
 
@@ -126,15 +126,15 @@ const CaloriesCalculator: React.FC = () => {
     const heightNum = parseFloat(heightStr);
 
     if (!ageStr || isNaN(ageNum) || ageNum < 15 || ageNum > 120) {
-      newErrors.age = 'Zadejte platný věk (15-120 let)';
+      newErrors.age = t('calories_error_age');
     }
 
     if (!weightStr || isNaN(weightNum) || weightNum < 30 || weightNum > 300) {
-      newErrors.weight = 'Zadejte platnou váhu (30-300 kg)';
+      newErrors.weight = t('calories_error_weight');
     }
 
     if (!heightStr || isNaN(heightNum) || heightNum < 100 || heightNum > 250) {
-      newErrors.height = 'Zadejte platnou výšku (100-250 cm)';
+      newErrors.height = t('calories_error_height');
     }
 
     setErrors(newErrors);
@@ -159,12 +159,12 @@ const CaloriesCalculator: React.FC = () => {
     <div className="space-y-6">
       {/* Personal Information */}
       <div className="space-y-4">
-        <div className="text-sm font-medium text-gray-700">Osobní údaje</div>
-        
+        <div className="text-sm font-medium text-gray-700">{t('calories_section_personal')}</div>
+
         {/* Age */}
         <div className="space-y-2">
           <Label htmlFor="age" className="text-sm font-medium">
-            Věk
+            {t('calories_label_age')}
           </Label>
           <div className="relative">
             <Input
@@ -179,7 +179,7 @@ const CaloriesCalculator: React.FC = () => {
               step="1"
             />
             <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-              let
+              {t('calories_unit_years')}
             </span>
           </div>
           {errors.age && (
@@ -189,14 +189,14 @@ const CaloriesCalculator: React.FC = () => {
             </p>
           )}
           <p className="text-gray-500 text-xs">
-            Váš věk v letech
+            {t('calories_hint_age')}
           </p>
         </div>
 
         {/* Weight */}
         <div className="space-y-2">
           <Label htmlFor="weight" className="text-sm font-medium">
-            Váha
+            {t('calories_label_weight')}
           </Label>
           <div className="relative">
             <Input
@@ -221,14 +221,14 @@ const CaloriesCalculator: React.FC = () => {
             </p>
           )}
           <p className="text-gray-500 text-xs">
-            Vaše současná váha v kilogramech
+            {t('calories_hint_weight')}
           </p>
         </div>
 
         {/* Height */}
         <div className="space-y-2">
           <Label htmlFor="height" className="text-sm font-medium">
-            Výška
+            {t('calories_label_height')}
           </Label>
           <div className="relative">
             <Input
@@ -253,7 +253,7 @@ const CaloriesCalculator: React.FC = () => {
             </p>
           )}
           <p className="text-gray-500 text-xs">
-            Vaše výška v centimetrech
+            {t('calories_hint_height')}
           </p>
         </div>
 
@@ -451,6 +451,7 @@ const CaloriesCalculator: React.FC = () => {
       title={t('calculators.calories.title')}
       description={t('calculators.calories.description')}
       category={t('categories.health')}
+      calculatorId="calories"
       seo={{
         title: t('calculators.calories.seo.title'),
         description: t('calculators.calories.seo.description'),

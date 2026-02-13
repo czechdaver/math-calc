@@ -104,10 +104,10 @@ const DiscountCalculator: React.FC = () => {
   // Get calculation type description
   const getCalculationTypeDescription = (type: string): string => {
     switch (type) {
-      case 'percentage': return 'Výpočet z procenta slevy';
-      case 'amount': return 'Výpočet z částky slevy';
-      case 'finalPrice': return 'Výpočet z konečné ceny';
-      default: return 'Výpočet z procenta slevy';
+      case 'percentage': return t('discount_calc_type_percentage_desc');
+      case 'amount': return t('discount_calc_type_amount_desc');
+      case 'finalPrice': return t('discount_calc_type_final_desc');
+      default: return t('discount_calc_type_percentage_desc');
     }
   };
 
@@ -131,21 +131,21 @@ const DiscountCalculator: React.FC = () => {
 
     // Original price is always required
     if (!originalPriceStr || isNaN(originalPriceNum) || originalPriceNum <= 0 || originalPriceNum > 1000000) {
-      newErrors.originalPrice = 'Zadejte platnou původní cenu (1-1 000 000 Kč)';
+      newErrors.originalPrice = t('discount_error_original_price');
     }
 
     // Validate based on calculation type
     if (calcType === 'percentage') {
       if (!discountPercentageStr || isNaN(discountPercentageNum) || discountPercentageNum < 0 || discountPercentageNum > 100) {
-        newErrors.discountPercentage = 'Zadejte platné procento slevy (0-100%)';
+        newErrors.discountPercentage = t('discount_error_percentage');
       }
     } else if (calcType === 'amount') {
       if (!discountAmountStr || isNaN(discountAmountNum) || discountAmountNum < 0 || discountAmountNum > originalPriceNum) {
-        newErrors.discountAmount = 'Zadejte platnou částku slevy (0 až původní cena)';
+        newErrors.discountAmount = t('discount_error_amount');
       }
     } else if (calcType === 'finalPrice') {
       if (!finalPriceStr || isNaN(finalPriceNum) || finalPriceNum < 0 || finalPriceNum > originalPriceNum) {
-        newErrors.finalPrice = 'Zadejte platnou konečnou cenu (0 až původní cena)';
+        newErrors.finalPrice = t('discount_error_final_price');
       }
     }
 

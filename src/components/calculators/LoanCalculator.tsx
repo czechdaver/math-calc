@@ -433,56 +433,56 @@ const LoanCalculator: React.FC = () => {
 
   return (
     <SimpleCalculatorLayout
-      title="Kalkulátor půjček"
-      description="Vypočítejte měsíční splátky úvěru, celkové náklady a úroky. Naplánujte si hypotéku, osobní půjčku nebo jiný úvěr."
-      category="Praktické"
+      title={t('loan_page_title')}
+      description={t('loan_page_description')}
+      category={t('loan_page_category')}
       calculatorId="loan"
       seo={{
-        title: "Kalkulátor půjček - Výpočet splátek úvěru a hypotéky | MathCalc",
-        description: "Bezplatný kalkulátor půjček. Vypočítejte měsíční splátky, celkové náklady a úroky pro hypotéky, osobní půjčky a úvěry.",
-        keywords: ["půjčka", "úvěr", "hypotéka", "splátka", "úrok", "kalkulátor půjček", "měsíční splátka", "finanční kalkulátor"]
+        title: t('loan_seo_title'),
+        description: t('loan_seo_description'),
+        keywords: t('loan_seo_keywords').split(',')
       }}
       formula={{
         latex: "M = P \\times \\frac{r(1 + r)^n}{(1 + r)^n - 1}",
-        description: "Měsíční splátka se počítá podle anuity, kde P = jistina, r = měsíční úroková sazba, n = počet splátek."
+        description: t('loan_formula_description')
       }}
       examples={{
-        title: "Příklady výpočtu půjček",
-        description: "Praktické použití kalkulátoru půjček",
+        title: t('loan_examples_title'),
+        description: t('loan_examples_description'),
         scenarios: [
           {
-            title: "Hypotéka na bydlení",
-            description: "2 000 000 Kč, 4,5% p.a., 25 let → 11 061 Kč/měsíc",
-            example: "Výpočet měsíční splátky hypotéky"
+            title: t('loan_example_1_title'),
+            description: t('loan_example_1_description'),
+            example: t('loan_example_1_example')
           },
           {
-            title: "Osobní půjčka",
-            description: "300 000 Kč, 8% p.a., 5 let → 6 083 Kč/měsíc",
-            example: "Půjčka na rekonstrukci nebo auto"
+            title: t('loan_example_2_title'),
+            description: t('loan_example_2_description'),
+            example: t('loan_example_2_example')
           },
           {
-            title: "Podnikatelský úvěr",
-            description: "1 000 000 Kč, 6% p.a., 10 let → 11 102 Kč/měsíc",
-            example: "Financování podnikatelských aktivit"
+            title: t('loan_example_3_title'),
+            description: t('loan_example_3_description'),
+            example: t('loan_example_3_example')
           }
         ]
       }}
       faq={[
         {
-          question: "Jak se počítá měsíční splátka půjčky?",
-          answer: "Měsíční splátka se počítá podle vzorce pro anuitní splácení: M = P × [r(1 + r)^n] / [(1 + r)^n - 1], kde P je jistina, r měsíční úroková sazba a n počet splátek."
+          question: t('loan_faq_1_q'),
+          answer: t('loan_faq_1_a')
         },
         {
-          question: "Co ovlivňuje výši měsíční splátky?",
-          answer: "Výši splátky ovlivňuje především výše půjčky, úroková sazba a doba splatnosti. Vyšší úrok nebo kratší doba splatnosti znamenají vyšší splátky."
+          question: t('loan_faq_2_q'),
+          answer: t('loan_faq_2_a')
         },
         {
-          question: "Jaký je rozdíl mezi úrokovou sazbou a RPSN?",
-          answer: "Úroková sazba je základní cena půjčky, RPSN (roční procentní sazba nákladů) zahrnuje i všechny poplatky a lépe odráží skutečné náklady půjčky."
+          question: t('loan_faq_3_q'),
+          answer: t('loan_faq_3_a')
         },
         {
-          question: "Jak snížit celkové náklady na půjčku?",
-          answer: "Náklady můžete snížit kratší dobou splatnosti, vyšší splátkou, mimořádnými splátkami nebo refinancováním za lepších podmínek."
+          question: t('loan_faq_4_q'),
+          answer: t('loan_faq_4_a')
         }
       ]}
       relatedCalculators={getRelatedCalculators('loan', locale, t)}

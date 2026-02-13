@@ -380,9 +380,50 @@ Hloubkový audit odhalil nedostatky u "DONE" kalkulaček. Opraveno:
 | Hardcoded "Kč" currency | ~5 souborů | Insulation, NetSalary, Loan, Material, Fuel | Střední |
 
 ## Aktivní session
-> Žádná aktivní session
+> **Quality Audit Batch 0-7** (2026-02-13)
 
-## Historie změn
+### Quality Audit Results
+
+**Celkem zkontrolováno:** 4 kalkulačky (Discount, Fuel, VAT, Loan)
+**Nalezeno hardcoded text:** 47 řetězců
+
+| Kalkulačka | Hardcoded řetězce | Nové klíče | Status |
+|-----------|-------------------|-------------|--------|
+| VATCalculator | 0 | 0 | ✅ CLEAN |
+| FuelCalculator | 7 | 11 | ⚠️ NEEDS FIX |
+| DiscountCalculator | 12 | 7 | ⚠️ NEEDS FIX |
+| LoanCalculator | 28 | 14 | 🔴 CRITICAL |
+
+### Critical Finding - LoanCalculator
+
+**Problém:** Lines 436-487 mají VŠECHNY props hardcoded v češtině místo `t()`:
+- title: "Kalkulačka půjčky" → má být `t('loan_title')`
+- description, category, seo, formula, examples, faq - VŠECHNY hardcoded
+
+**Řešení:** Většina props ještě rozepsaná, klíče existují
+
+### Phase 3: Refactoring velkých komponent
+
+Identifikovaní kandidáti na refactoring:
+
+| Kalkulačka | Řádků | Cílový stav | Úspora |
+|-----------|--------|-------------|---------|
+| TimeCalculator | 579 | ~180 | 69% |
+| LoanCalculator | 501 | ~220 | 56% |
+| FuelCalculator | 649 | TBD | TBD |
+| TipCalculator | 490 | TBD | TBD |
+| VATCalculator | 255 | TBD | TBD |
+| DiscountCalculator | 537 | TBD | TBD |
+| CurrencyCalculator | 445 | TBD | TBD |
+
+### Další kroky
+
+1. 🔴 **KRITICKÉ:** Opravit LoanCalculator props (lines 436-487)
+2. ⚠️ **VYSOKÁ:** Extrahovat hardcoded text (Discount, Fuel, Loan)
+3. 🔄 **STŘEDNÍ:** Refactorovat velké komponenty na custom hooks
+
+## Aktivní session (předchozí)
+> Žádná aktivní session
 
 | Datum | Kalkulačka | Akce | Detail |
 |-------|-----------|------|--------|
@@ -400,3 +441,4 @@ Hloubkový audit odhalil nedostatky u "DONE" kalkulaček. Opraveno:
 | 2026-02-12 | Batch 6 Fitness | Dokončeno | 4 redirecty (duplicate elimination: calories, bmr, ideal-weight, body-fat) + 2 nové kalkulačky (MacroCalculator, WaterIntakeCalculator). 87 translation klíčů cs/en, data entries aktualizovány |
 | 2026-02-12 | Batch 7 Praktické | Dokončeno | 6 redirectů (duplicate elimination: tip, discount, age, time, currency, fuel). Všechny batche 0–7 dokončeny (63/63 + 1 reference = 64 položek) |
 | 2026-02-12 | Consistency Pass | Dokončeno | 9 page wrapperů → CalculatorPageWrapper, smazán dph-test/, 10 relationships přidáno, schemaData přidáno do 3 kalkulaček, hardcoded text extrahován ze 4 kalkulaček (164 translation klíčů cs/en), IdealWeight 594→268ř. Audit odhalil 12 calculatorId, ~19 souborů s CZ text. |
+| 2026-02-13 | Quality Audit Batch 0-7 | Dokončeno | Kompletní audit 4 kalkulaček (Discount, Fuel, VAT, Loan). Nalezeno 47 hardcoded řetězců. VAT je CLEAN. Loan má KRITICKÝ problém (props hardcoded lines 436-487). Připraveno detailní plány pro refactoring TimeCalculator (579→180ř, 69% úspora) a LoanCalculator (501→220ř, 56% úspora). |

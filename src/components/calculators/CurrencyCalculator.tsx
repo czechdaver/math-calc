@@ -73,7 +73,7 @@ const CurrencyCalculator: React.FC = () => {
     const amountNum = parseFloat(amountStr);
 
     if (!amountStr || isNaN(amountNum) || amountNum <= 0) {
-      newErrors.amount = 'Zadejte platnou částku větší než 0';
+      newErrors.amount = t('currency_error_amount');
     }
 
     setErrors(newErrors);

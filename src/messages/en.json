@@ -2080,6 +2080,8 @@
   "currency_name_jpy": "Japanese Yen",
   "currency_name_cad": "Canadian Dollar",
   "currency_name_aud": "Australian Dollar",
+  "currency_from_placeholder": "Select currency",
+  "currency_to_placeholder": "Select currency",
   "currency_error_amount": "Enter a valid amount greater than 0",
   "currency_seo_title": "Currency Calculator - Currency Conversion with Current Rates | MathCalc",
   "currency_seo_description": "Free currency calculator. Convert CZK, EUR, USD, GBP and other currencies with current exchange rates.",

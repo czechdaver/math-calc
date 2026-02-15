@@ -7,7 +7,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Calculator, AlertCircle } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface CalculationResult {
   result: number;
@@ -46,7 +45,6 @@ const YJeXKolikJeStoCalculator: React.FC = () => {
     }
   }, [y, x]);
 
-  const relatedCalculators = getRelatedCalculators('y-is-x-what-is-hundred', locale, t);
 
   return (
     <SimpleCalculatorLayout
@@ -76,7 +74,6 @@ const YJeXKolikJeStoCalculator: React.FC = () => {
         { question: t('y_x_hundred_faq2_q'), answer: t('y_x_hundred_faq2_a') },
         { question: t('y_x_hundred_faq3_q'), answer: t('y_x_hundred_faq3_a') }
       ]}
-      relatedCalculators={relatedCalculators}
       schemaData={{
         applicationCategory: "UtilityApplication",
         operatingSystem: "Any"

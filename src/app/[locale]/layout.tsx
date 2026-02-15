@@ -2,10 +2,24 @@ import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { ReactNode } from 'react';
 import Script from 'next/script';
+import { Inter, Fraunces } from 'next/font/google';
 import CookieBanner from '@/components/CookieBanner';
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import MainNavigation from '@/components/navigation/MainNavigation';
 import '@/styles/globals.css';
+
+// Font configuration
+const inter = Inter({
+  subsets: ['latin', 'latin-ext'],
+  variable: '--font-body',
+  display: 'swap',
+});
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-heading',
+  display: 'swap',
+});
 
 // Define supported locales as a constant to avoid repetition
 const supportedLocales = ['cs', 'en', 'sk', 'pl', 'hu'] as const;
@@ -29,7 +43,7 @@ export default async function LocaleLayout({
 }: Props) {
   // Access locale from params asynchronously
   const { locale } = await params;
-  
+
   // TypeScript will ensure locale is one of the supported locales
   if (!supportedLocales.includes(locale)) {
     notFound();
@@ -45,10 +59,13 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={`${inter.variable} ${fraunces.variable}`}>
       <head>
         <title>Math Calculator</title>
         <meta name="description" content="A calculator application with multiple calculation tools" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+        <meta name="theme-color" content="#ffffff" />
         <link rel="canonical" href={`https://yourdomain.com/${locale}`} />
         <link rel="alternate" hrefLang="en" href="https://yourdomain.com/en" />
         <link rel="alternate" hrefLang="cs" href="https://yourdomain.com/cs" />
@@ -56,7 +73,7 @@ export default async function LocaleLayout({
         <link rel="alternate" hrefLang="pl" href="https://yourdomain.com/pl" />
         <link rel="alternate" hrefLang="hu" href="https://yourdomain.com/hu" />
         <link rel="alternate" hrefLang="x-default" href="https://yourdomain.com/en" />
-        
+
         {/* Google Adsense Script */}
         <Script
           id="adsense-script"
@@ -83,7 +100,7 @@ export default async function LocaleLayout({
           strategy="lazyOnload"
         />
       </head>
-      <body>
+      <body className="font-body">
         <ThemeProvider>
           <NextIntlClientProvider
             locale={locale}
@@ -91,7 +108,7 @@ export default async function LocaleLayout({
             timeZone="Europe/Prague"
           >
             <MainNavigation />
-            <main className="pt-16">
+            <main className="pt-20 pb-16 min-h-screen">
               {children}
             </main>
             <CookieBanner />

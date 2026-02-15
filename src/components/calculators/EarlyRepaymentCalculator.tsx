@@ -5,7 +5,6 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput } from './shared';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 import { useFinanceFormatting } from '@/hooks/useFinanceFormatting';
 import { useEarlyRepaymentCalculator } from '@/hooks/useEarlyRepaymentCalculator';
 import { Card, CardContent } from '@/components/ui/Card';
@@ -26,7 +25,6 @@ const EarlyRepaymentCalculator: React.FC = () => {
     repaymentAmount: t('early_repayment_validation_repayment_amount'),
   });
 
-  const relatedCalculators = getRelatedCalculators('early-repayment', locale, t);
 
   const resultsSection = result ? (
     <div className="space-y-6">
@@ -190,7 +188,6 @@ const EarlyRepaymentCalculator: React.FC = () => {
         { question: t('calculators.early_repayment.faq.q3.question'), answer: t('calculators.early_repayment.faq.q3.answer') },
         { question: t('calculators.early_repayment.faq.q4.question'), answer: t('calculators.early_repayment.faq.q4.answer') },
       ]}
-      relatedCalculators={relatedCalculators}
       schemaData={{ applicationCategory: 'FinanceApplication', operatingSystem: 'Any' }}
       resultSection={resultsSection}
     >

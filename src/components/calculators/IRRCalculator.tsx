@@ -5,7 +5,6 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput, CashFlowEditor } from './shared';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 import { useFinanceFormatting } from '@/hooks/useFinanceFormatting';
 import { useIRRCalculator } from '@/hooks/useIRRCalculator';
 import { Card, CardContent } from '@/components/ui/Card';
@@ -21,7 +20,6 @@ const IRRCalculator: React.FC = () => {
     cashFlow: t('irr_validation_cash_flow'),
   });
 
-  const relatedCalculators = getRelatedCalculators('irr', locale, t);
 
   const resultsSection = result ? (
     <div className="space-y-6">
@@ -148,7 +146,6 @@ const IRRCalculator: React.FC = () => {
         { question: t('irr_faq_3_q'), answer: t('irr_faq_3_a') },
         { question: t('irr_faq_4_q'), answer: t('irr_faq_4_a') },
       ]}
-      relatedCalculators={relatedCalculators}
       schemaData={{ applicationCategory: 'FinanceApplication', operatingSystem: 'Any' }}
       resultSection={resultsSection}
     >

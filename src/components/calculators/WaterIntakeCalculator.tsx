@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput, CalculatorSelect } from './shared';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface WaterResult {
   liters: number;
@@ -37,7 +36,6 @@ const WaterIntakeCalculator: React.FC = () => {
   const [climate, setClimate] = useState('temperate');
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const relatedCalculators = getRelatedCalculators('water-intake', locale as string, t);
 
   const result = useMemo<WaterResult | null>(() => {
     const w = parseFloat(weight);
@@ -106,7 +104,6 @@ const WaterIntakeCalculator: React.FC = () => {
         { question: t('water_faq_2_q'), answer: t('water_faq_2_a') },
         { question: t('water_faq_3_q'), answer: t('water_faq_3_a') },
       ]}
-      relatedCalculators={relatedCalculators}
       schemaData={{ applicationCategory: "HealthApplication", operatingSystem: "Any" }}
       resultSection={result ? (
         <div className="space-y-4">

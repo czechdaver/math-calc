@@ -9,7 +9,6 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { AlertCircle, Calculator as CalcIcon, Calendar, Clock, User, Gift } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface AgeResult {
   years: number;
@@ -474,7 +473,6 @@ const AgeCalculator: React.FC = () => {
           answer: t('age_faq_4_a')
         }
       ]}
-      relatedCalculators={getRelatedCalculators('age', locale, t)}
       schemaData={{
         applicationCategory: "UtilitiesApplication",
         operatingSystem: "Any"

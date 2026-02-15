@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Car, Fuel, MapPin, DollarSign } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface FuelResult {
   fuelConsumption: number;
@@ -633,7 +632,6 @@ const FuelCalculator: React.FC = () => {
           answer: t('calculators.fuel.faq.q4.answer')
         }
       ]}
-      relatedCalculators={getRelatedCalculators('fuel', locale, t)}
       schemaData={{
         applicationCategory: "UtilitiesApplication",
         operatingSystem: "Any"

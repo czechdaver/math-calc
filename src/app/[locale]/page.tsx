@@ -4,17 +4,21 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
-import { Calculator, Percent, Ruler, Scale, TrendingUp, Search, ArrowRight, Users, Shield, Star, Heart, ChevronDown } from 'lucide-react';
+import { Calculator, Percent, Ruler, Scale, TrendingUp, ArrowRight, Users, Shield, Star, Heart, ChevronDown } from 'lucide-react';
 import AdBanner from '@/components/ads/AdBanner';
 import { Button } from '@/components/ui/Button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
-import Accordion from '@/components/ui/Accordion';
+import { CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import GlassCard from '@/components/shared/GlassCard';
+import CalculatorCard from '@/components/calculators/shared/CalculatorCard';
+import CalculatorSearch from '@/components/search/CalculatorSearch';
+import SimpleFAQ from '@/components/shared/SimpleFAQ'; // Importing the redesigned SimpleFAQ
+import { cn } from '@/lib/utils';
+import { getCalculatorCategories, getQuickLinks } from '@/lib/calculatorDataUtils';
 
 const HomePage: React.FC = () => {
   const t = useTranslations();
   const pathname = usePathname();
   const locale = pathname.split('/')[1] || 'cs';
-  const [searchQuery, setSearchQuery] = useState('');
   const [isMounted, setIsMounted] = useState(false);
 
   // Only use for components that actually cause hydration issues
@@ -22,61 +26,30 @@ const HomePage: React.FC = () => {
     setIsMounted(true);
   }, []);
 
-  // Popular calculators data
-  const popularCalculators = [
-    {
-      id: 'procenta',
-      name: t('categories.percentages'),
-      description: t('categories.percentages_description'),
-      icon: <Percent className="w-8 h-8 text-blue-500" />,
-      href: `/${locale}/calculator/procenta`,
-      rating: 4.8
-    },
-    {
-      id: 'bmi',
-      name: t('categories.bmi'),
-      description: t('categories.bmi_description'),
-      icon: <Scale className="w-8 h-8 text-purple-500" />,
-      href: `/${locale}/calculator/bmi`,
-      rating: 4.9
-    },
-    {
-      id: 'dph',
-      name: t('categories.vat'),
-      description: t('categories.vat_description'),
-      icon: <TrendingUp className="w-8 h-8 text-green-500" />,
-      href: `/${locale}/calculator/dph`,
-      rating: 4.7
-    }
-  ];
+  // Fetch data safely
+  const popularCalculators = getQuickLinks('popular', locale, t).slice(0, 3);
+  const categories = getCalculatorCategories(locale, t);
 
-  // Calculator categories
-  const calculatorCategories = [
-    {
-      name: t('categories.mathematics'),
-      icon: <Calculator className="w-8 h-8" />,
-      count: 12,
-      color: 'bg-blue-500'
-    },
-    {
-      name: t('categories.percentages'),
-      icon: <Percent className="w-8 h-8" />,
-      count: 8,
-      color: 'bg-purple-500'
-    },
-    {
-      name: t('categories.health'),
-      icon: <Heart className="w-8 h-8" />,
-      count: 6,
-      color: 'bg-red-500'
-    },
-    {
-      name: t('categories.finance'),
-      icon: <TrendingUp className="w-8 h-8" />,
-      count: 10,
-      color: 'bg-green-500'
+  // Map category IDs to icons and colors
+  const getCategoryIcon = (id: string) => {
+    switch (id) {
+      case 'finance': return <TrendingUp className="w-6 h-6" />;
+      case 'health': return <Heart className="w-6 h-6" />;
+      case 'math': return <Calculator className="w-6 h-6" />;
+      case 'construction': return <Ruler className="w-6 h-6" />;
+      default: return <Percent className="w-6 h-6" />;
     }
-  ];
+  };
+
+  const getCategoryColor = (id: string) => {
+    switch (id) {
+      case 'finance': return "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400";
+      case 'health': return "bg-rose-500/10 text-rose-600 dark:text-rose-400";
+      case 'math': return "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400";
+      case 'construction': return "bg-amber-500/10 text-amber-600 dark:text-amber-400";
+      default: return "bg-slate-500/10 text-slate-600 dark:text-slate-400";
+    }
+  };
 
   // FAQ items
   const faqItems = [
@@ -105,207 +78,196 @@ const HomePage: React.FC = () => {
     }
   };
 
-
-
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header Ad Banner */}
-      <div className="bg-gray-50 border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AdBanner 
-            placement="header" 
-            className="py-2 min-h-[60px]"
-          />
-        </div>
-      </div>
+    <div className="min-h-screen bg-transparent">
+      {/* Ambient Background */}
+      <div className="fixed top-0 left-0 right-0 h-[800px] pointer-events-none -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 to-transparent" />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
+      <section className="relative pt-32 pb-20">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Animated blobs */}
+          <div className="absolute top-20 right-0 w-96 h-96 bg-primary/20 rounded-full blur-[100px] animate-blob mix-blend-multiply dark:mix-blend-color opacity-50" />
+          <div className="absolute top-40 left-0 w-96 h-96 bg-purple-500/20 rounded-full blur-[100px] animate-blob animation-delay-2000 mix-blend-multiply dark:mix-blend-color opacity-50" />
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-sm font-medium text-primary mb-6 backdrop-blur-sm">
+              <Star className="mr-1 h-3 w-3 fill-current" />
+              <span>{t('homepage.trusted_by')} 10k+ {t('homepage.user_count')}</span>
+            </div>
+
+            <h1 className="text-5xl md:text-7xl font-heading font-bold text-foreground mb-6 leading-tight tracking-tight">
               {t('homepage.title')}
             </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+
+            <p className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl mx-auto font-light">
               {t('homepage.subtitle')}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <Button 
-                size="lg" 
-                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3"
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+              <Button
+                size="lg"
+                className="rounded-full px-8 py-6 text-lg shadow-lg hover:shadow-primary/25 transition-all"
                 onClick={scrollToCalculators}
               >
                 {t('homepage.cta_button')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
-            
+
             {/* Search Bar */}
-            <div className="max-w-md mx-auto">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder={t('homepage.search_placeholder')}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-                />
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-                  <Search className="h-5 w-5 text-gray-400" />
-                </div>
-              </div>
-            </div>
+            <CalculatorSearch />
           </div>
         </div>
       </section>
 
-      {/* Most Popular Calculators */}
-      <section id="calculators" className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              {t('homepage.popular_calculators')}
-            </h2>
-            <p className="text-lg text-gray-600">Quick access to our most frequently used tools</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {popularCalculators.map((calc) => (
-              <Link key={calc.id} href={calc.href} className="group">
-                <Card className="h-full hover:shadow-lg transition-all duration-200 hover:border-blue-300 group-hover:scale-105">
-                  <CardHeader>
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center">
-                        {calc.icon}
-                        <CardTitle className="text-xl ml-3">{calc.name}</CardTitle>
-                      </div>
-                      <div className="flex items-center text-yellow-500">
-                        <Star className="h-4 w-4 fill-current" />
-                        <span className="ml-1 text-sm text-gray-600">{calc.rating}</span>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="mb-4">{calc.description}</CardDescription>
-                    <div className="flex items-center text-blue-600 font-medium">
-                      <span>Try it now</span>
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
+      {/* Header Ad Banner */}
+      <div className="container mx-auto px-4 mb-16">
+        <div className="flex justify-center">
+          <AdBanner
+            placement="header"
+            className="py-2 min-h-[90px] w-full max-w-[728px] rounded-xl overflow-hidden shadow-sm"
+          />
         </div>
-      </section>
-
-      {/* Sidebar Ad Banner - Desktop Only */}
-      <div className="hidden lg:block fixed right-4 top-1/2 transform -translate-y-1/2 z-10">
-        <AdBanner 
-          placement="sidebar" 
-          className="w-48 min-h-[300px]"
-        />
       </div>
 
+      {/* Most Popular Calculators */}
+      <section id="calculators" className="py-20 relative">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-end justify-between mb-12 gap-4">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-2">
+                {t('homepage.popular_calculators')}
+              </h2>
+              <p className="text-lg text-muted-foreground">Quick access to our most frequently used tools</p>
+            </div>
+            <Button variant="ghost" className="hidden md:flex group" onClick={() => window.location.href = `/${locale}/calculators`}>
+              {t('common.view_all')} <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {popularCalculators.map((calc) => (
+              <div key={calc.id} className="h-full">
+                <CalculatorCard calculator={calc} />
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 text-center md:hidden">
+            <Button variant="outline" className="w-full" onClick={() => window.location.href = `/${locale}/calculators`}>
+              {t('common.view_all')}
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Calculator Categories */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
               {t('homepage.calculator_categories')}
             </h2>
-            <p className="text-lg text-gray-600">Explore all our calculation tools organized by category</p>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Explore our comprehensive collection of calculation tools organized by category
+            </p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {calculatorCategories.map((category, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow cursor-pointer" onClick={scrollToCalculators}>
-                <CardHeader>
-                  <div className={`${category.color} text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4`}>
-                    {category.icon}
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {categories.map((category) => (
+              <GlassCard
+                key={category.id}
+                className="text-center cursor-pointer group hover:border-primary/30 transition-all duration-300"
+                hoverEffect
+                onClick={() => window.location.href = `/${locale}/calculator/${category.id}`}
+              >
+                <CardContent className="pt-8 pb-8">
+                  <div className={cn(
+                    "w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-transform group-hover:scale-110 duration-300",
+                    getCategoryColor(category.id)
+                  )}>
+                    {getCategoryIcon(category.id)}
                   </div>
-                  <CardTitle className="text-lg">{category.name}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="mb-4">
-                    {category.count} calculators available
-                  </CardDescription>
-                  <Button variant="outline" size="sm" className="w-full" onClick={scrollToCalculators}>
-                    Explore Category
+                  <h3 className="text-xl font-bold mb-2">{category.title}</h3>
+                  <p className="text-muted-foreground mb-6">
+                    {category.count} calculators
+                  </p>
+                  <Button variant="secondary" size="sm" className="w-full opacity-0 group-hover:opacity-100 transition-opacity bg-primary/10 text-primary hover:bg-primary/20">
+                    Explore
                   </Button>
                 </CardContent>
-              </Card>
+              </GlassCard>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Social Proof Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">
-              {t('homepage.trusted_by')}
-            </h2>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-8">
-              <div className="flex items-center">
-                <Users className="h-8 w-8 text-blue-500 mr-3" />
-                <div>
-                  <div className="text-2xl font-bold text-gray-900">{t('homepage.user_count')}</div>
-                  <div className="text-gray-600">Active users</div>
-                </div>
+      {/* Sidebar Ad Banner - Desktop Only - Floating */}
+      <div className="hidden xl:block fixed right-6 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none">
+        <div className="pointer-events-auto">
+          <AdBanner
+            placement="sidebar"
+            className="w-[160px] min-h-[600px] rounded-xl overflow-hidden shadow-lg"
+          />
+        </div>
+      </div>
+
+      {/* Features / Social Proof */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <GlassCard className="text-center p-6 border-none bg-primary/5">
+              <div className="w-16 h-16 bg-blue-500/10 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="h-8 w-8" />
               </div>
-              <div className="flex items-center">
-                <Star className="h-8 w-8 text-yellow-500 mr-3 fill-current" />
-                <div>
-                  <div className="text-2xl font-bold text-gray-900">4.8/5</div>
-                  <div className="text-gray-600">Average rating</div>
-                </div>
+              <div className="text-4xl font-bold mb-2">{t('homepage.user_count')}</div>
+              <div className="text-muted-foreground font-medium uppercase tracking-wide text-sm">Active Users</div>
+            </GlassCard>
+
+            <GlassCard className="text-center p-6 border-none bg-primary/5">
+              <div className="w-16 h-16 bg-amber-500/10 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Star className="h-8 w-8" />
               </div>
-              <div className="flex items-center">
-                <Shield className="h-8 w-8 text-green-500 mr-3" />
-                <div>
-                  <div className="text-2xl font-bold text-gray-900">100%</div>
-                  <div className="text-gray-600">Secure & Private</div>
-                </div>
+              <div className="text-4xl font-bold mb-2">4.8/5</div>
+              <div className="text-muted-foreground font-medium uppercase tracking-wide text-sm">Average Rating</div>
+            </GlassCard>
+
+            <GlassCard className="text-center p-6 border-none bg-primary/5">
+              <div className="w-16 h-16 bg-emerald-500/10 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Shield className="h-8 w-8" />
               </div>
-            </div>
+              <div className="text-4xl font-bold mb-2">100%</div>
+              <div className="text-muted-foreground font-medium uppercase tracking-wide text-sm">Secure & Private</div>
+            </GlassCard>
           </div>
         </div>
       </section>
 
-      {/* FAQ Section - Only render Accordion on client */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* FAQ Section */}
+      <section className="py-20 bg-muted/30">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-heading font-bold text-foreground mb-4">
               {t('homepage.faq_title')}
             </h2>
-            <p className="text-lg text-gray-600">Common questions about our calculators</p>
+            <p className="text-lg text-muted-foreground">Common questions about our calculators</p>
           </div>
-          
+
           {isMounted && (
-            <Accordion allowMultiple className="space-y-4">
-              {faqItems.map((item, index) => (
-                <Accordion.Item
-                  key={index}
-                  title={item.question}
-                  className="bg-white rounded-lg border border-gray-200"
-                >
-                  <p className="text-gray-600 leading-relaxed">{item.answer}</p>
-                </Accordion.Item>
-              ))}
-            </Accordion>
+            <SimpleFAQ faq={faqItems} className="bg-transparent" />
           )}
         </div>
       </section>
 
       {/* Footer Ad Banner */}
-      <div className="bg-white border-t">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AdBanner 
-            placement="sticky-bottom" 
-            className="py-4 min-h-[100px]"
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex justify-center">
+          <AdBanner
+            placement="sticky-bottom"
+            className="py-4 min-h-[100px] w-full max-w-[970px] rounded-xl overflow-hidden shadow-sm"
           />
         </div>
       </div>

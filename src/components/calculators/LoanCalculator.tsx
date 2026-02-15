@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, CreditCard, TrendingUp, PiggyBank, Calendar } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface LoanResult {
   monthlyPayment: number;
@@ -30,9 +29,9 @@ const LoanCalculator: React.FC = () => {
   const [interestRate, setInterestRate] = useState<string>('5.5');
   const [loanTerm, setLoanTerm] = useState<string>('20');
   const [termUnit, setTermUnit] = useState<string>('years');
-  
+
   const [result, setResult] = useState<LoanResult | null>(null);
-  const [errors, setErrors] = useState<{ 
+  const [errors, setErrors] = useState<{
     loanAmount?: string; interestRate?: string; loanTerm?: string;
   }>({});
 
@@ -58,10 +57,10 @@ const LoanCalculator: React.FC = () => {
     rate: string,
     term: string
   ) => {
-    const newErrors: { 
+    const newErrors: {
       loanAmount?: string; interestRate?: string; loanTerm?: string;
     } = {};
-    
+
     const amountNum = parseFloat(amount);
     const rateNum = parseFloat(rate);
     const termNum = parseFloat(term);
@@ -127,8 +126,8 @@ const LoanCalculator: React.FC = () => {
     if (validateInputs(loanAmount, interestRate, loanTerm)) {
       const principal = parseFloat(loanAmount);
       const rate = parseFloat(interestRate);
-      const termInMonths = termUnit === 'years' 
-        ? parseFloat(loanTerm) * 12 
+      const termInMonths = termUnit === 'years'
+        ? parseFloat(loanTerm) * 12
         : parseFloat(loanTerm);
 
       const calculatedResult = calculateLoan(principal, rate, termInMonths);
@@ -411,12 +410,12 @@ const LoanCalculator: React.FC = () => {
               <span className="text-sm">Úroky: {formatCurrency(result.totalInterest)} ({((result.totalInterest / result.totalPayment) * 100).toFixed(1)}%)</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
-              <div 
-                className="bg-blue-500 h-full float-left" 
+              <div
+                className="bg-blue-500 h-full float-left"
                 style={{ width: `${(result.loanAmount / result.totalPayment) * 100}%` }}
               ></div>
-              <div 
-                className="bg-red-500 h-full" 
+              <div
+                className="bg-red-500 h-full"
                 style={{ width: `${(result.totalInterest / result.totalPayment) * 100}%` }}
               ></div>
             </div>
@@ -485,7 +484,7 @@ const LoanCalculator: React.FC = () => {
           answer: t('loan_faq_4_a')
         }
       ]}
-      relatedCalculators={getRelatedCalculators('loan', locale, t)}
+
       schemaData={{
         applicationCategory: "FinanceApplication",
         operatingSystem: "Any"

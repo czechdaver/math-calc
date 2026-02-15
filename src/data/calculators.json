@@ -8,74 +8,125 @@
       "titleKey": "bmi_calculator_title",
       "descriptionKey": "bmi_calculator_description",
       "path": "/calculator/bmi",
-      "tags": ["health", "fitness", "weight", "body"],
-      "relatedCategories": ["health", "fitness"]
+      "tags": [
+        "health",
+        "fitness",
+        "weight",
+        "body"
+      ],
+      "relatedCategories": [
+        "health",
+        "fitness"
+      ],
+      "aliasKeys": [
+        "bmi_alias_full",
+        "bmi_alias_weight"
+      ]
     },
     "bmr": {
-      "id": "bmr", 
+      "id": "bmr",
       "slug": "bmr",
       "category": "health",
       "popularity": 85,
       "titleKey": "bmr_calculator_title",
-      "descriptionKey": "bmr_calculator_description", 
+      "descriptionKey": "bmr_calculator_description",
       "path": "/calculator/bmr",
-      "tags": ["health", "fitness", "metabolism", "calories"],
-      "relatedCategories": ["health", "fitness"]
+      "tags": [
+        "health",
+        "fitness",
+        "metabolism",
+        "calories"
+      ],
+      "relatedCategories": [
+        "health",
+        "fitness"
+      ]
     },
     "ideal-weight": {
       "id": "ideal-weight",
-      "slug": "ideal-weight", 
+      "slug": "ideal-weight",
       "category": "health",
       "popularity": 80,
       "titleKey": "ideal_weight_calculator_title",
       "descriptionKey": "ideal_weight_calculator_description",
       "path": "/calculator/ideal-weight",
-      "tags": ["health", "weight", "body"],
-      "relatedCategories": ["health"]
+      "tags": [
+        "health",
+        "weight",
+        "body"
+      ],
+      "relatedCategories": [
+        "health"
+      ]
     },
     "body-fat": {
       "id": "body-fat",
       "slug": "body-fat",
-      "category": "health", 
+      "category": "health",
       "popularity": 75,
       "titleKey": "body_fat_calculator_title",
       "descriptionKey": "body_fat_calculator_description",
       "path": "/calculator/body-fat",
-      "tags": ["health", "fitness", "body"],
-      "relatedCategories": ["health", "fitness"]
+      "tags": [
+        "health",
+        "fitness",
+        "body"
+      ],
+      "relatedCategories": [
+        "health",
+        "fitness"
+      ]
     },
     "percentage": {
       "id": "percentage",
       "slug": "procenta",
       "category": "math",
       "popularity": 90,
-      "titleKey": "percentage_calculator_title", 
+      "titleKey": "percentage_calculator_title",
       "descriptionKey": "percentage_calculator_description",
       "path": "/calculator/procenta",
-      "tags": ["math", "percentage", "calculation"],
-      "relatedCategories": ["math"]
+      "tags": [
+        "math",
+        "percentage",
+        "calculation"
+      ],
+      "relatedCategories": [
+        "math"
+      ]
     },
     "vat": {
       "id": "vat",
-      "slug": "dph", 
+      "slug": "dph",
       "category": "finance",
       "popularity": 85,
       "titleKey": "vat_calculator_title",
       "descriptionKey": "vat_calculator_description",
       "path": "/calculator/dph",
-      "tags": ["finance", "tax", "business"],
-      "relatedCategories": ["finance"]
+      "tags": [
+        "finance",
+        "tax",
+        "business"
+      ],
+      "relatedCategories": [
+        "finance"
+      ]
     },
     "net-salary": {
       "id": "net-salary",
       "slug": "cista-mzda",
-      "category": "finance", 
+      "category": "finance",
       "popularity": 80,
       "titleKey": "net_salary_calculator_title",
       "descriptionKey": "net_salary_calculator_description",
       "path": "/calculator/cista-mzda",
-      "tags": ["finance", "salary", "tax"],
-      "relatedCategories": ["finance"]
+      "tags": [
+        "finance",
+        "salary",
+        "tax"
+      ],
+      "relatedCategories": [
+        "finance"
+      ]
     },
     "unit-converter": {
       "id": "unit-converter",
@@ -85,8 +136,14 @@
       "titleKey": "unit_converter_title",
       "descriptionKey": "unit_converter_description",
       "path": "/calculator/prevodnik-jednotek",
-      "tags": ["utility", "conversion", "units"],
-      "relatedCategories": ["utility"]
+      "tags": [
+        "utility",
+        "conversion",
+        "units"
+      ],
+      "relatedCategories": [
+        "utility"
+      ]
     },
     "age": {
       "id": "age",
@@ -96,8 +153,15 @@
       "titleKey": "age_calculator_title",
       "descriptionKey": "age_calculator_description",
       "path": "/calculator/age",
-      "tags": ["practical", "date", "age"],
-      "relatedCategories": ["practical", "health"]
+      "tags": [
+        "practical",
+        "date",
+        "age"
+      ],
+      "relatedCategories": [
+        "practical",
+        "health"
+      ]
     },
     "area": {
       "id": "area",
@@ -107,8 +171,15 @@
       "titleKey": "area_calculator_title",
       "descriptionKey": "area_calculator_description",
       "path": "/calculator/area",
-      "tags": ["construction", "geometry", "area"],
-      "relatedCategories": ["construction", "math"]
+      "tags": [
+        "construction",
+        "geometry",
+        "area"
+      ],
+      "relatedCategories": [
+        "construction",
+        "math"
+      ]
     },
     "calories": {
       "id": "calories",
@@ -118,8 +189,15 @@
       "titleKey": "calories_calculator_title",
       "descriptionKey": "calories_calculator_description",
       "path": "/calculator/calories",
-      "tags": ["health", "fitness", "calories"],
-      "relatedCategories": ["health", "fitness"]
+      "tags": [
+        "health",
+        "fitness",
+        "calories"
+      ],
+      "relatedCategories": [
+        "health",
+        "fitness"
+      ]
     },
     "currency": {
       "id": "currency",
@@ -129,8 +207,14 @@
       "titleKey": "currency_calculator_title",
       "descriptionKey": "currency_calculator_description",
       "path": "/calculator/currency",
-      "tags": ["finance", "currency", "conversion"],
-      "relatedCategories": ["finance"]
+      "tags": [
+        "finance",
+        "currency",
+        "conversion"
+      ],
+      "relatedCategories": [
+        "finance"
+      ]
     },
     "discount": {
       "id": "discount",
@@ -140,8 +224,14 @@
       "titleKey": "discount_calculator_title",
       "descriptionKey": "discount_calculator_description",
       "path": "/calculator/discount",
-      "tags": ["practical", "shopping", "discount"],
-      "relatedCategories": ["practical"]
+      "tags": [
+        "practical",
+        "shopping",
+        "discount"
+      ],
+      "relatedCategories": [
+        "practical"
+      ]
     },
     "fuel": {
       "id": "fuel",
@@ -151,8 +241,14 @@
       "titleKey": "fuel_calculator_title",
       "descriptionKey": "fuel_calculator_description",
       "path": "/calculator/fuel",
-      "tags": ["practical", "automotive", "fuel"],
-      "relatedCategories": ["practical"]
+      "tags": [
+        "practical",
+        "automotive",
+        "fuel"
+      ],
+      "relatedCategories": [
+        "practical"
+      ]
     },
     "loan": {
       "id": "loan",
@@ -162,8 +258,14 @@
       "titleKey": "loan_calculator_title",
       "descriptionKey": "loan_calculator_description",
       "path": "/calculator/loan",
-      "tags": ["finance", "loan", "banking"],
-      "relatedCategories": ["finance"]
+      "tags": [
+        "finance",
+        "loan",
+        "banking"
+      ],
+      "relatedCategories": [
+        "finance"
+      ]
     },
     "time": {
       "id": "time",
@@ -173,8 +275,14 @@
       "titleKey": "time_calculator_title",
       "descriptionKey": "time_calculator_description",
       "path": "/calculator/time",
-      "tags": ["practical", "time", "date"],
-      "relatedCategories": ["practical"]
+      "tags": [
+        "practical",
+        "time",
+        "date"
+      ],
+      "relatedCategories": [
+        "practical"
+      ]
     },
     "tip": {
       "id": "tip",
@@ -184,8 +292,14 @@
       "titleKey": "tip_calculator_title",
       "descriptionKey": "tip_calculator_description",
       "path": "/calculator/tip",
-      "tags": ["practical", "service", "tip"],
-      "relatedCategories": ["practical"]
+      "tags": [
+        "practical",
+        "service",
+        "tip"
+      ],
+      "relatedCategories": [
+        "practical"
+      ]
     },
     "percentage-of-number": {
       "id": "percentage-of-number",
@@ -195,8 +309,13 @@
       "titleKey": "percentage_of_number_calculator_title",
       "descriptionKey": "percentage_of_number_calculator_description",
       "path": "/calculator/procenta/procento-z-cisla",
-      "tags": ["math", "percentage"],
-      "relatedCategories": ["math"]
+      "tags": [
+        "math",
+        "percentage"
+      ],
+      "relatedCategories": [
+        "math"
+      ]
     },
     "x-is-what-percent-of-y": {
       "id": "x-is-what-percent-of-y",
@@ -206,8 +325,13 @@
       "titleKey": "x_is_what_percent_of_y_calculator_title",
       "descriptionKey": "x_is_what_percent_of_y_calculator_description",
       "path": "/calculator/procenta/kolik-procent-je-x-z-y",
-      "tags": ["math", "percentage"],
-      "relatedCategories": ["math"]
+      "tags": [
+        "math",
+        "percentage"
+      ],
+      "relatedCategories": [
+        "math"
+      ]
     },
     "y-is-x-what-is-hundred": {
       "id": "y-is-x-what-is-hundred",
@@ -217,8 +341,13 @@
       "titleKey": "y_is_x_what_is_hundred_calculator_title",
       "descriptionKey": "y_is_x_what_is_hundred_calculator_description",
       "path": "/calculator/procenta/y-je-x-kolik-je-sto",
-      "tags": ["math", "percentage"],
-      "relatedCategories": ["math"]
+      "tags": [
+        "math",
+        "percentage"
+      ],
+      "relatedCategories": [
+        "math"
+      ]
     },
     "concrete": {
       "id": "concrete",
@@ -228,8 +357,14 @@
       "titleKey": "concrete_calculator_title",
       "descriptionKey": "concrete_calculator_description",
       "path": "/calculator/stavebni/beton",
-      "tags": ["construction", "concrete", "materials"],
-      "relatedCategories": ["construction"]
+      "tags": [
+        "construction",
+        "concrete",
+        "materials"
+      ],
+      "relatedCategories": [
+        "construction"
+      ]
     },
     "materials": {
       "id": "materials",
@@ -239,8 +374,13 @@
       "titleKey": "materials_calculator_title",
       "descriptionKey": "materials_calculator_description",
       "path": "/calculator/stavebni/materialy",
-      "tags": ["construction", "materials"],
-      "relatedCategories": ["construction"]
+      "tags": [
+        "construction",
+        "materials"
+      ],
+      "relatedCategories": [
+        "construction"
+      ]
     },
     "volume": {
       "id": "volume",
@@ -250,8 +390,15 @@
       "titleKey": "volume_calculator_title",
       "descriptionKey": "volume_calculator_description",
       "path": "/calculator/stavebni/objem",
-      "tags": ["construction", "geometry", "volume"],
-      "relatedCategories": ["construction", "math"]
+      "tags": [
+        "construction",
+        "geometry",
+        "volume"
+      ],
+      "relatedCategories": [
+        "construction",
+        "math"
+      ]
     },
     "direct-proportion": {
       "id": "direct-proportion",
@@ -261,8 +408,13 @@
       "titleKey": "direct_proportion_calculator_title",
       "descriptionKey": "direct_proportion_calculator_description",
       "path": "/calculator/trojclenka/prima-umera",
-      "tags": ["math", "proportion"],
-      "relatedCategories": ["math"]
+      "tags": [
+        "math",
+        "proportion"
+      ],
+      "relatedCategories": [
+        "math"
+      ]
     },
     "annuity-payment": {
       "id": "annuity-payment",
@@ -272,8 +424,15 @@
       "titleKey": "annuity_payment_calculator_title",
       "descriptionKey": "annuity_payment_calculator_description",
       "path": "/calculator/financie-rozsirene/anuitni-splatka",
-      "tags": ["finance", "loan", "annuity", "payment"],
-      "relatedCategories": ["finance"]
+      "tags": [
+        "finance",
+        "loan",
+        "annuity",
+        "payment"
+      ],
+      "relatedCategories": [
+        "finance"
+      ]
     },
     "roi": {
       "id": "roi",
@@ -283,8 +442,15 @@
       "titleKey": "roi_calculator_title",
       "descriptionKey": "roi_calculator_description",
       "path": "/calculator/financie-rozsirene/roi",
-      "tags": ["finance", "investment", "roi", "return"],
-      "relatedCategories": ["finance"]
+      "tags": [
+        "finance",
+        "investment",
+        "roi",
+        "return"
+      ],
+      "relatedCategories": [
+        "finance"
+      ]
     },
     "npv": {
       "id": "npv",
@@ -294,8 +460,15 @@
       "titleKey": "npv_calculator_title",
       "descriptionKey": "npv_calculator_description",
       "path": "/calculator/financie-rozsirene/npv",
-      "tags": ["finance", "investment", "npv", "present-value"],
-      "relatedCategories": ["finance"]
+      "tags": [
+        "finance",
+        "investment",
+        "npv",
+        "present-value"
+      ],
+      "relatedCategories": [
+        "finance"
+      ]
     },
     "irr": {
       "id": "irr",
@@ -305,8 +478,15 @@
       "titleKey": "irr_calculator_title",
       "descriptionKey": "irr_calculator_description",
       "path": "/calculator/financie-rozsirene/irr",
-      "tags": ["finance", "investment", "irr", "return-rate"],
-      "relatedCategories": ["finance"]
+      "tags": [
+        "finance",
+        "investment",
+        "irr",
+        "return-rate"
+      ],
+      "relatedCategories": [
+        "finance"
+      ]
     },
     "early-repayment": {
       "id": "early-repayment",
@@ -316,8 +496,15 @@
       "titleKey": "early_repayment_calculator_title",
       "descriptionKey": "early_repayment_calculator_description",
       "path": "/calculator/financie-rozsirene/predcasne-splaceni",
-      "tags": ["finance", "loan", "repayment", "mortgage"],
-      "relatedCategories": ["finance"]
+      "tags": [
+        "finance",
+        "loan",
+        "repayment",
+        "mortgage"
+      ],
+      "relatedCategories": [
+        "finance"
+      ]
     },
     "inverse-proportion": {
       "id": "inverse-proportion",
@@ -327,8 +514,14 @@
       "titleKey": "inverse_proportion_calculator_title",
       "descriptionKey": "inverse_proportion_calculator_description",
       "path": "/calculator/trojclenka/neprima-umera",
-      "tags": ["math", "proportion", "inverse"],
-      "relatedCategories": ["math"]
+      "tags": [
+        "math",
+        "proportion",
+        "inverse"
+      ],
+      "relatedCategories": [
+        "math"
+      ]
     },
     "compound-interest": {
       "id": "compound-interest",
@@ -338,8 +531,15 @@
       "titleKey": "compound_interest_calculator_title",
       "descriptionKey": "compound_interest_calculator_description",
       "path": "/calculator/financie-rozsirene/slozene-uroceni",
-      "tags": ["finance", "investment", "interest", "compound"],
-      "relatedCategories": ["finance"]
+      "tags": [
+        "finance",
+        "investment",
+        "interest",
+        "compound"
+      ],
+      "relatedCategories": [
+        "finance"
+      ]
     },
     "fractions": {
       "id": "fractions",
@@ -349,8 +549,14 @@
       "titleKey": "fractions_calculator_title",
       "descriptionKey": "fractions_calculator_description",
       "path": "/calculator/zlomky",
-      "tags": ["math", "fractions", "calculation"],
-      "relatedCategories": ["math"]
+      "tags": [
+        "math",
+        "fractions",
+        "calculation"
+      ],
+      "relatedCategories": [
+        "math"
+      ]
     },
     "insulation": {
       "id": "insulation",
@@ -360,8 +566,15 @@
       "titleKey": "insulation_calculator_title",
       "descriptionKey": "insulation_calculator_description",
       "path": "/calculator/stavebni/izolace",
-      "tags": ["construction", "insulation", "thermal", "energy"],
-      "relatedCategories": ["construction"]
+      "tags": [
+        "construction",
+        "insulation",
+        "thermal",
+        "energy"
+      ],
+      "relatedCategories": [
+        "construction"
+      ]
     },
     "macro-calculator": {
       "id": "macro-calculator",
@@ -371,8 +584,17 @@
       "titleKey": "macro_title",
       "descriptionKey": "macro_description",
       "path": "/calculator/fitness-a-zdravi/makro-kalkulator",
-      "tags": ["health", "fitness", "nutrition", "macros", "protein"],
-      "relatedCategories": ["health", "fitness"]
+      "tags": [
+        "health",
+        "fitness",
+        "nutrition",
+        "macros",
+        "protein"
+      ],
+      "relatedCategories": [
+        "health",
+        "fitness"
+      ]
     },
     "water-intake": {
       "id": "water-intake",
@@ -382,8 +604,16 @@
       "titleKey": "water_title",
       "descriptionKey": "water_description",
       "path": "/calculator/fitness-a-zdravi/prijem-vody",
-      "tags": ["health", "fitness", "hydration", "water"],
-      "relatedCategories": ["health", "fitness"]
+      "tags": [
+        "health",
+        "fitness",
+        "hydration",
+        "water"
+      ],
+      "relatedCategories": [
+        "health",
+        "fitness"
+      ]
     }
   }
 }

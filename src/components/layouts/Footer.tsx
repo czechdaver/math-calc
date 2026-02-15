@@ -38,6 +38,7 @@ const Footer: React.FC = () => {
     {
       title: t('footer.resources.title'),
       links: [
+        { label: t('all_calculators'), href: '/calculators' },
         { label: t('footer.resources.documentation'), href: '/dokumentace' },
         { label: t('footer.resources.api'), href: '/api' },
         { label: t('footer.resources.status'), href: '/status' },

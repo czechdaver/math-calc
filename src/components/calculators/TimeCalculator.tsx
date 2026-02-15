@@ -8,7 +8,6 @@ import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput, CalculatorResult, CalculatorSelect } from './shared';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Clock, Plus, Minus } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 import { useTimeCalculator, formatTime } from '@/hooks/useTimeCalculator';
 
 const TimeCalculator: React.FC = () => {
@@ -117,7 +116,6 @@ const TimeCalculator: React.FC = () => {
         { question: t('time_faq_3_q'), answer: t('time_faq_3_a') },
         { question: t('time_faq_4_q'), answer: t('time_faq_4_a') },
       ]}
-      relatedCalculators={getRelatedCalculators('time', locale, t)}
       schemaData={{ applicationCategory: "UtilitiesApplication", operatingSystem: "Any" }}
     >
       <div className="space-y-6">

@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Scale, User, Target, TrendingUp } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface IdealWeightResult {
   robinson: number; miller: number; devine: number; hamwi: number;
@@ -188,7 +187,6 @@ const IdealWeightCalculator: React.FC = () => {
         { question: t('ideal_weight_faq3_q'), answer: t('ideal_weight_faq3_a') },
         { question: t('ideal_weight_faq4_q'), answer: t('ideal_weight_faq4_a') },
       ]}
-      relatedCalculators={getRelatedCalculators('ideal-weight', locale, t)}
       schemaData={{ applicationCategory: "HealthApplication", operatingSystem: "Any" }}
       resultSection={resultsSection}
     >

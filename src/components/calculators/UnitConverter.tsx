@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
+
 import { useUnitConverter, UnitType } from '@/hooks/useUnitConverter';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/Input';
@@ -22,7 +22,7 @@ const UnitConverter: React.FC = () => {
     swapUnits, formatResult, convertValue
   } = useUnitConverter();
 
-  const relatedCalculators = getRelatedCalculators('unit-converter', locale, t);
+
 
   const unitTypeLabels: Record<UnitType, string> = {
     length: t('unit_converter_length'),
@@ -75,7 +75,7 @@ const UnitConverter: React.FC = () => {
         { question: t('unit_converter_faq_6_q'), answer: t('unit_converter_faq_6_a') },
         { question: t('unit_converter_faq_7_q'), answer: t('unit_converter_faq_7_a') }
       ]}
-      relatedCalculators={relatedCalculators}
+
       schemaData={{ applicationCategory: "UtilityApplication", operatingSystem: "Any" }}
       resultSection={inputValue && !isNaN(parseFloat(inputValue)) && result !== null ? (
         <div className="space-y-4">

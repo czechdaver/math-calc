@@ -6,7 +6,6 @@ import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput, CalculatorResult } from './shared';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface PercentageResult {
   percentage: number;
@@ -137,7 +136,6 @@ const WhatPercentageIsXOfYCalculator: React.FC = () => {
   ];
 
   // Related calculators - loaded from centralized data
-  const relatedCalculators = getRelatedCalculators('x-is-what-percent-of-y', locale, t);
 
   return (
     <SimpleCalculatorLayout
@@ -164,7 +162,6 @@ const WhatPercentageIsXOfYCalculator: React.FC = () => {
       }}
       examples={examples}
       faq={faq}
-      relatedCalculators={relatedCalculators}
       resultSection={result && (
         <CalculatorResult
           title={t('vysledek_label') || 'Výsledek'}

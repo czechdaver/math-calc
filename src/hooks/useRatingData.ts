@@ -19,7 +19,7 @@ interface RatingCounters {
 export interface UseRatingDataResult {
   rating: RatingData;
   isLoading: boolean;
-  loadRatingData: () => Promise<void>;
+  loadRatingData: (calculatorId?: string) => Promise<void>;
   saveRating: (calculatorId: string, newRating: number) => Promise<void>;
 }
 
@@ -37,20 +37,20 @@ export function useRatingData(): UseRatingDataResult {
   const [isLoading, setIsLoading] = useState(false);
 
   // Load ratings from server
-  const loadRatingData = async (): Promise<void> => {
+  const loadRatingData = async (calculatorId?: string): Promise<void> => {
     try {
       const response = await fetch('/api/ratings');
       if (response.ok) {
         const data = await response.json();
-        const calculatorRatings = data.ratings;
+        const allRatings = data.ratings;
 
-        if (calculatorRatings) {
-          // Calculate average and total from counters
-          const totalCount = Object.values(calculatorRatings as RatingCounters).reduce(
+        if (calculatorId && allRatings && allRatings[calculatorId]) {
+          const calculatorStats = allRatings[calculatorId];
+          const totalCount = Object.values(calculatorStats as RatingCounters).reduce(
             (sum: number, count: number) => sum + count,
             0
           );
-          const weightedSum = Object.entries(calculatorRatings as RatingCounters).reduce(
+          const weightedSum = Object.entries(calculatorStats as RatingCounters).reduce(
             (sum, [star, count]: [string, number]) => sum + (parseInt(star) * count),
             0
           );

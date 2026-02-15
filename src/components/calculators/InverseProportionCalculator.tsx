@@ -4,7 +4,6 @@ import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput } from './shared';
 import { Info } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface InverseProportionResult {
   value: number;
@@ -60,7 +59,6 @@ const InverseProportionCalculator: React.FC = () => {
     }
   }, [a, b, c]);
 
-  const relatedCalculators = getRelatedCalculators('inverse-proportion', locale, t);
 
   return (
     <SimpleCalculatorLayout
@@ -108,7 +106,6 @@ const InverseProportionCalculator: React.FC = () => {
         { question: t('inverse_proportion_faq_2_q'), answer: t('inverse_proportion_faq_2_a') },
         { question: t('inverse_proportion_faq_3_q'), answer: t('inverse_proportion_faq_3_a') }
       ]}
-      relatedCalculators={relatedCalculators}
       schemaData={{ applicationCategory: "UtilityApplication", operatingSystem: "Any" }}
       resultSection={result && result.isValid && (
         <div className="space-y-4">

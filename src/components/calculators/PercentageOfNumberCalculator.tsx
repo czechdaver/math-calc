@@ -7,7 +7,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Info, AlertCircle } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface PercentageResult {
   result: number;
@@ -49,7 +48,6 @@ const PercentageOfNumberCalculator: React.FC = () => {
     }
   }, [percentage, number]);
 
-  const relatedCalculators = getRelatedCalculators('percentage-of-number', locale, t);
 
   return (
     <SimpleCalculatorLayout
@@ -79,7 +77,6 @@ const PercentageOfNumberCalculator: React.FC = () => {
         { question: t('pct_of_num_faq2_q'), answer: t('pct_of_num_faq2_a') },
         { question: t('pct_of_num_faq3_q'), answer: t('pct_of_num_faq3_a') }
       ]}
-      relatedCalculators={relatedCalculators}
       schemaData={{
         applicationCategory: "UtilityApplication",
         operatingSystem: "Any"

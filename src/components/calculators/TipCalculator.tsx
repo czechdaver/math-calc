@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, DollarSign, Users, Receipt, Percent } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface TipResult {
   billAmount: number;
@@ -475,7 +474,6 @@ const TipCalculator: React.FC = () => {
           answer: "Ano, spropitné se počítá z celkové částky účtu včetně DPH. Je to celková částka, kterou zaplatíte za jídlo a pití."
         }
       ]}
-      relatedCalculators={getRelatedCalculators('tip', locale, t)}
       schemaData={{
         applicationCategory: "FinanceApplication",
         operatingSystem: "Any"

@@ -65,7 +65,7 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
       ref={ref}
       data-slot="card-header"
       className={cn(
-        'grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6',
+        'grid auto-rows-min items-start gap-1.5 px-6',
         'has-data-[slot=card-action]:grid-cols-[1fr_auto]',
         withBorder && 'border-b pb-6',
         className

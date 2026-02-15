@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Square, Triangle, Circle, Hexagon } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface AreaResult {
   area: number;
@@ -670,7 +669,6 @@ const AreaCalculator: React.FC = () => {
           answer: t('area_faq_4_a')
         }
       ]}
-      relatedCalculators={getRelatedCalculators('area', locale, t)}
       schemaData={{
         applicationCategory: "UtilitiesApplication",
         operatingSystem: "Any"

@@ -4,7 +4,6 @@ import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput, CalculatorResult } from './shared';
 import { Info } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface DirectProportionResult {
   value: number;
@@ -64,7 +63,6 @@ const DirectProportionCalculator: React.FC = () => {
     }
   }, [a, b, c]);
 
-  const relatedCalculators = getRelatedCalculators('direct-proportion', locale, t);
 
   return (
     <SimpleCalculatorLayout
@@ -116,7 +114,6 @@ const DirectProportionCalculator: React.FC = () => {
           answer: t('direct_proportion_faq_3_a')
         }
       ]}
-      relatedCalculators={relatedCalculators}
       schemaData={{ applicationCategory: "UtilityApplication", operatingSystem: "Any" }}
       resultSection={result && result.isValid && (
         <div className="space-y-4">

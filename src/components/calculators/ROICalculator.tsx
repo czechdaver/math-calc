@@ -5,7 +5,6 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput } from './shared';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 import { useFinanceFormatting } from '@/hooks/useFinanceFormatting';
 import { useROICalculator } from '@/hooks/useROICalculator';
 import { Card, CardContent } from '@/components/ui/Card';
@@ -25,7 +24,6 @@ const ROICalculator: React.FC = () => {
     timePeriod: t('roi_validation_time_period'),
   });
 
-  const relatedCalculators = getRelatedCalculators('roi', locale, t);
 
   const resultsSection = result ? (
     <div className="space-y-6">
@@ -136,7 +134,6 @@ const ROICalculator: React.FC = () => {
         { question: t('roi_faq_3_q'), answer: t('roi_faq_3_a') },
         { question: t('roi_faq_4_q'), answer: t('roi_faq_4_a') },
       ]}
-      relatedCalculators={relatedCalculators}
       schemaData={{ applicationCategory: 'FinanceApplication', operatingSystem: 'Any' }}
       resultSection={resultsSection}
     >

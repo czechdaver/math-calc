@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Heart, User, Flame, Activity } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface BMRResult {
   bmr: number;
@@ -507,7 +506,6 @@ const BMRCalculator: React.FC = () => {
     </div>
   );
 
-  const relatedCalculators = getRelatedCalculators('bmr', locale, t);
 
   return (
     <SimpleCalculatorLayout
@@ -563,7 +561,6 @@ const BMRCalculator: React.FC = () => {
           answer: t('calculators.bmr.faq.q4.answer')
         }
       ]}
-      relatedCalculators={relatedCalculators}
       schemaData={{
         applicationCategory: "HealthApplication",
         operatingSystem: "Any"

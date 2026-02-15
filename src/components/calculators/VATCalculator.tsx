@@ -8,7 +8,6 @@ import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Info, AlertCircle } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 type CountryCode = 'cz' | 'sk';
 type CalculationDirection = 'base-to-total' | 'total-to-base';
@@ -177,7 +176,6 @@ const VATCalculator: React.FC = () => {
     { question: t('vat_faq3_q'), answer: t('vat_faq3_a') }
   ];
 
-  const relatedCalculators = getRelatedCalculators('vat', locale, t);
 
   return (
     <SimpleCalculatorLayout
@@ -200,7 +198,6 @@ const VATCalculator: React.FC = () => {
       }}
       examples={examples}
       faq={faq}
-      relatedCalculators={relatedCalculators}
       schemaData={{
         applicationCategory: "FinanceApplication",
         operatingSystem: "Any"

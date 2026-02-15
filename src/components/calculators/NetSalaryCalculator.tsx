@@ -3,7 +3,6 @@ import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput, CalculatorSelect } from './shared';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 import { useNetSalaryCalculator } from '@/hooks/useNetSalaryCalculator';
 import { Info } from 'lucide-react';
 
@@ -22,7 +21,6 @@ const NetSalaryCalculator: React.FC = () => {
     }
   }, [grossSalary, country]);
 
-  const relatedCalculators = getRelatedCalculators('net-salary', locale, t);
 
   const countryOptions = [
     { value: 'cz', label: t('net_salary_country_cz') },
@@ -70,7 +68,6 @@ const NetSalaryCalculator: React.FC = () => {
         { question: t('net_salary_faq_3_q'), answer: t('net_salary_faq_3_a') },
         { question: t('net_salary_faq_4_q'), answer: t('net_salary_faq_4_a') }
       ]}
-      relatedCalculators={relatedCalculators}
       schemaData={{ applicationCategory: "FinanceApplication", operatingSystem: "Any" }}
       resultSection={result && result.isValid && (
         <div className="space-y-4">

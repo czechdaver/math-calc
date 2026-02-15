@@ -4,7 +4,6 @@ import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput, CalculatorResult } from './shared';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 import { Info } from 'lucide-react';
 
 interface BMIResult {
@@ -27,7 +26,7 @@ const BMICalculator: React.FC = () => {
   const calculateBMI = (heightCm: number, weightKg: number): BMIResult => {
     const heightM = heightCm / 100;
     const bmi = weightKg / (heightM * heightM);
-    
+
     let category = '';
     let categoryColor = '';
 
@@ -56,10 +55,10 @@ const BMICalculator: React.FC = () => {
   // Validation function
   const validateInputs = (heightStr: string, weightStr: string) => {
     const newErrors: { height?: string; weight?: string } = {};
-    
+
     const heightNum = parseFloat(heightStr);
     const weightNum = parseFloat(weightStr);
-    
+
     if (!heightStr || isNaN(heightNum) || heightNum < 50 || heightNum > 300) {
       newErrors.height = t('height_validation_error');
     }
@@ -98,7 +97,7 @@ const BMICalculator: React.FC = () => {
         helpText={t('height_help_text') || 'Zadejte svou výšku v centimetrech (50-300 cm)'}
         error={errors.height}
       />
-      
+
       <CalculatorInput
         id="weight"
         label={t('weight_label') || 'Váha'}
@@ -149,7 +148,6 @@ const BMICalculator: React.FC = () => {
   ];
 
   // Related calculators - loaded from centralized data
-  const relatedCalculators = getRelatedCalculators('bmi', locale, t);
 
   return (
     <SimpleCalculatorLayout
@@ -174,7 +172,7 @@ const BMICalculator: React.FC = () => {
       }}
       examples={examples}
       faq={faq}
-      relatedCalculators={relatedCalculators}
+
       schemaData={{
         applicationCategory: "HealthApplication",
         operatingSystem: "Any"

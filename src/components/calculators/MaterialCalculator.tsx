@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Package, Truck, Hammer, Palette } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface MaterialResult {
   quantity: number;
@@ -488,7 +487,6 @@ const MaterialCalculator: React.FC = () => {
     </div>
   );
 
-  const relatedCalculators = getRelatedCalculators('materials', locale, t);
 
   return (
     <SimpleCalculatorLayout
@@ -544,7 +542,6 @@ const MaterialCalculator: React.FC = () => {
           answer: "Vždy kupujte o 5-10% více než vypočteno pro budoucí opravy. U ukončovaných kolekcí kupujte větší rezervu."
         }
       ]}
-      relatedCalculators={relatedCalculators}
       schemaData={{
         applicationCategory: "UtilitiesApplication",
         operatingSystem: "Any"

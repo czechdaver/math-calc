@@ -8,7 +8,6 @@ import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput, CalculatorSelect } from './shared';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Box, Circle, Cylinder, Pyramid, Calculator as CalcIcon } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 import { useVolumeCalculator, VolumeShape } from '@/hooks/useVolumeCalculator';
 
 const shapeIcons: Record<string, React.ReactNode> = {
@@ -44,7 +43,6 @@ const VolumeCalculator: React.FC = () => {
     'cube', 'rectangular', 'sphere', 'cylinder', 'cone',
   ].map(s => ({ value: s, label: t(shapeKey(s)) }));
 
-  const relatedCalculators = getRelatedCalculators('volume', locale, t);
 
   const resultsSection = calc.result ? (
     <div className="space-y-6">
@@ -129,7 +127,6 @@ const VolumeCalculator: React.FC = () => {
         { question: t('volume_calc_faq_3_q'), answer: t('volume_calc_faq_3_a') },
         { question: t('volume_calc_faq_4_q'), answer: t('volume_calc_faq_4_a') },
       ]}
-      relatedCalculators={relatedCalculators}
       schemaData={{ applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any' }}
     >
       <div className="space-y-6">

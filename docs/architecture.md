@@ -325,6 +325,30 @@ Located in `src/data/`:
 | `getQuickLinks(type, locale, t)` | Get popular/recent calculators |
 | `searchCalculators(query, locale, t)` | Search calculators by query |
 
+## Search System
+
+The search functionality allows users to find calculators by title, description, tags, and aliases.
+
+### Components
+
+1.  **Data Layer (`src/lib/calculatorDataUtils.ts`)**:
+    *   `searchCalculators(query, locale, t)`: Core search logic.
+    *   **Data Source**: Uses `calculators.json` (supports `aliasKeys` for alternative names).
+    *   **Matching**: Checks title, description, tags, and aliases (case-insensitive).
+
+2.  **API Layer (`src/app/api/search/route.ts`)**:
+    *   **Endpoint**: `GET /api/search?q={query}&locale={locale}`
+    *   **Purpose**: Handles search requests, providing server-side translations.
+    *   **Response**: Returns a JSON array of `RelatedCalculator` objects.
+
+3.  **Frontend (`src/components/search/CalculatorSearch.tsx`)**:
+    *   **UI**: Debounced input field with a dropdown results list.
+    *   **Features**:
+        *   Debouncing (300ms) to reduce API calls.
+        *   Keyboard navigation (Arrow keys, Enter, Escape).
+        *   Loading state indication.
+        *   Responsive design (matches site aesthetics).
+
 ## Internationalization (i18n)
 
 ### Supported Languages

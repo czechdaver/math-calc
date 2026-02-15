@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Activity, User, Zap, Target, TrendingUp } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface CaloriesResult {
   bmr: number;
@@ -500,7 +499,6 @@ const CaloriesCalculator: React.FC = () => {
           answer: t('calculators.calories.faq.q4.answer')
         }
       ]}
-      relatedCalculators={getRelatedCalculators('calories', locale, t)}
       schemaData={{
         applicationCategory: "HealthApplication",
         operatingSystem: "Any"

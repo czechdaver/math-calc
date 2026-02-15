@@ -484,7 +484,7 @@ Emerging (krypto, solární panely, carbon footprint), Deep CE (nemocenská CZ, 
 
 Všechna metadata kalkulaček jsou v `src/data/`:
 
-- **`calculators.json`** – ID, slug, kategorie, popularita, tagy, cesty
+- **`calculators.json`** – ID, slug, kategorie, popularita, tagy, aliasKeys, cesty
 - **`calculator-relationships.json`** – relace mezi kalkulačkami s fallback strategií
 - **`calculator-categories.json`** – kategorie, ikony, barvy, priority
 
@@ -495,7 +495,7 @@ Všechna metadata kalkulaček jsou v `src/data/`:
 | `getRelatedCalculators(id, locale, t)` | `calculatorDataUtils` | Související kalkulačky s fallback |
 | `getCalculatorCategories(locale, t)` | `calculatorDataUtils` | Kategorie s počty |
 | `getQuickLinks(type, locale, t)` | `calculatorDataUtils` | Populární kalkulačky |
-| `searchCalculators(query, locale, t)` | `calculatorDataUtils` | Hledání kalkulaček |
+| `searchCalculators(query, locale, t)` | `calculatorDataUtils` | Hledání (podporuje aliasy) + `/api/search` |
 | `isValidNumber(value)` | `calculatorValidation` | Validace čísla |
 | `isValidMathExpression(value)` | `calculatorValidation` | Validace výrazu |
 | `formatNumber(value, locale)` | `calculatorFormatting` | Formátování podle locale |

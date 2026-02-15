@@ -9,7 +9,6 @@ import { CalculatorInput } from './shared';
 import { CalculatorSelect } from './shared';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Truck, Package, Building, Calculator as CalcIcon } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 import { useConcreteCalculator, concreteGrades } from '@/hooks/useConcreteCalculator';
 
 const ConcreteCalculator: React.FC = () => {
@@ -43,7 +42,6 @@ const ConcreteCalculator: React.FC = () => {
     { value: 'column', label: t('concrete_type_column') },
   ];
 
-  const relatedCalculators = getRelatedCalculators('concrete', locale, t);
 
   const resultsSection = calc.result ? (
     <div className="space-y-6">
@@ -120,7 +118,6 @@ const ConcreteCalculator: React.FC = () => {
         { question: t('concrete_faq_3_q'), answer: t('concrete_faq_3_a') },
         { question: t('concrete_faq_4_q'), answer: t('concrete_faq_4_a') },
       ]}
-      relatedCalculators={relatedCalculators}
       schemaData={{ applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any' }}
     >
       <div className="space-y-6">

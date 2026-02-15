@@ -2212,5 +2212,30 @@
   "theme_toggle_tooltip_system": "Použiť systémové nastavenie",
   "theme_current_light": "Aktuálna téma: Svetlý",
   "theme_current_dark": "Aktuálna téma: Tmavý",
-  "theme_current_system": "Aktuálna téma: Systémový"
+  "theme_current_system": "Aktuálna téma: Systémový",
+  "navigation": {
+    "home": "Domov",
+    "categories": "Kategórie",
+    "settings": "Nastavenia"
+  },
+  "category_construction_title": "Stavebné kalkulačky",
+  "category_construction_description": "Výpočty materiálov a konštrukcií pre stavbu a rekonštrukciu",
+  "category_practical_title": "Praktické kalkulačky",
+  "category_practical_description": "Užitočné nástroje pre každodenný život a cestovanie",
+  "common": {
+    "home": "Domov",
+    "calculate": "Vypočítať",
+    "about_category": "O kategórii",
+    "other_categories": "Iné kategórie",
+    "calculator": "Kalkulačka",
+    "results": "Výsledky",
+    "formula": "Vzorec",
+    "faq": "Často kladené otázky",
+    "related_calculators": "Súvisiace kalkulačky",
+    "quick_links": "Rýchle odkazy",
+    "switch_language": "Prepnúť jazyk",
+    "all_calculators": "Všetky kalkulačky"
+  },
+  "loan_calculator_description": "Výpočet splátok pôžičky, úrokov a doby splácania.",
+  "category_finance_long_description": "Finančné kalkulačky vám pomôžu s výpočtami hypoték, pôžičiek, úrokov a ďalších finančných produktov."
 }

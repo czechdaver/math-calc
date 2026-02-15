@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, DollarSign, ArrowRightLeft, TrendingUp } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface CurrencyRate {
   code: string;
@@ -430,7 +429,6 @@ const CurrencyCalculator: React.FC = () => {
           answer: "Ano, můžete převádět mezi všemi podporovanými měnami v obou směrech pomocí tlačítka pro prohození měn."
         }
       ]}
-      relatedCalculators={getRelatedCalculators('currency', locale, t)}
       schemaData={{
         applicationCategory: "FinanceApplication",
         operatingSystem: "Any"

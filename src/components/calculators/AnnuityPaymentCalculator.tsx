@@ -5,7 +5,6 @@ import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput, CalculatorResult } from './shared';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 import { useFinanceFormatting } from '@/hooks/useFinanceFormatting';
 
 interface AnnuityResult {
@@ -68,7 +67,6 @@ const AnnuityPaymentCalculator: React.FC = () => {
     }
   }, [loanAmount, interestRate, loanTerm]);
 
-  const relatedCalculators = getRelatedCalculators('annuity-payment', locale, t);
 
   return (
     <SimpleCalculatorLayout
@@ -100,7 +98,6 @@ const AnnuityPaymentCalculator: React.FC = () => {
         { question: t('annuity_faq_3_q'), answer: t('annuity_faq_3_a') },
         { question: t('annuity_faq_4_q'), answer: t('annuity_faq_4_a') },
       ]}
-      relatedCalculators={relatedCalculators}
       schemaData={{ applicationCategory: 'FinanceApplication', operatingSystem: 'Any' }}
       resultSection={result && (
         <CalculatorResult

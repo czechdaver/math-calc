@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Activity, User, Target } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface BodyFatResult {
   bodyFatPercentage: number;
@@ -483,7 +482,6 @@ const BodyFatCalculator: React.FC = () => {
           answer: t('bodyfat_faq_4_a')
         }
       ]}
-      relatedCalculators={getRelatedCalculators('body-fat', locale, t)}
       schemaData={{
         applicationCategory: "HealthApplication",
         operatingSystem: "Any"

@@ -7,10 +7,9 @@ interface CalculatorLayoutProps {
 
 const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({ children }) => {
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Zde může být společná navigace nebo jiné prvky pro všechny kalkulačky */}
+    <>
       {children}
-    </div>
+    </>
   );
 };
 

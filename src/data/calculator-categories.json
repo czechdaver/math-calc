@@ -7,27 +7,54 @@
       "icon": "Heart",
       "color": "text-red-600",
       "bgColor": "bg-red-50",
-      "calculators": ["bmi", "bmr", "ideal-weight", "body-fat", "calories"],
+      "calculators": [
+        "bmi",
+        "bmr",
+        "ideal-weight",
+        "body-fat",
+        "calories",
+        "macro-calculator",
+        "water-intake"
+      ],
       "priority": 1
     },
     "math": {
       "id": "math",
-      "titleKey": "category_math_title", 
+      "titleKey": "category_math_title",
       "descriptionKey": "category_math_description",
       "icon": "Calculator",
       "color": "text-blue-600",
       "bgColor": "bg-blue-50",
-      "calculators": ["percentage", "fractions", "rule-of-three"],
+      "calculators": [
+        "percentage",
+        "percentage-of-number",
+        "x-is-what-percent-of-y",
+        "y-is-x-what-is-hundred",
+        "fractions",
+        "direct-proportion",
+        "inverse-proportion"
+      ],
       "priority": 2
     },
     "finance": {
       "id": "finance",
       "titleKey": "category_finance_title",
-      "descriptionKey": "category_finance_description", 
+      "descriptionKey": "category_finance_description",
       "icon": "DollarSign",
       "color": "text-green-600",
       "bgColor": "bg-green-50",
-      "calculators": ["vat", "net-salary", "compound-interest", "loan"],
+      "calculators": [
+        "vat",
+        "net-salary",
+        "compound-interest",
+        "loan",
+        "currency",
+        "annuity-payment",
+        "roi",
+        "npv",
+        "irr",
+        "early-repayment"
+      ],
       "priority": 3
     },
     "utility": {
@@ -35,21 +62,64 @@
       "titleKey": "category_utility_title",
       "descriptionKey": "category_utility_description",
       "icon": "Settings",
-      "color": "text-gray-600", 
+      "color": "text-gray-600",
       "bgColor": "bg-gray-50",
-      "calculators": ["unit-converter", "discount", "tip"],
+      "calculators": [
+        "unit-converter",
+        "discount",
+        "tip"
+      ],
       "priority": 4
+    },
+    "construction": {
+      "id": "construction",
+      "titleKey": "category_construction_title",
+      "descriptionKey": "category_construction_description",
+      "icon": "Hammer",
+      "color": "text-orange-600",
+      "bgColor": "bg-orange-50",
+      "calculators": [
+        "concrete",
+        "materials",
+        "volume",
+        "area",
+        "insulation"
+      ],
+      "priority": 5
+    },
+    "practical": {
+      "id": "practical",
+      "titleKey": "category_practical_title",
+      "descriptionKey": "category_practical_description",
+      "icon": "Briefcase",
+      "color": "text-slate-600",
+      "bgColor": "bg-slate-50",
+      "calculators": [
+        "age",
+        "fuel",
+        "time"
+      ],
+      "priority": 6
     }
   },
   "quickLinks": {
     "popular": {
       "titleKey": "quick_links_popular",
-      "calculators": ["bmi", "percentage", "vat", "net-salary"],
+      "calculators": [
+        "bmi",
+        "percentage",
+        "vat",
+        "net-salary"
+      ],
       "maxCount": 4
     },
     "recent": {
       "titleKey": "quick_links_recent",
-      "calculators": ["bmr", "ideal-weight", "unit-converter"],
+      "calculators": [
+        "bmr",
+        "ideal-weight",
+        "unit-converter"
+      ],
       "maxCount": 3
     }
   }

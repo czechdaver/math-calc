@@ -4,7 +4,6 @@ import { useParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorSelect } from './shared';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 const FractionAddition = dynamic(() => import('./fractionOperations/FractionAddition'), { ssr: false });
 const FractionSubtraction = dynamic(() => import('./fractionOperations/FractionSubtraction'), { ssr: false });
@@ -19,7 +18,6 @@ const FractionsCalculator: React.FC = () => {
   const locale = params.locale as string;
   const [operation, setOperation] = useState<string>('');
 
-  const relatedCalculators = getRelatedCalculators('fractions', locale, t);
 
   const operationOptions = [
     { value: '', label: t('fractions_select_default') },
@@ -80,7 +78,6 @@ const FractionsCalculator: React.FC = () => {
         { question: t('fractions_faq_2_q'), answer: t('fractions_faq_2_a') },
         { question: t('fractions_faq_3_q'), answer: t('fractions_faq_3_a') }
       ]}
-      relatedCalculators={relatedCalculators}
       schemaData={{ applicationCategory: "UtilityApplication", operatingSystem: "Any" }}
       resultSection={operation ? (
         <div className="mt-2">

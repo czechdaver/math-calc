@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Thermometer, Shield, Snowflake } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 import { useInsulationCalculator } from '@/hooks/useInsulationCalculator';
 
 const InsulationCalculator: React.FC = () => {
@@ -48,7 +47,6 @@ const InsulationCalculator: React.FC = () => {
     resistance: (n: number) => n.toLocaleString(locale, { maximumFractionDigits: 2 }) + ' m²K/W',
     currency: (n: number) => n.toLocaleString(locale, { maximumFractionDigits: 0 }) + ' Kč'
   };
-  const relatedCalculators = getRelatedCalculators('insulation', locale, t);
 
   // Calculator input form
   const calculatorForm = (
@@ -254,7 +252,6 @@ const InsulationCalculator: React.FC = () => {
       seo={{ title: t('insulation_seo_title'), description: t('insulation_seo_description'),
         keywords: ['izolace', 'zateplení', 'polystyren', 'minerální vata', 'U-hodnota', 'tepelný odpor', 'úspora energie', 'kalkulátor izolace'] }}
       formula={{ latex: String.raw`d = R \times \lambda \quad R = \frac{1}{U_{cíl}} - \frac{1}{U_{součas}}`, description: t('insulation_formula_description') }}
-      examples={examples} faq={faq} relatedCalculators={relatedCalculators}
       schemaData={{ applicationCategory: "UtilitiesApplication", operatingSystem: "Any" }} resultSection={resultsSection}
     >
       {calculatorForm}

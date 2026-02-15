@@ -1,16 +1,10 @@
 // jest.setup.js
 import '@testing-library/jest-dom';
 
-// Mock next-i18next
-jest.mock('next-i18next', () => ({
-  useTranslation: () => ({
-    t: (key) => key, // Mock translation function to return the key
-    i18n: {
-      language: 'en',
-      changeLanguage: jest.fn(),
-    },
-  }),
-  appWithTranslation: (component) => component,
+// Mock next-intl (concise mock)
+jest.mock('next-intl', () => ({
+  useTranslations: () => (key) => key,
+  useLocale: () => 'en',
 }));
 
 // Mock next/head

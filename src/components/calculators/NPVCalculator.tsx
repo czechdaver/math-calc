@@ -5,7 +5,6 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput, CashFlowEditor } from './shared';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 import { useFinanceFormatting } from '@/hooks/useFinanceFormatting';
 import { useNPVCalculator, calculatePresentValue } from '@/hooks/useNPVCalculator';
 import { Card, CardContent } from '@/components/ui/Card';
@@ -20,7 +19,6 @@ const NPVCalculator: React.FC = () => {
     cashFlow: t('npv_validation_cash_flow'),
   });
 
-  const relatedCalculators = getRelatedCalculators('npv', locale, t);
 
   const resultsSection = result ? (
     <div className="space-y-6">
@@ -159,7 +157,6 @@ const NPVCalculator: React.FC = () => {
         { question: t('npv_faq_3_q'), answer: t('npv_faq_3_a') },
         { question: t('npv_faq_4_q'), answer: t('npv_faq_4_a') },
       ]}
-      relatedCalculators={relatedCalculators}
       schemaData={{ applicationCategory: 'FinanceApplication', operatingSystem: 'Any' }}
       resultSection={resultsSection}
     >

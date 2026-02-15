@@ -3,7 +3,6 @@ import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput, CalculatorSelect } from './shared';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 import { useCompoundInterestCalculator } from '@/hooks/useCompoundInterestCalculator';
 import { Info } from 'lucide-react';
 
@@ -28,7 +27,6 @@ const CompoundInterestCalculator: React.FC = () => {
     }
   }, [principal, interestRate, years, frequency, monthlyContribution]);
 
-  const relatedCalculators = getRelatedCalculators('compound-interest', locale, t);
 
   const frequencyOptions = [
     { value: 'annually', label: t('compound_interest_freq_annually') },
@@ -77,7 +75,6 @@ const CompoundInterestCalculator: React.FC = () => {
         { question: t('compound_interest_faq_3_q'), answer: t('compound_interest_faq_3_a') },
         { question: t('compound_interest_faq_4_q'), answer: t('compound_interest_faq_4_a') }
       ]}
-      relatedCalculators={relatedCalculators}
       schemaData={{ applicationCategory: "FinanceApplication", operatingSystem: "Any" }}
       resultSection={result && result.isValid && (
         <div className="space-y-4">

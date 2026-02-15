@@ -3,12 +3,12 @@ const withNextIntl = require('next-intl/plugin')('./next-intl.config.ts');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  
+
   // Configure image optimization
   images: {
     domains: ['localhost'], // Add your production domain here
   },
-  
+
   // Webpack configuration for better bundle optimization
   webpack: (config, { isServer }) => {
     if (!isServer) {
@@ -19,4 +19,11 @@ const nextConfig = {
   },
 };
 
-module.exports = withNextIntl(nextConfig);
+const withPWA = require("@ducanh2912/next-pwa").default({
+  dest: "public",
+  disable: process.env.NODE_ENV === "development",
+  register: true,
+  skipWaiting: true,
+});
+
+module.exports = withPWA(withNextIntl(nextConfig));

@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Tag, Percent, DollarSign, TrendingDown } from 'lucide-react';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface DiscountResult {
   originalPrice: number;
@@ -522,7 +521,6 @@ const DiscountCalculator: React.FC = () => {
           answer: t('calculators.discount.faq.q4.answer')
         }
       ]}
-      relatedCalculators={getRelatedCalculators('discount', locale, t)}
       schemaData={{
         applicationCategory: "FinanceApplication",
         operatingSystem: "Any"

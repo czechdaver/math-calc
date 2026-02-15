@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput, CalculatorSelect } from './shared';
-import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
 
 interface MacroResult {
   bmr: number;
@@ -42,7 +41,6 @@ const MacroCalculator: React.FC = () => {
   const [goal, setGoal] = useState('maintain');
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const relatedCalculators = getRelatedCalculators('macro-calculator', locale as string, t);
 
   const result = useMemo<MacroResult | null>(() => {
     const w = parseFloat(weight);
@@ -122,7 +120,6 @@ const MacroCalculator: React.FC = () => {
         { question: t('macro_faq_2_q'), answer: t('macro_faq_2_a') },
         { question: t('macro_faq_3_q'), answer: t('macro_faq_3_a') },
       ]}
-      relatedCalculators={relatedCalculators}
       schemaData={{ applicationCategory: "HealthApplication", operatingSystem: "Any" }}
       resultSection={result ? (
         <div className="space-y-4">

@@ -1,0 +1,281 @@
+═══════════════════════════════════════════════════════════════════════════════
+                    MISSING TRANSLATION KEYS - DETAILED LIST
+═══════════════════════════════════════════════════════════════════════════════
+
+ENGLISH (en.json) - 6 Missing Keys (99.6% Complete)
+─────────────────────────────────────────────────────────────────────────────
+
+All missing keys are BMI/BMR calculator related - recently added aliases:
+
+1. "bmi_alias_full"
+   Translation: "Body Mass Index"
+   Category: BMI calculator aliases
+
+2. "bmi_alias_weight"
+   Translation: "Weight"
+   Category: BMI calculator aliases
+
+3. "bmr_category_active"
+   Translation: "Active"
+   Category: BMR activity categories
+
+4. "bmr_category_sedentary"
+   Translation: "Sedentary"
+   Category: BMR activity categories
+
+5. "bmr_formula_katch"
+   Translation: "Katch-McArdle Formula"
+   Category: BMR formula types
+
+6. "bmr_formula_mifflin"
+   Translation: "Mifflin-St Jeor Formula"
+   Category: BMR formula types
+
+FIX EFFORT: 30 minutes
+
+═══════════════════════════════════════════════════════════════════════════════
+
+SLOVAK (sk.json) - 42 Missing Keys (97.3% Complete)
+─────────────────────────────────────────────────────────────────────────────
+
+SECTION 1: BMI/BMR Keys (6 keys) - Same as en.json
+  - bmi_alias_full, bmi_alias_weight
+  - bmr_category_active, bmr_category_sedentary
+  - bmr_formula_katch, bmr_formula_mifflin
+
+SECTION 2: Time Calculator Keys (36 keys) - ENTIRE CALCULATOR MISSING
+  
+  Structure: time_* namespace (recently added to cs.json, not yet to sk.json)
+
+  Examples & Descriptions (9 keys):
+  - time_examples_title
+  - time_examples_description
+  - time_example_1_title, time_example_1_desc, time_example_1_example
+  - time_example_2_title, time_example_2_desc, time_example_2_example
+  - time_example_3_title, time_example_3_desc, time_example_3_example
+
+  FAQ Section (8 keys):
+  - time_faq_1_q, time_faq_1_a
+  - time_faq_2_q, time_faq_2_a
+  - time_faq_3_q, time_faq_3_a
+  - time_faq_4_q, time_faq_4_a
+
+  UI Labels & Fields (9 keys):
+  - time_label_hours
+  - time_label_minutes
+  - time_label_seconds
+  - time_label_operation
+  - time_first_time
+  - time_second_time
+  - time_add_verb
+  - time_subtract_verb
+  - time_total
+
+  Results & Display (4 keys):
+  - time_result_label
+  - time_result_sum
+  - time_result_difference
+  - time_calculation_summary
+
+  Formula & SEO (5 keys):
+  - time_formula_description
+  - time_seo_title
+  - time_seo_description
+  - time_seo_keywords
+
+FIX EFFORT: 4-5 hours (translation work for Time Calculator)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+POLISH (pl.json) - 49 Missing Keys (96.8% Complete)
+─────────────────────────────────────────────────────────────────────────────
+
+SECTION 1: BMI/BMR Keys (6 keys) - Same as en.json & sk.json
+  - bmi_alias_full, bmi_alias_weight
+  - bmr_category_active, bmr_category_sedentary
+  - bmr_formula_katch, bmr_formula_mifflin
+
+SECTION 2: Time Calculator Keys (36 keys) - Same as sk.json
+  [See SLOVAK section above for full list]
+
+SECTION 3: Category & Navigation Metadata (7 keys) - NEW
+  - category_construction_description
+  - category_construction_title
+  - category_finance_long_description
+  - category_practical_description
+  - category_practical_title
+  - loan_calculator_description
+  - navigation (object/namespace with nested keys)
+
+FIX EFFORT: 5-6 hours
+  - BMI/BMR keys: 30 min (copy from en.json, adapt for Polish)
+  - Time calculator: 4-5 hours (full translation)
+  - Categories: 30 min (translate 7 keys)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+HUNGARIAN (hu.json) - 49 Missing Keys (96.8% Complete)
+─────────────────────────────────────────────────────────────────────────────
+
+SECTION 1: BMI/BMR Keys (6 keys)
+SECTION 2: Time Calculator Keys (36 keys)
+SECTION 3: Category & Navigation Metadata (7 keys)
+
+[Identical to pl.json]
+
+FIX EFFORT: 5-6 hours
+  - BMI/BMR keys: 30 min
+  - Time calculator: 4-5 hours (full translation)
+  - Categories: 30 min
+
+═══════════════════════════════════════════════════════════════════════════════
+
+SUMMARY BY MISSING KEY TYPE
+─────────────────────────────────────────────────────────────────────────────
+
+TYPE                        COUNT  LOCALES              TOTAL
+────────────────────────────────────────────────────────────
+BMI/BMR Aliases & Formulas    6    en, sk, pl, hu        24
+Time Calculator Keys          36   sk, pl, hu           108
+Category & Navigation          7   pl, hu                14
+────────────────────────────────────────────────────────────
+GRAND TOTAL                                             146
+
+═══════════════════════════════════════════════════════════════════════════════
+
+ROOT CAUSE ANALYSIS
+─────────────────────────────────────────────────────────────────────────────
+
+1. BMI/BMR Keys (6 keys)
+   - Recently added to cs.json for BMI calculator enhancement
+   - Propagated to en.json but not to other locales
+   - Likely oversight during recent feature commit
+
+2. Time Calculator Keys (36 keys)
+   - TimeCalculator component recently added
+   - Full Czech translation added to cs.json
+   - No translations created for sk/pl/hu
+   - Requires dedicated translation work
+
+3. Category & Navigation Keys (7 keys)
+   - Category metadata recently updated
+   - Added to cs.json and en.json
+   - Not yet added to pl.json and hu.json
+   - Likely pending PR or commit
+
+═══════════════════════════════════════════════════════════════════════════════
+
+RECOMMENDED TRANSLATION KEYS - FULL LIST
+─────────────────────────────────────────────────────────────────────────────
+
+BMI/BMR KEYS:
+  "bmi_alias_full": "Body Mass Index" | "Index tělesné hmotnosti" | ...
+  "bmi_alias_weight": "Weight" | "Hmotnost" | ...
+  "bmr_category_active": "Active" | "Aktivní" | ...
+  "bmr_category_sedentary": "Sedentary" | "Sedavý" | ...
+  "bmr_formula_katch": "Katch-McArdle Formula" | "Katchův-McArthurův vzorec" | ...
+  "bmr_formula_mifflin": "Mifflin-St Jeor Formula" | "Mifflinův-St Jeorův vzorec" | ...
+
+TIME CALCULATOR KEYS:
+  [See cs.json for Czech values - translate to sk/pl/hu]
+  - time_label_hours, time_label_minutes, time_label_seconds
+  - time_first_time, time_second_time, time_add_verb, time_subtract_verb
+  - time_result_sum, time_result_difference, time_calculation_summary
+  - time_examples_title, time_examples_description
+  - time_example_1_title through time_example_3_example
+  - time_faq_1_q through time_faq_4_a
+  - time_formula_description, time_seo_title, time_seo_description, time_seo_keywords
+
+CATEGORY KEYS:
+  "category_construction_title": "Stavba" | "Budowa" | "Építkezés"
+  "category_construction_description": "Stavební kalkulačky" | "..." | "..."
+  "category_finance_long_description": "[Long description in Czech]" | "..." | "..."
+  "category_practical_title": "Praktické" | "Praktyczne" | "Praktikus"
+  "category_practical_description": "Kalkulačky pro každý den" | "..." | "..."
+  "loan_calculator_description": "[Description]" | "..." | "..."
+  "navigation": { ... nested object with nav keys ... }
+
+═══════════════════════════════════════════════════════════════════════════════
+
+IMPLEMENTATION CHECKLIST
+─────────────────────────────────────────────────────────────────────────────
+
+For en.json (6 keys - 30 minutes):
+  ☐ Add all 6 BMI/BMR keys with English text
+  ☐ Validate JSON syntax
+  ☐ Test rendering with new keys
+
+For sk.json (42 keys - 4-5 hours):
+  ☐ Add 6 BMI/BMR keys (adapt from Czech, don't copy)
+  ☐ Add 36 Time Calculator keys (full translation)
+  ☐ Verify Slovak financial/time terminology
+  ☐ Validate JSON syntax
+  ☐ Test all components render correctly
+
+For pl.json (49 keys - 5-6 hours):
+  ☐ Add 6 BMI/BMR keys (Polish translation)
+  ☐ Add 36 Time Calculator keys (full translation)
+  ☐ Add 7 Category/Navigation keys (Polish translation)
+  ☐ Verify Polish terminology for time expressions
+  ☐ Validate JSON syntax
+  ☐ Test all components render correctly
+
+For hu.json (49 keys - 5-6 hours):
+  ☐ Add 6 BMI/BMR keys (Hungarian translation)
+  ☐ Add 36 Time Calculator keys (full translation)
+  ☐ Add 7 Category/Navigation keys (Hungarian translation)
+  ☐ Verify Hungarian terminology
+  ☐ Validate JSON syntax
+  ☐ Test all components render correctly
+
+═══════════════════════════════════════════════════════════════════════════════
+
+VALIDATION BEFORE COMMIT
+─────────────────────────────────────────────────────────────────────────────
+
+After adding all missing keys:
+
+  ☐ JSON Syntax Check:
+    jq . src/messages/en.json > /dev/null   # Should succeed
+    jq . src/messages/sk.json > /dev/null
+    jq . src/messages/pl.json > /dev/null
+    jq . src/messages/hu.json > /dev/null
+
+  ☐ Key Parity Check:
+    All 5 locales should have identical key structure
+    No keys should be missing across locales
+
+  ☐ Component Testing:
+    ☐ BMI Calculator renders in all 5 languages
+    ☐ Time Calculator renders in all 5 languages
+    ☐ Category pages display in all 5 languages
+    ☐ Navigation displays correctly in all 5 languages
+
+  ☐ No Empty Values:
+    grep '": ""' src/messages/*.json  # Should return nothing
+
+═══════════════════════════════════════════════════════════════════════════════
+
+EFFORT SUMMARY
+─────────────────────────────────────────────────────────────────────────────
+
+en.json:    30 minutes   (6 keys)
+sk.json:    4-5 hours    (42 keys total)
+pl.json:    5-6 hours    (49 keys total)
+hu.json:    5-6 hours    (49 keys total)
+────────────────────────────────────────
+TOTAL:      15-18 hours  (146 key instances)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+RECOMMENDED SCHEDULE
+─────────────────────────────────────────────────────────────────────────────
+
+Monday:    Add 6 keys to en.json (30 min)
+Tuesday:   Translate Time Calculator to sk.json (4-5 hours)
+Wednesday: Translate Time Calculator to pl.json (4-5 hours)
+Thursday:  Translate Time Calculator to hu.json (4-5 hours)
+           Add Category keys to pl.json & hu.json (2-3 hours total)
+Friday:    Testing, validation, and deployment
+
+═══════════════════════════════════════════════════════════════════════════════

@@ -6,6 +6,9 @@
 > - [`docs/target-architecture.md`](docs/target-architecture.md) – Cílová architektura
 > - [`docs/refactoring-tracker.md`](docs/refactoring-tracker.md) – Stav refaktoringu
 > - [`docs/code-analysis.md`](docs/code-analysis.md) – Detailní analýza kódu
+> - [`docs/translation-orchestrator-agent.md`](docs/translation-orchestrator-agent.md) – Translation orchestrator specifikace
+> - [`docs/translation-orchestrator-usage.md`](docs/translation-orchestrator-usage.md) – Návod k použití translation agenta
+> - [`docs/translation-automation.md`](docs/translation-automation.md) – **Automatizace**: Pre-commit hooks, CI/CD, validace překladů
 
 ---
 
@@ -521,6 +524,7 @@ Před každým commitem ověř:
 - [ ] Schema.org structured data
 - [ ] SEO metadata (title, description, keywords, OG, hreflang)
 - [ ] Překlady ve všech 5 locale souborech
+- [ ] **VALIDACE PŘEKLADŮ PROŠLA** - `npm run validate:translations` ✅
 - [ ] Responsive na mobilu (testuj 375px)
 - [ ] Dark mode funguje
 - [ ] Čísla formátována podle locale
@@ -531,6 +535,11 @@ Před každým commitem ověř:
 - [ ] Žádné duplicitní soubory (-new, -old, -refactored)
 - [ ] `<AdPlaceholder>` komponenty na místě
 - [ ] `npm run build` prochází bez chyb
+
+**Automatická validace:**
+- Pre-commit hook validuje překlady automaticky
+- GitHub Actions ověří na každém PR
+- Detaily: [`docs/translation-automation.md`](docs/translation-automation.md)
 
 ---
 
@@ -570,8 +579,14 @@ Před každým commitem ověř:
 | SEO deprecated `next/head` | `src/components/seo/SeoMetadata.tsx` | Vysoké |
 | `next: "latest"` nepřipnuté | `package.json` | Střední |
 | Test coverage 2.6% | Pouze BMI | Vysoké |
-| Chybí ESLint/Prettier | Žádná konfigurace | Nízké |
-| Chybí CI/CD pipeline | Žádné GitHub Actions | Nízké |
+| 27+ hardcoded text instances | 5 calculators (see audit) | Vysoké |
+| 146 missing translation keys | sk/pl/hu locales | Střední |
+
+**Vyřešené technické dluhy (2026-02-15):**
+- ✅ ~~Chybí ESLint konfigurace~~ (RESOLVED: `.eslintrc.json` přidán)
+- ✅ ~~Chybí CI/CD pipeline~~ (RESOLVED: GitHub Actions workflow pro translation validation)
+- ✅ ~~Chybí pre-commit hooks~~ (RESOLVED: Husky + translation validation hook)
+- ✅ ~~Chybí automatizovaná validace překladů~~ (RESOLVED: `scripts/validate-translations.js`)
 
 **Vyřešené technické dluhy (2024-02-14):**
 - ✅ ~~`next/router` místo `next/navigation` v `src/context/ThemeContext.tsx`~~ (RESOLVED: soubor smazán jako orphaned)
@@ -584,6 +599,7 @@ Před každým commitem ověř:
 > **Detailní stav refaktoringu:** viz [`docs/refactoring-tracker.md`](docs/refactoring-tracker.md)
 > **Kompletní analýza kódu:** viz [`docs/code-analysis.md`](docs/code-analysis.md)
 > **Cílová architektura:** viz [`docs/target-architecture.md`](docs/target-architecture.md)
+> **Translation automation:** viz [`docs/translation-automation.md`](docs/translation-automation.md)
 
 ---
 
@@ -613,6 +629,41 @@ Před každým commitem ověř:
 2. **Pro PL a HU:** Transcreace – lokální příklady, měny, daňové sazby.
 3. **Pro EN:** Premium kvalita – targetuje US/UK audience s vysokým CPC.
 4. **Sezónní obsah:** Aktualizuj daňové sazby každý leden.
+5. **VŽDY validuj překlady před commitem:**
+   ```bash
+   npm run validate:translations
+   ```
+   - Pre-commit hook běží automaticky při každém commitu
+   - GitHub Actions ověří překlady na každém PR
+   - **Kompletní dokumentace:** [`docs/translation-automation.md`](docs/translation-automation.md)
+
+### Při použití Translation Orchestrator agenta:
+
+**Kdy použít**: Pro systematickou práci s překlady, vyhledávání chybějících klíčů, nebo opravu hardcoded textu.
+
+**Dostupné příkazy** (přes Task tool s `subagent_type: "translation-orchestrator"`):
+- `"Check for missing translation keys"` – kompletní audit překladů
+- `"Add Slovak translations for [calculator-name]"` – doplnění překladů pro konkrétní kalkulačku
+- `"Find hardcoded text in calculator components"` – detekce hardcoded textu
+- `"Sync all locales with cs.json"` – synchronizace všech jazyků s reference
+- `"Validate translation files"` – kontrola JSON syntaxe a konzistence
+
+**Model strategie**:
+- ✅ **Haiku** (výchozí): Scanning, validace, jednoduché překlady (90% úloh, 20x levnější)
+- ⚠️ **Sonnet** (eskalace): Vzdělávací obsah >500 slov, country-specific kalkulačky, EN obsah pro high-CPC
+
+**Kompletní dokumentace**:
+- Specifikace: [`docs/translation-orchestrator-agent.md`](docs/translation-orchestrator-agent.md)
+- Návod k použití: [`docs/translation-orchestrator-usage.md`](docs/translation-orchestrator-usage.md)
+- POC script: `./scripts/translation-scanner-poc.sh`
+
+**Současný stav** (2026-02-15):
+- cs.json: 2147 klíčů (reference)
+- en.json: 2145 klíčů (99.9% kompletní)
+- sk.json: 2003 klíčů (93.3% kompletní, chybí 144)
+- pl.json: 2006 klíčů (93.4% kompletní, chybí 141)
+- hu.json: 2051 klíčů (95.5% kompletní, chybí 96)
+- Hardcoded text: 5 instancí v CaloriesCalculator, CurrencyCalculator, DiscountCalculator
 
 ---
 

@@ -1,0 +1,114 @@
+name: Translation Validation
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'src/messages/**'
+      - 'src/components/**'
+      - 'src/app/**'
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'src/messages/**'
+      - 'src/components/**'
+      - 'src/app/**'
+
+jobs:
+  validate:
+    name: Validate Translations
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run translation validation
+        run: npm run validate:translations
+
+      - name: Comment PR with validation results
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ **Translation Validation Failed**\n\nPlease check the workflow logs for details on missing translation keys or hardcoded text.\n\nRun `npm run validate:translations` locally to see specific issues.'
+            })
+
+  coverage-report:
+    name: Translation Coverage Report
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate coverage report
+        id: coverage
+        run: |
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+
+            const LOCALES = ['cs', 'en', 'sk', 'pl', 'hu'];
+            const MESSAGES_DIR = path.join(process.cwd(), 'src/messages');
+
+            const csData = JSON.parse(fs.readFileSync(path.join(MESSAGES_DIR, 'cs.json'), 'utf8'));
+            const totalKeys = Object.keys(csData).length;
+
+            let report = '## Translation Coverage Report\n\n';
+            report += '| Locale | Keys | Coverage | Status |\n';
+            report += '|--------|------|----------|--------|\n';
+
+            LOCALES.forEach(locale => {
+              const data = JSON.parse(fs.readFileSync(path.join(MESSAGES_DIR, \`\${locale}.json\`), 'utf8'));
+              const keys = Object.keys(data).length;
+              const coverage = ((keys / totalKeys) * 100).toFixed(1);
+              const status = coverage >= 99 ? '✅' : coverage >= 95 ? '⚠️' : '❌';
+              report += \`| \${locale} | \${keys} | \${coverage}% | \${status} |\n\`;
+            });
+
+            report += '\n**Total reference keys:** ' + totalKeys;
+
+            fs.writeFileSync('coverage-report.md', report);
+          "
+
+      - name: Comment PR with coverage
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('coverage-report.md', 'utf8');
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: report
+            })

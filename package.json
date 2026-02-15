@@ -9,7 +9,11 @@
     "lint": "next lint",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "validate:translations": "node scripts/validate-translations.js",
+    "validate:translations:quick": "node scripts/validate-translations.js --quick",
+    "prepare": "husky install",
+    "precommit": "npm run validate:translations"
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.9",
@@ -52,6 +56,7 @@
     "eslint": "latest",
     "eslint-config-next": "latest",
     "fs-extra": "^11.3.0",
+    "husky": "^8.0.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^30.0.5",
     "jest-environment-jsdom": "^30.0.5",

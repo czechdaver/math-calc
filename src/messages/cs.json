@@ -2090,6 +2090,8 @@
   "currency_name_jpy": "Japonský jen",
   "currency_name_cad": "Kanadský dolar",
   "currency_name_aud": "Australský dolar",
+  "currency_from_placeholder": "Vyberte měnu",
+  "currency_to_placeholder": "Vyberte měnu",
   "currency_error_amount": "Zadejte platnou částku větší než 0",
   "currency_seo_title": "Kalkulátor měn - Převod měn s aktuálními kurzy | MathCalc",
   "currency_seo_description": "Bezplatný kalkulátor měn. Převádějte CZK, EUR, USD, GBP a další měny s aktuálními směnnými kurzy.",

@@ -197,18 +197,18 @@ const TipCalculator: React.FC = () => {
       {/* Service Quality */}
       <div className="space-y-2">
         <Label htmlFor="serviceQuality" className="text-sm font-medium">
-          Kvalita obsluhy
+          {t('tip_label_service_quality')}
         </Label>
         <Select value={serviceQuality} onValueChange={setServiceQuality}>
           <SelectTrigger>
-            <SelectValue placeholder="Vyberte kvalitu obsluhy" />
+            <SelectValue placeholder={t('tip_placeholder_service_quality')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="poor">Špatná (5%)</SelectItem>
-            <SelectItem value="average">Průměrná (10%)</SelectItem>
-            <SelectItem value="good">Dobrá (15%)</SelectItem>
-            <SelectItem value="excellent">Výborná (20%)</SelectItem>
-            <SelectItem value="custom">Vlastní procento</SelectItem>
+            <SelectItem value="poor">{t('tip_service_poor')}</SelectItem>
+            <SelectItem value="average">{t('tip_service_average')}</SelectItem>
+            <SelectItem value="good">{t('tip_service_good')}</SelectItem>
+            <SelectItem value="excellent">{t('tip_service_excellent')}</SelectItem>
+            <SelectItem value="custom">{t('tip_service_custom')}</SelectItem>
           </SelectContent>
         </Select>
         <p className="text-gray-500 text-xs">
@@ -220,7 +220,7 @@ const TipCalculator: React.FC = () => {
       {serviceQuality === 'custom' && (
         <div className="space-y-2">
           <Label htmlFor="customTip" className="text-sm font-medium">
-            Vlastní procento spropitného
+            {t('tip_label_custom_tip')}
           </Label>
           <div className="relative">
             <Input

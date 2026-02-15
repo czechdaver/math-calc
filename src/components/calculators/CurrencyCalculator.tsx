@@ -180,7 +180,7 @@ const CurrencyCalculator: React.FC = () => {
           </Label>
           <Select value={fromCurrency} onValueChange={setFromCurrency}>
             <SelectTrigger>
-              <SelectValue placeholder="Vyberte měnu" />
+              <SelectValue placeholder={t('currency_from_placeholder')} />
             </SelectTrigger>
             <SelectContent>
               {currencies.map((currency) => (
@@ -214,7 +214,7 @@ const CurrencyCalculator: React.FC = () => {
           </Label>
           <Select value={toCurrency} onValueChange={setToCurrency}>
             <SelectTrigger>
-              <SelectValue placeholder="Vyberte měnu" />
+              <SelectValue placeholder={t('currency_to_placeholder')} />
             </SelectTrigger>
             <SelectContent>
               {currencies.map((currency) => (

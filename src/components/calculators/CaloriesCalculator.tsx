@@ -259,15 +259,15 @@ const CaloriesCalculator: React.FC = () => {
         {/* Gender */}
         <div className="space-y-2">
           <Label htmlFor="gender" className="text-sm font-medium">
-            Pohlaví
+            {t('calories_label_gender')}
           </Label>
           <Select value={gender} onValueChange={setGender}>
             <SelectTrigger>
-              <SelectValue placeholder="Vyberte pohlaví" />
+              <SelectValue placeholder={t('calories_placeholder_gender')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="male">Muž</SelectItem>
-              <SelectItem value="female">Žena</SelectItem>
+              <SelectItem value="male">{t('calories_gender_male')}</SelectItem>
+              <SelectItem value="female">{t('calories_gender_female')}</SelectItem>
             </SelectContent>
           </Select>
           <p className="text-gray-500 text-xs">
@@ -278,18 +278,18 @@ const CaloriesCalculator: React.FC = () => {
         {/* Activity Level */}
         <div className="space-y-2">
           <Label htmlFor="activityLevel" className="text-sm font-medium">
-            Úroveň aktivity
+            {t('calories_label_activity')}
           </Label>
           <Select value={activityLevel} onValueChange={setActivityLevel}>
             <SelectTrigger>
-              <SelectValue placeholder="Vyberte úroveň aktivity" />
+              <SelectValue placeholder={t('calories_placeholder_activity')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="sedentary">Sedavý životní styl</SelectItem>
-              <SelectItem value="light">Lehká aktivita</SelectItem>
-              <SelectItem value="moderate">Střední aktivita</SelectItem>
-              <SelectItem value="active">Vysoká aktivita</SelectItem>
-              <SelectItem value="extreme">Extrémní aktivita</SelectItem>
+              <SelectItem value="sedentary">{t('calories_activity_sedentary')}</SelectItem>
+              <SelectItem value="light">{t('calories_activity_light')}</SelectItem>
+              <SelectItem value="moderate">{t('calories_activity_moderate')}</SelectItem>
+              <SelectItem value="active">{t('calories_activity_active')}</SelectItem>
+              <SelectItem value="extreme">{t('calories_activity_extreme')}</SelectItem>
             </SelectContent>
           </Select>
           <p className="text-gray-500 text-xs">

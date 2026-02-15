@@ -182,16 +182,16 @@ const DiscountCalculator: React.FC = () => {
       {/* Calculation Type */}
       <div className="space-y-2">
         <Label htmlFor="calculationType" className="text-sm font-medium">
-          Typ výpočtu
+          {t('discount_label_calc_type')}
         </Label>
         <Select value={calculationType} onValueChange={setCalculationType}>
           <SelectTrigger>
-            <SelectValue placeholder="Vyberte typ výpočtu" />
+            <SelectValue placeholder={t('discount_placeholder_calc_type')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="percentage">Mám procento slevy</SelectItem>
-            <SelectItem value="amount">Mám částku slevy</SelectItem>
-            <SelectItem value="finalPrice">Mám konečnou cenu</SelectItem>
+            <SelectItem value="percentage">{t('discount_option_percentage')}</SelectItem>
+            <SelectItem value="amount">{t('discount_option_amount')}</SelectItem>
+            <SelectItem value="finalPrice">{t('discount_option_final_price')}</SelectItem>
           </SelectContent>
         </Select>
         <p className="text-gray-500 text-xs">
@@ -202,7 +202,7 @@ const DiscountCalculator: React.FC = () => {
       {/* Original Price */}
       <div className="space-y-2">
         <Label htmlFor="originalPrice" className="text-sm font-medium">
-          Původní cena
+          {t('discount_label_original_price')}
         </Label>
         <div className="relative">
           <Input
@@ -235,7 +235,7 @@ const DiscountCalculator: React.FC = () => {
       {calculationType === 'percentage' && (
         <div className="space-y-2">
           <Label htmlFor="discountPercentage" className="text-sm font-medium">
-            Procento slevy
+            {t('discount_label_discount_percentage')}
           </Label>
           <div className="relative">
             <Input
@@ -269,7 +269,7 @@ const DiscountCalculator: React.FC = () => {
       {calculationType === 'amount' && (
         <div className="space-y-2">
           <Label htmlFor="discountAmount" className="text-sm font-medium">
-            Částka slevy
+            {t('discount_label_discount_amount')}
           </Label>
           <div className="relative">
             <Input
@@ -303,7 +303,7 @@ const DiscountCalculator: React.FC = () => {
       {calculationType === 'finalPrice' && (
         <div className="space-y-2">
           <Label htmlFor="finalPrice" className="text-sm font-medium">
-            Konečná cena
+            {t('discount_label_final_price')}
           </Label>
           <div className="relative">
             <Input

@@ -148,7 +148,7 @@ const LoanCalculator: React.FC = () => {
       {/* Loan Amount */}
       <div className="space-y-2">
         <Label htmlFor="loanAmount" className="text-sm font-medium">
-          Výše půjčky (Kč)
+          {t('loan_label_amount')}
         </Label>
         <Input
           id="loanAmount"
@@ -173,7 +173,7 @@ const LoanCalculator: React.FC = () => {
 
       {/* Quick Amount Buttons */}
       <div className="space-y-2">
-        <Label className="text-sm font-medium">Rychlé částky</Label>
+        <Label className="text-sm font-medium">{t('loan_quick_amounts')}</Label>
         <div className="flex flex-wrap gap-2">
           {['100000', '300000', '500000', '1000000', '2000000'].map((value) => (
             <button
@@ -190,7 +190,7 @@ const LoanCalculator: React.FC = () => {
       {/* Interest Rate */}
       <div className="space-y-2">
         <Label htmlFor="interestRate" className="text-sm font-medium">
-          Úroková sazba (% p.a.)
+          {t('loan_label_interest_rate')}
         </Label>
         <Input
           id="interestRate"
@@ -232,11 +232,11 @@ const LoanCalculator: React.FC = () => {
           />
           <Select value={termUnit} onValueChange={setTermUnit}>
             <SelectTrigger>
-              <SelectValue placeholder="Jednotka" />
+              <SelectValue placeholder={t('loan_placeholder_unit')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="years">Roky</SelectItem>
-              <SelectItem value="months">Měsíce</SelectItem>
+              <SelectItem value="years">{t('loan_unit_years')}</SelectItem>
+              <SelectItem value="months">{t('loan_unit_months')}</SelectItem>
             </SelectContent>
           </Select>
         </div>

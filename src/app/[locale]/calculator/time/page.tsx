@@ -1,7 +1,13 @@
 'use client';
 
+import React from 'react';
+import dynamic from 'next/dynamic';
 import { CalculatorPageWrapper } from '@/components/shared/CalculatorPageWrapper';
-import TimeCalculator from '@/components/calculators/TimeCalculator';
+
+const TimeCalculator = dynamic(
+  () => import('@/components/calculators/TimeCalculator'),
+  { ssr: false }
+);
 
 export default function TimeCalculatorPage() {
   return (

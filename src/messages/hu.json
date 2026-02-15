@@ -2240,5 +2240,26 @@
   "help": "Segítség",
   "explanation": "Magyarázat",
   "formula_latex": "LaTeX képlet",
-  "formula_description": "Képlet leírása"
+  "formula_description": "Képlet leírása",
+  "app_name": "MathCalc Pro",
+  "nav": {
+    "home": "Főoldal",
+    "calculators": "Kalkulátorok"
+  },
+  "open_menu": "Menü megnyitása",
+  "language": "Nyelv",
+  "select_language": "Válasszon nyelvet",
+  "calories_calculator_title": "Kalória kalkulátor",
+  "discount_calculator_title": "Kedvezmény kalkulátor",
+  "tip_calculator_title": "Borravaló kalkulátor",
+  "loan_calculator_title": "Hitel kalkulátor",
+  "theme_light": "Világos",
+  "theme_dark": "Sötét",
+  "theme_system": "Rendszer",
+  "theme_toggle_tooltip_light": "Váltás világos módra",
+  "theme_toggle_tooltip_dark": "Váltás sötét módra",
+  "theme_toggle_tooltip_system": "Rendszerbeállítás használata",
+  "theme_current_light": "Jelenlegi téma: Világos",
+  "theme_current_dark": "Jelenlegi téma: Sötét",
+  "theme_current_system": "Jelenlegi téma: Rendszer"
 }

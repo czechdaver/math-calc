@@ -84,12 +84,12 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-card text-card-foreground border-t border-border">
       <div className="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
         <nav className="grid grid-cols-2 gap-8 sm:grid-cols-2 md:grid-cols-4">
           {footerLinks.map((section, sectionIdx) => (
             <div key={sectionIdx}>
-              <h3 className="text-sm font-semibold text-gray-300 tracking-wider uppercase">
+              <h3 className="text-sm font-semibold text-muted-foreground tracking-wider uppercase">
                 {section.title}
               </h3>
               <ul className="mt-4 space-y-3">
@@ -98,7 +98,7 @@ const Footer: React.FC = () => {
                     <Link
                       href={link.href}
                       className={cn(
-                        'text-base text-gray-400 hover:text-white',
+                        'text-base text-muted-foreground hover:text-foreground',
                         'transition-colors duration-200',
                         'flex items-center space-x-2'
                       )}
@@ -112,7 +112,7 @@ const Footer: React.FC = () => {
           ))}
         </nav>
 
-        <div className="mt-12 border-t border-gray-800 pt-8 md:flex md:items-center md:justify-between">
+        <div className="mt-12 border-t border-border pt-8 md:flex md:items-center md:justify-between">
           <div className="flex space-x-6 md:order-2">
             {socialLinks.map((item, itemIdx) => (
               <a
@@ -120,7 +120,7 @@ const Footer: React.FC = () => {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors duration-200"
+                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                 aria-label={item.name}
               >
                 <span className="sr-only">{item.name}</span>
@@ -129,25 +129,25 @@ const Footer: React.FC = () => {
             ))}
           </div>
           <div className="mt-8 md:mt-0 md:order-1">
-            <p className="text-base text-gray-400">
+            <p className="text-base text-muted-foreground">
               &copy; {currentYear} {t('app_name')}. {t('footer.rights')}.
             </p>
-            <div className="mt-2 flex flex-wrap space-x-4 text-sm text-gray-400">
+            <div className="mt-2 flex flex-wrap space-x-4 text-sm text-muted-foreground">
               <Link
                 href="/podminky-pouziti"
-                className="hover:text-white transition-colors duration-200"
+                className="hover:text-foreground transition-colors duration-200"
               >
                 {t('footer.terms')}
               </Link>
               <Link
                 href="/ochrana-osobnich-udaju"
-                className="hover:text-white transition-colors duration-200"
+                className="hover:text-foreground transition-colors duration-200"
               >
                 {t('footer.privacy')}
               </Link>
               <Link
                 href="/pouziti-cookies"
-                className="hover:text-white transition-colors duration-200"
+                className="hover:text-foreground transition-colors duration-200"
               >
                 {t('footer.cookies')}
               </Link>
@@ -155,9 +155,9 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-gray-800 pt-8">
+        <div className="mt-8 border-t border-border pt-8">
           <div className="md:flex md:items-center md:justify-between">
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-muted-foreground">
               {t('footer.made_with')}{' '}
               <span role="img" aria-label="love">
                 ❤️
@@ -165,7 +165,7 @@ const Footer: React.FC = () => {
               {t('footer.in')} {new Date().getFullYear()}
             </p>
             <div className="mt-4 md:mt-0">
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 {t('footer.version')} {process.env.NEXT_PUBLIC_APP_VERSION || '1.0.0'}
               </p>
             </div>

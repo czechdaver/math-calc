@@ -2191,5 +2191,26 @@
   "loan_faq_3_q": "Jaký je rozdíl mezi odsetkaovou sazbou a RPSN?",
   "loan_faq_3_a": "Úroková stawka je základní cena půjčky, RPSN (roční procentní stawka nákladů) zahrnuje i všechny poplatky a lépe odráží skutečné náklady půjčky.",
   "loan_faq_4_q": "Jak snížit celkové náklady na půjčku?",
-  "loan_faq_4_a": "Náklady můžete snížit kratší dobou splatnosti, vyšší splátkou, mimořádnými ratami nebo refinancováním za lepších podmínek."
+  "loan_faq_4_a": "Náklady můžete snížit kratší dobou splatnosti, vyšší splátkou, mimořádnými ratami nebo refinancováním za lepších podmínek.",
+  "app_name": "MathCalc Pro",
+  "nav": {
+    "home": "Strona główna",
+    "calculators": "Kalkulatory"
+  },
+  "open_menu": "Otwórz menu",
+  "language": "Język",
+  "select_language": "Wybierz język",
+  "calories_calculator_title": "Kalkulator kalorii",
+  "discount_calculator_title": "Kalkulator rabatu",
+  "tip_calculator_title": "Kalkulator napiwków",
+  "loan_calculator_title": "Kalkulator kredytu",
+  "theme_light": "Jasny",
+  "theme_dark": "Ciemny",
+  "theme_system": "Systemowy",
+  "theme_toggle_tooltip_light": "Przełącz na jasny motyw",
+  "theme_toggle_tooltip_dark": "Przełącz na ciemny motyw",
+  "theme_toggle_tooltip_system": "Użyj preferencji systemowych",
+  "theme_current_light": "Obecny motyw: Jasny",
+  "theme_current_dark": "Obecny motyw: Ciemny",
+  "theme_current_system": "Obecny motyw: Systemowy"
 }

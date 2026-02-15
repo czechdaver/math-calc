@@ -7,6 +7,18 @@ module.exports = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
+  safelist: [
+    // BMI category colors - must be safelisted for dynamic assignment
+    'text-blue-600', 'dark:text-blue-400',
+    'text-green-600', 'dark:text-green-400',
+    'text-yellow-600', 'dark:text-yellow-400',
+    'text-red-600', 'dark:text-red-400',
+    // Background variants for BMI scale display
+    'bg-blue-50', 'dark:bg-blue-950',
+    'bg-green-50', 'dark:bg-green-950',
+    'bg-yellow-50', 'dark:bg-yellow-950',
+    'bg-red-50', 'dark:bg-red-950',
+  ],
   theme: {
     container: {
       center: true,

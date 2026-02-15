@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Z-Index Hierarchy
+ * z-[100] - Toasts, critical notifications
+ * z-50    - Sticky header (MainNavigation)
+ * z-40    - Sticky footer ads, cookie banner
+ * z-30    - Dropdowns, tooltips
+ * z-20    - Content overlays
+ * z-10    - Content elevation (cards, modals)
+ */
+
 @layer base {
   :root {
     --background: 0 0% 100%;

@@ -339,6 +339,28 @@ export default MyCalculator;
 - **Responsive** – mobile-first, přidávej `md:`, `lg:`
 - **Žádné inline styly** (kromě dynamických hodnot)
 
+#### Dark Mode Best Practices
+
+**✅ DO:**
+- Používej CSS proměnné přes Tailwind: `bg-background`, `text-foreground`, `text-muted-foreground`, `bg-card`, `border-border`
+- Následuj vzory ze shared komponent (CalculatorInput, CalculatorResult, SimpleBadge, SimpleFAQ)
+- Pro dynamické barvy používej safelist v `tailwind.config.js` s dark variantami (viz BMICalculator)
+- Testuj obě témata (light/dark) před commitem
+
+**❌ DON'T:**
+- Nepoužívej hardcoded barvy bez dark variant: `bg-gray-50`, `text-gray-900`, `border-gray-300`
+- Nemíchej hardcoded a CSS variable přístupy ve stejné komponentě
+- Nevytvářej vlastní dark mode logiku – používej `next-themes` provider
+
+**Dostupné sémantické barvy:**
+- **Pozadí:** `bg-background`, `bg-card`, `bg-muted`, `bg-popover`
+- **Text:** `text-foreground`, `text-card-foreground`, `text-muted-foreground`
+- **Interaktivní:** `text-primary`, `bg-primary`, `hover:bg-accent`, `hover:text-primary`
+- **Bordery:** `border-border`
+- **Form inputy:** `bg-input`, `focus:ring-ring`
+
+Všechny automaticky přepínají v dark mode – definováno v `/src/styles/globals.css`.
+
 ### 5.5 State management
 
 - Lokální stav přes `useState` (žádný global state management)
@@ -546,11 +568,18 @@ Před každým commitem ověř:
 |---------|---------------|-----------|
 | `strict: false` | `tsconfig.json` | Kritické |
 | SEO deprecated `next/head` | `src/components/seo/SeoMetadata.tsx` | Vysoké |
-| `next/router` místo `next/navigation` | `src/context/ThemeContext.tsx` | Střední |
 | `next: "latest"` nepřipnuté | `package.json` | Střední |
 | Test coverage 2.6% | Pouze BMI | Vysoké |
 | Chybí ESLint/Prettier | Žádná konfigurace | Nízké |
 | Chybí CI/CD pipeline | Žádné GitHub Actions | Nízké |
+
+**Vyřešené technické dluhy (2024-02-14):**
+- ✅ ~~`next/router` místo `next/navigation` v `src/context/ThemeContext.tsx`~~ (RESOLVED: soubor smazán jako orphaned)
+- ✅ ~~SimpleCalculatorLayout chybějící dark mode třídy~~ (RESOLVED: migrace na CSS proměnné)
+- ✅ ~~MainNavigation chybějící dark mode podpora~~ (RESOLVED: migrace na CSS proměnné)
+- ✅ ~~Footer hardcoded dark mode bez adaptace~~ (RESOLVED: theme-aware footer)
+- ✅ ~~BMICalculator dynamické barvy bez dark variant~~ (RESOLVED: safelist + dark variants)
+- ✅ ~~Deprecated MediaQuery API (addListener)~~ (RESOLVED: addEventListener)
 
 > **Detailní stav refaktoringu:** viz [`docs/refactoring-tracker.md`](docs/refactoring-tracker.md)
 > **Kompletní analýza kódu:** viz [`docs/code-analysis.md`](docs/code-analysis.md)

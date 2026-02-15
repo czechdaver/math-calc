@@ -174,15 +174,15 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-muted">
 
         <div className="container mx-auto px-4 py-6">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
             {/* Main Content */}
             <div className="lg:col-span-3 space-y-6">
               {/* Breadcrumb Navigation */}
-              <nav className="text-sm text-gray-500 mb-2">
-                <Link href={`/${locale}`} className="hover:text-blue-600">
+              <nav className="text-sm text-muted-foreground mb-2">
+                <Link href={`/${locale}`} className="hover:text-primary">
                   {t('common.home')}
                 </Link>
                 <span className="mx-2">/</span>
@@ -193,7 +193,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
               <div className="space-y-3">
                 {/* Title row with rating on desktop */}
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between md:gap-4">
-                  <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
+                  <h1 className="text-2xl font-bold text-foreground">{title}</h1>
                   <div className="hidden md:block">
                     <CalculatorRating 
                       calculatorId={calculatorId || 'unknown'} 
@@ -201,8 +201,8 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                     />
                   </div>
                 </div>
-                
-                <p className="text-gray-600">{description}</p>
+
+                <p className="text-muted-foreground">{description}</p>
                 
                 {/* Rating on mobile - below description */}
                 <div className="md:hidden">
@@ -224,7 +224,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                     <CardDescription>{formula.description}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="bg-gray-50 p-4 rounded-lg text-center">
+                    <div className="bg-muted/50 p-4 rounded-lg text-center">
                       {BlockMath && <BlockMath math={formula.latex} />}
                     </div>
                   </CardContent>
@@ -268,11 +268,11 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {examples.scenarios?.map((scenario, index) => (
-                      <div key={index} className="border-l-4 border-blue-200 pl-4">
-                        <h4 className="font-semibold text-gray-900">{scenario.title}</h4>
-                        <p className="text-gray-600 mt-1">{scenario.description}</p>
+                      <div key={index} className="border-l-4 border-primary/30 pl-4">
+                        <h4 className="font-semibold text-foreground">{scenario.title}</h4>
+                        <p className="text-muted-foreground mt-1">{scenario.description}</p>
                         {scenario.example && (
-                          <div className="bg-gray-50 p-3 rounded mt-2 font-mono text-sm">
+                          <div className="bg-card p-3 rounded mt-2 font-mono text-sm border border-border">
                             {scenario.example}
                           </div>
                         )}
@@ -309,13 +309,13 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                             <CardContent className="p-4">
                               <div className="flex items-center justify-between">
                                 <div>
-                                  <h4 className="font-semibold text-gray-900">{calc.title}</h4>
-                                  <p className="text-sm text-gray-600 mt-1">{calc.description}</p>
+                                  <h4 className="font-semibold text-foreground">{calc.title}</h4>
+                                  <p className="text-sm text-muted-foreground mt-1">{calc.description}</p>
                                   <SimpleBadge variant="outline" className="mt-2 text-xs">
                                     {calc.category}
                                   </SimpleBadge>
                                 </div>
-                                <ExternalLink className="w-4 h-4 text-gray-400" />
+                                <ExternalLink className="w-4 h-4 text-muted-foreground/70" />
                               </div>
                             </CardContent>
                           </Card>
@@ -345,22 +345,22 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                 </CardHeader>
                 <CardContent className="space-y-3">
                   {/* Static links */}
-                  <Link href={`/${locale}`} className="flex items-center gap-2 text-sm hover:text-blue-600 transition-colors">
+                  <Link href={`/${locale}`} className="flex items-center gap-2 text-sm hover:text-primary transition-colors">
                     <Home className="w-4 h-4" />
                     {t('common.all_calculators')}
                   </Link>
-                  
+
                   {/* Popular calculators */}
                   {popularLinks.length > 0 && (
                     <div className="space-y-2">
-                      <div className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                      <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                         {t('quick_links_popular')}
                       </div>
                       {popularLinks.map((calc, index) => (
-                        <Link 
-                          key={calc.id} 
-                          href={calc.href} 
-                          className="flex items-center gap-2 text-sm hover:text-blue-600 transition-colors pl-2"
+                        <Link
+                          key={calc.id}
+                          href={calc.href}
+                          className="flex items-center gap-2 text-sm hover:text-primary transition-colors pl-2"
                         >
                           <Calculator className="w-3 h-3" />
                           {calc.title}
@@ -368,22 +368,22 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                       ))}
                     </div>
                   )}
-                  
+
                   {/* Calculator categories */}
                   {calculatorCategories.length > 0 && (
                     <div className="space-y-2">
-                      <div className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                      <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                         Kategorie
                       </div>
                       {calculatorCategories.slice(0, 3).map((category) => (
-                        <Link 
-                          key={category.id} 
-                          href={`/${locale}#${category.id}`} 
-                          className="flex items-center gap-2 text-sm hover:text-blue-600 transition-colors pl-2"
+                        <Link
+                          key={category.id}
+                          href={`/${locale}#${category.id}`}
+                          className="flex items-center gap-2 text-sm hover:text-primary transition-colors pl-2"
                         >
                           <div className={`w-3 h-3 rounded-full ${category.bgColor}`}></div>
                           <span>{category.title}</span>
-                          <span className="text-xs text-gray-400">({category.count})</span>
+                          <span className="text-xs text-muted-foreground/70">({category.count})</span>
                         </Link>
                       ))}
                     </div>
@@ -404,7 +404,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
         </div>
 
         {/* Sticky Bottom Ad (Mobile) */}
-        <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t z-40">
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-card border-border border-t z-40">
           <div className="flex justify-center p-2">
             <AdPlaceholder 
               size="320x50" 
@@ -422,7 +422,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                 <CardTitle>{t('layout_adblock_title')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-gray-600">
+                <p className="text-muted-foreground">
                   {t('layout_adblock_message')}
                 </p>
                 <div className="flex gap-2">

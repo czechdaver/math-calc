@@ -2,18 +2,9 @@ import createIntlMiddleware from 'next-intl/middleware';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// Custom middleware wrapper to handle redirects
+// Custom middleware wrapper
 function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
-
-  // Redirect broken /calculator/bmi routes to /calculator/bmi-new
-  // This handles both /calculator/bmi and /[locale]/calculator/bmi
-  if (pathname.match(/^\/[a-z]{2}\/calculator\/bmi\/?$/) || pathname === '/calculator/bmi') {
-    const newPath = pathname.replace(/\/bmi\/?$/, '/bmi-new/');
-    return NextResponse.redirect(new URL(newPath, request.url));
-  }
-
-  // Continue with next-intl middleware
+  // Continue with next-intl middleware for locale handling
   return createIntlMiddleware({
     locales: ['cs', 'en', 'sk', 'pl', 'hu'],
     defaultLocale: 'cs'

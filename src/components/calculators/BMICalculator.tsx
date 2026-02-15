@@ -33,16 +33,16 @@ const BMICalculator: React.FC = () => {
 
     if (bmi < 18.5) {
       category = t('bmi_category_underweight');
-      categoryColor = 'text-blue-600';
+      categoryColor = 'text-blue-600 dark:text-blue-400';
     } else if (bmi < 25) {
       category = t('bmi_category_normal');
-      categoryColor = 'text-green-600';
+      categoryColor = 'text-green-600 dark:text-green-400';
     } else if (bmi < 30) {
       category = t('bmi_category_overweight');
-      categoryColor = 'text-yellow-600';
+      categoryColor = 'text-yellow-600 dark:text-yellow-400';
     } else {
       category = t('bmi_category_obese');
-      categoryColor = 'text-red-600';
+      categoryColor = 'text-red-600 dark:text-red-400';
     }
 
     return {
@@ -188,25 +188,25 @@ const BMICalculator: React.FC = () => {
           additionalInfo={
             <div className="space-y-4">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
-                <div className="text-center p-2 bg-blue-50 rounded">
-                  <div className="font-medium text-blue-600">&lt; 18.5</div>
+                <div className="text-center p-2 bg-blue-50 dark:bg-blue-950 rounded">
+                  <div className="font-medium text-blue-600 dark:text-blue-400">&lt; 18.5</div>
                   <div>{t('bmi_category_underweight') || 'Podváha'}</div>
                 </div>
-                <div className="text-center p-2 bg-green-50 rounded">
-                  <div className="font-medium text-green-600">18.5 - 24.9</div>
+                <div className="text-center p-2 bg-green-50 dark:bg-green-950 rounded">
+                  <div className="font-medium text-green-600 dark:text-green-400">18.5 - 24.9</div>
                   <div>{t('bmi_category_normal') || 'Normální'}</div>
                 </div>
-                <div className="text-center p-2 bg-yellow-50 rounded">
-                  <div className="font-medium text-yellow-600">25.0 - 29.9</div>
+                <div className="text-center p-2 bg-yellow-50 dark:bg-yellow-950 rounded">
+                  <div className="font-medium text-yellow-600 dark:text-yellow-400">25.0 - 29.9</div>
                   <div>{t('bmi_category_overweight') || 'Nadváha'}</div>
                 </div>
-                <div className="text-center p-2 bg-red-50 rounded">
-                  <div className="font-medium text-red-600">≥ 30.0</div>
+                <div className="text-center p-2 bg-red-50 dark:bg-red-950 rounded">
+                  <div className="font-medium text-red-600 dark:text-red-400">≥ 30.0</div>
                   <div>{t('bmi_category_obese') || 'Obezita'}</div>
                 </div>
               </div>
-              
-              <div className="text-sm text-gray-600 bg-gray-50 p-3 rounded">
+
+              <div className="text-sm text-muted-foreground bg-muted p-3 rounded">
                 <p>BMI je pouze orientační ukazatel. Pro přesné posouzení zdravotního stavu se obraťte na lékaře.</p>
               </div>
             </div>

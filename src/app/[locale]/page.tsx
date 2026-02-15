@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { usePathname } from 'next/navigation';
 import { Calculator, Percent, Ruler, Scale, TrendingUp, Search, ArrowRight, Users, Shield, Star, Heart, ChevronDown } from 'lucide-react';
 import AdBanner from '@/components/ads/AdBanner';
 import { Button } from '@/components/ui/Button';
@@ -11,6 +12,8 @@ import Accordion from '@/components/ui/Accordion';
 
 const HomePage: React.FC = () => {
   const t = useTranslations();
+  const pathname = usePathname();
+  const locale = pathname.split('/')[1] || 'cs';
   const [searchQuery, setSearchQuery] = useState('');
   const [isMounted, setIsMounted] = useState(false);
 
@@ -26,7 +29,7 @@ const HomePage: React.FC = () => {
       name: t('categories.percentages'),
       description: t('categories.percentages_description'),
       icon: <Percent className="w-8 h-8 text-blue-500" />,
-      href: `/calculator/procenta`,
+      href: `/${locale}/calculator/procenta`,
       rating: 4.8
     },
     {
@@ -34,7 +37,7 @@ const HomePage: React.FC = () => {
       name: t('categories.bmi'),
       description: t('categories.bmi_description'),
       icon: <Scale className="w-8 h-8 text-purple-500" />,
-      href: `/calculator/bmi`,
+      href: `/${locale}/calculator/bmi`,
       rating: 4.9
     },
     {
@@ -42,7 +45,7 @@ const HomePage: React.FC = () => {
       name: t('categories.vat'),
       description: t('categories.vat_description'),
       icon: <TrendingUp className="w-8 h-8 text-green-500" />,
-      href: `/calculator/dph`,
+      href: `/${locale}/calculator/dph`,
       rating: 4.7
     }
   ];
@@ -216,7 +219,7 @@ const HomePage: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {calculatorCategories.map((category, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+              <Card key={index} className="text-center hover:shadow-lg transition-shadow cursor-pointer" onClick={scrollToCalculators}>
                 <CardHeader>
                   <div className={`${category.color} text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4`}>
                     {category.icon}
@@ -227,7 +230,7 @@ const HomePage: React.FC = () => {
                   <CardDescription className="mb-4">
                     {category.count} calculators available
                   </CardDescription>
-                  <Button variant="outline" size="sm" className="w-full">
+                  <Button variant="outline" size="sm" className="w-full" onClick={scrollToCalculators}>
                     Explore Category
                   </Button>
                 </CardContent>

@@ -2191,5 +2191,26 @@
   "loan_faq_3_q": "Jaký je rozdíl mezi úrokovou sazbou a RPSN?",
   "loan_faq_3_a": "Úroková sazba je základní cena půjčky, RPSN (roční procentní sazba nákladů) zahrnuje i všechny poplatky a lépe odráží skutečné náklady půjčky.",
   "loan_faq_4_q": "Jak snížit celkové náklady na půjčku?",
-  "loan_faq_4_a": "Náklady můžete snížit kratší dobou splatnosti, vyšší splátkou, mimořádnými splátkami nebo refinancováním za lepších podmínek."
+  "loan_faq_4_a": "Náklady můžete snížit kratší dobou splatnosti, vyšší splátkou, mimořádnými splátkami nebo refinancováním za lepších podmínek.",
+  "app_name": "MathCalc Pro",
+  "nav": {
+    "home": "Domov",
+    "calculators": "Kalkulačky"
+  },
+  "open_menu": "Otvoriť menu",
+  "language": "Jazyk",
+  "select_language": "Vyberte jazyk",
+  "calories_calculator_title": "Kalkulátor kalórií",
+  "discount_calculator_title": "Kalkulátor zľavy",
+  "tip_calculator_title": "Kalkulátor prepitného",
+  "loan_calculator_title": "Kalkulátor pôžičky",
+  "theme_light": "Svetlý",
+  "theme_dark": "Tmavý",
+  "theme_system": "Systémový",
+  "theme_toggle_tooltip_light": "Prepnúť na svetlý režim",
+  "theme_toggle_tooltip_dark": "Prepnúť na tmavý režim",
+  "theme_toggle_tooltip_system": "Použiť systémové nastavenie",
+  "theme_current_light": "Aktuálna téma: Svetlý",
+  "theme_current_dark": "Aktuálna téma: Tmavý",
+  "theme_current_system": "Aktuálna téma: Systémový"
 }

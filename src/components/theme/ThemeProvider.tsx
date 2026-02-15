@@ -62,12 +62,12 @@ export function useSystemTheme() {
     const handler = (e: MediaQueryListEvent) => {
       setSystemTheme(e.matches ? 'dark' : 'light');
     };
-    
-    // For older browsers
-    mediaQuery.addListener(handler);
-    
+
+    // Listen for changes
+    mediaQuery.addEventListener('change', handler);
+
     return () => {
-      mediaQuery.removeListener(handler);
+      mediaQuery.removeEventListener('change', handler);
     };
   }, []);
 

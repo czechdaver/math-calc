@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import Script from 'next/script';
 import CookieBanner from '@/components/CookieBanner';
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
+import MainNavigation from '@/components/navigation/MainNavigation';
 import '@/styles/globals.css';
 
 // Define supported locales as a constant to avoid repetition
@@ -89,7 +90,10 @@ export default async function LocaleLayout({
             messages={messages}
             timeZone="Europe/Prague"
           >
-            {children}
+            <MainNavigation />
+            <main className="pt-16">
+              {children}
+            </main>
             <CookieBanner />
           </NextIntlClientProvider>
         </ThemeProvider>

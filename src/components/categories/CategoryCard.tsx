@@ -26,7 +26,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, locale }) => {
     return (
         <Link href={`/${locale}/calculator/${category.id}`} className="block h-full group">
             <GlassCard
-                className="text-center h-full cursor-pointer group-hover:border-primary/30 transition-all duration-300"
+                className="text-center h-full cursor-pointer group-hover:border-primary/30 transition-all duration-300 bg-white/60 dark:bg-slate-900/60"
                 hoverEffect
             >
                 <CardContent className="pt-8 pb-8 h-full flex flex-col items-center">

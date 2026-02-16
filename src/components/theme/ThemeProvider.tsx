@@ -9,17 +9,6 @@ import { ThemeProvider as NextThemesProvider } from 'next-themes';
  * Supports light, dark, and system themes with smooth transitions.
  */
 export function ThemeProvider({ children, ...props }: any) {
-  const [mounted, setMounted] = React.useState(false);
-
-  // Prevent hydration mismatch by only rendering the provider after mounting
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return <>{children}</>;
-  }
-
   return (
     <NextThemesProvider
       attribute="class"
@@ -54,10 +43,10 @@ export function useSystemTheme() {
 
   React.useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
+
     // Set the initial theme
     setSystemTheme(mediaQuery.matches ? 'dark' : 'light');
-    
+
     // Update theme when system preference changes
     const handler = (e: MediaQueryListEvent) => {
       setSystemTheme(e.matches ? 'dark' : 'light');
@@ -81,11 +70,11 @@ export function useSystemTheme() {
 export function useCurrentTheme() {
   const { theme, systemTheme } = useTheme() as any;
   const systemPreference = useSystemTheme();
-  
+
   if (theme === 'system') {
     return systemTheme || systemPreference;
   }
-  
+
   return theme as 'light' | 'dark';
 }
 

@@ -7,7 +7,8 @@ import { getCategoryById, getCalculatorCategories } from '@/lib/calculatorDataUt
 import GlassCard from '@/components/shared/GlassCard';
 import { CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { ArrowLeft, Calculator, Star, TrendingUp, Heart, Ruler, Percent, Briefcase, Settings } from 'lucide-react';
+import { Calculator, Star } from 'lucide-react';
+import { getCategoryBranding } from '@/config/category-branding';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 interface CategoryPageProps {
@@ -44,17 +45,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         notFound();
     }
 
-    const getCategoryIcon = (id: string) => {
-        switch (id) {
-            case 'finance': return <TrendingUp className="w-8 h-8" />;
-            case 'health': return <Heart className="w-8 h-8" />;
-            case 'math': return <Calculator className="w-8 h-8" />;
-            case 'construction': return <Ruler className="w-8 h-8" />;
-            case 'practical': return <Briefcase className="w-8 h-8" />;
-            case 'utility': return <Settings className="w-8 h-8" />;
-            default: return <Percent className="w-8 h-8" />;
-        }
-    };
+    const branding = getCategoryBranding(categoryData.id);
+    const CategoryIcon = branding.icon;
 
     return (
         <div className="min-h-screen bg-transparent pt-20 pb-12">
@@ -73,8 +65,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
                 {/* Header */}
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-8">
-                    <div className={`p-3 rounded-2xl ${categoryData.bgColor} ${categoryData.color}`}>
-                        {getCategoryIcon(categoryData.id)}
+                    <div className={`p-3 rounded-2xl ${branding.bgColor} ${branding.color}`}>
+                        <CategoryIcon className="w-8 h-8" />
                     </div>
                     <div>
                         <h1 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-3">
@@ -132,18 +124,22 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         {getCalculatorCategories(locale, t)
                             .filter(c => c.id !== category)
-                            .map(cat => (
-                                <Link key={cat.id} href={`/${locale}/calculator/${cat.id}`} className="block group">
-                                    <div className={`p-4 rounded-xl border border-border/50 bg-background/50 hover:bg-accent/50 transition-all flex items-center gap-4`}>
-                                        <div className={`p-2 rounded-lg ${cat.bgColor} ${cat.color}`}>
-                                            {getCategoryIcon(cat.id)}
+                            .map(cat => {
+                                const catBranding = getCategoryBranding(cat.id);
+                                const CatIcon = catBranding.icon;
+                                return (
+                                    <Link key={cat.id} href={`/${locale}/calculator/${cat.id}`} className="block group">
+                                        <div className={`p-4 rounded-xl border border-border/50 bg-background/50 hover:bg-accent/50 transition-all flex items-center gap-4`}>
+                                            <div className={`p-2 rounded-lg ${catBranding.bgColor} ${catBranding.color}`}>
+                                                <CatIcon className="w-6 h-6" />
+                                            </div>
+                                            <div>
+                                                <h3 className="font-medium text-foreground group-hover:text-primary transition-colors">{cat.title}</h3>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <h3 className="font-medium text-foreground group-hover:text-primary transition-colors">{cat.title}</h3>
-                                        </div>
-                                    </div>
-                                </Link>
-                            ))}
+                                    </Link>
+                                )
+                            })}
                     </div>
                 </div>
             </div>

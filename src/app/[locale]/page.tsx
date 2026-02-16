@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
-import { Calculator, Percent, Ruler, Scale, TrendingUp, ArrowRight, Users, Shield, Star, Heart, ChevronDown } from 'lucide-react';
+import { ArrowRight, Users, Shield, Star, ChevronDown } from 'lucide-react';
+import { getCategoryBranding } from '@/config/category-branding';
 import AdBanner from '@/components/ads/AdBanner';
 import { Button } from '@/components/ui/Button';
 import { CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
@@ -30,26 +31,8 @@ const HomePage: React.FC = () => {
   const popularCalculators = getQuickLinks('popular', locale, t).slice(0, 3);
   const categories = getCalculatorCategories(locale, t);
 
-  // Map category IDs to icons and colors
-  const getCategoryIcon = (id: string) => {
-    switch (id) {
-      case 'finance': return <TrendingUp className="w-6 h-6" />;
-      case 'health': return <Heart className="w-6 h-6" />;
-      case 'math': return <Calculator className="w-6 h-6" />;
-      case 'construction': return <Ruler className="w-6 h-6" />;
-      default: return <Percent className="w-6 h-6" />;
-    }
-  };
+  // Map category IDs to icons and colors using centralized config
 
-  const getCategoryColor = (id: string) => {
-    switch (id) {
-      case 'finance': return "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400";
-      case 'health': return "bg-rose-500/10 text-rose-600 dark:text-rose-400";
-      case 'math': return "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400";
-      case 'construction': return "bg-amber-500/10 text-amber-600 dark:text-amber-400";
-      default: return "bg-slate-500/10 text-slate-600 dark:text-slate-400";
-    }
-  };
 
   // FAQ items
   const faqItems = [
@@ -177,30 +160,36 @@ const HomePage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {categories.map((category) => (
-              <GlassCard
-                key={category.id}
-                className="text-center cursor-pointer group hover:border-primary/30 transition-all duration-300"
-                hoverEffect
-                onClick={() => window.location.href = `/${locale}/calculator/${category.id}`}
-              >
-                <CardContent className="pt-8 pb-8">
-                  <div className={cn(
-                    "w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-transform group-hover:scale-110 duration-300",
-                    getCategoryColor(category.id)
-                  )}>
-                    {getCategoryIcon(category.id)}
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">{category.title}</h3>
-                  <p className="text-muted-foreground mb-6">
-                    {category.count} calculators
-                  </p>
-                  <Button variant="secondary" size="sm" className="w-full opacity-0 group-hover:opacity-100 transition-opacity bg-primary/10 text-primary hover:bg-primary/20">
-                    Explore
-                  </Button>
-                </CardContent>
-              </GlassCard>
-            ))}
+            {categories.map((category) => {
+              const branding = getCategoryBranding(category.id);
+              const Icon = branding.icon;
+
+              return (
+                <GlassCard
+                  key={category.id}
+                  className="text-center cursor-pointer group hover:border-primary/30 transition-all duration-300"
+                  hoverEffect
+                  onClick={() => window.location.href = `/${locale}/calculator/${category.id}`}
+                >
+                  <CardContent className="pt-8 pb-8">
+                    <div className={cn(
+                      "w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-transform group-hover:scale-110 duration-300",
+                      branding.bgColor,
+                      branding.color
+                    )}>
+                      <Icon className="w-8 h-8" />
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">{category.title}</h3>
+                    <p className="text-muted-foreground mb-6">
+                      {category.count} calculators
+                    </p>
+                    <Button variant="secondary" size="sm" className="w-full opacity-0 group-hover:opacity-100 transition-opacity bg-primary/10 text-primary hover:bg-primary/20">
+                      Explore
+                    </Button>
+                  </CardContent>
+                </GlassCard>
+              )
+            })}
           </div>
         </div>
       </section>

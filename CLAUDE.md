@@ -489,7 +489,8 @@ Všechna metadata kalkulaček jsou v `src/data/`:
 
 - **`calculators.json`** – ID, slug, kategorie, popularita, tagy, aliasKeys, cesty
 - **`calculator-relationships.json`** – relace mezi kalkulačkami s fallback strategií
-- **`calculator-categories.json`** – kategorie, ikony, barvy, priority
+- **`calculator-categories.json`** – názvy kategorií, priority, řazení
+- **`src/config/category-branding.tsx`** – **VIZUÁLNÍ KONFIGURACE**: mapování ID kategorie na Lucide ikonu a Tailwind barvy (`bg-emerald-500/10` atd.)
 
 ### 9.2 Utility funkce
 

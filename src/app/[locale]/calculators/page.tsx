@@ -5,7 +5,8 @@ import { getTranslations } from 'next-intl/server';
 import { getAllCategoriesWithCalculators } from '@/lib/calculatorDataUtils';
 import GlassCard from '@/components/shared/GlassCard';
 import { CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/Card';
-import { ArrowLeft, Calculator, Star, TrendingUp, Heart, Ruler, Percent, Briefcase, Settings, HelpCircle, Hammer, DollarSign } from 'lucide-react';
+import { Calculator, Star } from 'lucide-react';
+import { getCategoryBranding } from '@/config/category-branding';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 interface CalculatorsPageProps {
@@ -31,19 +32,8 @@ export default async function CalculatorsPage({ params }: CalculatorsPageProps) 
 
     const categories = getAllCategoriesWithCalculators(locale, tCommon);
 
-    const getCategoryIcon = (iconName: string) => {
-        switch (iconName) {
-            case 'TrendingUp': return <TrendingUp className="w-8 h-8" />;
-            case 'Heart': return <Heart className="w-8 h-8" />;
-            case 'Calculator': return <Calculator className="w-8 h-8" />;
-            case 'Hammer': return <Hammer className="w-8 h-8" />;
-            case 'Briefcase': return <Briefcase className="w-8 h-8" />;
-            case 'Settings': return <Settings className="w-8 h-8" />;
-            case 'DollarSign': return <DollarSign className="w-8 h-8" />;
-            case 'HelpCircle': return <HelpCircle className="w-8 h-8" />;
-            default: return <Percent className="w-8 h-8" />;
-        }
-    };
+    // Use centralized branding instead of local switch for icons
+
 
     return (
         <div className="min-h-screen bg-transparent pt-20 pb-12">
@@ -69,54 +59,59 @@ export default async function CalculatorsPage({ params }: CalculatorsPageProps) 
 
                 {/* Categories List */}
                 <div className="space-y-16">
-                    {categories.map((category) => (
-                        <div key={category.id} id={category.id} className="scroll-mt-24">
-                            <Link
-                                href={`/${locale}/calculator/${category.id}`}
-                                className="inline-flex items-center gap-4 mb-6 group transition-colors hover:text-primary"
-                            >
-                                <div className={`p-3 rounded-2xl ${category.bgColor} ${category.color} group-hover:scale-110 transition-transform`}>
-                                    {getCategoryIcon(category.icon)}
-                                </div>
-                                <h2 className="text-3xl font-bold font-heading group-hover:text-primary transition-colors">
-                                    {category.title}
-                                </h2>
-                            </Link>
+                    {categories.map((category) => {
+                        const branding = getCategoryBranding(category.id);
+                        const CategoryIcon = branding.icon;
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {category.calculators.map((calc) => (
-                                    <Link key={calc.id} href={`/${locale}${calc.path}`} className="group h-full">
-                                        <GlassCard hoverEffect className="h-full bg-white/60 dark:bg-slate-900/60 border-primary/10 py-6">
-                                            <CardHeader>
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <div className="flex items-center gap-3">
-                                                        <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                                                            <Calculator className="w-5 h-5" />
+                        return (
+                            <div key={category.id} id={category.id} className="scroll-mt-24">
+                                <Link
+                                    href={`/${locale}/calculator/${category.id}`}
+                                    className="inline-flex items-center gap-4 mb-6 group transition-colors hover:text-primary"
+                                >
+                                    <div className={`p-3 rounded-2xl ${branding.bgColor} ${branding.color} group-hover:scale-110 transition-transform`}>
+                                        <CategoryIcon className="w-8 h-8" />
+                                    </div>
+                                    <h2 className="text-3xl font-bold font-heading group-hover:text-primary transition-colors">
+                                        {category.title}
+                                    </h2>
+                                </Link>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {category.calculators.map((calc) => (
+                                        <Link key={calc.id} href={`/${locale}${calc.path}`} className="group h-full">
+                                            <GlassCard hoverEffect className="h-full bg-white/60 dark:bg-slate-900/60 border-primary/10 py-6">
+                                                <CardHeader>
+                                                    <div className="flex items-center justify-between mb-2">
+                                                        <div className="flex items-center gap-3">
+                                                            <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                                                                <Calculator className="w-5 h-5" />
+                                                            </div>
+                                                            <CardTitle className="text-lg">{calc.titleKey ? t(calc.titleKey) : calc.titleKey}</CardTitle>
                                                         </div>
-                                                        <CardTitle className="text-lg">{calc.titleKey ? t(calc.titleKey) : calc.titleKey}</CardTitle>
+                                                        {calc.popularity > 80 && (
+                                                            <div className="flex items-center text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded-full">
+                                                                <Star className="h-3 w-3 fill-current" />
+                                                                <span className="ml-1 text-xs font-bold">{t('common.popular')}</span>
+                                                            </div>
+                                                        )}
                                                     </div>
-                                                    {calc.popularity > 80 && (
-                                                        <div className="flex items-center text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded-full">
-                                                            <Star className="h-3 w-3 fill-current" />
-                                                            <span className="ml-1 text-xs font-bold">{t('common.popular')}</span>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </CardHeader>
-                                            <CardContent>
-                                                <CardDescription className="text-sm mb-4 line-clamp-2">
-                                                    {calc.descriptionKey ? t(calc.descriptionKey) : calc.descriptionKey}
-                                                </CardDescription>
-                                                <div className="flex items-center text-primary text-sm font-medium group-hover:underline decoration-2 underline-offset-4">
-                                                    <span>{t('common.calculate')}</span>
-                                                </div>
-                                            </CardContent>
-                                        </GlassCard>
-                                    </Link>
-                                ))}
+                                                </CardHeader>
+                                                <CardContent>
+                                                    <CardDescription className="text-sm mb-4 line-clamp-2">
+                                                        {calc.descriptionKey ? t(calc.descriptionKey) : calc.descriptionKey}
+                                                    </CardDescription>
+                                                    <div className="flex items-center text-primary text-sm font-medium group-hover:underline decoration-2 underline-offset-4">
+                                                        <span>{t('common.calculate')}</span>
+                                                    </div>
+                                                </CardContent>
+                                            </GlassCard>
+                                        </Link>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </div>

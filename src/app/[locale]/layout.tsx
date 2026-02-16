@@ -59,7 +59,7 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={locale} className={`${inter.variable} ${fraunces.variable}`}>
+    <html lang={locale} className={`${inter.variable} ${fraunces.variable}`} suppressHydrationWarning>
       <head>
         <title>Math Calculator</title>
         <meta name="description" content="A calculator application with multiple calculation tools" />

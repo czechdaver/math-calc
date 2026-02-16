@@ -69,7 +69,7 @@ Unifikovaný layout stránky každé kalkulačky, který zajišťuje:
 - **Dynamické kategorie** - načítané z `/src/data/calculator-categories.json`
 - **Populární kalkulačky** - automaticky řazené podle popularity
 - **Kategorie s počty** - zobrazení počtu kalkuláček v každé kategorii
-- **Barevné označení** - každá kategorie má vlastní barvu a ikonu
+- **Barevné označení** - vizuální styl definován v `src/config/category-branding.tsx` (ikony, barvy)
 - **Utility funkce:**
   - `getCalculatorCategories(locale, t)` - načte kategorie s lokalizací
   - `getQuickLinks('popular', locale, t)` - načte populární kalkulačky
@@ -147,12 +147,25 @@ Unifikovaný layout stránky každé kalkulačky, který zajišťuje:
       "id": "health",
       "titleKey": "category_health_title",
       "descriptionKey": "category_health_description",
-      "icon": "Heart",
-      "color": "text-red-600",
-      "bgColor": "bg-red-50",
       "calculators": ["bmi", "bmr", "ideal-weight"],
       "priority": 1
     }
+  }
+}
+```
+
+#### `/src/config/category-branding.tsx`
+Definuje vizuální styl kategorií (ikony, barvy):
+```tsx
+export const CATEGORY_BRANDING = {
+  health: {
+    id: 'health',
+    icon: Heart, // Lucide icon
+    color: "text-rose-600 dark:text-rose-400",
+    bgColor: "bg-rose-500/10"
+  }
+};
+```
   }
 }
 ```

@@ -93,6 +93,7 @@ mathcalc-pro/
 │   │   └── theme/                 # Theme provider
 │   │
 │   ├── config/                    # Configuration files
+│   │   ├── category-branding.tsx  # Centralized category icons and colors
 │   │   └── site.ts                # Site metadata, navigation, social links
 │   ├── context/                   # React contexts
 │   │   └── ThemeContext.tsx       # Theme management
@@ -312,6 +313,24 @@ Located in `src/data/`:
   }
 }
 ```
+
+### Visual Branding Configuration
+
+Located in `src/config/category-branding.tsx`. This file maps category IDs to visual elements (icons, colors) used in React components:
+
+```tsx
+export const CATEGORY_BRANDING = {
+  finance: {
+    id: 'finance',
+    icon: TrendingUp, // Lucide React component
+    color: "text-emerald-600",
+    bgColor: "bg-emerald-500/10"
+  },
+  // ... other categories
+};
+```
+
+This separates the *content* structure (JSON) from the *visual* implementation.
 
 ### Utility Functions
 

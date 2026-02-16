@@ -6,12 +6,13 @@ import { useTranslations } from 'next-intl';
 import { CardContent, CardDescription, CardHeader, CardTitle, Card } from '@/components/ui/Card'; // Keep these for content structure
 import GlassCard from '@/components/shared/GlassCard';
 import { Button } from '@/components/ui/Button';
-import { Home, Calculator, Info, ExternalLink, AlertCircle, ChevronRight, Clock, Star, TrendingUp, Heart, Ruler, Percent } from 'lucide-react';
+import { Calculator, Info, AlertCircle, Clock, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { getCalculatorCategories, getQuickLinks } from '@/lib/calculatorDataUtils';
 import { CalculatorRating } from '@/components/calculators/shared';
+import { getCategoryBranding } from '@/config/category-branding';
 import AdPlaceholder from '@/components/shared/AdPlaceholder';
 import SimpleBadge from '@/components/shared/SimpleBadge';
 import SimpleFAQ from '@/components/shared/SimpleFAQ';
@@ -137,39 +138,21 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
   const calculatorCategories = getCalculatorCategories(locale, t);
   const { showModal, setShowModal } = useAdBlockDetection();
 
-  // Determine category color theme
-  const getCategoryTheme = (cat: string) => {
+  // Map normalized category string to ID for branding
+  const getBrandingId = (cat: string) => {
     const lowerCat = cat.toLowerCase();
     if (lowerCat.includes('financ') || lowerCat.includes('money')) return 'finance';
     if (lowerCat.includes('health') || lowerCat.includes('zdrav') || lowerCat.includes('body')) return 'health';
     if (lowerCat.includes('math') || lowerCat.includes('mat')) return 'math';
     if (lowerCat.includes('construct') || lowerCat.includes('stav')) return 'construction';
-    return 'practical';
+    if (lowerCat.includes('practic') || lowerCat.includes('prakt')) return 'practical';
+    if (lowerCat.includes('util') || lowerCat.includes('nástroj')) return 'utility';
+    return 'others';
   };
 
-  const theme = getCategoryTheme(category);
-
-  // Category Icons Helper
-  const getCategoryIcon = (id: string, className?: string) => {
-    const props = { className: className || "w-4 h-4" };
-    switch (id) {
-      case 'finance': return <TrendingUp {...props} />;
-      case 'health': return <Heart {...props} />;
-      case 'math': return <Calculator {...props} />;
-      case 'construction': return <Ruler {...props} />;
-      default: return <Percent {...props} />;
-    }
-  };
-
-  const getCategoryColor = (id: string) => {
-    switch (id) {
-      case 'finance': return "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400";
-      case 'health': return "bg-rose-500/10 text-rose-600 dark:text-rose-400";
-      case 'math': return "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400";
-      case 'construction': return "bg-amber-500/10 text-amber-600 dark:text-amber-400";
-      default: return "bg-slate-500/10 text-slate-600 dark:text-slate-400";
-    }
-  };
+  const brandingId = getBrandingId(category);
+  const branding = getCategoryBranding(brandingId);
+  const CategoryIcon = branding.icon;
 
   // Schema.org structured data
   const structuredData = {
@@ -205,11 +188,13 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
         <div className={cn(
           "fixed top-0 left-0 right-0 h-[500px] pointer-events-none -z-10 bg-gradient-to-b opacity-40 dark:opacity-20",
           {
-            "from-emerald-500/20 to-transparent": theme === 'finance',
-            "from-rose-500/20 to-transparent": theme === 'health',
-            "from-indigo-500/20 to-transparent": theme === 'math',
-            "from-amber-500/20 to-transparent": theme === 'construction',
-            "from-slate-500/20 to-transparent": theme === 'practical',
+            "from-emerald-500/20 to-transparent": branding.id === 'finance',
+            "from-rose-500/20 to-transparent": branding.id === 'health',
+            "from-indigo-500/20 to-transparent": branding.id === 'math',
+            "from-amber-500/20 to-transparent": branding.id === 'construction',
+            "from-blue-500/20 to-transparent": branding.id === 'practical',
+            "from-gray-500/20 to-transparent": branding.id === 'utility',
+            "from-slate-500/20 to-transparent": branding.id === 'others',
           }
         )} />
 
@@ -231,12 +216,16 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
               <div className="space-y-6">
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between md:gap-6">
                   <div className="flex-1">
-                    <SimpleBadge variant="secondary" className={cn("mb-4 text-sm px-3 py-1", {
-                      "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/30": theme === 'finance',
-                      "bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300 border-rose-200 dark:border-rose-800/30": theme === 'health',
-                      "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800/30": theme === 'math',
-                      "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 border-amber-200 dark:border-amber-800/30": theme === 'construction',
-                    })}>
+                    <SimpleBadge variant="secondary" className={cn("mb-4 text-sm px-3 py-1 border shadow-sm flex items-center w-fit gap-1.5",
+                      branding.id === 'finance' ? "bg-gradient-to-br from-emerald-500/10 to-emerald-500/20 border-emerald-500/30 text-emerald-700 dark:text-emerald-400" :
+                        branding.id === 'health' ? "bg-gradient-to-br from-rose-500/10 to-rose-500/20 border-rose-500/30 text-rose-700 dark:text-rose-400" :
+                          branding.id === 'math' ? "bg-gradient-to-br from-indigo-500/10 to-indigo-500/20 border-indigo-500/30 text-indigo-700 dark:text-indigo-400" :
+                            branding.id === 'construction' ? "bg-gradient-to-br from-amber-500/10 to-amber-500/20 border-amber-500/30 text-amber-700 dark:text-amber-400" :
+                              branding.id === 'practical' ? "bg-gradient-to-br from-blue-500/10 to-blue-500/20 border-blue-500/30 text-blue-700 dark:text-blue-400" :
+                                branding.id === 'utility' ? "bg-gradient-to-br from-gray-500/10 to-gray-500/20 border-gray-500/30 text-gray-700 dark:text-gray-400" :
+                                  "bg-secondary text-secondary-foreground"
+                    )}>
+                      <CategoryIcon className="w-3.5 h-3.5" />
                       {category}
                     </SimpleBadge>
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-foreground tracking-tight mb-4 drop-shadow-sm">
@@ -289,10 +278,29 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
 
                   {resultSection && (
                     <div id="results-section" className="scroll-mt-24">
-                      <GlassCard variant="default" className="bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 border-primary/20 py-8 shadow-lg ring-1 ring-primary/10">
-                        <CardHeader className="pb-4 border-b border-primary/10">
-                          <CardTitle className="flex items-center gap-3 text-2xl text-primary">
-                            <div className="p-2 rounded-lg bg-primary/20 text-primary">
+                      <GlassCard variant="default" className={cn("border-primary/20 py-8 shadow-lg ring-1 ring-primary/10",
+                        // Use gradient based on category or default to primary if not specific enough? 
+                        // The user asked for "color it in same style but in category color"
+                        // branding.bgColor is typically like "bg-emerald-500/10". We can try to use that or construct a gradient.
+                        // Let's reuse the branding colors data to create a subtle gradient.
+                        "bg-gradient-to-br",
+                        branding.id === 'finance' ? "from-emerald-500/5 via-emerald-500/10 to-emerald-500/5 ring-emerald-500/10 border-emerald-500/20" :
+                          branding.id === 'health' ? "from-rose-500/5 via-rose-500/10 to-rose-500/5 ring-rose-500/10 border-rose-500/20" :
+                            branding.id === 'math' ? "from-indigo-500/5 via-indigo-500/10 to-indigo-500/5 ring-indigo-500/10 border-indigo-500/20" :
+                              branding.id === 'construction' ? "from-amber-500/5 via-amber-500/10 to-amber-500/5 ring-amber-500/10 border-amber-500/20" :
+                                branding.id === 'practical' ? "from-blue-500/5 via-blue-500/10 to-blue-500/5 ring-blue-500/10 border-blue-500/20" :
+                                  branding.id === 'utility' ? "from-gray-500/5 via-gray-500/10 to-gray-500/5 ring-gray-500/10 border-gray-500/20" :
+                                    "from-primary/5 via-primary/10 to-primary/5"
+                      )}>
+                        <CardHeader className={cn("pb-4 border-b",
+                          branding.id === 'finance' ? "border-emerald-500/10" :
+                            branding.id === 'health' ? "border-rose-500/10" :
+                              branding.id === 'math' ? "border-indigo-500/10" :
+                                branding.id === 'construction' ? "border-amber-500/10" :
+                                  "border-primary/10"
+                        )}>
+                          <CardTitle className={cn("flex items-center gap-3 text-2xl", branding.color)}>
+                            <div className={cn("p-2 rounded-lg", branding.bgColor, branding.color)}>
                               <TrendingUp className="w-6 h-6" />
                             </div>
                             {t('common.results')}
@@ -434,15 +442,16 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                           </div>
                           <div className="grid grid-cols-2 gap-2 px-1">
                             {calculatorCategories.slice(0, 6).map((category) => {
-                              const catTheme = getCategoryTheme(category.id);
+                              const activeBranding = getCategoryBranding(category.id); // Use category.id directly 
+                              const ActiveIcon = activeBranding.icon;
                               return (
                                 <Link
                                   key={category.id}
                                   href={`/${locale}/calculator/${category.id}`}
                                   className="flex flex-col items-center justify-center gap-2 p-3 rounded-xl bg-muted/30 hover:bg-primary/5 border border-transparent hover:border-primary/20 transition-all text-center group"
                                 >
-                                  <div className={cn("w-8 h-8 flex items-center justify-center rounded-full transition-transform group-hover:scale-110", getCategoryColor(catTheme))}>
-                                    {getCategoryIcon(catTheme, "w-4 h-4")}
+                                  <div className={cn("w-8 h-8 flex items-center justify-center rounded-full transition-transform group-hover:scale-110", activeBranding.bgColor, activeBranding.color)}>
+                                    <ActiveIcon className="w-4 h-4" />
                                   </div>
                                   <span className="text-xs font-medium text-muted-foreground group-hover:text-primary transition-colors line-clamp-1">
                                     {category.title}

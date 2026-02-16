@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { ArrowRight, Users, Shield, Star } from 'lucide-react';
-import { getCategoryBranding } from '@/config/category-branding';
 import AdBanner from '@/components/ads/AdBanner';
 import { Button } from '@/components/ui/Button';
 import { CardContent } from '@/components/ui/Card';
@@ -12,6 +11,7 @@ import GlassCard from '@/components/shared/GlassCard';
 import CalculatorCard from '@/components/calculators/shared/CalculatorCard';
 import CalculatorSearch from '@/components/search/CalculatorSearch';
 import SimpleFAQ from '@/components/shared/SimpleFAQ'; // Importing the redesigned SimpleFAQ
+import CategoryCard from '@/components/categories/CategoryCard';
 import { cn } from '@/lib/utils';
 import { getCalculatorCategories, getQuickLinks } from '@/lib/calculatorDataUtils';
 
@@ -143,36 +143,13 @@ const HomePage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {categories.map((category) => {
-              const branding = getCategoryBranding(category.id);
-              const Icon = branding.icon;
-
-              return (
-                <GlassCard
-                  key={category.id}
-                  className="text-center cursor-pointer group hover:border-primary/30 transition-all duration-300"
-                  hoverEffect
-                  onClick={() => window.location.href = `/${locale}/calculator/${category.id}`}
-                >
-                  <CardContent className="pt-8 pb-8">
-                    <div className={cn(
-                      "w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-transform group-hover:scale-110 duration-300",
-                      branding.bgColor,
-                      branding.color
-                    )}>
-                      <Icon className="w-8 h-8" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">{category.title}</h3>
-                    <p className="text-muted-foreground mb-6">
-                      {category.count} calculators
-                    </p>
-                    <Button variant="secondary" size="sm" className="w-full opacity-0 group-hover:opacity-100 transition-opacity bg-primary/10 text-primary hover:bg-primary/20">
-                      Explore
-                    </Button>
-                  </CardContent>
-                </GlassCard>
-              )
-            })}
+            {categories.map((category) => (
+              <CategoryCard
+                key={category.id}
+                category={category}
+                locale={locale}
+              />
+            ))}
           </div>
         </div>
       </section>

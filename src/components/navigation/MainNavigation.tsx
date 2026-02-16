@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { Menu, X, Calculator, ChevronDown } from 'lucide-react';
+import { Menu, X, Calculator, ChevronDown, Heart, DollarSign, Settings, Hammer, Briefcase, HelpCircle } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import LanguageSwitcher from './LanguageSwitcher';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
@@ -17,6 +17,16 @@ import {
 } from '@/components/ui/DropdownMenu';
 import { cn } from '@/lib/utils';
 import { getCalculatorCategories } from '@/lib/calculatorDataUtils';
+
+const iconMap: Record<string, any> = {
+  Heart,
+  Calculator,
+  DollarSign,
+  Settings,
+  Hammer,
+  Briefcase,
+  HelpCircle
+};
 
 const MainNavigation: React.FC = () => {
   const t = useTranslations('navigation'); // Assuming 'navigation' namespace exists, fallback to common if not
@@ -77,24 +87,29 @@ const MainNavigation: React.FC = () => {
               {translate('home')}
             </Link>
 
-            <DropdownMenu>
+            <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="flex items-center gap-1 h-auto py-2 px-3 text-sm font-medium text-muted-foreground hover:text-primary">
                   {translate('categories')} <ChevronDown className="w-3 h-3 opacity-50" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="center" className="w-56 p-2 glass">
-                {categories.map((cat) => (
-                  <DropdownMenuItem key={cat.id} asChild>
-                    <Link
-                      href={`/${locale}/calculator/${cat.id}`}
-                      className="flex items-center gap-3 w-full cursor-pointer rounded-md p-2 hover:bg-muted/50"
-                    >
-                      <div className={`w-2 h-2 rounded-full ${cat.bgColor}`} />
-                      <span>{cat.title}</span>
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
+                {categories.map((cat) => {
+                  const IconComponent = iconMap[cat.icon] || HelpCircle;
+                  return (
+                    <DropdownMenuItem key={cat.id} asChild>
+                      <Link
+                        href={`/${locale}/calculator/${cat.id}`}
+                        className="flex items-center gap-3 w-full cursor-pointer rounded-md p-2 hover:bg-muted/50"
+                      >
+                        <div className={`flex items-center justify-center w-8 h-8 rounded-md ${cat.bgColor}`}>
+                          <IconComponent className={`w-5 h-5 ${cat.color}`} />
+                        </div>
+                        <span>{cat.title}</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  );
+                })}
               </DropdownMenuContent>
             </DropdownMenu>
 

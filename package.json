@@ -12,6 +12,7 @@
     "test:coverage": "jest --coverage",
     "validate:translations": "node scripts/validate-translations.js",
     "validate:translations:quick": "node scripts/validate-translations.js --quick",
+    "sync:translations": "node scripts/sync-translations.js",
     "prepare": "husky install",
     "precommit": "npm run validate:translations"
   },

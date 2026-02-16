@@ -6,54 +6,74 @@
  * Validates:
  * 1. JSON syntax in all locale files
  * 2. Key parity across all locales (cs.json is reference)
- * 3. No hardcoded Czech strings in JSX files
- * 4. Interpolation variable consistency
+ * 3. Hardcoded strings in JSX/TSX files using AST parsing
+ * 4. Unused translation keys
+ * 5. Interpolation variable consistency
  *
  * Usage:
  *   node scripts/validate-translations.js
  *   npm run validate:translations
- *
- * Exit codes:
- *   0 = All validations passed
- *   1 = Validation errors found
  */
 
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
+const ts = require('typescript');
 
 const LOCALES = ['cs', 'en', 'sk', 'pl', 'hu'];
 const MESSAGES_DIR = path.join(__dirname, '../src/messages');
 const SRC_DIR = path.join(__dirname, '../src');
 
-// Hardcoded string patterns to detect
-const HARDCODED_PATTERNS = [
-  /placeholder=["'](?!{)([^"']*[áčďéěíňóřšťúůýž][^"']*)["']/gi,  // Czech diacritics in placeholders
-  /SelectValue.*placeholder=["'](?!{)([^"']*[áčďéěíňóřšťúůýž][^"']*)["']/gi,  // SelectValue with Czech
-  /<SelectItem[^>]*>(?!{)([^<]*[áčďéěíňóřšťúůýž][^<]*)<\/SelectItem>/gi,  // SelectItem with Czech text
-  /label=["'](?!{)([^"']*[áčďéěíňóřšťúůýž][^"']*)["']/gi,  // Czech labels
+// Keys that are allowed to be unused (e.g. dynamic keys, metadata)
+const UNUSED_KEYS_ALLOWLIST = [
+  /^metadata_/,
+  /^seo_/,
+  /^category_/, // often used dynamically
+  /^calculators\./, // dynamic calculator loading
+  /_description$/, // often used dynamically
+  /_title$/, // often used dynamically
+  /_keywords$/, // often used dynamically
 ];
 
-// Validation results
+// Content to ignore in hardcoded string detection
+const IGNORED_TEXT_CONTENT = [
+  /^\s*$/, // whitespace
+  /^[0-9\s.,%+\-/*=()]*$/, // numbers and math symbols
+  /^https?:\/\//, // URLs
+  /^[a-zA-Z0-9_-]+$/, // ID-like strings, simple codes (risky, but reduces noise)
+  /^[{}]*$/, // just braces
+  /^&[a-z]+;$/, // HTML entities
+];
+
+// JSX attributes to check for hardcoded strings
+const CHECK_ATTRIBUTES = new Set([
+  'placeholder',
+  'title',
+  'alt',
+  'label',
+  'description',
+  'aria-label',
+  'defaultValue', // sometimes visible
+]);
+
 let errors = [];
 let warnings = [];
 
-console.log(chalk.blue.bold('\n🔍 Translation Validation\n'));
+console.log(chalk.blue.bold('\n🔍 Translation Validation (AST Enhanced)\n'));
 
-/**
- * Validate JSON syntax
- */
+// --- Phase 1: JSON Syntax ---
+
 function validateJsonSyntax() {
   console.log(chalk.cyan('📄 Phase 1: Validating JSON syntax...'));
+  let valid = true;
 
   LOCALES.forEach(locale => {
     const filePath = path.join(MESSAGES_DIR, `${locale}.json`);
-
     if (!fs.existsSync(filePath)) {
       errors.push(`Missing locale file: ${locale}.json`);
+      valid = false;
       return;
     }
-
     try {
       const content = fs.readFileSync(filePath, 'utf8');
       JSON.parse(content);
@@ -61,221 +81,274 @@ function validateJsonSyntax() {
     } catch (error) {
       errors.push(`${locale}.json - Invalid JSON: ${error.message}`);
       console.log(chalk.red(`  ✗ ${locale}.json - ${error.message}`));
+      valid = false;
     }
   });
+  return valid;
 }
 
-/**
- * Validate key parity across all locales
- */
+// --- Phase 2: Key Parity ---
+
+function getFlattenedKeys(obj, prefix = '') {
+  let keys = [];
+  for (const key in obj) {
+    if (typeof obj[key] === 'object' && obj[key] !== null) {
+      keys = keys.concat(getFlattenedKeys(obj[key], prefix + key + '.'));
+    } else {
+      keys.push(prefix + key);
+    }
+  }
+  return keys;
+}
+
 function validateKeyParity() {
   console.log(chalk.cyan('\n🔑 Phase 2: Validating key parity...'));
 
-  // Load reference locale (cs.json)
-  const referenceFile = path.join(MESSAGES_DIR, 'cs.json');
-  const referenceKeys = new Set(Object.keys(JSON.parse(fs.readFileSync(referenceFile, 'utf8'))));
+  const csPath = path.join(MESSAGES_DIR, 'cs.json');
+  if (!fs.existsSync(csPath)) return;
+
+  const csContent = JSON.parse(fs.readFileSync(csPath, 'utf8'));
+  const referenceKeys = new Set(getFlattenedKeys(csContent));
 
   console.log(chalk.gray(`  Reference (cs.json): ${referenceKeys.size} keys`));
 
-  // Compare each locale against reference
   LOCALES.filter(l => l !== 'cs').forEach(locale => {
     const filePath = path.join(MESSAGES_DIR, `${locale}.json`);
+    if (!fs.existsSync(filePath)) return;
 
-    if (!fs.existsSync(filePath)) {
-      return; // Already reported in Phase 1
-    }
+    const content = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    const localeKeys = new Set(getFlattenedKeys(content));
 
-    const localeData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    const localeKeys = new Set(Object.keys(localeData));
-
-    // Find missing keys
-    const missingKeys = [...referenceKeys].filter(key => !localeKeys.has(key));
-
-    // Find extra keys (keys in locale but not in reference)
-    const extraKeys = [...localeKeys].filter(key => !referenceKeys.has(key));
+    const missing = [...referenceKeys].filter(k => !localeKeys.has(k));
+    const extra = [...localeKeys].filter(k => !referenceKeys.has(k));
 
     const coverage = ((localeKeys.size / referenceKeys.size) * 100).toFixed(1);
 
-    if (missingKeys.length > 0) {
-      warnings.push(`${locale}.json - Missing ${missingKeys.length} keys (${coverage}% coverage)`);
-      console.log(chalk.yellow(`  ⚠ ${locale}.json - ${missingKeys.length} missing keys (${coverage}% coverage)`));
-
-      if (missingKeys.length <= 10) {
-        missingKeys.forEach(key => {
-          console.log(chalk.gray(`      - ${key}`));
-        });
-      } else {
-        console.log(chalk.gray(`      First 10: ${missingKeys.slice(0, 10).join(', ')}...`));
-      }
+    if (missing.length > 0) {
+      warnings.push(`${locale}.json - Missing ${missing.length} keys`);
+      console.log(chalk.yellow(`  ⚠ ${locale}.json - ${missing.length} missing keys (${coverage}%)`));
+      if (missing.length <= 5) missing.forEach(k => console.log(chalk.gray(`      - ${k}`)));
     } else {
-      console.log(chalk.green(`  ✓ ${locale}.json - Complete (${coverage}% coverage)`));
+      console.log(chalk.green(`  ✓ ${locale}.json - Complete (${coverage}%)`));
     }
 
-    if (extraKeys.length > 0) {
-      warnings.push(`${locale}.json - ${extraKeys.length} extra keys not in reference`);
-      console.log(chalk.yellow(`  ⚠ ${locale}.json - ${extraKeys.length} extra keys`));
+    if (extra.length > 0) {
+      warnings.push(`${locale}.json - ${extra.length} extra keys`);
+      console.log(chalk.yellow(`  ⚠ ${locale}.json - ${extra.length} extra keys`));
     }
   });
+
+  return referenceKeys;
 }
 
-/**
- * Scan for hardcoded strings in source files
- */
-function scanHardcodedStrings() {
-  console.log(chalk.cyan('\n🔎 Phase 3: Scanning for hardcoded Czech strings...'));
+// --- Phase 3: Hardcoded Strings (AST) ---
 
-  const componentDirs = [
-    path.join(SRC_DIR, 'components/calculators'),
-    path.join(SRC_DIR, 'components/navigation'),
-    path.join(SRC_DIR, 'components/layout'),
-    path.join(SRC_DIR, 'app'),
-  ];
-
-  let foundCount = 0;
-
-  componentDirs.forEach(dir => {
-    if (!fs.existsSync(dir)) return;
-
-    scanDirectory(dir, (file, content) => {
-      HARDCODED_PATTERNS.forEach((pattern, index) => {
-        let match;
-        while ((match = pattern.exec(content)) !== null) {
-          const lineNumber = content.substring(0, match.index).split('\n').length;
-          const contextLine = content.split('\n')[lineNumber - 1]?.trim() || '';
-
-          warnings.push(`Hardcoded Czech text in ${file}:${lineNumber}`);
-          console.log(chalk.yellow(`  ⚠ ${path.relative(SRC_DIR, file)}:${lineNumber}`));
-          console.log(chalk.gray(`      ${contextLine.substring(0, 80)}...`));
-
-          foundCount++;
-        }
-      });
-    });
-  });
-
-  if (foundCount === 0) {
-    console.log(chalk.green('  ✓ No hardcoded Czech strings found'));
-  } else {
-    console.log(chalk.yellow(`\n  Found ${foundCount} instances of hardcoded Czech text`));
-  }
-}
-
-/**
- * Recursively scan directory for .tsx files
- */
-function scanDirectory(dir, callback) {
+function getAllSourceFiles(dir, fileList = []) {
   const files = fs.readdirSync(dir);
-
   files.forEach(file => {
     const filePath = path.join(dir, file);
     const stat = fs.statSync(filePath);
-
     if (stat.isDirectory()) {
-      scanDirectory(filePath, callback);
-    } else if (filePath.endsWith('.tsx') || filePath.endsWith('.ts')) {
-      const content = fs.readFileSync(filePath, 'utf8');
-      callback(filePath, content);
+      getAllSourceFiles(filePath, fileList);
+    } else if (/\.(tsx|ts)$/.test(file)) {
+      fileList.push(filePath);
     }
   });
+  return fileList;
 }
 
-/**
- * Validate interpolation variables
- */
-function validateInterpolationVariables() {
-  console.log(chalk.cyan('\n🔧 Phase 4: Validating interpolation variables...'));
+function shouldIgnoreText(text) {
+  return IGNORED_TEXT_CONTENT.some(regex => regex.test(text));
+}
 
-  const referenceFile = path.join(MESSAGES_DIR, 'cs.json');
-  const referenceData = JSON.parse(fs.readFileSync(referenceFile, 'utf8'));
+function scanHardcodedStrings() {
+  console.log(chalk.cyan('\n🔎 Phase 3: Scanning for hardcoded strings (AST)...'));
 
-  // Extract keys with interpolation variables from reference
-  const interpolationKeys = {};
-  Object.entries(referenceData).forEach(([key, value]) => {
-    // Skip non-string values (nested objects)
-    if (typeof value !== 'string') return;
+  const files = getAllSourceFiles(SRC_DIR);
+  let foundCount = 0;
 
-    const matches = value.match(/{[^}]+}/g);
-    if (matches) {
-      interpolationKeys[key] = matches.sort();
+  files.forEach(filePath => {
+    const content = fs.readFileSync(filePath, 'utf8');
+    const sourceFile = ts.createSourceFile(
+      filePath,
+      content,
+      ts.ScriptTarget.Latest,
+      true
+    );
+
+    function visit(node) {
+      // check JSX Text
+      if (node.kind === ts.SyntaxKind.JsxText) {
+        const text = node.getText();
+        if (!shouldIgnoreText(text)) {
+          // It's a non-empty text node in JSX
+          reportHardcoded(filePath, node, text.trim());
+        }
+      }
+
+      // check String Literals in JSX Attributes
+      else if (node.kind === ts.SyntaxKind.StringLiteral) {
+        if (node.parent && node.parent.kind === ts.SyntaxKind.JsxAttribute) {
+          const attrName = node.parent.name.getText();
+          if (CHECK_ATTRIBUTES.has(attrName)) {
+            const text = node.text;
+            if (!shouldIgnoreText(text)) {
+              reportHardcoded(filePath, node, text);
+            }
+          }
+        }
+      }
+
+      ts.forEachChild(node, visit);
+    }
+
+    visit(sourceFile);
+  });
+
+  function reportHardcoded(file, node, text) {
+    const { line } = sourceFile = ts.createSourceFile(file, fs.readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, true).getLineAndCharacterOfPosition(node.getStart());
+    const relPath = path.relative(SRC_DIR, file);
+
+    // Very simple heuristic to reduce noise: ignore if it looks like a key/code
+    if (text.length < 2) return;
+
+    console.log(chalk.yellow(`  ⚠ ${relPath}:${line + 1} - "${text}"`));
+    warnings.push(`Hardcoded text in ${relPath}:${line + 1}: "${text.substring(0, 30)}..."`);
+    foundCount++;
+  }
+
+  if (foundCount === 0) {
+    console.log(chalk.green('  ✓ No obvious hardcoded strings found'));
+  } else {
+    console.log(chalk.yellow(`\n  Found ${foundCount} potential hardcoded strings`));
+  }
+}
+
+// --- Phase 4: Unused Keys ---
+
+function validateUnusedKeys(referenceKeys) {
+  console.log(chalk.cyan('\n🗑️  Phase 4: Scanning for unused keys...'));
+
+  if (!referenceKeys) return;
+
+  const files = getAllSourceFiles(SRC_DIR);
+  const allContent = files.map(f => fs.readFileSync(f, 'utf8')).join('\n'); // naive but fast enough for this size
+
+  let unusedCount = 0;
+
+  // We need to check flattened keys. 
+  // Note: usage might be t('section.key') or t('key') if scoped.
+  // This simple check looks for the exact key string in the codebase.
+  // It will have false negatives (dynamic keys) but few false positives (if key is unique enough).
+
+  referenceKeys.forEach(key => {
+    const lastPart = key.split('.').pop();
+
+    // Check allowlist
+    if (UNUSED_KEYS_ALLOWLIST.some(regex => regex.test(key) || regex.test(lastPart))) {
+      return;
+    }
+
+    // Check if key exists in content
+    // We search for the full key "category.key" OR just "key" if it's likely used inside a scoped useTranslations
+    // But searching for just "key" is risky for generic words like "title".
+    // So we primarily search for the leaf key, but be careful.
+
+    // Actually, let's search for the leaf key (last part) attached to ANY quote
+    // e.g. "my_key" or 'my_key'.
+
+    const keyRegex = new RegExp(`['"\`]${lastPart}['"\`]`);
+
+    if (!keyRegex.test(allContent)) {
+      // Double check full key just in case
+      if (!allContent.includes(key)) {
+        console.log(chalk.yellow(`  ⚠ Unused key: ${key}`));
+        warnings.push(`Unused translation key: ${key}`);
+        unusedCount++;
+      }
     }
   });
 
-  if (Object.keys(interpolationKeys).length === 0) {
-    console.log(chalk.gray('  No interpolation variables found in reference'));
-    return;
+  if (unusedCount === 0) {
+    console.log(chalk.green('  ✓ No unused keys found'));
+  } else {
+    console.log(chalk.yellow(`\n  Found ${unusedCount} potentially unused keys`));
   }
+}
 
-  // Check each locale
+// --- Phase 5: Interpolation ---
+
+function validateInterpolationVariables() {
+  console.log(chalk.cyan('\n🔧 Phase 5: Validating interpolation variables...'));
+
+  const csPath = path.join(MESSAGES_DIR, 'cs.json');
+  if (!fs.existsSync(csPath)) return;
+
+  const csContent = JSON.parse(fs.readFileSync(csPath, 'utf8'));
+  const refFlats = {};
+
+  function flatt(obj, prefix = '') {
+    for (const k in obj) {
+      if (typeof obj[k] === 'object') flatt(obj[k], prefix + k + '.');
+      else refFlats[prefix + k] = obj[k];
+    }
+  }
+  flatt(csContent);
+
+  const keyVars = {};
+  Object.keys(refFlats).forEach(k => {
+    const matches = refFlats[k].match(/{[^}]+}/g);
+    if (matches) keyVars[k] = matches.sort();
+  });
+
   LOCALES.filter(l => l !== 'cs').forEach(locale => {
-    const filePath = path.join(MESSAGES_DIR, `${locale}.json`);
+    const p = path.join(MESSAGES_DIR, `${locale}.json`);
+    if (!fs.existsSync(p)) return;
 
-    if (!fs.existsSync(filePath)) return;
+    const content = JSON.parse(fs.readFileSync(p, 'utf8'));
+    const locFlats = {};
+    function flattLoc(obj, pfx = '') {
+      for (const k in obj) {
+        if (typeof obj[k] === 'object') flattLoc(obj[k], pfx + k + '.');
+        else locFlats[pfx + k] = obj[k];
+      }
+    }
+    flattLoc(content);
 
-    const localeData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    let mismatchCount = 0;
-
-    Object.entries(interpolationKeys).forEach(([key, refVars]) => {
-      if (!localeData[key]) return; // Already reported in key parity check
-      if (typeof localeData[key] !== 'string') return; // Skip non-string values
-
-      const localeMatches = (localeData[key].match(/{[^}]+}/g) || []).sort();
-
-      if (JSON.stringify(refVars) !== JSON.stringify(localeMatches)) {
-        warnings.push(`${locale}.json - Interpolation mismatch in key: ${key}`);
-        console.log(chalk.yellow(`  ⚠ ${locale}.json - "${key}"`));
-        console.log(chalk.gray(`      Expected: ${refVars.join(', ')}`));
-        console.log(chalk.gray(`      Found: ${localeMatches.join(', ') || 'none'}`));
-        mismatchCount++;
+    let issues = 0;
+    Object.keys(keyVars).forEach(k => {
+      if (!locFlats[k]) return;
+      const m = (locFlats[k].match(/{[^}]+}/g) || []).sort();
+      if (JSON.stringify(m) !== JSON.stringify(keyVars[k])) {
+        console.log(chalk.yellow(`  ⚠ ${locale}.json - ${k}`));
+        console.log(chalk.gray(`      Ref: ${keyVars[k].join(', ')}`));
+        console.log(chalk.gray(`      Loc: ${m.join(', ')}`));
+        warnings.push(`${locale}.json - Interpolation mismatch: ${k}`);
+        issues++;
       }
     });
-
-    if (mismatchCount === 0) {
-      console.log(chalk.green(`  ✓ ${locale}.json - All interpolations match`));
-    }
+    if (issues === 0) console.log(chalk.green(`  ✓ ${locale}.json - Interpolation OK`));
   });
 }
 
-/**
- * Print summary
- */
-function printSummary() {
-  console.log(chalk.blue.bold('\n📊 Validation Summary\n'));
+// --- Runner ---
 
-  if (errors.length === 0 && warnings.length === 0) {
-    console.log(chalk.green.bold('✅ All validations passed!\n'));
-    process.exit(0);
-  }
-
-  if (errors.length > 0) {
-    console.log(chalk.red.bold(`❌ ${errors.length} Error(s):`));
-    errors.forEach(err => console.log(chalk.red(`  - ${err}`)));
-    console.log('');
-  }
-
-  if (warnings.length > 0) {
-    console.log(chalk.yellow.bold(`⚠️  ${warnings.length} Warning(s):`));
-    warnings.forEach(warn => console.log(chalk.yellow(`  - ${warn}`)));
-    console.log('');
-  }
-
-  console.log(chalk.cyan('💡 Next steps:'));
-  console.log(chalk.gray('  1. Fix errors (if any) - these block the build'));
-  console.log(chalk.gray('  2. Review warnings - these should be addressed'));
-  console.log(chalk.gray('  3. Run: npm run validate:translations'));
-  console.log('');
-
-  // Exit with error code if there are errors
-  if (errors.length > 0) {
-    process.exit(1);
-  }
-
-  // Exit with success but warnings reported
-  process.exit(0);
+if (validateJsonSyntax()) {
+  const refKeys = validateKeyParity();
+  scanHardcodedStrings();
+  validateUnusedKeys(refKeys);
+  validateInterpolationVariables();
 }
 
-// Run all validations
-validateJsonSyntax();
-validateKeyParity();
-scanHardcodedStrings();
-validateInterpolationVariables();
-printSummary();
+console.log(chalk.blue.bold('\n📊 Summary'));
+if (errors.length > 0) {
+  console.log(chalk.red(`${errors.length} Errors`));
+  process.exit(1);
+}
+if (warnings.length > 0) {
+  console.log(chalk.yellow(`${warnings.length} Warnings`));
+  // We generally don't fail build on warnings, but in strict mode we might.
+  // For now, exit 0.
+}
+console.log(chalk.green('Done.'));
+process.exit(0);

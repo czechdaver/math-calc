@@ -271,7 +271,7 @@ const CaloriesCalculator: React.FC = () => {
             </SelectContent>
           </Select>
           <p className="text-gray-500 text-xs">
-            Pohlaví ovlivňuje bazální metabolismus
+            {t('calories_hint_gender')}
           </p>
         </div>
 
@@ -303,15 +303,15 @@ const CaloriesCalculator: React.FC = () => {
         <CardContent className="p-4">
           <div className="text-center">
             <div className="text-sm font-medium text-blue-800 mb-2">
-              Vaše údaje
+              {t('calories_summary_title')}
             </div>
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div>
-                <div className="font-semibold text-blue-900">Věk/Pohlaví</div>
-                <div className="text-blue-700">{age} let, {gender === 'male' ? 'muž' : 'žena'}</div>
+                <div className="font-semibold text-blue-900">{t('calories_summary_age_gender')}</div>
+                <div className="text-blue-700">{age} {t('calories_unit_years')}, {gender === 'male' ? t('calories_gender_male').toLowerCase() : t('calories_gender_female').toLowerCase()}</div>
               </div>
               <div>
-                <div className="font-semibold text-blue-900">Tělo</div>
+                <div className="font-semibold text-blue-900">{t('calories_summary_body')}</div>
                 <div className="text-blue-700">{weight} kg, {height} cm</div>
               </div>
             </div>
@@ -335,7 +335,7 @@ const CaloriesCalculator: React.FC = () => {
               {formatNumber(result.tdee)}
             </div>
             <div className="text-sm text-green-700 mt-1">
-              Denní potřeba kalorií
+              {t('calories_result_tdee_label')}
             </div>
             <div className="text-xs text-green-600 mt-1">
               TDEE (Total Daily Energy Expenditure)
@@ -351,7 +351,7 @@ const CaloriesCalculator: React.FC = () => {
           <CardContent className="p-4 text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Target className="w-4 h-4 text-red-600" />
-              <div className="text-sm text-red-700 font-medium">Hubnutí</div>
+              <div className="text-sm text-red-700 font-medium">{t('calories_result_weight_loss')}</div>
             </div>
             <div className="text-xl font-bold text-red-800">
               {formatNumber(result.weightLoss)} kcal
@@ -366,7 +366,7 @@ const CaloriesCalculator: React.FC = () => {
           <CardContent className="p-4 text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Activity className="w-4 h-4 text-blue-600" />
-              <div className="text-sm text-blue-700 font-medium">Udržení váhy</div>
+              <div className="text-sm text-blue-700 font-medium">{t('calories_result_maintain')}</div>
             </div>
             <div className="text-xl font-bold text-blue-800">
               {formatNumber(result.tdee)} kcal
@@ -381,7 +381,7 @@ const CaloriesCalculator: React.FC = () => {
           <CardContent className="p-4 text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
               <TrendingUp className="w-4 h-4 text-green-600" />
-              <div className="text-sm text-green-700 font-medium">Přibírání</div>
+              <div className="text-sm text-green-700 font-medium">{t('calories_result_weight_gain')}</div>
             </div>
             <div className="text-xl font-bold text-green-800">
               {formatNumber(result.weightGain)} kcal
@@ -397,19 +397,19 @@ const CaloriesCalculator: React.FC = () => {
       <Card className="bg-gray-50 border-gray-200">
         <CardContent className="p-4">
           <div className="text-center">
-            <div className="text-sm text-gray-800 font-medium mb-3">Rozpis metabolismu:</div>
+            <div className="text-sm text-gray-800 font-medium mb-3">{t('calories_breakdown_title')}</div>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between items-center">
-                <span className="text-gray-700">BMR (bazální metabolismus):</span>
+                <span className="text-gray-700">{t('calories_breakdown_bmr')}</span>
                 <span className="font-mono text-gray-900">{formatNumber(result.bmr)} kcal</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-700">Aktivita ({getActivityMultiplier(result.activityLevel)}×):</span>
+                <span className="text-gray-700">{t('calories_breakdown_activity')} ({getActivityMultiplier(result.activityLevel)}×):</span>
                 <span className="font-mono text-gray-900">+{formatNumber(result.tdee - result.bmr)} kcal</span>
               </div>
               <div className="border-t border-gray-300 my-2"></div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-700">Celková denní potřeba:</span>
+                <span className="text-gray-700">{t('calories_breakdown_total')}</span>
                 <span className="font-mono text-gray-900 font-semibold">{formatNumber(result.tdee)} kcal</span>
               </div>
             </div>
@@ -423,14 +423,13 @@ const CaloriesCalculator: React.FC = () => {
           <div className="flex items-start gap-3">
             <User className="w-5 h-5 text-blue-600 mt-0.5" />
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">Informace o metabolismu</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">{t('calories_info_title')}</h4>
               <p className="text-gray-600 text-sm">
-                BMR (bazální metabolismus) je množství energie, které vaše tělo potřebuje v klidu. 
-                TDEE zahrnuje BMR plus energii spotřebovanou aktivitou. Výpočet používá Mifflin-St Jeor rovnici.
+                {t('calories_info_description')}
               </p>
               <div className="mt-2 text-xs text-gray-500">
-                BMR: {formatNumber(result.bmr)} kcal | 
-                Aktivita: {getActivityDescription(result.activityLevel)} | 
+                BMR: {formatNumber(result.bmr)} kcal |
+                {t('calories_breakdown_activity')}: {getActivityDescription(result.activityLevel)} |
                 TDEE: {formatNumber(result.tdee)} kcal
               </div>
             </div>

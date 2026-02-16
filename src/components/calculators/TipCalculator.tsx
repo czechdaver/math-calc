@@ -212,7 +212,7 @@ const TipCalculator: React.FC = () => {
           </SelectContent>
         </Select>
         <p className="text-gray-500 text-xs">
-          {getServiceQualityInfo(serviceQuality).description} - doporučené spropitné
+          {getServiceQualityInfo(serviceQuality).description} - {t('tip_recommended_tip')}
         </p>
       </div>
 
@@ -300,7 +300,7 @@ const TipCalculator: React.FC = () => {
               </div>
             </div>
             <div className="mt-2 text-xs text-blue-600">
-              Spropitné: {tipPercentage}% ({getServiceQualityInfo(serviceQuality).description.toLowerCase()})
+              {t('tip_detail_tip_percent')} {tipPercentage}% ({getServiceQualityInfo(serviceQuality).description.toLowerCase()})
             </div>
           </div>
         </CardContent>
@@ -350,13 +350,13 @@ const TipCalculator: React.FC = () => {
           <CardContent className="p-4 text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Percent className="w-4 h-4 text-yellow-600" />
-              <div className="text-sm font-medium text-yellow-700">Spropitné</div>
+              <div className="text-sm font-medium text-yellow-700">{t('tip_result_tip')}</div>
             </div>
             <div className="text-lg font-bold text-yellow-800">
               {formatCurrency(result.tipAmount)} Kč
             </div>
             <div className="text-xs text-yellow-600 mt-1">
-              {result.tipPercentage}% z účtu
+              {result.tipPercentage}% {t('tip_result_of_bill')}
             </div>
           </CardContent>
         </Card>
@@ -377,13 +377,13 @@ const TipCalculator: React.FC = () => {
               </div>
             </div>
             <div>
-              <div className="text-sm text-purple-700 mb-1">Spropitné</div>
+              <div className="text-sm text-purple-700 mb-1">{t('tip_per_tip')}</div>
               <div className="text-lg font-bold text-purple-800">
                 {formatCurrency(result.perPersonTip)} Kč
               </div>
             </div>
             <div>
-              <div className="text-sm text-purple-700 mb-1">Celkem</div>
+              <div className="text-sm text-purple-700 mb-1">{t('tip_per_total')}</div>
               <div className="text-lg font-bold text-purple-800">
                 {formatCurrency(result.perPersonTotal)} Kč
               </div>
@@ -398,15 +398,14 @@ const TipCalculator: React.FC = () => {
           <div className="flex items-start gap-3">
             <Receipt className="w-5 h-5 text-green-600 mt-0.5" />
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">Spropitné v České republice</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">{t('tip_info_title')}</h4>
               <p className="text-gray-600 text-sm mb-2">
-                V ČR se spropitné obvykle pohybuje mezi 10-15% v restauracích. 
-                Při výborné obsluze je vhodné dát až 20%. V barech a kavárnách stačí zaokrouhlit nahoru.
+                {t('tip_info_description')}
               </p>
               <div className="text-xs text-gray-500">
-                Kvalita obsluhy: {getServiceQualityInfo(result.serviceQuality).description} | 
-                Spropitné: {result.tipPercentage}% | 
-                Celkem: {formatCurrency(result.totalAmount)} Kč
+                {t('tip_detail_quality')} {getServiceQualityInfo(result.serviceQuality).description} |
+                {t('tip_detail_tip_percent')} {result.tipPercentage}% |
+                {t('tip_detail_total')} {formatCurrency(result.totalAmount)} Kč
               </div>
             </div>
           </div>
@@ -427,51 +426,51 @@ const TipCalculator: React.FC = () => {
       category={t('categories.practical')}
       calculatorId="tip"
       seo={{
-        title: "Kalkulátor spropitného - Výpočet spropitného pro restaurace | MathCalc",
-        description: "Bezplatný kalkulátor spropitného. Vypočítejte správnou výši spropitného podle kvality obsluhy a rozdělte účet mezi více lidí.",
-        keywords: ["spropitné", "tip calculator", "restaurace", "obsluha", "účet", "rozdělení účtu", "procenta", "kalkulátor"]
+        title: t('tip_seo_title'),
+        description: t('tip_seo_description'),
+        keywords: t('tip_seo_keywords').split(',')
       }}
       formula={{
-        latex: "Spropitné = Účet \\times \\frac{Procento}{100}",
-        description: "Celková částka = Účet + Spropitné. Na osobu = Celková částka ÷ Počet lidí."
+        latex: t('tip_formula_latex'),
+        description: t('tip_formula_description')
       }}
       examples={{
-        title: "Příklady výpočtu spropitného",
-        description: "Různé situace a doporučené procenta",
+        title: t('tip_examples_title'),
+        description: t('tip_examples_description'),
         scenarios: [
           {
-            title: "Restaurace, dobrá obsluha",
-            description: "Účet 800 Kč, 15% spropitné = 120 Kč",
-            example: "Celkem k zaplacení: 920 Kč"
+            title: t('tip_example_1_title'),
+            description: t('tip_example_1_description'),
+            example: t('tip_example_1_example')
           },
           {
-            title: "Rozdělení mezi 4 osoby",
-            description: "Účet 1200 Kč, 15% spropitné, 4 osoby",
-            example: "Na osobu: 345 Kč (300 + 45 spropitné)"
+            title: t('tip_example_2_title'),
+            description: t('tip_example_2_description'),
+            example: t('tip_example_2_example')
           },
           {
-            title: "Výborná obsluha",
-            description: "Účet 600 Kč, 20% spropitné = 120 Kč",
-            example: "Celkem: 720 Kč (odměna za skvělý servis)"
+            title: t('tip_example_3_title'),
+            description: t('tip_example_3_description'),
+            example: t('tip_example_3_example')
           }
         ]
       }}
       faq={[
         {
-          question: "Kolik spropitného dát v České republice?",
-          answer: "V restauracích je obvyklé 10-15% spropitné. Při výborné obsluze až 20%. V barech a kavárnách stačí zaokrouhlit nahoru nebo dát 5-10%."
+          question: t('tip_faq_1_q'),
+          answer: t('tip_faq_1_a')
         },
         {
-          question: "Kdy nedávat spropitné?",
-          answer: "Pokud byla obsluha skutečně špatná, není spropitné povinné. Můžete dát méně (5%) nebo vůbec nic, ale je slušné to zdůvodnit."
+          question: t('tip_faq_2_q'),
+          answer: t('tip_faq_2_a')
         },
         {
-          question: "Jak rozdělit účet mezi více lidí?",
-          answer: "Celkovou částku (účet + spropitné) vydělte počtem lidí. Kalkulátor automaticky spočítá částku na osobu včetně podílu na spropitném."
+          question: t('tip_faq_3_q'),
+          answer: t('tip_faq_3_a')
         },
         {
-          question: "Platí se spropitné z DPH?",
-          answer: "Ano, spropitné se počítá z celkové částky účtu včetně DPH. Je to celková částka, kterou zaplatíte za jídlo a pití."
+          question: t('tip_faq_4_q'),
+          answer: t('tip_faq_4_a')
         }
       ]}
       schemaData={{

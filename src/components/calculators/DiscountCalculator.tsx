@@ -227,7 +227,7 @@ const DiscountCalculator: React.FC = () => {
           </p>
         )}
         <p className="text-gray-500 text-xs">
-          Cena před slevou
+          {t('discount_hint_original_price')}
         </p>
       </div>
 
@@ -260,7 +260,7 @@ const DiscountCalculator: React.FC = () => {
             </p>
           )}
           <p className="text-gray-500 text-xs">
-            Procento slevy (např. 20% sleva)
+            {t('discount_hint_discount_percentage')}
           </p>
         </div>
       )}
@@ -294,7 +294,7 @@ const DiscountCalculator: React.FC = () => {
             </p>
           )}
           <p className="text-gray-500 text-xs">
-            Částka slevy v korunách
+            {t('discount_hint_discount_amount')}
           </p>
         </div>
       )}
@@ -338,18 +338,18 @@ const DiscountCalculator: React.FC = () => {
         <CardContent className="p-4">
           <div className="text-center">
             <div className="text-sm font-medium text-blue-800 mb-2">
-              Shrnutí slevy
+              {t('discount_summary_title')}
             </div>
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div>
-                <div className="font-semibold text-blue-900">Původní cena</div>
+                <div className="font-semibold text-blue-900">{t('discount_label_original_price')}</div>
                 <div className="text-blue-700">{formatCurrency(parseFloat(originalPrice || '0'))} Kč</div>
               </div>
               <div>
-                <div className="font-semibold text-blue-900">Typ výpočtu</div>
+                <div className="font-semibold text-blue-900">{t('discount_label_calc_type')}</div>
                 <div className="text-blue-700">
-                  {calculationType === 'percentage' ? 'Procento' : 
-                   calculationType === 'amount' ? 'Částka' : 'Konečná cena'}
+                  {calculationType === 'percentage' ? t('discount_summary_percentage') :
+                   calculationType === 'amount' ? t('discount_summary_amount') : t('discount_summary_final_price')}
                 </div>
               </div>
             </div>
@@ -373,7 +373,7 @@ const DiscountCalculator: React.FC = () => {
               Cena po slevě
             </div>
             <div className="text-xs text-green-600 mt-1">
-              Sleva {formatNumber(result.discountPercentage)}%
+              {t('discount_result_discount')} {formatNumber(result.discountPercentage)}%
             </div>
           </div>
           <Tag className="w-8 h-8 text-green-600" />
@@ -386,13 +386,13 @@ const DiscountCalculator: React.FC = () => {
           <CardContent className="p-4 text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
               <TrendingDown className="w-4 h-4 text-red-600" />
-              <div className="text-sm font-medium text-red-700">Sleva</div>
+              <div className="text-sm font-medium text-red-700">{t('discount_result_discount')}</div>
             </div>
             <div className="text-lg font-bold text-red-800">
               {formatCurrency(result.discountAmount)} Kč
             </div>
             <div className="text-xs text-red-600 mt-1">
-              {formatNumber(result.discountPercentage)}% z původní ceny
+              {formatNumber(result.discountPercentage)}% {t('discount_result_of_original')}
             </div>
           </CardContent>
         </Card>
@@ -401,13 +401,13 @@ const DiscountCalculator: React.FC = () => {
           <CardContent className="p-4 text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
               <DollarSign className="w-4 h-4 text-blue-600" />
-              <div className="text-sm font-medium text-blue-700">Původní cena</div>
+              <div className="text-sm font-medium text-blue-700">{t('discount_label_original_price')}</div>
             </div>
             <div className="text-lg font-bold text-blue-800">
               {formatCurrency(result.originalPrice)} Kč
             </div>
             <div className="text-xs text-blue-600 mt-1">
-              Cena před slevou
+              {t('discount_hint_original_price')}
             </div>
           </CardContent>
         </Card>
@@ -418,13 +418,13 @@ const DiscountCalculator: React.FC = () => {
         <CardContent className="p-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
             <Percent className="w-5 h-5 text-yellow-600" />
-            <div className="text-sm font-medium text-yellow-700">Vaše úspora</div>
+            <div className="text-sm font-medium text-yellow-700">{t('discount_result_savings')}</div>
           </div>
           <div className="text-xl font-bold text-yellow-800">
             {formatCurrency(result.savings)} Kč
           </div>
           <div className="text-sm text-yellow-600 mt-1">
-            Ušetříte {formatNumber(result.discountPercentage)}% z původní ceny
+            {t('discount_result_you_save', { percent: formatNumber(result.discountPercentage) })}
           </div>
         </CardContent>
       </Card>
@@ -435,25 +435,25 @@ const DiscountCalculator: React.FC = () => {
           <div className="flex items-start gap-3">
             <CalcIcon className="w-5 h-5 text-green-600 mt-0.5" />
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">Výpočet slevy</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">{t('discount_result_calculation')}</h4>
               <div className="space-y-1 text-sm text-gray-600">
                 <div className="flex justify-between">
-                  <span>Původní cena:</span>
+                  <span>{t('discount_detail_original')}</span>
                   <span className="font-mono">{formatCurrency(result.originalPrice)} Kč</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Sleva ({formatNumber(result.discountPercentage)}%):</span>
+                  <span>{t('discount_detail_discount_label')} ({formatNumber(result.discountPercentage)}%):</span>
                   <span className="font-mono">-{formatCurrency(result.discountAmount)} Kč</span>
                 </div>
                 <div className="border-t pt-1 flex justify-between font-semibold">
-                  <span>Konečná cena:</span>
+                  <span>{t('discount_detail_final')}</span>
                   <span className="font-mono">{formatCurrency(result.finalPrice)} Kč</span>
                 </div>
               </div>
               <div className="mt-2 text-xs text-gray-500">
-                Typ výpočtu: {getCalculationTypeDescription(result.calculationType)} | 
-                Sleva: {formatNumber(result.discountPercentage)}% | 
-                Úspora: {formatCurrency(result.savings)} Kč
+                {t('discount_detail_calc_type')} {getCalculationTypeDescription(result.calculationType)} |
+                {t('discount_detail_discount')} {formatNumber(result.discountPercentage)}% |
+                {t('discount_detail_savings')} {formatCurrency(result.savings)} Kč
               </div>
             </div>
           </div>

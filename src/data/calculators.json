@@ -581,8 +581,8 @@
       "slug": "makro-kalkulator",
       "category": "health",
       "popularity": 75,
-      "titleKey": "macro_title",
-      "descriptionKey": "macro_description",
+      "titleKey": "macro_calculator_title",
+      "descriptionKey": "macro_calculator_description",
       "path": "/calculator/fitness-a-zdravi/makro-kalkulator",
       "tags": [
         "health",
@@ -601,8 +601,8 @@
       "slug": "prijem-vody",
       "category": "health",
       "popularity": 70,
-      "titleKey": "water_title",
-      "descriptionKey": "water_description",
+      "titleKey": "water_calculator_title",
+      "descriptionKey": "water_calculator_description",
       "path": "/calculator/fitness-a-zdravi/prijem-vody",
       "tags": [
         "health",

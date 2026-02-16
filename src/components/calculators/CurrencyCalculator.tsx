@@ -236,7 +236,7 @@ const CurrencyCalculator: React.FC = () => {
         <CardContent className="p-4">
           <div className="text-center">
             <div className="text-sm font-medium text-blue-800 mb-2">
-              Převod měny
+              {t('currency_summary_title')}
             </div>
             <div className="text-lg font-semibold text-blue-900">
               {formatCurrency(parseFloat(amount || '0'), getCurrency(fromCurrency))} → {getCurrency(toCurrency).symbol}
@@ -261,7 +261,7 @@ const CurrencyCalculator: React.FC = () => {
               {formatCurrency(result.toAmount, result.toCurrency)}
             </div>
             <div className="text-sm text-green-700 mt-1">
-              Převedená částka
+              {t('currency_result_converted')}
             </div>
             <div className="text-xs text-green-600 mt-1">
               {result.fromCurrency.code} → {result.toCurrency.code}
@@ -277,14 +277,14 @@ const CurrencyCalculator: React.FC = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-blue-600" />
-              <span className="text-sm font-medium text-blue-800">Směnný kurz</span>
+              <span className="text-sm font-medium text-blue-800">{t('currency_result_exchange_rate')}</span>
             </div>
             <div className="text-right">
               <div className="text-lg font-bold text-blue-900">
                 1 {result.fromCurrency.code} = {result.rate.toFixed(6)} {result.toCurrency.code}
               </div>
               <div className="text-xs text-blue-600">
-                Aktuální kurz
+                {t('currency_result_current_rate')}
               </div>
             </div>
           </div>
@@ -295,7 +295,7 @@ const CurrencyCalculator: React.FC = () => {
       <div className="grid grid-cols-2 gap-4">
         <Card className="bg-gray-50 border-gray-200">
           <CardContent className="p-4 text-center">
-            <div className="text-sm text-gray-700 mb-1">Původní částka</div>
+            <div className="text-sm text-gray-700 mb-1">{t('currency_result_original')}</div>
             <div className="text-lg font-bold text-gray-800">
               {formatCurrency(result.fromAmount, result.fromCurrency)}
             </div>
@@ -305,7 +305,7 @@ const CurrencyCalculator: React.FC = () => {
 
         <Card className="bg-gray-50 border-gray-200">
           <CardContent className="p-4 text-center">
-            <div className="text-sm text-gray-700 mb-1">Převedená částka</div>
+            <div className="text-sm text-gray-700 mb-1">{t('currency_result_converted')}</div>
             <div className="text-lg font-bold text-gray-800">
               {formatCurrency(result.toAmount, result.toCurrency)}
             </div>
@@ -327,7 +327,7 @@ const CurrencyCalculator: React.FC = () => {
                   <span className="font-mono">{formatCurrency(result.fromAmount, result.fromCurrency)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Směnný kurz:</span>
+                  <span>{t('currency_detail_rate')}</span>
                   <span className="font-mono">1 {result.fromCurrency.code} = {result.rate.toFixed(6)} {result.toCurrency.code}</span>
                 </div>
                 <div className="border-t pt-1 flex justify-between font-semibold">
@@ -382,51 +382,51 @@ const CurrencyCalculator: React.FC = () => {
       category={t('categories.practical')}
       calculatorId="currency"
       seo={{
-        title: "Kalkulátor měn - Převod měn s aktuálními kurzy | MathCalc",
-        description: "Bezplatný kalkulátor měn. Převádějte CZK, EUR, USD, GBP a další měny s aktuálními směnnými kurzy.",
-        keywords: ["měny", "kalkulátor měn", "převod měn", "směnný kurz", "CZK", "EUR", "USD", "GBP", "CHF", "PLN", "HUF"]
+        title: t('currency_seo_title'),
+        description: t('currency_seo_description'),
+        keywords: t('currency_seo_keywords').split(',')
       }}
       formula={{
-        latex: "Převedená\\,částka = Původní\\,částka \\times Směnný\\,kurz",
-        description: "Částka se převede podle aktuálního směnného kurzu mezi vybranými měnami."
+        latex: t('currency_formula_latex'),
+        description: t('currency_formula_description')
       }}
       examples={{
-        title: "Příklady převodu měn",
-        description: "Praktické použití kalkulátoru měn",
+        title: t('currency_examples_title'),
+        description: t('currency_examples_description'),
         scenarios: [
           {
-            title: "CZK na EUR",
-            description: "1 000 CZK = 41,00 EUR",
-            example: "Převod korun na eura pro nákupy v zahraničí"
+            title: t('currency_example_1_title'),
+            description: t('currency_example_1_description'),
+            example: t('currency_example_1_example')
           },
           {
-            title: "USD na CZK",
-            description: "100 USD = 2 273 CZK",
-            example: "Převod dolarů na koruny"
+            title: t('currency_example_2_title'),
+            description: t('currency_example_2_description'),
+            example: t('currency_example_2_example')
           },
           {
-            title: "EUR na GBP",
-            description: "500 EUR = 427 GBP",
-            example: "Převod mezi evropskými měnami"
+            title: t('currency_example_3_title'),
+            description: t('currency_example_3_description'),
+            example: t('currency_example_3_example')
           }
         ]
       }}
       faq={[
         {
-          question: "Jak často se aktualizují směnné kurzy?",
-          answer: "V této demo verzi jsou použity ukázkové kurzy. V produkční verzi by se kurzy aktualizovaly v reálném čase z finančních API."
+          question: t('currency_faq_1_q'),
+          answer: t('currency_faq_1_a')
         },
         {
-          question: "Které měny kalkulátor podporuje?",
-          answer: "Kalkulátor podporuje hlavní světové měny: CZK, EUR, USD, GBP, CHF, PLN, HUF, JPY, CAD, AUD a další."
+          question: t('currency_faq_2_q'),
+          answer: t('currency_faq_2_a')
         },
         {
-          question: "Jak funguje výpočet převodu?",
-          answer: "Částka se převede podle aktuálního směnného kurzu: Převedená částka = Původní částka × Směnný kurz."
+          question: t('currency_faq_3_q'),
+          answer: t('currency_faq_3_a')
         },
         {
-          question: "Lze převádět mezi libovolnými měnami?",
-          answer: "Ano, můžete převádět mezi všemi podporovanými měnami v obou směrech pomocí tlačítka pro prohození měn."
+          question: t('currency_faq_4_q'),
+          answer: t('currency_faq_4_a')
         }
       ]}
       schemaData={{

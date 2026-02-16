@@ -75,11 +75,13 @@ const CalculatorRating: React.FC<CalculatorRatingProps> = ({
       const isHovered = !hasRated && i <= hoveredStar;
 
       // Determine color
-      let starColorClass = "text-muted-foreground/40"; // Empty state
+      let starColorClass = "text-muted-foreground/30 stroke-muted-foreground/50"; // Empty state - better visibility
       if (isFilled && !isHovered) {
-        starColorClass = "text-yellow-400 fill-yellow-400 drop-shadow-[0_0_2px_rgba(250,204,21,0.4)]";
+        // Rated state - bright yellow with soft glow and subtle stroke
+        starColorClass = "text-yellow-400 fill-yellow-400 stroke-yellow-500 drop-shadow-[0_0_3px_rgba(250,204,21,0.5)]";
       } else if (isHovered) {
-        starColorClass = "text-yellow-400 fill-yellow-400 drop-shadow-[0_0_4px_rgba(250,204,21,0.6)]";
+        // Hover state - brighter glow
+        starColorClass = "text-yellow-400 fill-yellow-400 stroke-yellow-500 drop-shadow-[0_0_5px_rgba(250,204,21,0.7)] scale-110";
       }
 
       stars.push(
@@ -112,10 +114,13 @@ const CalculatorRating: React.FC<CalculatorRatingProps> = ({
   };
 
   return (
-    <div className={cn("flex flex-col items-center justify-center gap-1", className)}>
-      <div className="flex items-center gap-1 relative">
+    <div className={cn("flex flex-wrap items-center gap-3", className)}>
+      <div className="flex items-center gap-1">
         {/* Stars Container */}
-        <div className="flex items-center">
+        <div
+          className="flex items-center"
+          onMouseLeave={() => handleStarMouseLeave(hasRated)}
+        >
           {hasRated ? (
             <TooltipProvider>
               <Tooltip>
@@ -135,43 +140,48 @@ const CalculatorRating: React.FC<CalculatorRatingProps> = ({
         </div>
 
         {/* Rating Value / Review Count Pill */}
-        {rating.averageRating > 0 && (
-          <div className="ml-2 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-muted/40 border border-border/50 text-xs font-medium text-muted-foreground/80">
-            <span>{rating.averageRating.toFixed(1)}</span>
-            <span className="w-0.5 h-2.5 bg-border/80 rounded-full"></span>
-            <span>({rating.reviewCount})</span>
-          </div>
-        )}
-      </div>
-
-      {/* Animated Feedback Messages */}
-      <div className="h-4 relative w-full flex justify-center overflow-visible">
-        <AnimatePresence mode="wait">
-          {showThankYou ? (
-            <motion.span
-              key="thank-you"
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -5 }}
-              className="absolute text-xs font-medium text-emerald-500"
+        <AnimatePresence>
+          {rating.averageRating > 0 && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary/50 border border-border/50 text-xs font-medium text-muted-foreground"
             >
-              {t('rating.thank_you')}
-            </motion.span>
-          ) : (
-            !hasRated && rating.averageRating === 0 && (
-              <motion.span
-                key="no-reviews"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="absolute text-[10px] text-muted-foreground/60"
-              >
-                {t('rating.no_reviews')}
-              </motion.span>
-            )
+              <span className="text-foreground">{rating.averageRating.toFixed(1)}</span>
+              <span className="w-0.5 h-3 bg-border rounded-full"></span>
+              <span>{rating.reviewCount}</span>
+            </motion.div>
           )}
         </AnimatePresence>
       </div>
+
+      {/* Animated Feedback Messages - Positioned inline or below depending on space */}
+      <AnimatePresence mode="wait">
+        {showThankYou ? (
+          <motion.div
+            key="thank-you"
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 10 }}
+            className="flex items-center gap-1 text-sm font-medium text-emerald-500"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            {t('rating.thank_you')}
+          </motion.div>
+        ) : (
+          !hasRated && rating.averageRating > 0 && (
+            <motion.span
+              key="cta"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="text-xs text-muted-foreground/60 hidden sm:inline-block"
+            >
+              {t('rating.rate_this')}
+            </motion.span>
+          )
+        )}
+      </AnimatePresence>
     </div>
   );
 };

@@ -2251,7 +2251,12 @@
   "category_utility_description": "Practical calculators for everyday use",
   "quick_links_popular": "Most Popular",
   "quick_links_recent": "Recently Added",
-  "rating": "Rate this calculator",
+  "rating": {
+    "rate_this": "Rate this tool",
+    "already_rated": "You have already rated",
+    "thank_you": "Thank you!",
+    "no_reviews": "No reviews yet"
+  },
   "net_salary_calculator_title": "Net Salary Calculator",
   "net_salary_calculator_description": "Calculate your net salary from gross income",
   "percentage_calculator_title": "Percentage Calculator",

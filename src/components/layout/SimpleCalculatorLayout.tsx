@@ -214,9 +214,9 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
 
               {/* Header Section */}
               <div className="space-y-6">
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between md:gap-6">
-                  <div className="flex-1">
-                    <SimpleBadge variant="secondary" className={cn("mb-4 text-sm px-3 py-1 border shadow-sm flex items-center w-fit gap-1.5",
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center justify-between w-full">
+                    <SimpleBadge variant="secondary" className={cn("text-sm px-3 py-1 border shadow-sm flex items-center w-fit gap-1.5",
                       branding.id === 'finance' ? "bg-gradient-to-br from-emerald-500/10 to-emerald-500/20 border-emerald-500/30 text-emerald-700 dark:text-emerald-400" :
                         branding.id === 'health' ? "bg-gradient-to-br from-rose-500/10 to-rose-500/20 border-rose-500/30 text-rose-700 dark:text-rose-400" :
                           branding.id === 'math' ? "bg-gradient-to-br from-indigo-500/10 to-indigo-500/20 border-indigo-500/30 text-indigo-700 dark:text-indigo-400" :
@@ -228,25 +228,19 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                       <CategoryIcon className="w-3.5 h-3.5" />
                       {category}
                     </SimpleBadge>
+
+                    <CalculatorRating
+                      calculatorId={calculatorId || 'unknown'}
+                      className=""
+                    />
+                  </div>
+
+                  <div>
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-foreground tracking-tight mb-4 drop-shadow-sm">
                       {title}
                     </h1>
                     <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">{description}</p>
                   </div>
-                  <div className="hidden md:block flex-shrink-0 mt-2">
-                    <CalculatorRating
-                      calculatorId={calculatorId || 'unknown'}
-                      className="glass-card px-5 py-3 rounded-xl border-primary/10 bg-white/40 dark:bg-slate-900/40"
-                    />
-                  </div>
-                </div>
-
-                {/* Mobile Rating */}
-                <div className="md:hidden flex justify-start">
-                  <CalculatorRating
-                    calculatorId={calculatorId || 'unknown'}
-                    className="glass-card px-4 py-2 rounded-xl inline-flex border-primary/10 bg-white/40 dark:bg-slate-900/40"
-                  />
                 </div>
               </div>
 

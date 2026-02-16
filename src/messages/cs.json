@@ -1600,7 +1600,8 @@
   "rating": {
     "no_reviews": "Ohodnotit",
     "thank_you": "Děkujeme za hodnocení!",
-    "already_rated": "Již jste hodnotil"
+    "already_rated": "Již jste hodnotil",
+    "rate_this": "Ohodnoťte tento nástroj"
   },
   "roi_annual_roi": "Roční ROI",
   "roi_annualized_roi_result": "Anualizovaný ROI",

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Calculator, Star, ArrowRight } from 'lucide-react';
 import GlassCard from '@/components/shared/GlassCard';
-import { CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/Card';
+import { CardHeader, CardContent, CardDescription } from '@/components/ui/Card';
 import { useRatingData } from '@/hooks/useRatingData';
 import { RelatedCalculator } from '@/lib/calculatorDataUtils';
 
@@ -25,6 +25,7 @@ const CalculatorCard: React.FC<CalculatorCardProps> = ({
         if (showRating) {
             loadRatingData(calculator.id);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [calculator.id, showRating]);
 
     // Determine if popular based on popularity score (standard is > 80)
@@ -39,9 +40,9 @@ const CalculatorCard: React.FC<CalculatorCardProps> = ({
                             <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
                                 <Calculator className="w-5 h-5" />
                             </div>
-                            <CardTitle className="text-lg group-hover:text-primary transition-colors">
+                            <div className="text-lg font-semibold group-hover:text-primary transition-colors">
                                 {calculator.title}
-                            </CardTitle>
+                            </div>
                         </div>
 
                         {/* Popular Badge */}
@@ -68,8 +69,8 @@ const CalculatorCard: React.FC<CalculatorCardProps> = ({
                                         <Star
                                             key={star}
                                             className={`w-3.5 h-3.5 ${star <= Math.round(rating.averageRating)
-                                                    ? "text-yellow-400 fill-yellow-400"
-                                                    : "text-muted-foreground/20"
+                                                ? "text-yellow-400 fill-yellow-400"
+                                                : "text-muted-foreground/20"
                                                 }`}
                                         />
                                     ))}

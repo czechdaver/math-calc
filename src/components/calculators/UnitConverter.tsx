@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
+
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 
 import { useUnitConverter, UnitType } from '@/hooks/useUnitConverter';
@@ -8,13 +8,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import Tabs from '@/components/ui/Tabs';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Info, ArrowRightLeft } from 'lucide-react';
+
+import { ArrowRightLeft } from 'lucide-react';
 
 const UnitConverter: React.FC = () => {
   const t = useTranslations();
-  const params = useParams();
-  const locale = params.locale as string;
+  // const params = useParams();
+
   const {
     unitType, inputValue, setInputValue,
     fromUnit, setFromUnit, toUnit, setToUnit,

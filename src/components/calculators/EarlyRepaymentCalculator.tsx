@@ -14,7 +14,7 @@ import { TrendingUp, Calculator as CalcIcon } from 'lucide-react';
 
 const EarlyRepaymentCalculator: React.FC = () => {
   const t = useTranslations();
-  const { formatCurrency, formatMonths, locale } = useFinanceFormatting();
+  const { formatCurrency, formatMonths /*, locale */ } = useFinanceFormatting();
 
   const { state, setField, result, errors } = useEarlyRepaymentCalculator({
     loanAmount: t('early_repayment_validation_loan_amount'),

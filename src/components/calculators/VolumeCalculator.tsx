@@ -7,8 +7,8 @@ import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput, CalculatorSelect } from './shared';
 import { Card, CardContent } from '@/components/ui/Card';
-import { Box, Circle, Cylinder, Pyramid, Calculator as CalcIcon } from 'lucide-react';
-import { useVolumeCalculator, VolumeShape } from '@/hooks/useVolumeCalculator';
+import { Box, Circle, Cylinder, Pyramid } from 'lucide-react';
+import { useVolumeCalculator } from '@/hooks/useVolumeCalculator';
 
 const shapeIcons: Record<string, React.ReactNode> = {
   cube: <Box className="w-6 h-6 text-green-600 dark:text-green-400" />,
@@ -36,8 +36,9 @@ const VolumeCalculator: React.FC = () => {
 
   useEffect(() => {
     calc.calculate(errorMessages);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calc.shape, calc.length, calc.width, calc.height, calc.radius,
-      calc.cylRadius, calc.cylHeight, calc.coneRadius, calc.coneHeight]);
+  calc.cylRadius, calc.cylHeight, calc.coneRadius, calc.coneHeight]);
 
   const shapeOptions: { value: string; label: string }[] = [
     'cube', 'rectangular', 'sphere', 'cylinder', 'cone',

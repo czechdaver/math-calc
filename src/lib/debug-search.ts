@@ -1,4 +1,4 @@
-
+/* eslint-disable no-console */
 import { searchCalculators } from './calculatorDataUtils';
 
 // Mock t function

@@ -90,6 +90,7 @@ const IdealWeightCalculator: React.FC = () => {
         current: cwN, height: hN, gender, age: aN, isValid: true,
       });
     } else { setResult(null); }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [height, gender, age, currentWeight, formula]);
 
   const formulaCards = [
@@ -111,17 +112,19 @@ const IdealWeightCalculator: React.FC = () => {
           <Scale className="w-8 h-8 text-green-600" />
         </div>
       </div>
-      {result.current && (() => { const ws = getWeightStatus(result.current, getPrimary(result)); return (
-        <Card className="bg-yellow-50 border-yellow-200">
-          <CardContent className="p-4 text-center">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              {ws.icon}<div className={`text-sm font-medium ${ws.color}`}>{ws.status}</div>
-            </div>
-            <div className="text-lg font-bold text-gray-800">{t('ideal_weight_difference')}: {fmt(result.current - getPrimary(result), 1)} kg</div>
-            <div className="text-xs text-gray-600 mt-1">{t('ideal_weight_current')}: {fmt(result.current)} kg</div>
-          </CardContent>
-        </Card>
-      ); })()}
+      {result.current && (() => {
+        const ws = getWeightStatus(result.current, getPrimary(result)); return (
+          <Card className="bg-yellow-50 border-yellow-200">
+            <CardContent className="p-4 text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                {ws.icon}<div className={`text-sm font-medium ${ws.color}`}>{ws.status}</div>
+              </div>
+              <div className="text-lg font-bold text-gray-800">{t('ideal_weight_difference')}: {fmt(result.current - getPrimary(result), 1)} kg</div>
+              <div className="text-xs text-gray-600 mt-1">{t('ideal_weight_current')}: {fmt(result.current)} kg</div>
+            </CardContent>
+          </Card>
+        );
+      })()}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {formulaCards.map(({ key, color, label }) => {
           const active = formula === key;
@@ -176,11 +179,13 @@ const IdealWeightCalculator: React.FC = () => {
       calculatorId="ideal-weight"
       seo={{ title: t('ideal_weight_seo_title'), description: t('ideal_weight_seo_description'), keywords: t('ideal_weight_seo_keywords').split(',') }}
       formula={{ latex: t('ideal_weight_latex'), description: t('ideal_weight_latex_desc') }}
-      examples={{ title: t('ideal_weight_examples_title'), description: t('ideal_weight_examples_description'), scenarios: [
-        { title: t('ideal_weight_example1_title'), description: t('ideal_weight_example1_description'), example: t('ideal_weight_example1_example') },
-        { title: t('ideal_weight_example2_title'), description: t('ideal_weight_example2_description'), example: t('ideal_weight_example2_example') },
-        { title: t('ideal_weight_example3_title'), description: t('ideal_weight_example3_description'), example: t('ideal_weight_example3_example') },
-      ]}}
+      examples={{
+        title: t('ideal_weight_examples_title'), description: t('ideal_weight_examples_description'), scenarios: [
+          { title: t('ideal_weight_example1_title'), description: t('ideal_weight_example1_description'), example: t('ideal_weight_example1_example') },
+          { title: t('ideal_weight_example2_title'), description: t('ideal_weight_example2_description'), example: t('ideal_weight_example2_example') },
+          { title: t('ideal_weight_example3_title'), description: t('ideal_weight_example3_description'), example: t('ideal_weight_example3_example') },
+        ]
+      }}
       faq={[
         { question: t('ideal_weight_faq1_q'), answer: t('ideal_weight_faq1_a') },
         { question: t('ideal_weight_faq2_q'), answer: t('ideal_weight_faq2_a') },

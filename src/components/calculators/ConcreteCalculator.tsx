@@ -8,7 +8,7 @@ import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput } from './shared';
 import { CalculatorSelect } from './shared';
 import { Card, CardContent } from '@/components/ui/Card';
-import { Truck, Package, Building, Calculator as CalcIcon } from 'lucide-react';
+import { Truck, Package, Building } from 'lucide-react';
 import { useConcreteCalculator, concreteGrades } from '@/hooks/useConcreteCalculator';
 
 const ConcreteCalculator: React.FC = () => {
@@ -28,10 +28,11 @@ const ConcreteCalculator: React.FC = () => {
     gravelPrice: t('concrete_error_gravel_price'),
   };
 
+  //
   useEffect(() => {
     calc.calculate(errorMessages);
-  }, [calc.calculationType, calc.concreteGrade, calc.length, calc.width, calc.thickness,
-      calc.diameter, calc.height, calc.quantity, calc.cementPrice, calc.sandPrice, calc.gravelPrice]);
+  }, [calc.calculationType, calc.concreteGrade, calc.length, calc.width, calc.thickness, // eslint-disable-line react-hooks/exhaustive-deps
+  calc.diameter, calc.height, calc.quantity, calc.cementPrice, calc.sandPrice, calc.gravelPrice]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const gradeOptions = Object.entries(concreteGrades).map(([grade, info]) => ({
     value: grade, label: `${grade} – ${t(info.useKey)}`,

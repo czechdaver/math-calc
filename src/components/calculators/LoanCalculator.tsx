@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
+
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
@@ -23,8 +23,8 @@ interface LoanResult {
 
 const LoanCalculator: React.FC = () => {
   const t = useTranslations();
-  const params = useParams();
-  const locale = params.locale as string;
+  // const params = useParams();
+  // const locale = params.locale as string;
   const [loanAmount, setLoanAmount] = useState<string>('500000');
   const [interestRate, setInterestRate] = useState<string>('5.5');
   const [loanTerm, setLoanTerm] = useState<string>('20');
@@ -135,6 +135,7 @@ const LoanCalculator: React.FC = () => {
     } else {
       setResult(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loanAmount, interestRate, loanTerm, termUnit]);
 
   // Quick amount buttons

@@ -1,5 +1,5 @@
 // src/hooks/useROICalculator.ts
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export interface ROIResult {
   roi: number;
@@ -55,7 +55,7 @@ export function useROICalculator(validationMessages: ROIValidationMessages) {
     }
   };
 
-  const validateInputs = (): boolean => {
+  const validateInputs = useCallback((): boolean => {
     const newErrors: Record<string, string> = {};
     const initialNum = parseFloat(state.initialInvestment);
     const finalNum = parseFloat(state.finalValue);
@@ -84,7 +84,7 @@ export function useROICalculator(validationMessages: ROIValidationMessages) {
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+  }, [state, validationMessages]);
 
   useEffect(() => {
     if (!validateInputs()) {
@@ -130,7 +130,7 @@ export function useROICalculator(validationMessages: ROIValidationMessages) {
     }
 
     setResult({ roi, annualizedROI, totalReturn, netProfit, investmentPeriod: periodInYears, breakEvenPoint, totalInvestment });
-  }, [state.calculationType, state.initialInvestment, state.finalValue, state.additionalCosts, state.timePeriod, state.timeUnit, state.annualReturn]);
+  }, [state.calculationType, state.initialInvestment, state.finalValue, state.additionalCosts, state.timePeriod, state.timeUnit, state.annualReturn, validateInputs]);
 
   return { state, setField, result, errors };
 }

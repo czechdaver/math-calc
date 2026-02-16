@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
+
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput } from './shared';
 import { Info } from 'lucide-react';
@@ -15,8 +15,8 @@ interface InverseProportionResult {
 
 const InverseProportionCalculator: React.FC = () => {
   const t = useTranslations();
-  const params = useParams();
-  const locale = params.locale as string;
+  // const params = useParams();
+  // const locale = params.locale as string;
   const [a, setA] = useState<string>('6');
   const [b, setB] = useState<string>('4');
   const [c, setC] = useState<string>('3');
@@ -57,6 +57,7 @@ const InverseProportionCalculator: React.FC = () => {
     } else {
       setResult(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [a, b, c]);
 
 

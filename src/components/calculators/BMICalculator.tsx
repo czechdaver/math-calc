@@ -1,10 +1,10 @@
 // src/components/calculators/BMICalculator.tsx
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
+// import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorInput, CalculatorResult } from './shared';
-import { Info } from 'lucide-react';
+// import { Info } from 'lucide-react';
 
 interface BMIResult {
   bmi: number;
@@ -15,8 +15,8 @@ interface BMIResult {
 
 const BMICalculator: React.FC = () => {
   const t = useTranslations();
-  const params = useParams();
-  const locale = params.locale as string;
+  //
+  //
   const [height, setHeight] = useState<string>('170');
   const [weight, setWeight] = useState<string>('70');
   const [result, setResult] = useState<BMIResult | null>(null);
@@ -80,6 +80,7 @@ const BMICalculator: React.FC = () => {
     } else {
       setResult(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [height, weight]);
 
   // Calculator form using shared components

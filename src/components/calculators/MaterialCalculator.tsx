@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
+
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
@@ -24,13 +24,13 @@ interface MaterialResult {
 
 const MaterialCalculator: React.FC = () => {
   const t = useTranslations();
-  const params = useParams();
-  const locale = params.locale as string;
+  // const params = useParams();
+  // const locale = params.locale as string;
   const [materialType, setMaterialType] = useState<string>('tiles');
   const [area, setArea] = useState<string>('50');
   const [unitPrice, setUnitPrice] = useState<string>('500');
   const [wastePercentage, setWastePercentage] = useState<string>('10');
-  
+
   const [result, setResult] = useState<MaterialResult | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -99,7 +99,7 @@ const MaterialCalculator: React.FC = () => {
   // Validation function
   const validateInputs = () => {
     const newErrors: Record<string, string> = {};
-    
+
     const areaNum = parseFloat(area);
     const priceNum = parseFloat(unitPrice);
     const wasteNum = parseFloat(wastePercentage);
@@ -131,7 +131,7 @@ const MaterialCalculator: React.FC = () => {
   ): MaterialResult => {
     // Calculate base quantity needed
     let baseQuantity: number;
-    
+
     if (material.unit === 'l') {
       // Paint: area / coverage per liter
       baseQuantity = areaValue / material.coverage;
@@ -148,10 +148,10 @@ const MaterialCalculator: React.FC = () => {
 
     // Add waste
     const quantityWithWaste = baseQuantity * (1 + waste / 100);
-    
+
     // Round up for discrete items
     const finalQuantity = material.unit === 'role' ? Math.ceil(quantityWithWaste) : quantityWithWaste;
-    
+
     // Calculate cost
     const totalCost = finalQuantity * pricePerUnit;
 
@@ -180,12 +180,14 @@ const MaterialCalculator: React.FC = () => {
     } else {
       setResult(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [materialType, area, unitPrice, wastePercentage]);
 
   // Set default waste percentage when material changes
   useEffect(() => {
     const material = materials[materialType as keyof typeof materials];
     setWastePercentage(material.defaultWaste.toString());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [materialType]);
 
   // Calculator input form

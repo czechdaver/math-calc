@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
+// import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
@@ -23,16 +23,16 @@ interface DiscountResult {
 
 const DiscountCalculator: React.FC = () => {
   const t = useTranslations();
-  const params = useParams();
-  const locale = params.locale as string;
+  // const params = useParams();
+  // const locale = params.locale as string;
   const [calculationType, setCalculationType] = useState<string>('percentage');
   const [originalPrice, setOriginalPrice] = useState<string>('1000');
   const [discountPercentage, setDiscountPercentage] = useState<string>('20');
   const [discountAmount, setDiscountAmount] = useState<string>('');
   const [finalPrice, setFinalPrice] = useState<string>('');
   const [result, setResult] = useState<DiscountResult | null>(null);
-  const [errors, setErrors] = useState<{ 
-    originalPrice?: string; discountPercentage?: string; 
+  const [errors, setErrors] = useState<{
+    originalPrice?: string; discountPercentage?: string;
     discountAmount?: string; finalPrice?: string;
   }>({});
 
@@ -118,11 +118,11 @@ const DiscountCalculator: React.FC = () => {
     finalPriceStr: string,
     calcType: string
   ) => {
-    const newErrors: { 
-      originalPrice?: string; discountPercentage?: string; 
+    const newErrors: {
+      originalPrice?: string; discountPercentage?: string;
       discountAmount?: string; finalPrice?: string;
     } = {};
-    
+
     const originalPriceNum = parseFloat(originalPriceStr);
     const discountPercentageNum = parseFloat(discountPercentageStr);
     const discountAmountNum = parseFloat(discountAmountStr);
@@ -174,6 +174,7 @@ const DiscountCalculator: React.FC = () => {
     } else {
       setResult(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [originalPrice, discountPercentage, discountAmount, finalPrice, calculationType]);
 
   // Calculator input form
@@ -349,7 +350,7 @@ const DiscountCalculator: React.FC = () => {
                 <div className="font-semibold text-blue-900">{t('discount_label_calc_type')}</div>
                 <div className="text-blue-700">
                   {calculationType === 'percentage' ? t('discount_summary_percentage') :
-                   calculationType === 'amount' ? t('discount_summary_amount') : t('discount_summary_final_price')}
+                    calculationType === 'amount' ? t('discount_summary_amount') : t('discount_summary_final_price')}
                 </div>
               </div>
             </div>

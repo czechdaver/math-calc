@@ -33,7 +33,7 @@ const AgeCalculator: React.FC = () => {
   const [birthDate, setBirthDate] = useState<string>('1990-01-01');
   const [targetDate, setTargetDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [result, setResult] = useState<AgeResult | null>(null);
-  const [errors, setErrors] = useState<{ 
+  const [errors, setErrors] = useState<{
     birthDate?: string; targetDate?: string;
   }>({});
 
@@ -64,11 +64,11 @@ const AgeCalculator: React.FC = () => {
   // Calculate next birthday
   const getNextBirthday = (birthDate: Date, targetDate: Date): Date => {
     const nextBirthday = new Date(targetDate.getFullYear(), birthDate.getMonth(), birthDate.getDate());
-    
+
     if (nextBirthday <= targetDate) {
       nextBirthday.setFullYear(targetDate.getFullYear() + 1);
     }
-    
+
     return nextBirthday;
   };
 
@@ -137,7 +137,7 @@ const AgeCalculator: React.FC = () => {
   // Validation function
   const validateInputs = (birthDateStr: string, targetDateStr: string) => {
     const newErrors: { birthDate?: string; targetDate?: string } = {};
-    
+
     const birthDateObj = new Date(birthDateStr);
     const targetDateObj = new Date(targetDateStr);
     const today = new Date();
@@ -170,6 +170,7 @@ const AgeCalculator: React.FC = () => {
     } else {
       setResult(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [birthDate, targetDate]);
 
   // Calculator input form
@@ -350,7 +351,7 @@ const AgeCalculator: React.FC = () => {
               <span className="text-yellow-700">{t('age_label_in')}</span>
               <span className="font-mono text-yellow-900">
                 {result.daysUntilBirthday} {result.daysUntilBirthday === 1 ? t('age_day_1') :
-                 result.daysUntilBirthday < 5 ? t('age_day_2_4') : t('age_day_5_plus')}
+                  result.daysUntilBirthday < 5 ? t('age_day_2_4') : t('age_day_5_plus')}
               </span>
             </div>
             <div className="flex justify-between items-center">

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
+// import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorInput, CalculatorResult } from './shared';
+import { CalculatorInput } from './shared';
 import { Info } from 'lucide-react';
 
 interface DirectProportionResult {
@@ -15,8 +15,8 @@ interface DirectProportionResult {
 
 const DirectProportionCalculator: React.FC = () => {
   const t = useTranslations();
-  const params = useParams();
-  const locale = params.locale as string;
+  // const params = useParams();
+  // const locale = params.locale as string;
   const [a, setA] = useState<string>('1');
   const [b, setB] = useState<string>('2');
   const [c, setC] = useState<string>('10');
@@ -61,6 +61,7 @@ const DirectProportionCalculator: React.FC = () => {
     } else {
       setResult(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [a, b, c]);
 
 

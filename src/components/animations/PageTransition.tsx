@@ -7,20 +7,7 @@ interface PageTransitionProps {
   className?: string;
 }
 
-const pageVariants = {
-  initial: {
-    opacity: 0,
-    y: 20,
-  },
-  in: {
-    opacity: 1,
-    y: 0,
-  },
-  out: {
-    opacity: 0,
-    y: -20,
-  },
-};
+//
 
 
 
@@ -34,10 +21,10 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children, className = '
     const handleRouteChangeStart = (url: string) => {
       // Save the current scroll position
       scrollPositions.current[router.asPath] = window.scrollY;
-      
+
       // Check if this is a back/forward navigation
-      isBack.current = document.referrer.includes(window.location.origin) && 
-        !router.asPath.includes('?') && 
+      isBack.current = document.referrer.includes(window.location.origin) &&
+        !router.asPath.includes('?') &&
         !url.includes('?');
     };
 
@@ -49,7 +36,7 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children, className = '
         // Scroll to top for new navigations
         window.scrollTo(0, 0);
       }
-      
+
       // Reset the flag
       isBack.current = false;
     };

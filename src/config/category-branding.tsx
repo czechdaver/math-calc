@@ -2,12 +2,10 @@ import {
     TrendingUp,
     Heart,
     Calculator,
-    Ruler,
     Percent,
     Briefcase,
     Settings,
     Hammer,
-    DollarSign,
     HelpCircle,
     LucideIcon
 } from 'lucide-react';

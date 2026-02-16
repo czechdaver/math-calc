@@ -64,6 +64,7 @@ const VATCalculator: React.FC = () => {
     } else {
       setResult(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [amount, country, direction]);
 
   const calculatorForm = (

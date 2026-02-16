@@ -12,7 +12,7 @@ import { TrendingUp, Calculator as CalcIcon } from 'lucide-react';
 
 const NPVCalculator: React.FC = () => {
   const t = useTranslations();
-  const { formatCurrency, formatPercentage, formatRatio, locale } = useFinanceFormatting();
+  const { formatCurrency, formatPercentage, formatRatio } = useFinanceFormatting();
 
   const { cashFlows, setCashFlows, discountRate, setDiscountRate, result, errors } = useNPVCalculator({
     discountRate: t('npv_validation_discount_rate'),

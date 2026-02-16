@@ -1,5 +1,5 @@
 import { toast as sonnerToast } from 'sonner';
-import { X, AlertCircle, CheckCircle2, Info, AlertTriangle } from 'lucide-react';
+import { AlertCircle, CheckCircle2, Info, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type ToastVariant = 'success' | 'error' | 'warning' | 'info' | 'default';
@@ -20,13 +20,7 @@ type ToastOptions = {
 };
 
 // Map our variants to Sonner's toast types
-const variantToType = {
-  success: 'success',
-  error: 'error',
-  warning: 'warning',
-  info: 'info',
-  default: 'default',
-} as const;
+
 
 // Icons for each variant
 const variantIcons = {
@@ -190,19 +184,19 @@ const Toast = {
 
     promise
       .then((data) => {
-        const successMessage = typeof messages.success === 'function' 
-          ? messages.success(data) 
+        const successMessage = typeof messages.success === 'function'
+          ? messages.success(data)
           : messages.success;
-        
+
         Toast.dismiss(loadingId);
         Toast.success(successMessage, '', { ...options, duration: 5000 });
         return data;
       })
       .catch((error) => {
-        const errorMessage = (typeof messages.error === 'function' 
+        const errorMessage = (typeof messages.error === 'function'
           ? messages.error(error)
           : messages.error) || 'An error occurred';
-        
+
         Toast.dismiss(loadingId);
         Toast.error('Error', errorMessage, { ...options, duration: 8000 });
         throw error;

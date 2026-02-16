@@ -24,7 +24,7 @@ const PercentageOfNumberCalculator: React.FC = () => {
   const [result, setResult] = useState<PercentageResult | null>(null);
   const [errors, setErrors] = useState<{ percentage?: string; number?: string }>({});
 
-  const validateInputs = (percentageStr: string, numberStr: string) => {
+  const validateInputs = React.useCallback((percentageStr: string, numberStr: string) => {
     const newErrors: { percentage?: string; number?: string } = {};
     const percentageNum = parseFloat(percentageStr);
     const numberNum = parseFloat(numberStr);
@@ -36,7 +36,7 @@ const PercentageOfNumberCalculator: React.FC = () => {
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+  }, [t]);
 
   useEffect(() => {
     if (validateInputs(percentage, number)) {
@@ -46,7 +46,7 @@ const PercentageOfNumberCalculator: React.FC = () => {
     } else {
       setResult(null);
     }
-  }, [percentage, number]);
+  }, [percentage, number, validateInputs]);
 
 
   return (

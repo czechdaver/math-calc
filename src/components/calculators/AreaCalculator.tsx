@@ -24,23 +24,23 @@ const AreaCalculator: React.FC = () => {
   const params = useParams();
   const locale = params.locale as string;
   const [shape, setShape] = useState<string>('rectangle');
-  
+
   // Rectangle/Square dimensions
   const [length, setLength] = useState<string>('10');
   const [width, setWidth] = useState<string>('8');
-  
+
   // Circle dimensions
   const [radius, setRadius] = useState<string>('5');
-  
+
   // Triangle dimensions
   const [base, setBase] = useState<string>('10');
   const [height, setHeight] = useState<string>('8');
-  
+
   // Trapezoid dimensions
   const [topBase, setTopBase] = useState<string>('6');
   const [bottomBase, setBottomBase] = useState<string>('10');
   const [trapHeight, setTrapHeight] = useState<string>('8');
-  
+
   const [result, setResult] = useState<AreaResult | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -63,11 +63,11 @@ const AreaCalculator: React.FC = () => {
   // Validation function
   const validateInputs = (shapeType: string) => {
     const newErrors: Record<string, string> = {};
-    
+
     if (shapeType === 'rectangle' || shapeType === 'square') {
       const lengthNum = parseFloat(length);
       const widthNum = parseFloat(width);
-      
+
       if (!length || isNaN(lengthNum) || lengthNum <= 0) {
         newErrors.length = t('area_error_length');
       }
@@ -114,7 +114,7 @@ const AreaCalculator: React.FC = () => {
   const calculateRectangle = (l: number, w: number): AreaResult => {
     const area = l * w;
     const perimeter = 2 * (l + w);
-    
+
     return {
       area,
       perimeter,
@@ -128,7 +128,7 @@ const AreaCalculator: React.FC = () => {
   const calculateSquare = (side: number): AreaResult => {
     const area = side * side;
     const perimeter = 4 * side;
-    
+
     return {
       area,
       perimeter,
@@ -142,7 +142,7 @@ const AreaCalculator: React.FC = () => {
   const calculateCircle = (r: number): AreaResult => {
     const area = Math.PI * r * r;
     const perimeter = 2 * Math.PI * r;
-    
+
     return {
       area,
       perimeter,
@@ -156,9 +156,9 @@ const AreaCalculator: React.FC = () => {
   const calculateTriangle = (b: number, h: number): AreaResult => {
     const area = 0.5 * b * h;
     // For perimeter, we assume an isosceles triangle
-    const side = Math.sqrt((b/2) * (b/2) + h * h);
+    const side = Math.sqrt((b / 2) * (b / 2) + h * h);
     const perimeter = b + 2 * side;
-    
+
     return {
       area,
       perimeter,
@@ -174,7 +174,7 @@ const AreaCalculator: React.FC = () => {
     // For perimeter, we assume the sides are equal
     const side = Math.sqrt(((b - a) / 2) * ((b - a) / 2) + h * h);
     const perimeter = a + b + 2 * side;
-    
+
     return {
       area,
       perimeter,
@@ -238,6 +238,7 @@ const AreaCalculator: React.FC = () => {
     } else {
       setResult(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shape, length, width, radius, base, height, topBase, bottomBase, trapHeight]);
 
   // Calculator input form

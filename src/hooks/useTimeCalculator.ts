@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export interface TimeResult {
   hours: number;
@@ -90,7 +90,7 @@ export function useTimeCalculator({ errorMessages }: UseTimeCalculatorOptions) {
   const [result, setResult] = useState<TimeResult | null>(null);
   const [errors, setErrors] = useState<TimeErrors>({});
 
-  const validateInputs = (): boolean => {
+  const validateInputs = useCallback((): boolean => {
     const newErrors: TimeErrors = {};
     const vals = [
       { v: hours1, key: 'hours1' as const, max: 999, msg: errorMessages.hours },
@@ -108,7 +108,7 @@ export function useTimeCalculator({ errorMessages }: UseTimeCalculatorOptions) {
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+  }, [hours1, minutes1, seconds1, hours2, minutes2, seconds2, errorMessages]);
 
   useEffect(() => {
     if (validateInputs()) {
@@ -121,7 +121,7 @@ export function useTimeCalculator({ errorMessages }: UseTimeCalculatorOptions) {
     } else {
       setResult(null);
     }
-  }, [hours1, minutes1, seconds1, hours2, minutes2, seconds2, operation]);
+  }, [hours1, minutes1, seconds1, hours2, minutes2, seconds2, operation, validateInputs]);
 
   const time1Formatted = formatTime(
     parseInt(hours1 || '0'), parseInt(minutes1 || '0'), parseInt(seconds1 || '0')

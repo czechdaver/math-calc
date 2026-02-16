@@ -46,7 +46,7 @@ const AdBanner: React.FC<AdBannerProps> = ({
           onAdBlockDetected?.();
           console.warn('Ad blocker detected');
         });
-      } catch (e) {
+      } catch {
         setAdBlockDetected(true);
         onAdBlockDetected?.();
       }
@@ -139,7 +139,7 @@ const AdBanner: React.FC<AdBannerProps> = ({
   }
 
   return (
-    <div 
+    <div
       className={cn(containerClass, className, {
         'animate-pulse bg-gray-100 dark:bg-gray-800': !adLoaded,
       })}

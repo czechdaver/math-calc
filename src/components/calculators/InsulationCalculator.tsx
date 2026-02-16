@@ -56,7 +56,7 @@ const InsulationCalculator: React.FC = () => {
         <Select value={applicationType} onValueChange={setApplicationType}>
           <SelectTrigger><SelectValue placeholder={t('insulation_select_area')} /></SelectTrigger>
           <SelectContent>
-            {Object.entries(applicationAreas).map(([key, area]) => (
+            {Object.entries(applicationAreas).map(([key, _]) => (
               <SelectItem key={key} value={key}>{t(`insulation_area_${key}`)}</SelectItem>
             ))}
           </SelectContent>
@@ -232,6 +232,7 @@ const InsulationCalculator: React.FC = () => {
     </div>
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const examples = {
     title: t('insulation_examples_title'), description: t('insulation_examples_description'),
     scenarios: [1, 2, 3].map(i => ({
@@ -240,6 +241,7 @@ const InsulationCalculator: React.FC = () => {
       example: t(`insulation_example_${i}_example`)
     }))
   };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const faq = [1, 2, 3, 4].map(i => ({
     question: t(`insulation_faq_${i}_question`),
     answer: t(`insulation_faq_${i}_answer`)
@@ -249,8 +251,10 @@ const InsulationCalculator: React.FC = () => {
     <SimpleCalculatorLayout
       title={t('insulation_calculator_title')} description={t('insulation_calculator_description')}
       category="construction" calculatorId="insulation"
-      seo={{ title: t('insulation_seo_title'), description: t('insulation_seo_description'),
-        keywords: ['izolace', 'zateplení', 'polystyren', 'minerální vata', 'U-hodnota', 'tepelný odpor', 'úspora energie', 'kalkulátor izolace'] }}
+      seo={{
+        title: t('insulation_seo_title'), description: t('insulation_seo_description'),
+        keywords: ['izolace', 'zateplení', 'polystyren', 'minerální vata', 'U-hodnota', 'tepelný odpor', 'úspora energie', 'kalkulátor izolace']
+      }}
       formula={{ latex: String.raw`d = R \times \lambda \quad R = \frac{1}{U_{cíl}} - \frac{1}{U_{součas}}`, description: t('insulation_formula_description') }}
       schemaData={{ applicationCategory: "UtilitiesApplication", operatingSystem: "Any" }} resultSection={resultsSection}
     >

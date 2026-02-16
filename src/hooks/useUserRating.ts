@@ -1,7 +1,7 @@
 // src/hooks/useUserRating.ts
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export interface UseUserRatingResult {
   userRating: number;

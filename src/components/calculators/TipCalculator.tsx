@@ -3,7 +3,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
@@ -26,15 +25,15 @@ interface TipResult {
 
 const TipCalculator: React.FC = () => {
   const t = useTranslations();
-  const params = useParams();
-  const locale = params.locale as string;
+  // const params = useParams();
+  // const locale = params.locale as string;
   const [billAmount, setBillAmount] = useState<string>('500');
   const [tipPercentage, setTipPercentage] = useState<string>('15');
   const [numberOfPeople, setNumberOfPeople] = useState<string>('2');
   const [serviceQuality, setServiceQuality] = useState<string>('good');
   const [customTip, setCustomTip] = useState<string>('');
   const [result, setResult] = useState<TipResult | null>(null);
-  const [errors, setErrors] = useState<{ 
+  const [errors, setErrors] = useState<{
     billAmount?: string; tipPercentage?: string; numberOfPeople?: string; customTip?: string;
   }>({});
 
@@ -47,15 +46,9 @@ const TipCalculator: React.FC = () => {
   };
 
   // Format number with Czech locale
-  const formatNumber = (num: number, decimals: number = 1): string => {
-    return num.toLocaleString('cs-CZ', {
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals,
-    });
-  };
 
   // Get service quality description and recommended tip
-  const getServiceQualityInfo = (quality: string): { description: string; recommendedTip: number; color: string } => {
+  const getServiceQualityInfo = React.useCallback((quality: string): { description: string; recommendedTip: number; color: string } => {
     switch (quality) {
       case 'poor':
         return { description: t('calculators.tip.service_poor'), recommendedTip: 5, color: 'text-red-600' };
@@ -70,7 +63,7 @@ const TipCalculator: React.FC = () => {
       default:
         return { description: t('calculators.tip.service_good'), recommendedTip: 15, color: 'text-green-600' };
     }
-  };
+  }, [t]);
 
   // Calculate tip and totals
   const calculateTip = (
@@ -100,16 +93,16 @@ const TipCalculator: React.FC = () => {
   };
 
   // Validation function
-  const validateInputs = (
+  const validateInputs = React.useCallback((
     billAmountStr: string,
     tipPercentageStr: string,
     numberOfPeopleStr: string,
     customTipStr: string
   ) => {
-    const newErrors: { 
+    const newErrors: {
       billAmount?: string; tipPercentage?: string; numberOfPeople?: string; customTip?: string;
     } = {};
-    
+
     const billAmountNum = parseFloat(billAmountStr);
     const tipPercentageNum = parseFloat(tipPercentageStr);
     const numberOfPeopleNum = parseFloat(numberOfPeopleStr);
@@ -133,12 +126,12 @@ const TipCalculator: React.FC = () => {
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+  }, [t, serviceQuality]);
 
   // Effect for real-time calculation
   useEffect(() => {
     let currentTipPercentage = parseFloat(tipPercentage);
-    
+
     // Use service quality recommended tip or custom tip
     if (serviceQuality !== 'custom') {
       const { recommendedTip } = getServiceQualityInfo(serviceQuality);
@@ -157,7 +150,7 @@ const TipCalculator: React.FC = () => {
     } else {
       setResult(null);
     }
-  }, [billAmount, tipPercentage, numberOfPeople, serviceQuality, customTip]);
+  }, [billAmount, tipPercentage, numberOfPeople, serviceQuality, customTip, validateInputs, getServiceQualityInfo]);
 
   // Calculator input form
   const calculatorForm = (

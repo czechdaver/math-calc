@@ -298,7 +298,7 @@ export function evaluateMathExpression(
       return isFinite(result) ? result : null;
     }
     return null;
-  } catch (e) {
+  } catch {
     // Catch any unexpected errors during evaluation
     return null;
   }

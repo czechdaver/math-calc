@@ -43,12 +43,12 @@ export interface UseCalculatorFormReturn<T> {
 export function useCalculatorForm<T extends Record<string, any>>({
   initialValues,
   validationRules = {},
-  onSubmit,
+
   validateOnChange = true
 }: UseCalculatorFormProps<T>): UseCalculatorFormReturn<T> {
   const [values, setValues] = useState<T>(initialValues);
   const [isDirty, setIsDirty] = useState(false);
-  const { errors, isValid, validate, validateField, clearErrors, clearFieldError } = useValidation(validationRules);
+  const { errors, isValid, validate, validateField, clearErrors } = useValidation(validationRules);
 
   // Reset isDirty when values are reset
   useEffect(() => {

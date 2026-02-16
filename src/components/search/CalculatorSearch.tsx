@@ -5,7 +5,7 @@ import { Search, Loader2, Calculator } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/Button';
+
 
 interface SearchResult {
     id: string;

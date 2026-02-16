@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
+// import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
@@ -26,8 +26,8 @@ interface BMRResult {
 
 const BMRCalculator: React.FC = () => {
   const t = useTranslations();
-  const params = useParams();
-  const locale = params.locale as string;
+  // const params = useParams();
+  // const locale = params.locale as string;
   const [age, setAge] = useState<string>('30');
   const [weight, setWeight] = useState<string>('70');
   const [height, setHeight] = useState<string>('170');
@@ -176,6 +176,7 @@ const BMRCalculator: React.FC = () => {
     } else {
       setResult(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [age, weight, height, gender, bodyFat, formula]);
 
   // Calculator input form

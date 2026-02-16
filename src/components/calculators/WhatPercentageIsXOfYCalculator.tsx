@@ -65,6 +65,7 @@ const WhatPercentageIsXOfYCalculator: React.FC = () => {
     } else {
       setResult(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [valueX, valueY]);
 
   // Calculator form using shared components
@@ -198,8 +199,8 @@ const WhatPercentageIsXOfYCalculator: React.FC = () => {
                   {result.percentage < 100
                     ? t('x_percent_of_y_interpretation_less') || 'Hodnota X tvoří menší část hodnoty Y.'
                     : result.percentage === 100
-                    ? t('x_percent_of_y_interpretation_equal') || 'Hodnota X je stejná jako hodnota Y.'
-                    : t('x_percent_of_y_interpretation_more') || 'Hodnota X je větší než hodnota Y.'
+                      ? t('x_percent_of_y_interpretation_equal') || 'Hodnota X je stejná jako hodnota Y.'
+                      : t('x_percent_of_y_interpretation_more') || 'Hodnota X je větší než hodnota Y.'
                   }
                 </p>
               </div>

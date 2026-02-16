@@ -14,7 +14,7 @@ import { TrendingUp, Calculator as CalcIcon } from 'lucide-react';
 
 const ROICalculator: React.FC = () => {
   const t = useTranslations();
-  const { formatCurrency, formatPercentage, formatYears, locale } = useFinanceFormatting();
+  const { formatCurrency, formatPercentage, formatYears } = useFinanceFormatting();
 
   const { state, setField, result, errors } = useROICalculator({
     initialInvestment: t('roi_validation_initial_investment'),

@@ -60,9 +60,9 @@ export function getPreferredLocale(
   const languages = Array.isArray(acceptLanguage)
     ? acceptLanguage
     : (acceptLanguage as string).split(',').map((lang) => {
-        const [locale] = lang.trim().split(';');
-        return locale.split('-')[0];
-      });
+      const [locale] = lang.trim().split(';');
+      return locale.split('-')[0];
+    });
 
   for (const lang of languages) {
     const locale = lang.toLowerCase();
@@ -100,7 +100,7 @@ export function getLocaleFlag(locale: string): string {
  */
 export function getLocalizedPath(pathname: string, locale: string): string {
   const segments = pathname.split('/');
-  
+
   // If the first segment is a supported locale, replace it
   if (isValidLocale(segments[1] as Locale)) {
     segments[1] = locale;
@@ -108,7 +108,7 @@ export function getLocalizedPath(pathname: string, locale: string): string {
     // Otherwise, insert the locale after the first slash
     segments.splice(1, 0, locale);
   }
-  
+
   return segments.join('/');
 }
 
@@ -120,7 +120,7 @@ export function getLocalizedPath(pathname: string, locale: string): string {
 export function getCurrentLocale(pathname: string): Locale {
   const segments = pathname.split('/');
   const maybeLocale = segments[1]?.toLowerCase();
-  
+
   return isValidLocale(maybeLocale) ? maybeLocale : defaultLocale;
 }
 
@@ -151,10 +151,10 @@ export function formatDate(
   locale: string,
   options: Intl.DateTimeFormatOptions = {}
 ): string {
-  const dateObj = typeof date === 'string' || typeof date === 'number' 
-    ? new Date(date) 
+  const dateObj = typeof date === 'string' || typeof date === 'number'
+    ? new Date(date)
     : date;
-    
+
   return new Intl.DateTimeFormat(locale, {
     year: 'numeric',
     month: 'long',
@@ -168,7 +168,7 @@ export function formatDate(
  */
 export const rtlLocales = ['ar', 'he', 'fa', 'ur'] as const;
 
-type RtlLocale = (typeof rtlLocales)[number];
+
 
 /**
  * Check if a locale is RTL

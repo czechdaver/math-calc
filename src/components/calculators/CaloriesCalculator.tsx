@@ -34,8 +34,8 @@ const CaloriesCalculator: React.FC = () => {
   const [gender, setGender] = useState<string>('male');
   const [activityLevel, setActivityLevel] = useState<string>('moderate');
   const [result, setResult] = useState<CaloriesResult | null>(null);
-  const [errors, setErrors] = useState<{ 
-    age?: string; weight?: string; height?: string 
+  const [errors, setErrors] = useState<{
+    age?: string; weight?: string; height?: string
   }>({});
 
   // Format number with locale
@@ -96,7 +96,7 @@ const CaloriesCalculator: React.FC = () => {
     const bmr = calculateBMR(weightNum, heightNum, ageNum, isMale);
     const activityMultiplier = getActivityMultiplier(activityStr);
     const tdee = bmr * activityMultiplier;
-    
+
     // Weight loss: 500 cal deficit per day = ~0.5kg per week
     const weightLoss = tdee - 500;
     // Weight gain: 500 cal surplus per day = ~0.5kg per week
@@ -119,7 +119,7 @@ const CaloriesCalculator: React.FC = () => {
   // Validation function
   const validateInputs = (ageStr: string, weightStr: string, heightStr: string) => {
     const newErrors: { age?: string; weight?: string; height?: string } = {};
-    
+
     const ageNum = parseFloat(ageStr);
     const weightNum = parseFloat(weightStr);
     const heightNum = parseFloat(heightStr);
@@ -151,6 +151,7 @@ const CaloriesCalculator: React.FC = () => {
     } else {
       setResult(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [age, weight, height, gender, activityLevel]);
 
   // Calculator input form

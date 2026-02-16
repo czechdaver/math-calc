@@ -3,7 +3,7 @@
 
 import React, { ReactNode, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { CardContent, CardDescription, CardHeader, CardTitle, Card } from '@/components/ui/Card'; // Keep these for content structure
+import { CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'; // Keep these for content structure
 import GlassCard from '@/components/shared/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { Calculator, Info, AlertCircle, Clock, TrendingUp } from 'lucide-react';
@@ -18,11 +18,11 @@ import SimpleBadge from '@/components/shared/SimpleBadge';
 import SimpleFAQ from '@/components/shared/SimpleFAQ';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
+
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 // Dynamically import KaTeX to avoid SSR issues
-const InlineMath = dynamic(() => import('react-katex').then(mod => mod.InlineMath), { ssr: false }) as any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BlockMath = dynamic(() => import('react-katex').then(mod => mod.BlockMath), { ssr: false }) as any;
 
 // Import KaTeX CSS
@@ -120,7 +120,6 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
   description,
   category,
   calculatorId,
-  seo,
   formula,
   children,
   resultSection,

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { CalculatorInput } from '../shared';
 import {
-  addFractions, simplifyFraction, formatFraction,
+  addFractions, formatFraction,
   isValidFraction, fractionToDecimal, additionSteps,
   type Fraction, type FractionStep
 } from '@/utils/math/fractions';

@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
+// import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
@@ -23,27 +23,27 @@ interface FuelResult {
 
 const FuelCalculator: React.FC = () => {
   const t = useTranslations();
-  const params = useParams();
-  const locale = params.locale as string;
+  // const params = useParams();
+  // const locale = params.locale as string;
   const [calculationType, setCalculationType] = useState<string>('consumption');
-  
+
   // Common inputs
   const [distance, setDistance] = useState<string>('100');
   const [fuelPrice, setFuelPrice] = useState<string>('35.50');
-  
+
   // For consumption calculation
   const [fuelUsed, setFuelUsed] = useState<string>('7.5');
-  
+
   // For cost calculation
   const [consumption, setConsumption] = useState<string>('7.5');
-  
+
   // For trip planning
   const [tripDistance, setTripDistance] = useState<string>('500');
   const [carConsumption, setCarConsumption] = useState<string>('7.5');
-  
+
   const [result, setResult] = useState<FuelResult | null>(null);
-  const [errors, setErrors] = useState<{ 
-    distance?: string; fuelPrice?: string; fuelUsed?: string; 
+  const [errors, setErrors] = useState<{
+    distance?: string; fuelPrice?: string; fuelUsed?: string;
     consumption?: string; tripDistance?: string; carConsumption?: string;
   }>({});
 
@@ -73,11 +73,11 @@ const FuelCalculator: React.FC = () => {
 
   // Validation function
   const validateInputs = (type: string) => {
-    const newErrors: { 
-      distance?: string; fuelPrice?: string; fuelUsed?: string; 
+    const newErrors: {
+      distance?: string; fuelPrice?: string; fuelUsed?: string;
       consumption?: string; tripDistance?: string; carConsumption?: string;
     } = {};
-    
+
     const priceNum = parseFloat(fuelPrice);
     if (!fuelPrice || isNaN(priceNum) || priceNum <= 0) {
       newErrors.fuelPrice = t('fuel_error_fuel_price');
@@ -86,7 +86,7 @@ const FuelCalculator: React.FC = () => {
     if (type === 'consumption') {
       const distanceNum = parseFloat(distance);
       const fuelNum = parseFloat(fuelUsed);
-      
+
       if (!distance || isNaN(distanceNum) || distanceNum <= 0) {
         newErrors.distance = t('fuel_error_distance');
       }
@@ -96,7 +96,7 @@ const FuelCalculator: React.FC = () => {
     } else if (type === 'cost') {
       const distanceNum = parseFloat(distance);
       const consumptionNum = parseFloat(consumption);
-      
+
       if (!distance || isNaN(distanceNum) || distanceNum <= 0) {
         newErrors.distance = t('fuel_error_distance');
       }
@@ -106,7 +106,7 @@ const FuelCalculator: React.FC = () => {
     } else if (type === 'trip') {
       const tripDistanceNum = parseFloat(tripDistance);
       const carConsumptionNum = parseFloat(carConsumption);
-      
+
       if (!tripDistance || isNaN(tripDistanceNum) || tripDistanceNum <= 0) {
         newErrors.tripDistance = t('fuel_error_trip_distance');
       }
@@ -216,6 +216,7 @@ const FuelCalculator: React.FC = () => {
     } else {
       setResult(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calculationType, distance, fuelPrice, fuelUsed, consumption, tripDistance, carConsumption]);
 
   // Calculator input form
@@ -469,7 +470,7 @@ const FuelCalculator: React.FC = () => {
           <CardContent className="p-4 text-center">
             <Fuel className="w-6 h-6 text-blue-600 mx-auto mb-2" />
             <div className="text-lg font-bold text-blue-800">
-              {result.calculationType === 'consumption' 
+              {result.calculationType === 'consumption'
                 ? formatConsumption(result.fuelConsumption)
                 : formatFuel(result.fuelConsumption)
               }

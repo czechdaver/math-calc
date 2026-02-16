@@ -1,6 +1,6 @@
 // src/components/seo/SeoMetadata.tsx
 import Head from 'next/head';
-import { useTranslations, useLocale } from 'next-intl';
+import { useLocale } from 'next-intl';
 
 interface SeoMetadataProps {
   title: string;
@@ -10,7 +10,7 @@ interface SeoMetadataProps {
 }
 
 const SeoMetadata: React.FC<SeoMetadataProps> = ({ title, description /*, schemaData*/ }) => {
-  const t = useTranslations();
+  // const t = useTranslations();
   const currentLocale = useLocale();
 
   // TODO: Dynamicky generovat Schema.org JSON-LD
@@ -26,7 +26,7 @@ const SeoMetadata: React.FC<SeoMetadataProps> = ({ title, description /*, schema
 
       {/* Meta tag pro jazyk stránky */}
       <meta property="og:locale" content={currentLocale} />
-       {/* TODO: Přidat alternate language tagy pro Hreflang */}
+      {/* TODO: Přidat alternate language tagy pro Hreflang */}
 
       {/* Placeholder pro Schema.org JSON-LD */}
       {/* TODO: Doplnit reálná data do schemaMarkup a zvážit typ "Calculator" */}

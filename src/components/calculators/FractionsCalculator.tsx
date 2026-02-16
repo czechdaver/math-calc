@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
+// import { useParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { CalculatorSelect } from './shared';
@@ -14,8 +14,8 @@ const FractionConversion = dynamic(() => import('./fractionOperations/FractionCo
 
 const FractionsCalculator: React.FC = () => {
   const t = useTranslations();
-  const params = useParams();
-  const locale = params.locale as string;
+  // const params = useParams();
+  // const locale = params.locale as string;
   const [operation, setOperation] = useState<string>('');
 
 

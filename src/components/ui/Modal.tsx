@@ -92,13 +92,7 @@ interface ModalProps {
    */
   className?: string;
   /**
-   * Additional class names for the modal content
-   */
-  contentClassName?: string;
-  /**
-   * Additional class names for the overlay
-   */
-  overlayClassName?: string;
+
   /**
    * Additional class names for the header
    */
@@ -117,9 +111,7 @@ interface ModalProps {
    */
   lockScroll?: boolean;
   /**
-   * Initial focus ref for the modal
-   */
-  initialFocusRef?: React.RefObject<HTMLElement>;
+
   /**
    * Whether to hide the overlay
    * @default false
@@ -147,14 +139,10 @@ export const Modal: React.FC<ModalProps> = ({
   closeOnOverlayClick = true,
   closeOnEsc = true,
   className = '',
-  contentClassName = '',
-  overlayClassName = '',
   headerClassName = '',
   bodyClassName = '',
   footerClassName = '',
   lockScroll = true,
-  initialFocusRef,
-  hideOverlay = false,
   'aria-label': ariaLabel,
   'aria-describedby': ariaDescribedBy,
 }) => {
@@ -170,12 +158,7 @@ export const Modal: React.FC<ModalProps> = ({
   };
 
   // Handle escape key press
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Escape' && !closeOnEsc) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-  };
+
 
   // Handle dialog open change
   const handleOpenChange = (open: boolean) => {

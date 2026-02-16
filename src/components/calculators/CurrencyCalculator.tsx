@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
+// import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
@@ -29,8 +29,8 @@ interface ConversionResult {
 
 const CurrencyCalculator: React.FC = () => {
   const t = useTranslations();
-  const params = useParams();
-  const locale = params.locale as string;
+  // const params = useParams();
+  // const locale = params.locale as string;
   const [amount, setAmount] = useState<string>('100');
   const [fromCurrency, setFromCurrency] = useState<string>('CZK');
   const [toCurrency, setToCurrency] = useState<string>('EUR');
@@ -68,7 +68,7 @@ const CurrencyCalculator: React.FC = () => {
   // Validation function
   const validateInputs = (amountStr: string) => {
     const newErrors: { amount?: string } = {};
-    
+
     const amountNum = parseFloat(amountStr);
 
     if (!amountStr || isNaN(amountNum) || amountNum <= 0) {
@@ -112,6 +112,7 @@ const CurrencyCalculator: React.FC = () => {
     } else {
       setResult(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [amount, fromCurrency, toCurrency]);
 
   // Swap currencies

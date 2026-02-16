@@ -46,7 +46,7 @@ interface CalculatorBaseProps {
 }
 
 const CalculatorBase: React.FC<CalculatorBaseProps> = ({
-  id,
+  id: _id,
   title,
   description,
   inputs,
@@ -55,7 +55,7 @@ const CalculatorBase: React.FC<CalculatorBaseProps> = ({
   className = '',
 }) => {
   const t = useTranslations();
-  
+
   // Initialize form state with default values
   const [formValues, setFormValues] = useState<Record<string, any>>(() => {
     const initialValues: Record<string, any> = {};
@@ -75,22 +75,22 @@ const CalculatorBase: React.FC<CalculatorBaseProps> = ({
 
     inputs.forEach((input) => {
       const value = formValues[input.id];
-      
+
       // Check required fields
       if (input.required && (value === '' || value === undefined || value === null)) {
         newErrors[input.id] = t('validation.required');
         isValid = false;
       }
-      
+
       // Check min/max for number inputs
       if (input.type === 'number' && value !== '') {
         const numValue = parseFloat(value);
-        
+
         if (input.min !== undefined && numValue < input.min) {
           newErrors[input.id] = t('validation.min', { min: input.min });
           isValid = false;
         }
-        
+
         if (input.max !== undefined && numValue > input.max) {
           newErrors[input.id] = t('validation.max', { max: input.max });
           isValid = false;
@@ -130,6 +130,7 @@ const CalculatorBase: React.FC<CalculatorBaseProps> = ({
   // Recalculate when inputs change
   useEffect(() => {
     handleCalculate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValues]);
 
   // Render input field based on type
@@ -141,12 +142,12 @@ const CalculatorBase: React.FC<CalculatorBaseProps> = ({
     const inputProps = {
       id: inputId,
       name: id,
+      placeholder,
       value: formValues[id] ?? '',
       onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
         handleInputChange(id, e.target.value),
-      className: `mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${
-        error ? 'border-red-500' : ''
-      }`,
+      className: `mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${error ? 'border-red-500' : ''
+        }`,
       ...rest,
     };
 
@@ -189,7 +190,7 @@ const CalculatorBase: React.FC<CalculatorBaseProps> = ({
     <div className={`bg-white p-6 rounded-lg shadow-md ${className}`}>
       <h2 className="text-2xl font-bold mb-2">{title}</h2>
       {description && <p className="text-gray-600 mb-6">{description}</p>}
-      
+
       <div className="space-y-4">
         {inputs.map((input) => renderInput(input))}
       </div>
@@ -203,12 +204,12 @@ const CalculatorBase: React.FC<CalculatorBaseProps> = ({
       {result && (
         <div className="mt-6 p-4 bg-blue-50 rounded-md">
           <h3 className="text-lg font-semibold mb-2">{t('result')}</h3>
-          
+
           {/* Default result display */}
           {!ResultComponent && (
             <div>
               <p className="text-2xl font-bold">{result.value}</p>
-              
+
               {result.details && result.details.length > 0 && (
                 <div className="mt-4 space-y-2">
                   {result.details.map((detail, index) => (
@@ -221,14 +222,14 @@ const CalculatorBase: React.FC<CalculatorBaseProps> = ({
                   ))}
                 </div>
               )}
-              
+
               {result.formula && (
                 <div className="mt-4 p-3 bg-white rounded border border-gray-200">
                   <p className="text-sm text-gray-600 mb-1">{t('formula')}:</p>
                   <div className="text-sm font-mono">{result.formula}</div>
                 </div>
               )}
-              
+
               {result.explanation && (
                 <div className="mt-3 p-3 bg-blue-50 rounded text-sm text-blue-800">
                   {result.explanation}
@@ -236,7 +237,7 @@ const CalculatorBase: React.FC<CalculatorBaseProps> = ({
               )}
             </div>
           )}
-          
+
           {/* Custom result display */}
           {ResultComponent && <ResultComponent result={result} />}
         </div>

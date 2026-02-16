@@ -16,7 +16,7 @@ interface AnnuityResult {
 
 const AnnuityPaymentCalculator: React.FC = () => {
   const t = useTranslations();
-  const { formatCurrency, locale } = useFinanceFormatting();
+  const { formatCurrency } = useFinanceFormatting();
 
   const [loanAmount, setLoanAmount] = useState<string>('100000');
   const [interestRate, setInterestRate] = useState<string>('5.5');
@@ -65,6 +65,7 @@ const AnnuityPaymentCalculator: React.FC = () => {
     } else {
       setResult(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loanAmount, interestRate, loanTerm]);
 
 

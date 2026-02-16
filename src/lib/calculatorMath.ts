@@ -103,7 +103,7 @@ export const convertUnit = (
     }
 
     return result;
-  } catch (error) {
+  } catch {
     return null;
   }
 };
@@ -120,7 +120,7 @@ export const range = (start: number, end: number, step: number = 1): number[] =>
 
   // Handle invalid inputs
   if (typeof start !== 'number' || typeof end !== 'number' || typeof step !== 'number' ||
-      isNaN(start) || isNaN(end) || isNaN(step) || !isFinite(start) || !isFinite(end) || !isFinite(step)) {
+    isNaN(start) || isNaN(end) || isNaN(step) || !isFinite(start) || !isFinite(end) || !isFinite(step)) {
     return [];
   }
 

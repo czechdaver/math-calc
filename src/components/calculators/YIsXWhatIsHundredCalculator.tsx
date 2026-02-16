@@ -43,6 +43,7 @@ const YJeXKolikJeStoCalculator: React.FC = () => {
     } else {
       setResult(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [y, x]);
 
 

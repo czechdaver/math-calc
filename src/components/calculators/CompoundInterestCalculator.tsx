@@ -25,7 +25,7 @@ const CompoundInterestCalculator: React.FC = () => {
     })) {
       calculate();
     }
-  }, [principal, interestRate, years, frequency, monthlyContribution]);
+  }, [principal, interestRate, years, frequency, monthlyContribution]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
   const frequencyOptions = [

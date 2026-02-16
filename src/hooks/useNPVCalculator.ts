@@ -1,5 +1,5 @@
 // src/hooks/useNPVCalculator.ts
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { CashFlow } from '@/components/calculators/shared/CashFlowEditor';
 
 export interface NPVResult {
@@ -38,7 +38,7 @@ export function useNPVCalculator(validationMessages: NPVValidationMessages) {
   const [result, setResult] = useState<NPVResult | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const validateInputs = (): boolean => {
+  const validateInputs = useCallback((): boolean => {
     const newErrors: Record<string, string> = {};
     const rateNum = parseFloat(discountRate);
     if (!discountRate || isNaN(rateNum) || rateNum < 0) {
@@ -51,7 +51,7 @@ export function useNPVCalculator(validationMessages: NPVValidationMessages) {
     });
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+  }, [cashFlows, discountRate, validationMessages]);
 
   useEffect(() => {
     if (!validateInputs()) {
@@ -68,7 +68,7 @@ export function useNPVCalculator(validationMessages: NPVValidationMessages) {
     const profitabilityIndex = totalInvestment > 0 ? presentValueOfReturns / totalInvestment : 0;
 
     setResult({ npv, totalInvestment, totalReturns, profitabilityIndex, presentValueOfReturns, discountRate: rate });
-  }, [cashFlows, discountRate]);
+  }, [cashFlows, discountRate, validateInputs]);
 
   return { cashFlows, setCashFlows, discountRate, setDiscountRate, result, errors };
 }

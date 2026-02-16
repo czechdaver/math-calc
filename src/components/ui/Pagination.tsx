@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, MoreHorizontal } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
 
@@ -231,7 +231,7 @@ const Pagination: React.FC<PaginationProps> = ({
             <span className="font-medium">{totalItems}</span> results
           </div>
         )}
-        
+
         {showPageSizeSelector && onPageSizeChange && (
           <div className={cn('flex items-center gap-2', pageSizeClassName)}>
             <label htmlFor="page-size" className="text-sm text-muted-foreground">
@@ -270,7 +270,7 @@ const Pagination: React.FC<PaginationProps> = ({
               </Button>
             </div>
           )}
-          
+
           {showPrevNextButtons && (
             <div className={itemClassName}>
               <Button
@@ -285,7 +285,7 @@ const Pagination: React.FC<PaginationProps> = ({
               </Button>
             </div>
           )}
-          
+
           {pageNumbers.map((page, index) => {
             if (page === '...') {
               return showEllipsis ? (
@@ -294,9 +294,9 @@ const Pagination: React.FC<PaginationProps> = ({
                 </div>
               ) : null;
             }
-            
+
             const isActive = page === currentPage;
-            
+
             return (
               <div key={page} className={itemClassName}>
                 <Button
@@ -316,7 +316,7 @@ const Pagination: React.FC<PaginationProps> = ({
               </div>
             );
           })}
-          
+
           {showPrevNextButtons && (
             <div className={itemClassName}>
               <Button
@@ -331,7 +331,7 @@ const Pagination: React.FC<PaginationProps> = ({
               </Button>
             </div>
           )}
-          
+
           {showFirstLastButtons && (
             <div className={itemClassName}>
               <Button

@@ -19,6 +19,7 @@ const NetSalaryCalculator: React.FC = () => {
     if (validate(t('net_salary_validation_gross'))) {
       calculate();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [grossSalary, country]);
 
 

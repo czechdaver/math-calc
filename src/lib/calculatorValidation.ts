@@ -17,7 +17,7 @@ export const isValidNumber = (value: any): boolean => {
 
   // Handle empty string/array/object
   if (value === '' || (Array.isArray(value) && value.length === 0) ||
-      (typeof value === 'object' && Object.keys(value).length === 0)) {
+    (typeof value === 'object' && Object.keys(value).length === 0)) {
     return false;
   }
 
@@ -43,15 +43,12 @@ export const isValidNumber = (value: any): boolean => {
  * @param expression The expression to validate
  * @returns boolean indicating if the expression is valid
  */
-// Helper function to check if a string is a valid number
-const isValidNumberString = (str: string): boolean => {
-  return /^-?\d+(\.\d+)?([eE][-+]?\d+)?$/.test(str);
-};
+
 
 // Helper function to check if a character is an operator
 const isMathOperator = (char: string): boolean => ['+', '-', '*', '/', '^'].includes(char);
 const isMathFunction = (str: string): boolean => ['sin', 'cos', 'tan', 'sqrt', 'log', 'pow'].includes(str);
-const isMathConstant = (str: string): boolean => ['PI', 'E'].includes(str);
+
 
 /**
  * Validates if a string is a valid mathematical expression

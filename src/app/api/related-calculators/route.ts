@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getRelatedCalculators } from '@/lib/calculatorDataUtils';
-import { useTranslations } from 'next-intl';
+// import { useTranslations } from 'next-intl';
 
 // We need to use a trick to get translations in the API route or just use the keys
 // Since calculatorDataUtils uses a translation function, we'll need to adapt it

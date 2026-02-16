@@ -1,5 +1,5 @@
 // src/hooks/useIRRCalculator.ts
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { CashFlow } from '@/components/calculators/shared/CashFlowEditor';
 import { calculateNPV } from './useNPVCalculator';
 
@@ -64,7 +64,7 @@ export function useIRRCalculator(validationMessages: IRRValidationMessages) {
   const [result, setResult] = useState<IRRResult | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const validateInputs = (): boolean => {
+  const validateInputs = useCallback((): boolean => {
     const newErrors: Record<string, string> = {};
     const rateNum = parseFloat(discountRate);
     if (!discountRate || isNaN(rateNum)) {
@@ -82,7 +82,7 @@ export function useIRRCalculator(validationMessages: IRRValidationMessages) {
     });
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+  }, [cashFlows, discountRate, validationMessages]);
 
   useEffect(() => {
     if (!validateInputs()) {
@@ -97,7 +97,7 @@ export function useIRRCalculator(validationMessages: IRRValidationMessages) {
     const netProfit = totalReturns - totalInvestment;
 
     setResult({ irr, npv, paybackPeriod, totalInvestment, totalReturns, netProfit });
-  }, [cashFlows, discountRate]);
+  }, [cashFlows, discountRate, validateInputs]);
 
   return { cashFlows, setCashFlows, discountRate, setDiscountRate, result, errors };
 }

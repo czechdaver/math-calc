@@ -25,6 +25,7 @@ interface RelatedCalculatorsProps {
 const RelatedCalculators: React.FC<RelatedCalculatorsProps> = ({
     calculatorId,
     locale,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     currentCategory
 }) => {
     const t = useTranslations();

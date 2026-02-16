@@ -50,7 +50,6 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
     fullWidth = false,
     border = true,
     borderAround = true,
-    hoverable = true,
     className = '',
     ...props
   }, ref) => {
@@ -389,7 +388,7 @@ const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
     ...props
   }, ref) => {
     const Component = header ? 'th' : 'td'
-    
+
     return (
       <Component
         ref={ref}
@@ -429,9 +428,11 @@ const TableCaption = React.forwardRef<HTMLTableCaptionElement, TableCaptionProps
         className={cn("text-muted-foreground mt-4 text-sm", className)}
         {...props}
       />
+
     )
   }
 )
+TableCaption.displayName = 'TableCaption'
 
 export {
   Table,

@@ -1,7 +1,7 @@
 // src/hooks/useRatingData.ts
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export interface RatingData {
   averageRating: number;

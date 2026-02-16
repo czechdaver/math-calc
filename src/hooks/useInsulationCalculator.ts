@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 type InsulationType = 'eps' | 'xps' | 'mineralWool' | 'polyurethane' | 'woodFiber';
 type ApplicationType = 'wall' | 'roof' | 'floor' | 'ceiling';
@@ -28,6 +28,23 @@ interface ApplicationArea {
   targetURequired: number;
 }
 
+// Insulation materials and their properties
+const insulationMaterials: Record<InsulationType, InsulationMaterial> = {
+  eps: { name: 'Polystyren (EPS)', lambda: 0.04, use: 'Fasády, podlahy' },
+  xps: { name: 'Extrudovaný polystyren (XPS)', lambda: 0.035, use: 'Vlhké prostředí, sokly' },
+  mineralWool: { name: 'Minerální vata', lambda: 0.045, use: 'Střechy, stěny, akustika' },
+  polyurethane: { name: 'Polyuretanová pěna (PUR)', lambda: 0.025, use: 'Vysoké nároky na izolaci' },
+  woodFiber: { name: 'Dřevovláknité desky', lambda: 0.05, use: 'Ekologické stavby' }
+};
+
+// Application areas
+const applicationAreas: Record<ApplicationType, ApplicationArea> = {
+  wall: { name: 'Obvodové stěny', currentUTypical: 1.2, targetURequired: 0.3 },
+  roof: { name: 'Střecha', currentUTypical: 1.5, targetURequired: 0.24 },
+  floor: { name: 'Podlaha', currentUTypical: 1.0, targetURequired: 0.45 },
+  ceiling: { name: 'Strop', currentUTypical: 1.8, targetURequired: 0.3 }
+};
+
 export function useInsulationCalculator() {
   const [applicationType, setApplicationType] = useState<string>('wall');
   const [insulationType, setInsulationType] = useState<string>('eps');
@@ -40,24 +57,10 @@ export function useInsulationCalculator() {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   // Insulation materials and their properties
-  const insulationMaterials: Record<InsulationType, InsulationMaterial> = {
-    eps: { name: 'Polystyren (EPS)', lambda: 0.04, use: 'Fasády, podlahy' },
-    xps: { name: 'Extrudovaný polystyren (XPS)', lambda: 0.035, use: 'Vlhké prostředí, sokly' },
-    mineralWool: { name: 'Minerální vata', lambda: 0.045, use: 'Střechy, stěny, akustika' },
-    polyurethane: { name: 'Polyuretanová pěna (PUR)', lambda: 0.025, use: 'Vysoké nároky na izolaci' },
-    woodFiber: { name: 'Dřevovláknité desky', lambda: 0.05, use: 'Ekologické stavby' }
-  };
 
-  // Application areas
-  const applicationAreas: Record<ApplicationType, ApplicationArea> = {
-    wall: { name: 'Obvodové stěny', currentUTypical: 1.2, targetURequired: 0.3 },
-    roof: { name: 'Střecha', currentUTypical: 1.5, targetURequired: 0.24 },
-    floor: { name: 'Podlaha', currentUTypical: 1.0, targetURequired: 0.45 },
-    ceiling: { name: 'Strop', currentUTypical: 1.8, targetURequired: 0.3 }
-  };
 
   // Validation function
-  const validateInputs = () => {
+  const validateInputs = useCallback(() => {
     const newErrors: Record<string, string> = {};
 
     const areaNum = parseFloat(area);
@@ -75,10 +78,10 @@ export function useInsulationCalculator() {
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+  }, [area, currentUValue, targetUValue, pricePerM2, energyPrice]);
 
   // Calculate insulation requirements
-  const calculateInsulation = (
+  const calculateInsulation = useCallback((
     areaValue: number,
     currentU: number,
     targetU: number,
@@ -114,7 +117,7 @@ export function useInsulationCalculator() {
       applicationArea: applicationType,
       isValid: true
     };
-  };
+  }, [insulationType, applicationType]);
 
   // Effect for real-time calculation
   useEffect(() => {
@@ -131,7 +134,7 @@ export function useInsulationCalculator() {
     } else {
       setResult(null);
     }
-  }, [applicationType, insulationType, area, currentUValue, targetUValue, pricePerM2, energyPrice]);
+  }, [applicationType, insulationType, area, currentUValue, targetUValue, pricePerM2, energyPrice, validateInputs, calculateInsulation]);
 
   // Set typical values when application type changes
   useEffect(() => {

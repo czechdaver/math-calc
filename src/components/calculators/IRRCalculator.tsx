@@ -12,7 +12,7 @@ import { TrendingUp, Calculator as CalcIcon } from 'lucide-react';
 
 const IRRCalculator: React.FC = () => {
   const t = useTranslations();
-  const { formatCurrency, formatPercentage, formatYears, locale } = useFinanceFormatting();
+  const { formatCurrency, formatPercentage, formatYears /*, locale */ } = useFinanceFormatting();
 
   const { cashFlows, setCashFlows, discountRate, setDiscountRate, result, errors } = useIRRCalculator({
     discountRate: t('irr_validation_discount_rate'),

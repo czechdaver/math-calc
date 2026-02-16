@@ -1,5 +1,5 @@
 // src/hooks/useEarlyRepaymentCalculator.ts
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export interface EarlyRepaymentResult {
   originalMonthlyPayment: number;
@@ -66,7 +66,7 @@ export function useEarlyRepaymentCalculator(validationMessages: ValidationMessag
     setState(prev => ({ ...prev, [field]: value }));
   };
 
-  const validateInputs = (): boolean => {
+  const validateInputs = useCallback((): boolean => {
     const newErrors: Record<string, string> = {};
     const loanNum = parseFloat(state.loanAmount);
     const rateNum = parseFloat(state.interestRate);
@@ -86,7 +86,7 @@ export function useEarlyRepaymentCalculator(validationMessages: ValidationMessag
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+  }, [state, validationMessages]);
 
   useEffect(() => {
     if (!validateInputs()) {
@@ -141,7 +141,7 @@ export function useEarlyRepaymentCalculator(validationMessages: ValidationMessag
       newTotalInterest,
       repaymentType: state.repaymentType,
     });
-  }, [state.loanAmount, state.interestRate, state.loanTerm, state.paidMonths, state.repaymentAmount, state.repaymentType]);
+  }, [validateInputs, state.loanAmount, state.interestRate, state.loanTerm, state.paidMonths, state.repaymentAmount, state.repaymentType]);
 
   return { state, setField, result, errors };
 }

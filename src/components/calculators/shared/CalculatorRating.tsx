@@ -1,7 +1,7 @@
 // src/components/calculators/shared/CalculatorRating.tsx
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Star } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -40,6 +40,7 @@ const CalculatorRating: React.FC<CalculatorRatingProps> = ({
   useEffect(() => {
     loadRatingData(calculatorId);
     checkUserRating(calculatorId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calculatorId]);
 
   // Handle star click - save to API and localStorage

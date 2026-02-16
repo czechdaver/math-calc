@@ -36,8 +36,8 @@ const BodyFatCalculator: React.FC = () => {
   const [waist, setWaist] = useState<string>('85');
   const [hip, setHip] = useState<string>('95');
   const [result, setResult] = useState<BodyFatResult | null>(null);
-  const [errors, setErrors] = useState<{ 
-    weight?: string; height?: string; age?: string; 
+  const [errors, setErrors] = useState<{
+    weight?: string; height?: string; age?: string;
     neck?: string; waist?: string; hip?: string;
   }>({});
 
@@ -88,14 +88,14 @@ const BodyFatCalculator: React.FC = () => {
   ): BodyFatResult => {
     const isMale = genderStr === 'male';
     const bmi = weightNum / Math.pow(heightNum / 100, 2);
-    
+
     let bodyFatPercentage: number;
     if (methodStr === 'navy') {
       bodyFatPercentage = calculateNavyMethod(heightNum, neckNum, waistNum, hipNum, isMale);
     } else {
       bodyFatPercentage = calculateBMIMethod(bmi, ageNum, isMale);
     }
-    
+
     bodyFatPercentage = Math.max(3, Math.min(50, bodyFatPercentage));
     const { category, color, isHealthy } = getBodyFatCategory(bodyFatPercentage, isMale);
     const fatMass = (bodyFatPercentage / 100) * weightNum;
@@ -158,6 +158,7 @@ const BodyFatCalculator: React.FC = () => {
     } else {
       setResult(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [weight, height, age, gender, method, neck, waist, hip]);
 
   const calculatorForm = (

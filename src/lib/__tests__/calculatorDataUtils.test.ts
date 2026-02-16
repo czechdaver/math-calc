@@ -1,4 +1,4 @@
-import { searchCalculators, getCalculator } from '../calculatorDataUtils';
+import { searchCalculators } from '../calculatorDataUtils';
 
 // Mock translation function
 const t = (key: string) => {

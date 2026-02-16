@@ -1,0 +1,445 @@
+
+> mathcalc-pro@0.1.0 validate:translations
+> node scripts/validate-translations.js
+
+
+🔍 Translation Validation (AST Enhanced)
+
+📄 Phase 1: Validating JSON syntax...
+  ✓ cs.json - Valid JSON
+  ✓ en.json - Valid JSON
+  ✓ sk.json - Valid JSON
+  ✓ pl.json - Valid JSON
+  ✓ hu.json - Valid JSON
+
+🔑 Phase 2: Validating key parity...
+  Reference (cs.json): 2164 keys
+  ✓ en.json - Complete (101.0%)
+  ⚠ en.json - 21 extra keys
+  ✓ sk.json - Complete (100.2%)
+  ⚠ sk.json - 4 extra keys
+  ✓ pl.json - Complete (100.2%)
+  ⚠ pl.json - 4 extra keys
+  ⚠ hu.json - 1 missing keys (100.3%)
+      - z
+  ⚠ hu.json - 8 extra keys
+
+🔎 Phase 3: Scanning for hardcoded strings (AST)...
+  ⚠ app/[locale]/layout.tsx:64 - "Math Calculator"
+  ⚠ app/[locale]/page.tsx:81 - "10k+"
+  ⚠ app/[locale]/page.tsx:127 - "Quick access to our most frequently used tools"
+  ⚠ app/[locale]/page.tsx:158 - "Explore our comprehensive collection of calculation tools organized by category"
+  ⚠ app/[locale]/page.tsx:184 - "calculators"
+  ⚠ app/[locale]/page.tsx:187 - "Explore"
+  ⚠ app/[locale]/page.tsx:216 - "Active Users"
+  ⚠ app/[locale]/page.tsx:224 - "Average Rating"
+  ⚠ app/[locale]/page.tsx:232 - "Secure & Private"
+  ⚠ app/[locale]/page.tsx:245 - "Common questions about our calculators"
+  ⚠ app/[locale]/privacy-policy/page.tsx:7 - "Zásady ochrany osobních údajů"
+  ⚠ app/[locale]/privacy-policy/page.tsx:8 - "Tato stránka obsahuje zásady ochrany osobních údajů."
+  ⚠ app/[locale]/test/page.tsx:10 - "Translation Test Page"
+  ⚠ app/[locale]/test/page.tsx:14 - "Basic Translations"
+  ⚠ app/[locale]/test/page.tsx:15 - "Percentage:"
+  ⚠ app/[locale]/test/page.tsx:16 - "Number:"
+  ⚠ app/[locale]/test/page.tsx:17 - "Result:"
+  ⚠ app/[locale]/test/page.tsx:21 - "Unit Conversion"
+  ⚠ app/[locale]/test/page.tsx:22 - "Unit Converter:"
+  ⚠ app/[locale]/test/page.tsx:23 - "Length:"
+  ⚠ app/[locale]/test/page.tsx:24 - "Weight:"
+  ⚠ app/[locale]/test/page.tsx:25 - "Volume:"
+  ⚠ app/[locale]/test/page.tsx:26 - "Temperature:"
+  ⚠ app/[locale]/test/page.tsx:30 - "BMI Calculator"
+  ⚠ app/[locale]/test/page.tsx:31 - "Title:"
+  ⚠ app/[locale]/test/page.tsx:32 - "Height:"
+  ⚠ app/[locale]/test/page.tsx:33 - "Weight:"
+  ⚠ app/[locale]/test/page.tsx:34 - "Your BMI:"
+  ⚠ app/[locale]/test/page.tsx:35 - "Category:"
+  ⚠ app/[locale]/test/page.tsx:37 - "Categories:"
+  ⚠ app/[locale]/test/page.tsx:50 - "BMI Formula:"
+  ⚠ app/[locale]/test/page.tsx:51 - "VAT Formula (Base to Total):"
+  ⚠ app/[locale]/test/page.tsx:52 - "VAT Formula (Total to Base):"
+  ⚠ app/[locale]/test-styles/page.tsx:17 - "CSS Styles Test Page"
+  ⚠ app/[locale]/test-styles/page.tsx:20 - "Testing shadcn/ui components and Tailwind CSS"
+  ⚠ app/[locale]/test-styles/page.tsx:28 - "🎨 Basic Tailwind CSS Test"
+  ⚠ app/[locale]/test-styles/page.tsx:31 - "Testing basic Tailwind classes"
+  ⚠ app/[locale]/test-styles/page.tsx:37 - "Red Box"
+  ⚠ app/[locale]/test-styles/page.tsx:40 - "Green Box"
+  ⚠ app/[locale]/test-styles/page.tsx:43 - "Blue Box"
+  ⚠ app/[locale]/test-styles/page.tsx:53 - "🔘 Button Components Test"
+  ⚠ app/[locale]/test-styles/page.tsx:56 - "Testing different button variants"
+  ⚠ app/[locale]/test-styles/page.tsx:63 - "Default Button"
+  ⚠ app/[locale]/test-styles/page.tsx:67 - "Secondary Button"
+  ⚠ app/[locale]/test-styles/page.tsx:71 - "Outline Button"
+  ⚠ app/[locale]/test-styles/page.tsx:75 - "Destructive Button"
+  ⚠ app/[locale]/test-styles/page.tsx:78 - "Ghost Button"
+  ⚠ app/[locale]/test-styles/page.tsx:81 - "Link Button"
+  ⚠ app/[locale]/test-styles/page.tsx:86 - "Small Button"
+  ⚠ app/[locale]/test-styles/page.tsx:87 - "Default Size"
+  ⚠ app/[locale]/test-styles/page.tsx:88 - "Large Button"
+  ⚠ app/[locale]/test-styles/page.tsx:100 - "Default Card"
+  ⚠ app/[locale]/test-styles/page.tsx:102 - "This is a default card variant"
+  ⚠ app/[locale]/test-styles/page.tsx:107 - "Content of the default card with some text to test typography."
+  ⚠ app/[locale]/test-styles/page.tsx:114 - "Outlined Card"
+  ⚠ app/[locale]/test-styles/page.tsx:116 - "This is an outlined card variant"
+  ⚠ app/[locale]/test-styles/page.tsx:121 - "Content of the outlined card with some text to test typography."
+  ⚠ app/[locale]/test-styles/page.tsx:128 - "Elevated Card"
+  ⚠ app/[locale]/test-styles/page.tsx:130 - "This is an elevated card variant"
+  ⚠ app/[locale]/test-styles/page.tsx:135 - "Content of the elevated card with shadow effect."
+  ⚠ app/[locale]/test-styles/page.tsx:142 - "Filled Card"
+  ⚠ app/[locale]/test-styles/page.tsx:144 - "This is a filled card variant"
+  ⚠ app/[locale]/test-styles/page.tsx:149 - "Content of the filled card with background."
+  ⚠ app/[locale]/test-styles/page.tsx:159 - "📝 Input Components Test"
+  ⚠ app/[locale]/test-styles/page.tsx:162 - "Testing input fields and forms"
+  ⚠ app/[locale]/test-styles/page.tsx:169 - "Default Input"
+  ⚠ app/[locale]/test-styles/page.tsx:173 - "Enter some text..."
+  ⚠ app/[locale]/test-styles/page.tsx:179 - "Number Input"
+  ⚠ app/[locale]/test-styles/page.tsx:183 - "Enter a number..."
+  ⚠ app/[locale]/test-styles/page.tsx:195 - "📚 Typography Test"
+  ⚠ app/[locale]/test-styles/page.tsx:198 - "Testing different text styles and sizes"
+  ⚠ app/[locale]/test-styles/page.tsx:203 - "Heading 1"
+  ⚠ app/[locale]/test-styles/page.tsx:204 - "Heading 2"
+  ⚠ app/[locale]/test-styles/page.tsx:205 - "Heading 3"
+  ⚠ app/[locale]/test-styles/page.tsx:206 - "Heading 4"
+  ⚠ app/[locale]/test-styles/page.tsx:208 - "Regular paragraph text with"
+  ⚠ app/[locale]/test-styles/page.tsx:208 - "bold text"
+  ⚠ app/[locale]/test-styles/page.tsx:208 - "and"
+  ⚠ app/[locale]/test-styles/page.tsx:208 - "italic text"
+  ⚠ app/[locale]/test-styles/page.tsx:210 - "Small text"
+  ⚠ app/[locale]/test-styles/page.tsx:211 - "Extra small text"
+  ⚠ app/[locale]/test-styles/page.tsx:220 - "🔍 CSS Status Check"
+  ⚠ app/[locale]/test-styles/page.tsx:226 - "If you can see:"
+  ⚠ app/[locale]/test-styles/page.tsx:229 - "Colored backgrounds and borders"
+  ⚠ app/[locale]/test-styles/page.tsx:230 - "Proper spacing and layout"
+  ⚠ app/[locale]/test-styles/page.tsx:231 - "Styled buttons with hover effects"
+  ⚠ app/[locale]/test-styles/page.tsx:232 - "Card shadows and borders"
+  ⚠ app/[locale]/test-styles/page.tsx:233 - "Proper typography"
+  ⚠ app/[locale]/test-styles/page.tsx:236 - "✅ Then CSS is working correctly!"
+  ⚠ app/[locale]/test-styles/page.tsx:239 - "❌ If this looks like plain HTML, CSS is not loading."
+  ⚠ components/CookieBanner.tsx:52 - "Používáme cookies pro zlepšení vaší zkušenosti. Pro více informací si přečtěte naše"
+  ⚠ components/CookieBanner.tsx:53 - "Zásady ochrany osobních údajů"
+  ⚠ components/CookieBanner.tsx:60 - "Přijmout vše"
+  ⚠ components/CookieBanner.tsx:66 - "Odmítnout"
+  ⚠ components/calculators/BMICalculator.tsx:191 - "&lt; 18.5"
+  ⚠ components/calculators/BMICalculator.tsx:203 - "≥ 30.0"
+  ⚠ components/calculators/BMICalculator.tsx:209 - "BMI je pouze orientační ukazatel. Pro přesné posouzení zdravotního stavu se obraťte na lékaře."
+  ⚠ components/calculators/BMRCalculator.tsx:399 - "BMR ("
+  ⚠ components/calculators/BMRCalculator.tsx:494 - "|
+                BMR:"
+  ⚠ components/calculators/BodyFatCalculator.tsx:325 - "kg,"
+  ⚠ components/calculators/BodyFatCalculator.tsx:372 - "kg"
+  ⚠ components/calculators/BodyFatCalculator.tsx:384 - "kg"
+  ⚠ components/calculators/BodyFatCalculator.tsx:398 - "BMI:"
+  ⚠ components/calculators/BodyFatCalculator.tsx:417 - "% |"
+  ⚠ components/calculators/CaloriesCalculator.tsx:342 - "TDEE (Total Daily Energy Expenditure)"
+  ⚠ components/calculators/CaloriesCalculator.tsx:408 - "×):"
+  ⚠ components/calculators/CaloriesCalculator.tsx:432 - "BMR:"
+  ⚠ components/calculators/CaloriesCalculator.tsx:432 - "kcal |"
+  ⚠ components/calculators/CaloriesCalculator.tsx:433 - "|
+                TDEE:"
+  ⚠ components/calculators/CaloriesCalculator.tsx:434 - "kcal"
+  ⚠ components/calculators/CurrencyCalculator.tsx:354 - "1 EUR ="
+  ⚠ components/calculators/CurrencyCalculator.tsx:358 - "1 USD ="
+  ⚠ components/calculators/CurrencyCalculator.tsx:362 - "1 GBP ="
+  ⚠ components/calculators/CurrencyCalculator.tsx:366 - "1 CHF ="
+  ⚠ components/calculators/DirectProportionCalculator.tsx:141 - "x ="
+  ⚠ components/calculators/DiscountCalculator.tsx:446 - "%):"
+  ⚠ components/calculators/DiscountCalculator.tsx:456 - "% |"
+  ⚠ components/calculators/FuelCalculator.tsx:248 - "(Kč/l)"
+  ⚠ components/calculators/FuelCalculator.tsx:276 - "(km)"
+  ⚠ components/calculators/FuelCalculator.tsx:298 - "(l)"
+  ⚠ components/calculators/FuelCalculator.tsx:325 - "(km)"
+  ⚠ components/calculators/FuelCalculator.tsx:347 - "(l/100km)"
+  ⚠ components/calculators/FuelCalculator.tsx:374 - "(km)"
+  ⚠ components/calculators/FuelCalculator.tsx:396 - "(l/100km)"
+  ⚠ components/calculators/FuelCalculator.tsx:498 - "Kč/km"
+  ⚠ components/calculators/FuelCalculator.tsx:519 - "Kč/l"
+  ⚠ components/calculators/InsulationCalculator.tsx:75 - "λ ="
+  ⚠ components/calculators/InsulationCalculator.tsx:75 - "W/mK"
+  ⚠ components/calculators/InsulationCalculator.tsx:127 - "m²"
+  ⚠ components/calculators/InsulationCalculator.tsx:212 - "W/mK"
+  ⚠ components/calculators/InverseProportionCalculator.tsx:133 - "x ="
+  ⚠ components/calculators/LoanCalculator.tsx:185 - "Kč"
+  ⚠ components/calculators/MacroCalculator.tsx:128 - "kcal /"
+  ⚠ components/calculators/MacroCalculator.tsx:131 - "BMR:"
+  ⚠ components/calculators/MacroCalculator.tsx:131 - "kcal | TDEE:"
+  ⚠ components/calculators/MacroCalculator.tsx:131 - "kcal"
+  ⚠ components/calculators/MaterialCalculator.tsx:225 - "(m²)"
+  ⚠ components/calculators/MaterialCalculator.tsx:251 - "(Kč)"
+  ⚠ components/calculators/MaterialCalculator.tsx:297 - "% pro"
+  ⚠ components/calculators/MaterialCalculator.tsx:307 - "Výpočet materiálu -"
+  ⚠ components/calculators/MaterialCalculator.tsx:310 - "m² •"
+  ⚠ components/calculators/MaterialCalculator.tsx:310 - "Kč/"
+  ⚠ components/calculators/MaterialCalculator.tsx:310 - "% odpad"
+  ⚠ components/calculators/MaterialCalculator.tsx:380 - "m²"
+  ⚠ components/calculators/MaterialCalculator.tsx:387 - "%):"
+  ⚠ components/calculators/PercentageOfNumberCalculator.tsx:103 - "% ×"
+  ⚠ components/calculators/TipCalculator.tsx:400 - "% |"
+  ⚠ components/calculators/VolumeCalculator.tsx:53 - "m³"
+  ⚠ components/calculators/VolumeCalculator.tsx:64 - "m³"
+  ⚠ components/calculators/VolumeCalculator.tsx:70 - "m²"
+  ⚠ components/calculators/WaterIntakeCalculator.tsx:112 - "l /"
+  ⚠ components/calculators/WaterIntakeCalculator.tsx:115 - "ml ="
+  ⚠ components/calculators/__tests__/BMICalculator.test.tsx:74 - "BMI: 23.1 kg/m²"
+  ⚠ components/calculators/__tests__/BMICalculator.test.tsx:75 - "Category: Normal weight"
+  ⚠ components/calculators/__tests__/BMICalculator.test.tsx:76 - "Formula: 75 / ((180/100)²) = 23.1"
+  ⚠ components/calculators/fractionOperations/FractionDivision.tsx:57 - "&divide;"
+  ⚠ components/calculators/fractionOperations/FractionMultiplication.tsx:56 - "&times;"
+  ⚠ components/calculators/fractionOperations/FractionSimplification.tsx:52 - ": GCD("
+  ⚠ components/calculators/shared/CashFlowEditor.tsx:106 - "&bull;"
+  ⚠ components/calculators/shared/CashFlowEditor.tsx:107 - "&bull;"
+  ⚠ components/calculators/shared/CashFlowEditor.tsx:108 - "&bull;"
+  ⚠ components/layout/SimpleCalculatorLayout.tsx:364 - "Frequently asked questions about this calculator"
+  ⚠ components/layout/SimpleCalculatorLayout.tsx:434 - "Kategorie"
+  ⚠ components/layouts/Footer.tsx:133 - "&copy;"
+  ⚠ components/layouts/Footer.tsx:163 - "❤️"
+  ⚠ components/navigation/MainNavigation.tsx:130 - "Toggle menu"
+  ⚠ components/seo/SeoMetadata.tsx:21 - "| MathCalc Pro"
+  ⚠ components/shared/AdPlaceholder.tsx:24 - "Ad Space ("
+  ⚠ components/shared/ErrorBoundary.tsx:54 - "Chyba při načítání kalkulátoru"
+  ⚠ components/shared/ErrorBoundary.tsx:57 - "Omlouváme se, došlo k chybě při načítání kalkulátoru. Zkuste prosím obnovit stránku."
+  ⚠ components/shared/ErrorBoundary.tsx:62 - "Technické detaily"
+  ⚠ components/shared/ErrorBoundary.tsx:73 - "Zkusit znovu"
+  ⚠ components/shared/RelatedCalculators.tsx:133 - "Vypočítat"
+  ⚠ components/ui/LoadingSpinner.tsx:95 - "Loading..."
+  ⚠ components/ui/Pagination.tsx:229 - "Showing"
+  ⚠ components/ui/Pagination.tsx:231 - "results"
+  ⚠ components/ui/Pagination.tsx:238 - "Rows per page:"
+  ⚠ components/ui/Pagination.tsx:269 - "First page"
+  ⚠ components/ui/Pagination.tsx:284 - "Previous page"
+  ⚠ components/ui/Pagination.tsx:330 - "Next page"
+  ⚠ components/ui/Pagination.tsx:345 - "Last page"
+  ⚠ components/ui/__tests__/Button.test.tsx:7 - "Click me"
+  ⚠ components/ui/__tests__/Button.test.tsx:13 - "Default Button"
+  ⚠ components/ui/__tests__/Button.test.tsx:20 - "Secondary Button"
+  ⚠ components/ui/__tests__/Button.test.tsx:27 - "Custom Class Button"
+  ⚠ components/ui/__tests__/Button.test.tsx:35 - "Link Button"
+
+  Found 186 potential hardcoded strings
+
+🗑️  Phase 4: Scanning for unused keys...
+  ⚠ Unused key: common.examples
+  ⚠ Unused key: common.most_popular
+  ⚠ Unused key: common.other_useful_calculations
+  ⚠ Unused key: age_detail_precise_age
+  ⚠ Unused key: age_empty_message
+  ⚠ Unused key: age_error_future_date
+  ⚠ Unused key: age_error_year_1900
+  ⚠ Unused key: age_field_age
+  ⚠ Unused key: age_field_date
+  ⚠ Unused key: age_field_until
+  ⚠ Unused key: age_label_birth_date
+  ⚠ Unused key: age_label_target_date
+  ⚠ Unused key: age_metric_days
+  ⚠ Unused key: age_metric_hours
+  ⚠ Unused key: age_metric_minutes
+  ⚠ Unused key: age_metric_total
+  ⚠ Unused key: age_metric_weeks
+  ⚠ Unused key: age_section_details
+  ⚠ Unused key: age_section_next_birthday
+  ⚠ Unused key: age_section_zodiac
+  ⚠ Unused key: age_unit_day_1
+  ⚠ Unused key: age_unit_day_2_4
+  ⚠ Unused key: age_unit_day_5_plus
+  ⚠ Unused key: age_unit_days_label
+  ⚠ Unused key: age_zodiac_note
+  ⚠ Unused key: bmr_formula_mifflin
+  ⚠ Unused key: bmr_formula_katch
+  ⚠ Unused key: bmr_category_sedentary
+  ⚠ Unused key: bmr_category_active
+  ⚠ Unused key: annuity_enter_valid_values
+  ⚠ Unused key: annuity_payment_explanation
+  ⚠ Unused key: bmi_tip_text
+  ⚠ Unused key: categories.unit_converter
+  ⚠ Unused key: categories.net_salary
+  ⚠ Unused key: categories.financial
+  ⚠ Unused key: categories.conversions
+  ⚠ Unused key: decimal_representation_label
+  ⚠ Unused key: denominator_label
+  ⚠ Unused key: dph_tip_text
+  ⚠ Unused key: error_division_by_zero
+  ⚠ Unused key: finance_for_entire_period
+  ⚠ Unused key: finance_nominal_value
+  ⚠ Unused key: finance_npv_at_rate
+  ⚠ Unused key: finance_total_return
+  ⚠ Unused key: fractions_form_deleni
+  ⚠ Unused key: fractions_form_nasobeni
+  ⚠ Unused key: fractions_form_odcitani
+  ⚠ Unused key: fractions_form_prevod
+  ⚠ Unused key: fractions_form_scitani
+  ⚠ Unused key: fractions_form_zkracovani
+  ⚠ Unused key: from_unit_label
+  ⚠ Unused key: ideal_weight_female_short
+  ⚠ Unused key: ideal_weight_male_short
+  ⚠ Unused key: insulation_area_ceiling
+  ⚠ Unused key: insulation_area_floor
+  ⚠ Unused key: insulation_area_roof
+  ⚠ Unused key: insulation_area_wall
+  ⚠ Unused key: insulation_example_1_example
+  ⚠ Unused key: insulation_example_2_example
+  ⚠ Unused key: insulation_example_3_example
+  ⚠ Unused key: insulation_faq_1_answer
+  ⚠ Unused key: insulation_faq_1_question
+  ⚠ Unused key: insulation_faq_2_answer
+  ⚠ Unused key: insulation_faq_2_question
+  ⚠ Unused key: insulation_faq_3_answer
+  ⚠ Unused key: insulation_faq_3_question
+  ⚠ Unused key: insulation_faq_4_answer
+  ⚠ Unused key: insulation_faq_4_question
+  ⚠ Unused key: insulation_material_eps
+  ⚠ Unused key: insulation_material_mineralWool
+  ⚠ Unused key: insulation_material_polyurethane
+  ⚠ Unused key: insulation_material_woodFiber
+  ⚠ Unused key: insulation_material_xps
+  ⚠ Unused key: kolik_procent_je_x_z_y_formula
+  ⚠ Unused key: mixed_number_representation_label
+  ⚠ Unused key: neprima_umera_formula
+  ⚠ Unused key: numerator_label
+  ⚠ Unused key: pct_of_num_error_x
+  ⚠ Unused key: pct_of_num_error_y
+  ⚠ Unused key: prima_umera_formula
+  ⚠ Unused key: quick_links_recent
+  ⚠ Unused key: rating.no_reviews
+  ⚠ Unused key: select_option_default
+  ⚠ Unused key: to_unit_label
+  ⚠ Unused key: unit_converter_formula_desc
+  ⚠ Unused key: unit_converter_select_label
+  ⚠ Unused key: unit_converter_select_type
+  ⚠ Unused key: unknown_input_temperature_unit_error
+  ⚠ Unused key: unknown_output_temperature_unit_error
+  ⚠ Unused key: volume_calc_shape_cone
+  ⚠ Unused key: volume_calc_shape_cube
+  ⚠ Unused key: volume_calc_shape_cylinder
+  ⚠ Unused key: volume_calc_shape_rectangular
+  ⚠ Unused key: volume_calc_shape_sphere
+  ⚠ Unused key: vysledek_label_hundred_percent
+  ⚠ Unused key: vysledek_label_x
+  ⚠ Unused key: vysledek_label_x_neprima
+  ⚠ Unused key: y_je_x_kolik_je_sto_formula
+  ⚠ Unused key: y_x_hundred_example1_calculation
+  ⚠ Unused key: y_x_hundred_example2_calculation
+  ⚠ Unused key: bodyfat_method_navy_hint
+  ⚠ Unused key: bodyfat_method_bmi_hint
+  ⚠ Unused key: bodyfat_unit_years
+  ⚠ Unused key: bodyfat_section_navy
+  ⚠ Unused key: bodyfat_summary_method_label
+  ⚠ Unused key: bodyfat_summary_method_navy
+  ⚠ Unused key: bodyfat_summary_method_bmi
+  ⚠ Unused key: bodyfat_result_label
+  ⚠ Unused key: bodyfat_result_method_navy
+  ⚠ Unused key: bodyfat_result_method_bmi
+  ⚠ Unused key: bodyfat_result_healthy
+  ⚠ Unused key: bodyfat_result_unhealthy
+  ⚠ Unused key: bodyfat_result_fat_pct_suffix
+  ⚠ Unused key: bodyfat_result_muscle_mass
+  ⚠ Unused key: bodyfat_result_comparison
+  ⚠ Unused key: bodyfat_result_bmi_note
+  ⚠ Unused key: bodyfat_info_method_label
+  ⚠ Unused key: bodyfat_info_fat_label
+  ⚠ Unused key: bodyfat_info_category_label
+  ⚠ Unused key: calories_unit_kg
+  ⚠ Unused key: calories_unit_cm
+  ⚠ Unused key: calories_result_tdee_desc
+  ⚠ Unused key: discount_currency_czk
+  ⚠ Unused key: tip_currency_czk
+  ⚠ Unused key: currency_name_czk
+  ⚠ Unused key: currency_name_eur
+  ⚠ Unused key: currency_name_usd
+  ⚠ Unused key: currency_name_gbp
+  ⚠ Unused key: currency_name_chf
+  ⚠ Unused key: currency_name_pln
+  ⚠ Unused key: currency_name_huf
+  ⚠ Unused key: currency_name_jpy
+  ⚠ Unused key: currency_name_cad
+  ⚠ Unused key: currency_name_aud
+  ⚠ Unused key: fuel_currency_czk
+  ⚠ Unused key: fuel_unit_liters
+  ⚠ Unused key: fuel_unit_consumption
+  ⚠ Unused key: fuel_calc_consumption_desc
+  ⚠ Unused key: fuel_calc_cost_desc
+  ⚠ Unused key: fuel_calc_trip_desc
+  ⚠ Unused key: discount_result_final_price
+  ⚠ Unused key: currency_placeholder_currency
+  ⚠ Unused key: loan_detail_monthly_rate
+  ⚠ Unused key: open_menu
+  ⚠ Unused key: select_language
+
+  Found 145 potentially unused keys
+
+🔧 Phase 5: Validating interpolation variables...
+  ⚠ en.json - bmi_formula
+      Ref: {váha (kg)}, {výška (m)^2}
+      Loc: {height (m)^2}, {weight (kg)}
+  ⚠ en.json - calculators.fuel.formula.latex
+      Ref: {Palivo \times 100}, {Vzdálenost}
+      Loc: {Distance}, {Fuel \times 100}
+  ⚠ en.json - calculators.calories.formula.latex
+      Ref: {muž}
+      Loc: {men}
+  ⚠ en.json - calculators.discount.formula.latex
+      Ref: {100}, {Procento}
+      Loc: {100}, {Percentage}
+  ⚠ en.json - ideal_weight_latex
+      Ref: {Robinson}, {palce}
+      Loc: {Robinson}, {inches}
+  ⚠ en.json - procento_z_cisla_formula
+      Ref: {100}, {Procenta}
+      Loc: {100}, {Percentage}
+  ⚠ en.json - vat_formula_total_to_base
+      Ref: {1 + Sazba_DPH}, {Celkem}
+      Loc: {1 + VAT_Rate}, {Total}
+  ⚠ en.json - tip_formula_latex
+      Ref: {100}, {Procento}
+      Loc: {100}, {Percentage}
+  ⚠ en.json - area_formula_latex
+      Ref: {1}, {2}, {kruh}, {obdélník}, {trojúhelník}
+      Loc: {1}, {2}, {circle}, {rectangle}, {triangle}
+  ✓ sk.json - Interpolation OK
+  ⚠ pl.json - bmi_formula
+      Ref: {váha (kg)}, {výška (m)^2}
+      Loc: {výška (m)^2}, {waga (kg)}
+  ⚠ pl.json - vat_formula_total_to_base
+      Ref: {1 + Sazba_DPH}, {Celkem}
+      Loc: {1 + Sazba_VAT}, {Celkem}
+  ⚠ hu.json - bmi_formula
+      Ref: {váha (kg)}, {výška (m)^2}
+      Loc: {magasság (m)^2}, {súly (kg)}
+  ⚠ hu.json - calculators.fuel.formula.latex
+      Ref: {Palivo \times 100}, {Vzdálenost}
+      Loc: {Palivo \times 100}, {Távolság}
+  ⚠ hu.json - calculators.discount.formula.latex
+      Ref: {100}, {Procento}
+      Loc: {100}, {Százalék}
+  ⚠ hu.json - ideal_weight_latex
+      Ref: {Robinson}, {palce}
+      Loc: {cm}
+  ⚠ hu.json - prima_umera_formula
+      Ref: {a}, {a}, {b}, {c \times b}, {c}, {x}
+      Loc: {a}, {b \times c}
+  ⚠ hu.json - procento_z_cisla_formula
+      Ref: {100}, {Procenta}
+      Loc: {100}, {Százalék}
+  ⚠ hu.json - vat_formula_total_to_base
+      Ref: {1 + Sazba_DPH}, {Celkem}
+      Loc: {1 + \frac{ÁFA\%}, {100}, {Teljes\,ár}
+  ⚠ hu.json - y_je_x_kolik_je_sto_formula
+      Ref: {X}, {Y}
+      Loc: {X}, {Y \times 100}
+  ⚠ hu.json - y_x_hundred_result_explanation
+      Ref: {result}, {x}, {y}
+      Loc: 
+  ⚠ hu.json - tip_result_per_person
+      Ref: {n}
+      Loc: 
+  ⚠ hu.json - tip_formula_latex
+      Ref: {100}, {Procento}
+      Loc: {100}, {Százalék}
+  ⚠ hu.json - area_formula_latex
+      Ref: {1}, {2}, {kruh}, {obdélník}, {trojúhelník}
+      Loc: {1}, {2}, {háromszög}, {kör}, {téglalap}
+  ⚠ hu.json - loan_result_months_duration
+      Ref: {n}
+      Loc: 
+
+📊 Summary
+360 Warnings
+Done.

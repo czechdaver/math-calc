@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 // import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
@@ -29,6 +29,7 @@ interface ConversionResult {
 
 const CurrencyCalculator: React.FC = () => {
   const t = useTranslations();
+  const locale = useLocale();
   // const params = useParams();
   // const locale = params.locale as string;
   const [amount, setAmount] = useState<string>('100');
@@ -243,7 +244,7 @@ const CurrencyCalculator: React.FC = () => {
               {formatCurrency(parseFloat(amount || '0'), getCurrency(fromCurrency))} → {getCurrency(toCurrency).symbol}
             </div>
             <div className="text-xs text-blue-600 mt-1">
-              {getCurrency(fromCurrency).name} na {getCurrency(toCurrency).name}
+              {getCurrency(fromCurrency).name} {t('currency_to')} {getCurrency(toCurrency).name}
             </div>
           </div>
         </CardContent>
@@ -321,10 +322,10 @@ const CurrencyCalculator: React.FC = () => {
           <div className="flex items-start gap-3">
             <CalcIcon className="w-5 h-5 text-green-600 mt-0.5" />
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">Výpočet převodu</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">{t('currency_result_calculation')}</h4>
               <div className="space-y-1 text-sm text-gray-600">
                 <div className="flex justify-between">
-                  <span>Částka:</span>
+                  <span>{t('currency_detail_amount')}</span>
                   <span className="font-mono">{formatCurrency(result.fromAmount, result.fromCurrency)}</span>
                 </div>
                 <div className="flex justify-between">
@@ -332,12 +333,12 @@ const CurrencyCalculator: React.FC = () => {
                   <span className="font-mono">1 {result.fromCurrency.code} = {result.rate.toFixed(6)} {result.toCurrency.code}</span>
                 </div>
                 <div className="border-t pt-1 flex justify-between font-semibold">
-                  <span>Výsledek:</span>
+                  <span>{t('currency_detail_result')}</span>
                   <span className="font-mono">{formatCurrency(result.toAmount, result.toCurrency)}</span>
                 </div>
               </div>
               <div className="mt-2 text-xs text-gray-500">
-                Výpočet: {result.fromAmount.toLocaleString('cs-CZ')} × {result.rate.toFixed(6)} = {result.toAmount.toLocaleString('cs-CZ', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                {t('currency_detail_formula')} {result.fromAmount.toLocaleString(locale === 'cs' ? 'cs-CZ' : 'en-US')} × {result.rate.toFixed(6)} = {result.toAmount.toLocaleString(locale === 'cs' ? 'cs-CZ' : 'en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </div>
             </div>
           </div>
@@ -347,7 +348,7 @@ const CurrencyCalculator: React.FC = () => {
       {/* Popular Conversions */}
       <Card>
         <CardContent className="p-4">
-          <h4 className="font-semibold text-gray-900 mb-3">Oblíbené převody</h4>
+          <h4 className="font-semibold text-gray-900 mb-3">{t('currency_popular_title')}</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
             <div className="flex justify-between p-2 bg-gray-50 rounded">
               <span>1 EUR =</span>

@@ -183,7 +183,7 @@ const TipCalculator: React.FC = () => {
           </p>
         )}
         <p className="text-gray-500 text-xs">
-          Celková částka účtu před spropitným
+          {t('tip_hint_bill_amount')}
         </p>
       </div>
 
@@ -238,7 +238,7 @@ const TipCalculator: React.FC = () => {
             </p>
           )}
           <p className="text-gray-500 text-xs">
-            Zadejte vlastní procento spropitného
+            {t('tip_hint_custom_tip')}
           </p>
         </div>
       )}
@@ -246,7 +246,7 @@ const TipCalculator: React.FC = () => {
       {/* Number of People */}
       <div className="space-y-2">
         <Label htmlFor="numberOfPeople" className="text-sm font-medium">
-          Počet lidí
+          {t('tip_label_people')}
         </Label>
         <div className="relative">
           <Input
@@ -261,7 +261,7 @@ const TipCalculator: React.FC = () => {
             step="1"
           />
           <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-            osob
+            {t('tip_unit_people')}
           </span>
         </div>
         {errors.numberOfPeople && (
@@ -271,7 +271,7 @@ const TipCalculator: React.FC = () => {
           </p>
         )}
         <p className="text-gray-500 text-xs">
-          Počet lidí, kteří si účet rozdělí
+          {t('tip_hint_people')}
         </p>
       </div>
 
@@ -280,16 +280,16 @@ const TipCalculator: React.FC = () => {
         <CardContent className="p-4">
           <div className="text-center">
             <div className="text-sm font-medium text-blue-800 mb-2">
-              Shrnutí objednávky
+              {t('tip_summary_title')}
             </div>
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div>
-                <div className="font-semibold text-blue-900">Účet</div>
-                <div className="text-blue-700">{formatCurrency(parseFloat(billAmount || '0'))} Kč</div>
+                <div className="font-semibold text-blue-900">{t('tip_summary_bill')}</div>
+                <div className="text-blue-700">{formatCurrency(parseFloat(billAmount || '0'))} {t('common.currency')}</div>
               </div>
               <div>
-                <div className="font-semibold text-blue-900">Lidé</div>
-                <div className="text-blue-700">{numberOfPeople} osob</div>
+                <div className="font-semibold text-blue-900">{t('tip_summary_people')}</div>
+                <div className="text-blue-700">{numberOfPeople} {t('tip_unit_people')}</div>
               </div>
             </div>
             <div className="mt-2 text-xs text-blue-600">
@@ -309,7 +309,7 @@ const TipCalculator: React.FC = () => {
         <div className="inline-flex items-center gap-4 p-6 bg-green-50 rounded-xl">
           <div className="text-center">
             <div className="text-3xl font-bold text-green-900">
-              {formatCurrency(result.totalAmount)} Kč
+              {formatCurrency(result.totalAmount)} {t('common.currency')}
             </div>
             <div className="text-sm text-green-700 mt-1">
               {t('calculators.tip.total_to_pay')}
@@ -331,10 +331,10 @@ const TipCalculator: React.FC = () => {
               <div className="text-sm font-medium text-blue-700">{t('calculators.tip.original_bill')}</div>
             </div>
             <div className="text-lg font-bold text-blue-800">
-              {formatCurrency(result.billAmount)} Kč
+              {formatCurrency(result.billAmount)} {t('common.currency')}
             </div>
             <div className="text-xs text-blue-600 mt-1">
-              Původní částka
+              {t('tip_result_original')}
             </div>
           </CardContent>
         </Card>
@@ -346,7 +346,7 @@ const TipCalculator: React.FC = () => {
               <div className="text-sm font-medium text-yellow-700">{t('tip_result_tip')}</div>
             </div>
             <div className="text-lg font-bold text-yellow-800">
-              {formatCurrency(result.tipAmount)} Kč
+              {formatCurrency(result.tipAmount)} {t('common.currency')}
             </div>
             <div className="text-xs text-yellow-600 mt-1">
               {result.tipPercentage}% {t('tip_result_of_bill')}
@@ -360,25 +360,25 @@ const TipCalculator: React.FC = () => {
         <CardContent className="p-4">
           <div className="flex items-center gap-2 mb-4">
             <Users className="w-5 h-5 text-purple-600" />
-            <h4 className="font-semibold text-purple-900">Na osobu ({result.numberOfPeople} lidí)</h4>
+            <h4 className="font-semibold text-purple-900">{t('tip_result_per_person', { n: result.numberOfPeople })}</h4>
           </div>
           <div className="grid grid-cols-3 gap-4 text-center">
             <div>
-              <div className="text-sm text-purple-700 mb-1">Účet</div>
+              <div className="text-sm text-purple-700 mb-1">{t('tip_per_bill')}</div>
               <div className="text-lg font-bold text-purple-800">
-                {formatCurrency(result.perPersonBill)} Kč
+                {formatCurrency(result.perPersonBill)} {t('common.currency')}
               </div>
             </div>
             <div>
               <div className="text-sm text-purple-700 mb-1">{t('tip_per_tip')}</div>
               <div className="text-lg font-bold text-purple-800">
-                {formatCurrency(result.perPersonTip)} Kč
+                {formatCurrency(result.perPersonTip)} {t('common.currency')}
               </div>
             </div>
             <div>
               <div className="text-sm text-purple-700 mb-1">{t('tip_per_total')}</div>
               <div className="text-lg font-bold text-purple-800">
-                {formatCurrency(result.perPersonTotal)} Kč
+                {formatCurrency(result.perPersonTotal)} {t('common.currency')}
               </div>
             </div>
           </div>
@@ -398,7 +398,7 @@ const TipCalculator: React.FC = () => {
               <div className="text-xs text-gray-500">
                 {t('tip_detail_quality')} {getServiceQualityInfo(result.serviceQuality).description} |
                 {t('tip_detail_tip_percent')} {result.tipPercentage}% |
-                {t('tip_detail_total')} {formatCurrency(result.totalAmount)} Kč
+                {t('tip_detail_total')} {formatCurrency(result.totalAmount)} {t('common.currency')}
               </div>
             </div>
           </div>

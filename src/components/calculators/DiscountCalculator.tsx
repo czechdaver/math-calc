@@ -218,7 +218,7 @@ const DiscountCalculator: React.FC = () => {
             step="1"
           />
           <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-            Kč
+            {t('common.currency')}
           </span>
         </div>
         {errors.originalPrice && (
@@ -285,7 +285,7 @@ const DiscountCalculator: React.FC = () => {
               step="1"
             />
             <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-              Kč
+              {t('common.currency')}
             </span>
           </div>
           {errors.discountAmount && (
@@ -319,7 +319,7 @@ const DiscountCalculator: React.FC = () => {
               step="1"
             />
             <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-              Kč
+              {t('common.currency')}
             </span>
           </div>
           {errors.finalPrice && (
@@ -329,7 +329,7 @@ const DiscountCalculator: React.FC = () => {
             </p>
           )}
           <p className="text-gray-500 text-xs">
-            Cena po slevě
+            {t('discount_hint_final_price')}
           </p>
         </div>
       )}
@@ -344,7 +344,7 @@ const DiscountCalculator: React.FC = () => {
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div>
                 <div className="font-semibold text-blue-900">{t('discount_label_original_price')}</div>
-                <div className="text-blue-700">{formatCurrency(parseFloat(originalPrice || '0'))} Kč</div>
+                <div className="text-blue-700">{formatCurrency(parseFloat(originalPrice || '0'))} {t('common.currency')}</div>
               </div>
               <div>
                 <div className="font-semibold text-blue-900">{t('discount_label_calc_type')}</div>
@@ -368,10 +368,10 @@ const DiscountCalculator: React.FC = () => {
         <div className="inline-flex items-center gap-4 p-6 bg-green-50 rounded-xl">
           <div className="text-center">
             <div className="text-3xl font-bold text-green-900">
-              {formatCurrency(result.finalPrice)} Kč
+              {formatCurrency(result.finalPrice)} {t('common.currency')}
             </div>
             <div className="text-sm text-green-700 mt-1">
-              Cena po slevě
+              {t('discount_hint_final_price')}
             </div>
             <div className="text-xs text-green-600 mt-1">
               {t('discount_result_discount')} {formatNumber(result.discountPercentage)}%
@@ -390,7 +390,7 @@ const DiscountCalculator: React.FC = () => {
               <div className="text-sm font-medium text-red-700">{t('discount_result_discount')}</div>
             </div>
             <div className="text-lg font-bold text-red-800">
-              {formatCurrency(result.discountAmount)} Kč
+              {formatCurrency(result.discountAmount)} {t('common.currency')}
             </div>
             <div className="text-xs text-red-600 mt-1">
               {formatNumber(result.discountPercentage)}% {t('discount_result_of_original')}
@@ -405,7 +405,7 @@ const DiscountCalculator: React.FC = () => {
               <div className="text-sm font-medium text-blue-700">{t('discount_label_original_price')}</div>
             </div>
             <div className="text-lg font-bold text-blue-800">
-              {formatCurrency(result.originalPrice)} Kč
+              {formatCurrency(result.originalPrice)} {t('common.currency')}
             </div>
             <div className="text-xs text-blue-600 mt-1">
               {t('discount_hint_original_price')}
@@ -422,7 +422,7 @@ const DiscountCalculator: React.FC = () => {
             <div className="text-sm font-medium text-yellow-700">{t('discount_result_savings')}</div>
           </div>
           <div className="text-xl font-bold text-yellow-800">
-            {formatCurrency(result.savings)} Kč
+            {formatCurrency(result.savings)} {t('common.currency')}
           </div>
           <div className="text-sm text-yellow-600 mt-1">
             {t('discount_result_you_save', { percent: formatNumber(result.discountPercentage) })}
@@ -440,21 +440,21 @@ const DiscountCalculator: React.FC = () => {
               <div className="space-y-1 text-sm text-gray-600">
                 <div className="flex justify-between">
                   <span>{t('discount_detail_original')}</span>
-                  <span className="font-mono">{formatCurrency(result.originalPrice)} Kč</span>
+                  <span className="font-mono">{formatCurrency(result.originalPrice)} {t('common.currency')}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>{t('discount_detail_discount_label')} ({formatNumber(result.discountPercentage)}%):</span>
-                  <span className="font-mono">-{formatCurrency(result.discountAmount)} Kč</span>
+                  <span className="font-mono">-{formatCurrency(result.discountAmount)} {t('common.currency')}</span>
                 </div>
                 <div className="border-t pt-1 flex justify-between font-semibold">
                   <span>{t('discount_detail_final')}</span>
-                  <span className="font-mono">{formatCurrency(result.finalPrice)} Kč</span>
+                  <span className="font-mono">{formatCurrency(result.finalPrice)} {t('common.currency')}</span>
                 </div>
               </div>
               <div className="mt-2 text-xs text-gray-500">
                 {t('discount_detail_calc_type')} {getCalculationTypeDescription(result.calculationType)} |
                 {t('discount_detail_discount')} {formatNumber(result.discountPercentage)}% |
-                {t('discount_detail_savings')} {formatCurrency(result.savings)} Kč
+                {t('discount_detail_savings')} {formatCurrency(result.savings)} {t('common.currency')}
               </div>
             </div>
           </div>

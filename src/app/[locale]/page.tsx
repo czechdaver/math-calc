@@ -1,14 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
-import { ArrowRight, Users, Shield, Star, ChevronDown } from 'lucide-react';
+import { ArrowRight, Users, Shield, Star } from 'lucide-react';
 import { getCategoryBranding } from '@/config/category-branding';
 import AdBanner from '@/components/ads/AdBanner';
 import { Button } from '@/components/ui/Button';
-import { CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import { CardContent } from '@/components/ui/Card';
 import GlassCard from '@/components/shared/GlassCard';
 import CalculatorCard from '@/components/calculators/shared/CalculatorCard';
 import CalculatorSearch from '@/components/search/CalculatorSearch';
@@ -54,12 +53,6 @@ const HomePage: React.FC = () => {
     }
   ];
 
-  const scrollToCalculators = () => {
-    const element = document.getElementById('calculators');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <div className="min-h-screen bg-transparent">
@@ -89,16 +82,6 @@ const HomePage: React.FC = () => {
               {t('homepage.subtitle')}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-              <Button
-                size="lg"
-                className="rounded-full px-8 py-6 text-lg shadow-lg hover:shadow-primary/25 transition-all"
-                onClick={scrollToCalculators}
-              >
-                {t('homepage.cta_button')}
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </div>
 
             {/* Search Bar */}
             <CalculatorSearch />

@@ -211,7 +211,7 @@ const CaloriesCalculator: React.FC = () => {
               step="0.1"
             />
             <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-              kg
+              {t('common.kg')}
             </span>
           </div>
           {errors.weight && (
@@ -243,7 +243,7 @@ const CaloriesCalculator: React.FC = () => {
               step="1"
             />
             <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-              cm
+              {t('common.cm')}
             </span>
           </div>
           {errors.height && (
@@ -313,7 +313,7 @@ const CaloriesCalculator: React.FC = () => {
               </div>
               <div>
                 <div className="font-semibold text-blue-900">{t('calories_summary_body')}</div>
-                <div className="text-blue-700">{weight} kg, {height} cm</div>
+                <div className="text-blue-700">{weight} {t('common.kg')}, {height} {t('common.cm')}</div>
               </div>
             </div>
             <div className="mt-2 text-xs text-blue-600">
@@ -339,7 +339,7 @@ const CaloriesCalculator: React.FC = () => {
               {t('calories_result_tdee_label')}
             </div>
             <div className="text-xs text-green-600 mt-1">
-              TDEE (Total Daily Energy Expenditure)
+              {t('calories_result_tdee_desc')}
             </div>
           </div>
           <Zap className="w-8 h-8 text-green-600" />
@@ -355,10 +355,10 @@ const CaloriesCalculator: React.FC = () => {
               <div className="text-sm text-red-700 font-medium">{t('calories_result_weight_loss')}</div>
             </div>
             <div className="text-xl font-bold text-red-800">
-              {formatNumber(result.weightLoss)} kcal
+              {formatNumber(result.weightLoss)} {t('common.kcal')}
             </div>
             <div className="text-xs text-red-600 mt-1">
-              -0.5 kg týdně
+              {t('calories_result_weight_loss_05')}
             </div>
           </CardContent>
         </Card>
@@ -370,10 +370,10 @@ const CaloriesCalculator: React.FC = () => {
               <div className="text-sm text-blue-700 font-medium">{t('calories_result_maintain')}</div>
             </div>
             <div className="text-xl font-bold text-blue-800">
-              {formatNumber(result.tdee)} kcal
+              {formatNumber(result.tdee)} {t('common.kcal')}
             </div>
             <div className="text-xs text-blue-600 mt-1">
-              Současná váha
+              {t('calories_result_maintain_current')}
             </div>
           </CardContent>
         </Card>
@@ -385,10 +385,10 @@ const CaloriesCalculator: React.FC = () => {
               <div className="text-sm text-green-700 font-medium">{t('calories_result_weight_gain')}</div>
             </div>
             <div className="text-xl font-bold text-green-800">
-              {formatNumber(result.weightGain)} kcal
+              {formatNumber(result.weightGain)} {t('common.kcal')}
             </div>
             <div className="text-xs text-green-600 mt-1">
-              +0.5 kg týdně
+              {t('calories_result_weight_gain_05')}
             </div>
           </CardContent>
         </Card>
@@ -402,16 +402,16 @@ const CaloriesCalculator: React.FC = () => {
             <div className="space-y-2 text-sm">
               <div className="flex justify-between items-center">
                 <span className="text-gray-700">{t('calories_breakdown_bmr')}</span>
-                <span className="font-mono text-gray-900">{formatNumber(result.bmr)} kcal</span>
+                <span className="font-mono text-gray-900">{formatNumber(result.bmr)} {t('common.kcal')}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-700">{t('calories_breakdown_activity')} ({getActivityMultiplier(result.activityLevel)}×):</span>
-                <span className="font-mono text-gray-900">+{formatNumber(result.tdee - result.bmr)} kcal</span>
+                <span className="font-mono text-gray-900">+{formatNumber(result.tdee - result.bmr)} {t('common.kcal')}</span>
               </div>
               <div className="border-t border-gray-300 my-2"></div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-700">{t('calories_breakdown_total')}</span>
-                <span className="font-mono text-gray-900 font-semibold">{formatNumber(result.tdee)} kcal</span>
+                <span className="font-mono text-gray-900 font-semibold">{formatNumber(result.tdee)} {t('common.kcal')}</span>
               </div>
             </div>
           </div>
@@ -441,7 +441,7 @@ const CaloriesCalculator: React.FC = () => {
   ) : (
     <div className="text-center py-8 text-gray-500">
       <CalcIcon className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-      <p>Zadejte vaše údaje pro výpočet denní potřeby kalorií</p>
+      <p>{t('calories_empty_message')}</p>
     </div>
   );
 

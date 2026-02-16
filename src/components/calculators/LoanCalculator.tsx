@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
@@ -23,6 +23,7 @@ interface LoanResult {
 
 const LoanCalculator: React.FC = () => {
   const t = useTranslations();
+  const locale = useLocale();
   // const params = useParams();
   // const locale = params.locale as string;
   const [loanAmount, setLoanAmount] = useState<string>('500000');
@@ -66,23 +67,23 @@ const LoanCalculator: React.FC = () => {
     const termNum = parseFloat(term);
 
     if (!amount || isNaN(amountNum) || amountNum <= 0) {
-      newErrors.loanAmount = 'Zadejte platnou výši půjčky';
+      newErrors.loanAmount = t('loan_error_amount');
     } else if (amountNum > 50000000) {
-      newErrors.loanAmount = 'Maximální výše půjčky je 50 000 000 Kč';
+      newErrors.loanAmount = t('loan_error_amount_max');
     }
 
     if (!rate || isNaN(rateNum) || rateNum < 0) {
-      newErrors.interestRate = 'Zadejte platnou úrokovou sazbu';
+      newErrors.interestRate = t('loan_error_rate');
     } else if (rateNum > 50) {
-      newErrors.interestRate = 'Maximální úroková sazba je 50%';
+      newErrors.interestRate = t('loan_error_rate_max');
     }
 
     if (!term || isNaN(termNum) || termNum <= 0) {
-      newErrors.loanTerm = 'Zadejte platnou dobu splatnosti';
+      newErrors.loanTerm = t('loan_error_term');
     } else if (termUnit === 'years' && termNum > 50) {
-      newErrors.loanTerm = 'Maximální doba splatnosti je 50 let';
+      newErrors.loanTerm = t('loan_error_term_max_years');
     } else if (termUnit === 'months' && termNum > 600) {
-      newErrors.loanTerm = 'Maximální doba splatnosti je 600 měsíců';
+      newErrors.loanTerm = t('loan_error_term_max_months');
     }
 
     setErrors(newErrors);
@@ -168,7 +169,7 @@ const LoanCalculator: React.FC = () => {
           </p>
         )}
         <p className="text-gray-500 text-xs">
-          Celková výše půjčky, kterou potřebujete
+          {t('loan_hint_amount')}
         </p>
       </div>
 
@@ -182,7 +183,7 @@ const LoanCalculator: React.FC = () => {
               onClick={() => setQuickAmount(value)}
               className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 rounded transition-colors"
             >
-              {parseInt(value).toLocaleString('cs-CZ')} Kč
+              {parseInt(value).toLocaleString(locale === 'cs' ? 'cs-CZ' : 'en-US')} {t('common.currency')}
             </button>
           ))}
         </div>
@@ -211,14 +212,14 @@ const LoanCalculator: React.FC = () => {
           </p>
         )}
         <p className="text-gray-500 text-xs">
-          Roční úroková sazba v procentech
+          {t('loan_hint_interest_rate')}
         </p>
       </div>
 
       {/* Loan Term */}
       <div className="space-y-2">
         <Label htmlFor="loanTerm" className="text-sm font-medium">
-          Doba splatnosti
+          {t('loan_label_term')}
         </Label>
         <div className="grid grid-cols-2 gap-2">
           <Input
@@ -248,7 +249,7 @@ const LoanCalculator: React.FC = () => {
           </p>
         )}
         <p className="text-gray-500 text-xs">
-          Doba, za kterou chcete půjčku splatit
+          {t('loan_hint_term')}
         </p>
       </div>
 
@@ -257,13 +258,13 @@ const LoanCalculator: React.FC = () => {
         <CardContent className="p-4">
           <div className="text-center">
             <div className="text-sm font-medium text-blue-800 mb-2">
-              Parametry půjčky
+              {t('loan_summary_title')}
             </div>
             <div className="text-lg font-semibold text-blue-900">
-              {formatCurrency(parseFloat(loanAmount || '0'))} • {interestRate}% • {loanTerm} {termUnit === 'years' ? 'let' : 'měsíců'}
+              {formatCurrency(parseFloat(loanAmount || '0'))} • {interestRate}{t('common.percentage')} • {loanTerm} {termUnit === 'years' ? t('common.years') : t('common.months')}
             </div>
             <div className="text-xs text-blue-600 mt-1">
-              Výše • Úrok • Doba splatnosti
+              {t('loan_summary_labels')}
             </div>
           </div>
         </CardContent>
@@ -282,10 +283,10 @@ const LoanCalculator: React.FC = () => {
               {formatCurrency(result.monthlyPayment)}
             </div>
             <div className="text-sm text-green-700 mt-1">
-              Měsíční splátka
+              {t('loan_result_monthly_payment')}
             </div>
             <div className="text-xs text-green-600 mt-1">
-              Po dobu {result.loanTermMonths} měsíců
+              {t('loan_result_months_duration', { n: result.loanTermMonths })}
             </div>
           </div>
           <CreditCard className="w-8 h-8 text-green-600" />
@@ -310,7 +311,7 @@ const LoanCalculator: React.FC = () => {
             <div className="text-lg font-bold text-purple-800">
               {formatCurrency(result.totalInterest)}
             </div>
-            <div className="text-sm text-purple-700 mt-1">Celkové úroky</div>
+            <div className="text-sm text-purple-700 mt-1">{t('loan_result_total_interest')}</div>
           </CardContent>
         </Card>
 
@@ -320,7 +321,7 @@ const LoanCalculator: React.FC = () => {
             <div className="text-lg font-bold text-orange-800">
               {formatCurrency(result.totalPayment)}
             </div>
-            <div className="text-sm text-orange-700 mt-1">Celková částka</div>
+            <div className="text-sm text-orange-700 mt-1">{t('loan_result_total_amount')}</div>
           </CardContent>
         </Card>
       </div>
@@ -328,10 +329,10 @@ const LoanCalculator: React.FC = () => {
       {/* Payment Breakdown */}
       <Card>
         <CardContent className="p-4">
-          <h4 className="font-semibold text-gray-900 mb-3">Rozpis plateb</h4>
+          <h4 className="font-semibold text-gray-900 mb-3">{t('loan_result_breakdown')}</h4>
           <div className="space-y-3">
             <div className="flex justify-between items-center p-3 bg-green-50 rounded">
-              <span className="text-green-800 font-medium">Měsíční splátka</span>
+              <span className="text-green-800 font-medium">{t('loan_result_monthly_payment')}</span>
               <span className="text-green-900 font-bold text-lg">{formatCurrencyDetailed(result.monthlyPayment)}</span>
             </div>
             <div className="grid grid-cols-2 gap-3 text-sm">
@@ -341,11 +342,11 @@ const LoanCalculator: React.FC = () => {
               </div>
               <div className="flex justify-between p-2 bg-gray-50 rounded">
                 <span>{t('loan_detail_rate')}</span>
-                <span className="font-mono">{result.interestRate}% p.a.</span>
+                <span className="font-mono">{result.interestRate}{t('common.percentage')} {t('common.pa')}</span>
               </div>
               <div className="flex justify-between p-2 bg-gray-50 rounded">
                 <span>{t('loan_detail_term')}</span>
-                <span className="font-mono">{result.loanTermMonths} měsíců</span>
+                <span className="font-mono">{result.loanTermMonths} {t('common.months')}</span>
               </div>
               <div className="flex justify-between p-2 bg-gray-50 rounded">
                 <span>{t('loan_detail_payments')}</span>
@@ -362,35 +363,35 @@ const LoanCalculator: React.FC = () => {
           <div className="flex items-start gap-3">
             <CalcIcon className="w-5 h-5 text-green-600 mt-0.5" />
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">Detailní výpočet</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">{t('loan_detail_title')}</h4>
               <div className="space-y-1 text-sm text-gray-600">
                 <div className="flex justify-between">
-                  <span>Výše půjčky:</span>
+                  <span>{t('loan_detail_amount')}</span>
                   <span className="font-mono">{formatCurrency(result.loanAmount)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Měsíční úrok:</span>
+                  <span>{t('loan_detail_monthly_interest')}</span>
                   <span className="font-mono">{(result.interestRate / 12).toFixed(3)}%</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Počet splátek:</span>
+                  <span>{t('loan_detail_payments_count')}</span>
                   <span className="font-mono">{result.loanTermMonths}</span>
                 </div>
                 <div className="border-t pt-1 flex justify-between font-semibold">
-                  <span>Měsíční splátka:</span>
+                  <span>{t('loan_detail_monthly_payment')}</span>
                   <span className="font-mono">{formatCurrencyDetailed(result.monthlyPayment)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Celkem zaplatíte:</span>
+                  <span>{t('loan_detail_total')}</span>
                   <span className="font-mono">{formatCurrency(result.totalPayment)}</span>
                 </div>
                 <div className="flex justify-between text-red-600">
-                  <span>Z toho úroky:</span>
+                  <span>{t('loan_detail_interest')}</span>
                   <span className="font-mono">{formatCurrency(result.totalInterest)}</span>
                 </div>
               </div>
               <div className="mt-2 text-xs text-gray-500">
-                Vzorec: M = P × [r(1 + r)^n] / [(1 + r)^n - 1], kde P = jistina, r = měsíční úrok, n = počet splátek
+                {t('loan_detail_formula_note')}
               </div>
             </div>
           </div>
@@ -400,15 +401,15 @@ const LoanCalculator: React.FC = () => {
       {/* Interest vs Principal Chart (Simple Visual) */}
       <Card>
         <CardContent className="p-4">
-          <h4 className="font-semibold text-gray-900 mb-3">Poměr jistiny a úroků</h4>
+          <h4 className="font-semibold text-gray-900 mb-3">{t('loan_ratio_title')}</h4>
           <div className="space-y-3">
             <div className="flex items-center">
               <div className="w-4 h-4 bg-blue-500 rounded mr-2"></div>
-              <span className="text-sm">Jistina: {formatCurrency(result.loanAmount)} ({((result.loanAmount / result.totalPayment) * 100).toFixed(1)}%)</span>
+              <span className="text-sm">{t('loan_ratio_principal_val', { amount: formatCurrency(result.loanAmount), percent: ((result.loanAmount / result.totalPayment) * 100).toFixed(1) })}</span>
             </div>
             <div className="flex items-center">
               <div className="w-4 h-4 bg-red-500 rounded mr-2"></div>
-              <span className="text-sm">Úroky: {formatCurrency(result.totalInterest)} ({((result.totalInterest / result.totalPayment) * 100).toFixed(1)}%)</span>
+              <span className="text-sm">{t('loan_ratio_interest_val', { amount: formatCurrency(result.totalInterest), percent: ((result.totalInterest / result.totalPayment) * 100).toFixed(1) })}</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
               <div
@@ -427,7 +428,7 @@ const LoanCalculator: React.FC = () => {
   ) : (
     <div className="text-center py-8 text-gray-500">
       <CreditCard className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-      <p>Zadejte parametry půjčky pro výpočet</p>
+      <p>{t('loan_empty_message')}</p>
     </div>
   );
 

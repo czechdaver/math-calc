@@ -102,7 +102,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                                         {calc.popularity > 80 && (
                                             <div className="flex items-center text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded-full">
                                                 <Star className="h-3 w-3 fill-current" />
-                                                <span className="ml-1 text-xs font-bold">Popular</span>
+                                                <span className="ml-1 text-xs font-bold">{t('common.popular')}</span>
                                             </div>
                                         )}
                                     </div>

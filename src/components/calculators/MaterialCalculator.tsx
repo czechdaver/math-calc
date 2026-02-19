@@ -6,10 +6,8 @@ import { useTranslations } from 'next-intl';
 
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { AlertCircle, Calculator as CalcIcon, Package, Truck, Hammer, Palette } from 'lucide-react';
+import { Calculator as CalcIcon, Package, Truck, Hammer, Palette } from 'lucide-react';
+import { CalculatorForm, CalculatorInput, CalculatorSelect } from './shared';
 
 interface MaterialResult {
   quantity: number;
@@ -192,111 +190,59 @@ const MaterialCalculator: React.FC = () => {
 
   // Calculator input form
   const calculatorForm = (
-    <div className="space-y-6">
+    <CalculatorForm columns={1}>
       {/* Material Type Selection */}
-      <div className="space-y-2">
-        <Label htmlFor="materialType" className="text-sm font-medium">
-          {t('calculators.material.material_type')}
-        </Label>
-        <Select value={materialType} onValueChange={setMaterialType}>
-          <SelectTrigger>
-            <SelectValue placeholder={t('calculators.material.select_material')} />
-          </SelectTrigger>
-          <SelectContent>
-            {Object.entries(materials).map(([key, material]) => (
-              <SelectItem key={key} value={key}>
-                <div className="flex items-center gap-2">
-                  {material.icon}
-                  <span>{material.name}</span>
-                  <span className="text-gray-500 text-sm">({material.unit})</span>
-                </div>
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <p className="text-gray-500 text-xs">
-          {t(`calculators.material.${materialType}`)} - {t('calculators.material.calculation_needed')}
-        </p>
-      </div>
+      <CalculatorSelect
+        id="materialType"
+        label={t('calculators.material.material_type')}
+        value={materialType}
+        onChange={setMaterialType}
+        options={Object.entries(materials).map(([key, material]) => ({
+          value: key,
+          label: `${material.name} (${material.unit})`
+        }))}
+        helpText={`${t(`calculators.material.${materialType}`)} - ${t('calculators.material.calculation_needed')}`}
+      />
 
       {/* Area Input */}
-      <div className="space-y-2">
-        <Label htmlFor="area" className="text-sm font-medium">
-          {t('calculators.material.area')} (m²)
-        </Label>
-        <Input
-          id="area"
-          type="number"
-          value={area}
-          onChange={(e) => setArea(e.target.value)}
-          placeholder="50"
-          className={`${errors.area ? 'border-red-500' : ''}`}
-          min="0"
-          step="0.1"
-        />
-        {errors.area && (
-          <p className="text-red-500 text-xs flex items-center gap-1">
-            <AlertCircle className="w-3 h-3" />
-            {errors.area}
-          </p>
-        )}
-        <p className="text-gray-500 text-xs">
-          {t('calculators.material.area_hint')}
-        </p>
-      </div>
+      <CalculatorInput
+        id="area"
+        label={`${t('calculators.material.area')} (m²)`}
+        value={area}
+        onChange={setArea}
+        placeholder="50"
+        min="0"
+        step="0.1"
+        error={errors.area}
+        helpText={t('calculators.material.area_hint')}
+      />
 
       {/* Unit Price Input */}
-      <div className="space-y-2">
-        <Label htmlFor="unitPrice" className="text-sm font-medium">
-          {t('calculators.material.price_per_unit')} {materials[materialType as keyof typeof materials].unit} (Kč)
-        </Label>
-        <Input
-          id="unitPrice"
-          type="number"
-          value={unitPrice}
-          onChange={(e) => setUnitPrice(e.target.value)}
-          placeholder="500"
-          className={`${errors.unitPrice ? 'border-red-500' : ''}`}
-          min="0"
-          step="1"
-        />
-        {errors.unitPrice && (
-          <p className="text-red-500 text-xs flex items-center gap-1">
-            <AlertCircle className="w-3 h-3" />
-            {errors.unitPrice}
-          </p>
-        )}
-        <p className="text-gray-500 text-xs">
-          {t('calculators.material.price_hint')}
-        </p>
-      </div>
+      <CalculatorInput
+        id="unitPrice"
+        label={`${t('calculators.material.price_per_unit')} ${materials[materialType as keyof typeof materials].unit} (Kč)`}
+        value={unitPrice}
+        onChange={setUnitPrice}
+        placeholder="500"
+        min="0"
+        step="1"
+        error={errors.unitPrice}
+        helpText={t('calculators.material.price_hint')}
+      />
 
       {/* Waste Percentage Input */}
-      <div className="space-y-2">
-        <Label htmlFor="wastePercentage" className="text-sm font-medium">
-          {t('calculators.material.waste_reserve')} (%)
-        </Label>
-        <Input
-          id="wastePercentage"
-          type="number"
-          value={wastePercentage}
-          onChange={(e) => setWastePercentage(e.target.value)}
-          placeholder="10"
-          className={`${errors.wastePercentage ? 'border-red-500' : ''}`}
-          min="0"
-          max="50"
-          step="1"
-        />
-        {errors.wastePercentage && (
-          <p className="text-red-500 text-xs flex items-center gap-1">
-            <AlertCircle className="w-3 h-3" />
-            {errors.wastePercentage}
-          </p>
-        )}
-        <p className="text-gray-500 text-xs">
-          {t('calculators.material.recommended')}: {materials[materialType as keyof typeof materials].defaultWaste}% pro {t(`calculators.material.${materialType}`).toLowerCase()}
-        </p>
-      </div>
+      <CalculatorInput
+        id="wastePercentage"
+        label={`${t('calculators.material.waste_reserve')} (%)`}
+        value={wastePercentage}
+        onChange={setWastePercentage}
+        placeholder="10"
+        min="0"
+        max="50"
+        step="1"
+        error={errors.wastePercentage}
+        helpText={`${t('calculators.material.recommended')}: ${materials[materialType as keyof typeof materials].defaultWaste}% pro ${t(`calculators.material.${materialType}`).toLowerCase()}`}
+      />
 
       {/* Summary Card */}
       <Card className="bg-blue-50 border-blue-200">
@@ -312,7 +258,7 @@ const MaterialCalculator: React.FC = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </CalculatorForm>
   );
 
   // Results section

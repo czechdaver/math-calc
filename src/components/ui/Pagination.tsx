@@ -1,4 +1,7 @@
+'use client';
+
 import * as React from 'react';
+import { useTranslations } from 'next-intl';
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
@@ -140,6 +143,7 @@ const Pagination: React.FC<PaginationProps> = ({
   disabled = false,
   showEllipsis = true,
 }) => {
+  const t = useTranslations('common.pagination');
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startItem = (currentPage - 1) * itemsPerPage + 1;
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
@@ -226,16 +230,16 @@ const Pagination: React.FC<PaginationProps> = ({
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         {showPageInfo && (
           <div className={cn('text-sm text-muted-foreground', infoClassName)}>
-            Showing <span className="font-medium">{startItem}</span> to{' '}
-            <span className="font-medium">{endItem}</span> of{' '}
-            <span className="font-medium">{totalItems}</span> results
+            {t('showing')} <span className="font-medium">{startItem}</span> {t('to')}{' '}
+            <span className="font-medium">{endItem}</span> {t('of')}{' '}
+            <span className="font-medium">{totalItems}</span> {t('results')}
           </div>
         )}
 
         {showPageSizeSelector && onPageSizeChange && (
           <div className={cn('flex items-center gap-2', pageSizeClassName)}>
             <label htmlFor="page-size" className="text-sm text-muted-foreground">
-              Rows per page:
+              {t('rows_per_page')}
             </label>
             <select
               id="page-size"
@@ -266,7 +270,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 className={cn(sizeClasses[size], 'rounded-md')}
               >
                 <ChevronsLeft className="h-4 w-4" />
-                <span className="sr-only">First page</span>
+                <span className="sr-only">{t('first_page')}</span>
               </Button>
             </div>
           )}
@@ -281,7 +285,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 className={cn(sizeClasses[size], 'rounded-md')}
               >
                 <ChevronLeft className="h-4 w-4" />
-                <span className="sr-only">Previous page</span>
+                <span className="sr-only">{t('previous_page')}</span>
               </Button>
             </div>
           )}
@@ -327,7 +331,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 className={cn(sizeClasses[size], 'rounded-md')}
               >
                 <ChevronRight className="h-4 w-4" />
-                <span className="sr-only">Next page</span>
+                <span className="sr-only">{t('next_page')}</span>
               </Button>
             </div>
           )}
@@ -342,7 +346,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 className={cn(sizeClasses[size], 'rounded-md')}
               >
                 <ChevronsRight className="h-4 w-4" />
-                <span className="sr-only">Last page</span>
+                <span className="sr-only">{t('last_page')}</span>
               </Button>
             </div>
           )}

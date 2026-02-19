@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 
 const COOKIE_CONSENT_KEY = 'cookie_consent'; // Změněn klíč pro uložení detailnějšího stavu
@@ -9,6 +10,8 @@ const CONSENT_DENIED_EVENT = new Event('consentDenied'); // Nová událost pro o
 
 const CookieBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const t = useTranslations('common.cookies');
+  const locale = useLocale();
 
   useEffect(() => {
     // Check local storage for consent on component mount
@@ -49,21 +52,22 @@ const CookieBanner = () => {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4 flex items-center justify-between z-50">
       <p className="text-sm">
-        Používáme cookies pro zlepšení vaší zkušenosti. Pro více informací si přečtěte naše
-        <Link href="/zasady-ochrany-osobnich-udaju" className="underline ml-1">Zásady ochrany osobních údajů</Link>.
+        {t.rich('text', {
+          link: (chunks) => <Link href={`/${locale}/privacy-policy`} className="underline ml-1">{chunks}</Link>
+        })}
       </p>
       <div className="flex space-x-2">
         <button
           onClick={handleAccept}
           className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
         >
-          Přijmout vše
+          {t('accept_all')}
         </button>
         <button
           onClick={handleDeny}
           className="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded"
         >
-          Odmítnout
+          {t('decline')}
         </button>
       </div>
     </div>

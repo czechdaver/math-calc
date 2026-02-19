@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorInput, CalculatorSelect } from './shared';
+import { CalculatorInput, CalculatorSelect, CalculatorForm, CalculatorInputGroup } from './shared';
 import { useCompoundInterestCalculator } from '@/hooks/useCompoundInterestCalculator';
 import { Info } from 'lucide-react';
 
@@ -99,65 +99,72 @@ const CompoundInterestCalculator: React.FC = () => {
         </div>
       )}
     >
-      <div className="space-y-6">
-        <CalculatorInput
-          id="principal"
-          label={t('compound_interest_principal_label')}
-          value={principal}
-          onChange={setPrincipal}
-          placeholder="10000"
-          min="0"
-          step="any"
-          unit={t('common.currency')}
-          helpText={t('compound_interest_principal_help')}
-          error={errors.principal}
-        />
-        <CalculatorInput
-          id="interestRate"
-          label={t('compound_interest_rate_label')}
-          value={interestRate}
-          onChange={setInterestRate}
-          placeholder="5"
-          min="0"
-          max="100"
-          step="0.01"
-          unit="%"
-          helpText={t('compound_interest_rate_help')}
-          error={errors.interestRate}
-        />
-        <CalculatorSelect
-          id="frequency"
-          label={t('compound_interest_frequency_label')}
-          value={frequency}
-          onChange={(v) => setFrequency(v as 'annually' | 'semi-annually' | 'quarterly' | 'monthly' | 'daily')}
-          options={frequencyOptions}
-          helpText={t('compound_interest_frequency_help')}
-        />
-        <CalculatorInput
-          id="years"
-          label={t('compound_interest_years_label')}
-          value={years}
-          onChange={setYears}
-          placeholder="10"
-          min="1"
-          max="100"
-          step="1"
-          unit={t('common.years')}
-          helpText={t('compound_interest_years_help')}
-          error={errors.years}
-        />
-        <CalculatorInput
-          id="monthlyContribution"
-          label={t('compound_interest_monthly_label')}
-          value={monthlyContribution}
-          onChange={setMonthlyContribution}
-          placeholder="0"
-          min="0"
-          step="any"
-          unit={t('common.currency')}
-          helpText={t('compound_interest_monthly_help')}
-        />
-      </div>
+      <CalculatorForm columns={2}>
+        <CalculatorInputGroup label={t('compound_interest_group_principal')}>
+          <CalculatorInput
+            id="principal"
+            label={t('compound_interest_principal_label')}
+            value={principal}
+            onChange={setPrincipal}
+            placeholder="10000"
+            min="0"
+            step="any"
+            unit={t('common.currency')}
+            helpText={t('compound_interest_principal_help')}
+            error={errors.principal}
+          />
+          <CalculatorInput
+            id="monthlyContribution"
+            label={t('compound_interest_monthly_label')}
+            value={monthlyContribution}
+            onChange={setMonthlyContribution}
+            placeholder="0"
+            min="0"
+            step="any"
+            unit={t('common.currency')}
+            helpText={t('compound_interest_monthly_help')}
+          />
+        </CalculatorInputGroup>
+
+        <CalculatorInputGroup label={t('compound_interest_group_rate_time')}>
+          <CalculatorInput
+            id="interestRate"
+            label={t('compound_interest_rate_label')}
+            value={interestRate}
+            onChange={setInterestRate}
+            placeholder="5"
+            min="0"
+            max="100"
+            step="0.01"
+            unit="%"
+            helpText={t('compound_interest_rate_help')}
+            error={errors.interestRate}
+          />
+          <div className="grid grid-cols-1 gap-4">
+            <CalculatorInput
+              id="years"
+              label={t('compound_interest_years_label')}
+              value={years}
+              onChange={setYears}
+              placeholder="10"
+              min="1"
+              max="100"
+              step="1"
+              unit={t('common.years')}
+              helpText={t('compound_interest_years_help')}
+              error={errors.years}
+            />
+            <CalculatorSelect
+              id="frequency"
+              label={t('compound_interest_frequency_label')}
+              value={frequency}
+              onChange={(v) => setFrequency(v as 'annually' | 'semi-annually' | 'quarterly' | 'monthly' | 'daily')}
+              options={frequencyOptions}
+              helpText={t('compound_interest_frequency_help')}
+            />
+          </div>
+        </CalculatorInputGroup>
+      </CalculatorForm>
     </SimpleCalculatorLayout>
   );
 };

@@ -6,11 +6,9 @@ import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { AlertCircle, Calculator as CalcIcon, Thermometer, Shield, Snowflake } from 'lucide-react';
+import { Calculator as CalcIcon, Thermometer, Shield, Snowflake } from 'lucide-react';
 import { useInsulationCalculator } from '@/hooks/useInsulationCalculator';
+import { CalculatorForm, CalculatorInput, CalculatorSelect } from './shared';
 
 const InsulationCalculator: React.FC = () => {
   const t = useTranslations();
@@ -50,71 +48,84 @@ const InsulationCalculator: React.FC = () => {
 
   // Calculator input form
   const calculatorForm = (
-    <div className="space-y-6">
-      <div className="space-y-2">
-        <Label htmlFor="applicationType" className="text-sm font-medium">{t('insulation_application_type_label')}</Label>
-        <Select value={applicationType} onValueChange={setApplicationType}>
-          <SelectTrigger><SelectValue placeholder={t('insulation_select_area')} /></SelectTrigger>
-          <SelectContent>
-            {Object.entries(applicationAreas).map(([key, _]) => (
-              <SelectItem key={key} value={key}>{t(`insulation_area_${key}`)}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+    <CalculatorForm columns={1}>
+      <CalculatorSelect
+        id="applicationType"
+        label={t('insulation_application_type_label')}
+        value={applicationType}
+        onChange={setApplicationType}
+        options={Object.entries(applicationAreas).map(([key, _]) => ({
+          value: key,
+          label: t(`insulation_area_${key}`)
+        }))}
+      />
 
-      <div className="space-y-2">
-        <Label htmlFor="insulationType" className="text-sm font-medium">{t('insulation_type_label')}</Label>
-        <Select value={insulationType} onValueChange={setInsulationType}>
-          <SelectTrigger><SelectValue placeholder={t('insulation_select_material')} /></SelectTrigger>
-          <SelectContent>
-            {Object.entries(insulationMaterials).map(([key, material]) => (
-              <SelectItem key={key} value={key}>
-                <div className="flex flex-col">
-                  <span>{t(`insulation_material_${key}`)}</span>
-                  <span className="text-xs text-gray-500">λ = {material.lambda} W/mK</span>
-                </div>
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+      <CalculatorSelect
+        id="insulationType"
+        label={t('insulation_type_label')}
+        value={insulationType}
+        onChange={setInsulationType}
+        options={Object.entries(insulationMaterials).map(([key, material]) => ({
+          value: key,
+          label: `${t(`insulation_material_${key}`)} (λ = ${material.lambda} W/mK)`
+        }))}
+      />
 
-      <div className="space-y-2">
-        <Label htmlFor="area" className="text-sm font-medium">{t('insulation_area_input_label')}</Label>
-        <Input id="area" type="number" value={area} onChange={(e) => setArea(e.target.value)}
-          placeholder="100" className={errors.area ? 'border-red-500' : ''} min="0" step="1" />
-        {errors.area && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle className="w-3 h-3" />{errors.area}</p>}
+      <CalculatorInput
+        id="area"
+        label={t('insulation_area_input_label')}
+        value={area}
+        onChange={setArea}
+        placeholder="100"
+        min="0"
+        step="1"
+        error={errors.area}
+      />
+
+      <div className="grid grid-cols-2 gap-4">
+        <CalculatorInput
+          id="currentUValue"
+          label={t('insulation_current_u_label')}
+          value={currentUValue}
+          onChange={setCurrentUValue}
+          placeholder="1.2"
+          min="0"
+          step="0.1"
+          error={errors.currentUValue}
+        />
+        <CalculatorInput
+          id="targetUValue"
+          label={t('insulation_target_u_label')}
+          value={targetUValue}
+          onChange={setTargetUValue}
+          placeholder="0.3"
+          min="0"
+          step="0.01"
+          error={errors.targetUValue}
+        />
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="currentUValue" className="text-sm font-medium">{t('insulation_current_u_label')}</Label>
-          <Input id="currentUValue" type="number" value={currentUValue} onChange={(e) => setCurrentUValue(e.target.value)}
-            placeholder="1.2" className={errors.currentUValue ? 'border-red-500' : ''} min="0" step="0.1" />
-          {errors.currentUValue && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle className="w-3 h-3" />{errors.currentUValue}</p>}
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="targetUValue" className="text-sm font-medium">{t('insulation_target_u_label')}</Label>
-          <Input id="targetUValue" type="number" value={targetUValue} onChange={(e) => setTargetUValue(e.target.value)}
-            placeholder="0.3" className={errors.targetUValue ? 'border-red-500' : ''} min="0" step="0.01" />
-          {errors.targetUValue && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle className="w-3 h-3" />{errors.targetUValue}</p>}
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="pricePerM2" className="text-sm font-medium">{t('insulation_price_per_m2_label')}</Label>
-          <Input id="pricePerM2" type="number" value={pricePerM2} onChange={(e) => setPricePerM2(e.target.value)}
-            placeholder="250" className={errors.pricePerM2 ? 'border-red-500' : ''} min="0" step="1" />
-          {errors.pricePerM2 && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle className="w-3 h-3" />{errors.pricePerM2}</p>}
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="energyPrice" className="text-sm font-medium">{t('insulation_energy_price_label')}</Label>
-          <Input id="energyPrice" type="number" value={energyPrice} onChange={(e) => setEnergyPrice(e.target.value)}
-            placeholder="6" className={errors.energyPrice ? 'border-red-500' : ''} min="0" step="0.1" />
-          {errors.energyPrice && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle className="w-3 h-3" />{errors.energyPrice}</p>}
-        </div>
+        <CalculatorInput
+          id="pricePerM2"
+          label={t('insulation_price_per_m2_label')}
+          value={pricePerM2}
+          onChange={setPricePerM2}
+          placeholder="250"
+          min="0"
+          step="1"
+          error={errors.pricePerM2}
+        />
+        <CalculatorInput
+          id="energyPrice"
+          label={t('insulation_energy_price_label')}
+          value={energyPrice}
+          onChange={setEnergyPrice}
+          placeholder="6"
+          min="0"
+          step="0.1"
+          error={errors.energyPrice}
+        />
       </div>
 
       <Card className="bg-blue-50 border-blue-200">
@@ -129,7 +140,7 @@ const InsulationCalculator: React.FC = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </CalculatorForm>
   );
 
   // Results section

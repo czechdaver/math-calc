@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorInput, CalculatorSelect } from './shared';
+import { CalculatorForm, CalculatorInput, CalculatorSelect } from './shared';
 
 interface MacroResult {
   bmr: number;
@@ -151,7 +151,7 @@ const MacroCalculator: React.FC = () => {
         </div>
       ) : undefined}
     >
-      <div className="space-y-6">
+      <CalculatorForm columns={1}>
         <div className="grid grid-cols-2 gap-4">
           <CalculatorInput id="macro-weight" label={t('macro_weight')} value={weight} onChange={setWeight}
             placeholder="70" min="20" max="500" unit="kg" error={errors.weight} />
@@ -168,7 +168,7 @@ const MacroCalculator: React.FC = () => {
           options={activityOptions} helpText={t('macro_activity_help')} />
         <CalculatorSelect id="macro-goal" label={t('macro_goal')} value={goal} onChange={setGoal}
           options={goalOptions} helpText={t('macro_goal_help')} />
-      </div>
+      </CalculatorForm>
     </SimpleCalculatorLayout>
   );
 };

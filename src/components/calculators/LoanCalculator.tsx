@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, CreditCard, TrendingUp, PiggyBank, Calendar } from 'lucide-react';
 
+import { CalculatorInput, CalculatorForm, CalculatorInputGroup } from './shared';
 interface LoanResult {
   monthlyPayment: number;
   totalPayment: number;
@@ -146,130 +147,116 @@ const LoanCalculator: React.FC = () => {
 
   // Calculator input form
   const calculatorForm = (
-    <div className="space-y-6">
-      {/* Loan Amount */}
-      <div className="space-y-2">
-        <Label htmlFor="loanAmount" className="text-sm font-medium">
-          {t('loan_label_amount')}
-        </Label>
-        <Input
+    <CalculatorForm columns={1}>
+      {/* Loan Amount Section */}
+      <CalculatorInputGroup label={t('loan_label_amount')}>
+        <CalculatorInput
           id="loanAmount"
-          type="number"
+          label={t('loan_label_amount')}
           value={loanAmount}
-          onChange={(e) => setLoanAmount(e.target.value)}
+          onChange={(e) => setLoanAmount(e)}
           placeholder="500000"
-          className={`text-lg ${errors.loanAmount ? 'border-red-500' : ''}`}
+          type="number"
           min="0"
           step="1000"
+          error={errors.loanAmount}
+          helpText={t('loan_hint_amount')}
         />
-        {errors.loanAmount && (
-          <p className="text-red-500 text-xs flex items-center gap-1">
-            <AlertCircle className="w-3 h-3" />
-            {errors.loanAmount}
-          </p>
-        )}
-        <p className="text-gray-500 text-xs">
-          {t('loan_hint_amount')}
-        </p>
-      </div>
 
-      {/* Quick Amount Buttons */}
-      <div className="space-y-2">
-        <Label className="text-sm font-medium">{t('loan_quick_amounts')}</Label>
-        <div className="flex flex-wrap gap-2">
-          {['100000', '300000', '500000', '1000000', '2000000'].map((value) => (
-            <button
-              key={value}
-              onClick={() => setQuickAmount(value)}
-              className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 rounded transition-colors"
-            >
-              {parseInt(value).toLocaleString(locale === 'cs' ? 'cs-CZ' : 'en-US')} {t('common.currency')}
-            </button>
-          ))}
+        {/* Quick Amount Buttons */}
+        <div className="space-y-2">
+          <Label className="text-sm font-medium text-muted-foreground">{t('loan_quick_amounts')}</Label>
+          <div className="flex flex-wrap gap-2">
+            {['100000', '300000', '500000', '1000000', '2000000'].map((value) => (
+              <button
+                key={value}
+                onClick={() => setQuickAmount(value)}
+                className="px-3 py-1 text-sm bg-muted hover:bg-muted/80 text-foreground rounded-md transition-colors border border-border/50"
+              >
+                {parseInt(value).toLocaleString(locale === 'cs' ? 'cs-CZ' : 'en-US')} {t('common.currency')}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      </CalculatorInputGroup>
 
-      {/* Interest Rate */}
-      <div className="space-y-2">
-        <Label htmlFor="interestRate" className="text-sm font-medium">
-          {t('loan_label_interest_rate')}
-        </Label>
-        <Input
-          id="interestRate"
-          type="number"
-          value={interestRate}
-          onChange={(e) => setInterestRate(e.target.value)}
-          placeholder="5.5"
-          className={`${errors.interestRate ? 'border-red-500' : ''}`}
-          min="0"
-          max="50"
-          step="0.1"
-        />
-        {errors.interestRate && (
-          <p className="text-red-500 text-xs flex items-center gap-1">
-            <AlertCircle className="w-3 h-3" />
-            {errors.interestRate}
-          </p>
-        )}
-        <p className="text-gray-500 text-xs">
-          {t('loan_hint_interest_rate')}
-        </p>
-      </div>
-
-      {/* Loan Term */}
-      <div className="space-y-2">
-        <Label htmlFor="loanTerm" className="text-sm font-medium">
-          {t('loan_label_term')}
-        </Label>
-        <div className="grid grid-cols-2 gap-2">
-          <Input
-            id="loanTerm"
+      {/* Interest Rate & Term Section */}
+      <CalculatorInputGroup label={t('loan_params_title') || 'Parametry půjčky'}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <CalculatorInput
+            id="interestRate"
+            label={t('loan_label_interest_rate')}
+            value={interestRate}
+            onChange={(e) => setInterestRate(e)}
+            placeholder="5.5"
             type="number"
-            value={loanTerm}
-            onChange={(e) => setLoanTerm(e.target.value)}
-            placeholder="20"
-            className={`${errors.loanTerm ? 'border-red-500' : ''}`}
-            min="1"
-            step="1"
+            min="0"
+            max="50"
+            step="0.1"
+            unit="%"
+            error={errors.interestRate}
+            helpText={t('loan_hint_interest_rate')}
           />
-          <Select value={termUnit} onValueChange={setTermUnit}>
-            <SelectTrigger>
-              <SelectValue placeholder={t('loan_placeholder_unit')} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="years">{t('loan_unit_years')}</SelectItem>
-              <SelectItem value="months">{t('loan_unit_months')}</SelectItem>
-            </SelectContent>
-          </Select>
+
+          <div className="space-y-2">
+            <Label htmlFor="loanTerm" className="block text-sm font-medium text-foreground mb-2">
+              {t('loan_label_term')}
+            </Label>
+            <div className="flex gap-2">
+              <div className="flex-1">
+                <Input
+                  id="loanTerm"
+                  type="number"
+                  value={loanTerm}
+                  onChange={(e) => setLoanTerm(e.target.value)}
+                  placeholder="20"
+                  className={`${errors.loanTerm ? 'border-destructive' : ''}`}
+                  min="1"
+                  step="1"
+                />
+              </div>
+              <div className="w-[110px]">
+                <Select value={termUnit} onValueChange={setTermUnit}>
+                  <SelectTrigger>
+                    <SelectValue placeholder={t('loan_placeholder_unit')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="years">{t('loan_unit_years')}</SelectItem>
+                    <SelectItem value="months">{t('loan_unit_months')}</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            {errors.loanTerm && (
+              <p className="text-destructive text-xs flex items-center gap-1 mt-1">
+                <AlertCircle className="w-3 h-3" />
+                {errors.loanTerm}
+              </p>
+            )}
+            <p className="text-muted-foreground text-sm mt-1">
+              {t('loan_hint_term')}
+            </p>
+          </div>
         </div>
-        {errors.loanTerm && (
-          <p className="text-red-500 text-xs flex items-center gap-1">
-            <AlertCircle className="w-3 h-3" />
-            {errors.loanTerm}
-          </p>
-        )}
-        <p className="text-gray-500 text-xs">
-          {t('loan_hint_term')}
-        </p>
-      </div>
+      </CalculatorInputGroup>
 
       {/* Summary Card */}
-      <Card className="bg-blue-50 border-blue-200">
+      <Card className="bg-primary/5 border-primary/20">
         <CardContent className="p-4">
           <div className="text-center">
-            <div className="text-sm font-medium text-blue-800 mb-2">
+            <div className="text-sm font-medium text-primary mb-2">
               {t('loan_summary_title')}
             </div>
-            <div className="text-lg font-semibold text-blue-900">
+            <div className="text-lg font-semibold text-foreground">
               {formatCurrency(parseFloat(loanAmount || '0'))} • {interestRate}{t('common.percentage')} • {loanTerm} {termUnit === 'years' ? t('common.years') : t('common.months')}
             </div>
-            <div className="text-xs text-blue-600 mt-1">
+            <div className="text-xs text-muted-foreground mt-1">
               {t('loan_summary_labels')}
             </div>
           </div>
         </CardContent>
       </Card>
-    </div>
+    </CalculatorForm>
   );
 
   // Results section

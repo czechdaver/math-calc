@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorInput } from './shared';
+import { CalculatorForm, CalculatorInput } from './shared';
 import { Info } from 'lucide-react';
 
 interface InverseProportionResult {
@@ -140,7 +140,7 @@ const InverseProportionCalculator: React.FC = () => {
         </div>
       )}
     >
-      <div className="space-y-6">
+      <CalculatorForm columns={1}>
         <CalculatorInput
           id="a"
           label={t('inverse_proportion_value_a')}
@@ -177,7 +177,7 @@ const InverseProportionCalculator: React.FC = () => {
           helpText={t('inverse_proportion_help_c')}
           error={errors.c}
         />
-      </div>
+      </CalculatorForm>
     </SimpleCalculatorLayout>
   );
 };

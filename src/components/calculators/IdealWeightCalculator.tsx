@@ -6,10 +6,9 @@ import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+
 import { AlertCircle, Calculator as CalcIcon, Scale, User, Target, TrendingUp } from 'lucide-react';
+import { CalculatorForm, CalculatorInput, CalculatorSelect } from './shared';
 
 interface IdealWeightResult {
   robinson: number; miller: number; devine: number; hamwi: number;
@@ -195,74 +194,92 @@ const IdealWeightCalculator: React.FC = () => {
       schemaData={{ applicationCategory: "HealthApplication", operatingSystem: "Any" }}
       resultSection={resultsSection}
     >
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="formula" className="text-sm font-medium">{t('ideal_weight_formula_label')}</Label>
-          <Select value={formula} onValueChange={setFormula}>
-            <SelectTrigger><SelectValue placeholder={t('ideal_weight_formula_placeholder')} /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="robinson">{t('ideal_weight_formula_robinson')}</SelectItem>
-              <SelectItem value="miller">{t('ideal_weight_formula_miller')}</SelectItem>
-              <SelectItem value="devine">{t('ideal_weight_formula_devine')}</SelectItem>
-              <SelectItem value="hamwi">{t('ideal_weight_formula_hamwi')}</SelectItem>
-            </SelectContent>
-          </Select>
-          <p className="text-gray-500 text-xs">{getFormulaDesc(formula)}</p>
-        </div>
+      <CalculatorForm columns={1}>
+        <CalculatorSelect
+          id="formula"
+          label={t('ideal_weight_formula_label')}
+          value={formula}
+          onChange={setFormula}
+          options={[
+            { value: 'robinson', label: t('ideal_weight_formula_robinson') },
+            { value: 'miller', label: t('ideal_weight_formula_miller') },
+            { value: 'devine', label: t('ideal_weight_formula_devine') },
+            { value: 'hamwi', label: t('ideal_weight_formula_hamwi') }
+          ]}
+          helpText={getFormulaDesc(formula)}
+        />
+
         <div className="space-y-4">
           <div className="text-sm font-medium text-gray-700">{t('ideal_weight_personal_info')}</div>
-          <div className="space-y-2">
-            <Label htmlFor="height" className="text-sm font-medium">{t('ideal_weight_height_label')}</Label>
-            <div className="relative">
-              <Input id="height" type="number" value={height} onChange={(e) => setHeight(e.target.value)} placeholder="170" className={`pr-12 ${errors.height ? 'border-red-500' : ''}`} min="100" max="250" step="1" />
-              <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">cm</span>
-            </div>
-            {errors.height && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle className="w-3 h-3" />{errors.height}</p>}
-            <p className="text-gray-500 text-xs">{t('ideal_weight_height_help')}</p>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="gender" className="text-sm font-medium">{t('ideal_weight_gender_label')}</Label>
-            <Select value={gender} onValueChange={setGender}>
-              <SelectTrigger><SelectValue placeholder={t('ideal_weight_gender_placeholder')} /></SelectTrigger>
-              <SelectContent>
-                <SelectItem value="male">{t('ideal_weight_gender_male')}</SelectItem>
-                <SelectItem value="female">{t('ideal_weight_gender_female')}</SelectItem>
-              </SelectContent>
-            </Select>
-            <p className="text-gray-500 text-xs">{t('ideal_weight_gender_help')}</p>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="age" className="text-sm font-medium">{t('ideal_weight_age_label')}</Label>
-            <div className="relative">
-              <Input id="age" type="number" value={age} onChange={(e) => setAge(e.target.value)} placeholder="30" className={`pr-12 ${errors.age ? 'border-red-500' : ''}`} min="15" max="120" step="1" />
-              <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">{t('ideal_weight_unit_years')}</span>
-            </div>
-            {errors.age && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle className="w-3 h-3" />{errors.age}</p>}
-            <p className="text-gray-500 text-xs">{t('ideal_weight_age_help')}</p>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="currentWeight" className="text-sm font-medium">{t('ideal_weight_current_weight_label')}</Label>
-            <div className="relative">
-              <Input id="currentWeight" type="number" value={currentWeight} onChange={(e) => setCurrentWeight(e.target.value)} placeholder="70" className={`pr-12 ${errors.currentWeight ? 'border-red-500' : ''}`} min="30" max="300" step="0.1" />
-              <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">kg</span>
-            </div>
-            {errors.currentWeight && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle className="w-3 h-3" />{errors.currentWeight}</p>}
-            <p className="text-gray-500 text-xs">{t('ideal_weight_current_weight_help')}</p>
-          </div>
+
+          <CalculatorInput
+            id="height"
+            label={t('ideal_weight_height_label')}
+            value={height}
+            onChange={(val) => setHeight(val)}
+            placeholder="170"
+            min="100"
+            max="250"
+            step="1"
+            unit="cm"
+            error={errors.height}
+            helpText={t('ideal_weight_height_help')}
+          />
+
+          <CalculatorSelect
+            id="gender"
+            label={t('ideal_weight_gender_label')}
+            value={gender}
+            onChange={setGender}
+            options={[
+              { value: 'male', label: t('ideal_weight_gender_male') },
+              { value: 'female', label: t('ideal_weight_gender_female') }
+            ]}
+            helpText={t('ideal_weight_gender_help')}
+          />
+
+          <CalculatorInput
+            id="age"
+            label={t('ideal_weight_age_label')}
+            value={age}
+            onChange={(val) => setAge(val)}
+            placeholder="30"
+            min="15"
+            max="120"
+            step="1"
+            unit={t('ideal_weight_unit_years')}
+            error={errors.age}
+            helpText={t('ideal_weight_age_help')}
+          />
+
+          <CalculatorInput
+            id="currentWeight"
+            label={t('ideal_weight_current_weight_label')}
+            value={currentWeight}
+            onChange={(val) => setCurrentWeight(val)}
+            placeholder="70"
+            min="30"
+            max="300"
+            step="0.1"
+            unit="kg"
+            error={errors.currentWeight}
+            helpText={t('ideal_weight_current_weight_help')}
+          />
         </div>
-        <Card className="bg-blue-50 border-blue-200">
+
+        <Card className="bg-primary/5 border-primary/20">
           <CardContent className="p-4">
             <div className="text-center">
-              <div className="text-sm font-medium text-blue-800 mb-2">{t('ideal_weight_your_data')}</div>
+              <div className="text-sm font-medium text-primary mb-2">{t('ideal_weight_your_data')}</div>
               <div className="grid grid-cols-2 gap-4 text-xs">
-                <div><div className="font-semibold text-blue-900">{t('ideal_weight_profile')}</div><div className="text-blue-700">{gender === 'male' ? t('ideal_weight_gender_male') : t('ideal_weight_gender_female')}, {age} {t('ideal_weight_unit_years')}</div></div>
-                <div><div className="font-semibold text-blue-900">{t('ideal_weight_height')}</div><div className="text-blue-700">{height} cm</div></div>
+                <div><div className="font-semibold text-foreground">{t('ideal_weight_profile')}</div><div className="text-muted-foreground">{gender === 'male' ? t('ideal_weight_gender_male') : t('ideal_weight_gender_female')}, {age} {t('ideal_weight_unit_years')}</div></div>
+                <div><div className="font-semibold text-foreground">{t('ideal_weight_height')}</div><div className="text-muted-foreground">{height} cm</div></div>
               </div>
-              <div className="mt-2 text-xs text-blue-600">{t('ideal_weight_formula')}: {getFormulaDesc(formula)}</div>
+              <div className="mt-2 text-xs text-primary">{t('ideal_weight_formula')}: {getFormulaDesc(formula)}</div>
             </div>
           </CardContent>
         </Card>
-      </div>
+      </CalculatorForm>
     </SimpleCalculatorLayout>
   );
 };

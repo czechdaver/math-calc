@@ -1,6 +1,6 @@
 // src/components/seo/SeoMetadata.tsx
 import Head from 'next/head';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface SeoMetadataProps {
   title: string;
@@ -10,7 +10,7 @@ interface SeoMetadataProps {
 }
 
 const SeoMetadata: React.FC<SeoMetadataProps> = ({ title, description /*, schemaData*/ }) => {
-  // const t = useTranslations();
+  const t = useTranslations();
   const currentLocale = useLocale();
 
   // TODO: Dynamicky generovat Schema.org JSON-LD
@@ -18,7 +18,7 @@ const SeoMetadata: React.FC<SeoMetadataProps> = ({ title, description /*, schema
 
   return (
     <Head>
-      <title>{title} | MathCalc Pro</title> {/* TODO: Doplnit název projektu z lokalizace */}
+      <title>{title} | {t('app_name')}</title> {/* TODO: Doplnit název projektu z lokalizace */}
       <meta name="description" content={description} />
       {/* TODO: Přidat dynamické keywords meta tag */}
       {/* TODO: Přidat Open Graph a Twitter Cards meta tagy */}

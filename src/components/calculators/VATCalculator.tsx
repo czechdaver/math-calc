@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Info, AlertCircle } from 'lucide-react';
+import { CalculatorForm, CalculatorInputGroup } from './shared';
 
 type CountryCode = 'cz' | 'sk';
 type CalculationDirection = 'base-to-total' | 'total-to-base';
@@ -68,90 +69,96 @@ const VATCalculator: React.FC = () => {
   }, [amount, country, direction]);
 
   const calculatorForm = (
-    <div className="space-y-6">
-      <div className="space-y-2">
-        <Label htmlFor="country" className="text-sm font-medium">
-          {t('vat_country_label')}
-        </Label>
-        <Select value={country} onValueChange={(value: CountryCode) => setCountry(value)}>
-          <SelectTrigger>
-            <SelectValue placeholder={t('vat_country_placeholder')} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="cz">{t('vat_country_cz')}</SelectItem>
-            <SelectItem value="sk">{t('vat_country_sk')}</SelectItem>
-          </SelectContent>
-        </Select>
-        <p className="text-gray-500 text-xs">
-          {t('vat_country_help')}
-        </p>
-      </div>
+    <CalculatorForm columns={1}>
+      <CalculatorInputGroup label={t('vat_settings_label') || "Nastavení"}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="country" className="text-sm font-medium">
+              {t('vat_country_label')}
+            </Label>
+            <Select value={country} onValueChange={(value: CountryCode) => setCountry(value)}>
+              <SelectTrigger>
+                <SelectValue placeholder={t('vat_country_placeholder')} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="cz">{t('vat_country_cz')}</SelectItem>
+                <SelectItem value="sk">{t('vat_country_sk')}</SelectItem>
+              </SelectContent>
+            </Select>
+            <p className="text-muted-foreground text-xs">
+              {t('vat_country_help')}
+            </p>
+          </div>
 
-      <div className="space-y-2">
-        <Label className="text-sm font-medium">
-          {t('vat_direction_label')}
-        </Label>
+          <div className="space-y-2">
+            <Label className="text-sm font-medium">
+              {t('vat_direction_label')}
+            </Label>
+            <div className="space-y-2">
+              <div className="flex items-center space-x-2">
+                <input
+                  type="radio"
+                  id="base-to-total"
+                  name="direction"
+                  value="base-to-total"
+                  checked={direction === 'base-to-total'}
+                  onChange={(e) => setDirection(e.target.value as CalculationDirection)}
+                  className="w-4 h-4 text-primary bg-background border-border focus:ring-primary"
+                />
+                <Label htmlFor="base-to-total">{t('vat_direction_base_to_total')}</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <input
+                  type="radio"
+                  id="total-to-base"
+                  name="direction"
+                  value="total-to-base"
+                  checked={direction === 'total-to-base'}
+                  onChange={(e) => setDirection(e.target.value as CalculationDirection)}
+                  className="w-4 h-4 text-primary bg-background border-border focus:ring-primary"
+                />
+                <Label htmlFor="total-to-base">{t('vat_direction_total_to_base')}</Label>
+              </div>
+            </div>
+            <p className="text-muted-foreground text-xs">
+              {t('vat_direction_help')}
+            </p>
+          </div>
+        </div>
+      </CalculatorInputGroup>
+
+      <CalculatorInputGroup label={t('vat_amount_section') || "Částka"}>
         <div className="space-y-2">
-          <div className="flex items-center space-x-2">
-            <input
-              type="radio"
-              id="base-to-total"
-              name="direction"
-              value="base-to-total"
-              checked={direction === 'base-to-total'}
-              onChange={(e) => setDirection(e.target.value as CalculationDirection)}
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
+          <Label htmlFor="amount" className="text-sm font-medium">
+            {direction === 'base-to-total' ? t('vat_amount_label_base') : t('vat_amount_label_total')}
+          </Label>
+          <div className="relative">
+            <Input
+              id="amount"
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              placeholder="1000"
+              className={`${errors.amount ? 'border-destructive' : ''}`}
+              min="0"
+              step="0.01"
             />
-            <Label htmlFor="base-to-total">{t('vat_direction_base_to_total')}</Label>
+            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground text-sm">
+              {t('vat_currency')}
+            </span>
           </div>
-          <div className="flex items-center space-x-2">
-            <input
-              type="radio"
-              id="total-to-base"
-              name="direction"
-              value="total-to-base"
-              checked={direction === 'total-to-base'}
-              onChange={(e) => setDirection(e.target.value as CalculationDirection)}
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
-            />
-            <Label htmlFor="total-to-base">{t('vat_direction_total_to_base')}</Label>
-          </div>
-        </div>
-        <p className="text-gray-500 text-xs">
-          {t('vat_direction_help')}
-        </p>
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="amount" className="text-sm font-medium">
-          {direction === 'base-to-total' ? t('vat_amount_label_base') : t('vat_amount_label_total')}
-        </Label>
-        <div className="relative">
-          <Input
-            id="amount"
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder="1000"
-            className={`${errors.amount ? 'border-red-500' : ''}`}
-            min="0"
-            step="0.01"
-          />
-          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-            {t('vat_currency')}
-          </span>
-        </div>
-        {errors.amount && (
-          <p className="text-red-500 text-xs flex items-center gap-1">
-            <AlertCircle className="w-3 h-3" />
-            {errors.amount}
+          {errors.amount && (
+            <p className="text-destructive text-xs flex items-center gap-1">
+              <AlertCircle className="w-3 h-3" />
+              {errors.amount}
+            </p>
+          )}
+          <p className="text-muted-foreground text-xs">
+            {t('vat_amount_help')}
           </p>
-        )}
-        <p className="text-gray-500 text-xs">
-          {t('vat_amount_help')}
-        </p>
-      </div>
-    </div>
+        </div>
+      </CalculatorInputGroup>
+    </CalculatorForm>
   );
 
   const examples = {

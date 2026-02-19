@@ -4,7 +4,7 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorInput, CashFlowEditor } from './shared';
+import { CalculatorForm, CalculatorInput, CashFlowEditor } from './shared';
 import { useFinanceFormatting } from '@/hooks/useFinanceFormatting';
 import { useIRRCalculator } from '@/hooks/useIRRCalculator';
 import { Card, CardContent } from '@/components/ui/Card';
@@ -149,7 +149,7 @@ const IRRCalculator: React.FC = () => {
       schemaData={{ applicationCategory: 'FinanceApplication', operatingSystem: 'Any' }}
       resultSection={resultsSection}
     >
-      <div className="space-y-6">
+      <CalculatorForm columns={1}>
         <CalculatorInput
           id="discountRate"
           label={t('calculators.irr.discount_rate')}
@@ -177,7 +177,7 @@ const IRRCalculator: React.FC = () => {
             periodZeroHint: t('calculators.irr.period_zero'),
           }}
         />
-      </div>
+      </CalculatorForm>
     </SimpleCalculatorLayout>
   );
 };

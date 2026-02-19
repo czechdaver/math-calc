@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Search, Loader2, Calculator } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { searchCalculators } from '@/lib/calculatorDataUtils';
 
 
 interface SearchResult {
@@ -19,13 +20,18 @@ interface SearchResult {
 interface CalculatorSearchProps {
     className?: string;
     placeholder?: string;
+    onSearch?: (query: string) => void;
+    hideDropdown?: boolean;
 }
 
 const CalculatorSearch: React.FC<CalculatorSearchProps> = ({
     className,
-    placeholder
+    placeholder,
+    onSearch,
+    hideDropdown = false
 }) => {
     const t = useTranslations();
+    const locale = useLocale();
     const router = useRouter();
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<SearchResult[]>([]);
@@ -46,32 +52,32 @@ const CalculatorSearch: React.FC<CalculatorSearchProps> = ({
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    // Debounced search
+    // Instant search (client-side)
     useEffect(() => {
-        const timer = setTimeout(async () => {
-            if (query.trim().length === 0) {
-                setResults([]);
-                setIsOpen(false);
-                return;
-            }
+        if (onSearch) {
+            onSearch(query);
+        }
 
-            setIsLoading(true);
-            setIsOpen(true);
+        if (query.trim().length === 0) {
+            setResults([]);
+            setIsOpen(false);
+            return;
+        }
 
+        const runSearch = () => {
             try {
-                const locale = document.documentElement.lang || 'cs';
-                const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&locale=${locale}`);
-                const data = await response.json();
-                setResults(data.results);
+                // Perform client-side search
+                const searchResults = searchCalculators(query, locale, t);
+                setResults(searchResults);
+                setIsOpen(true);
             } catch (error) {
                 console.error('Search error:', error);
-            } finally {
-                setIsLoading(false);
+                setResults([]);
             }
-        }, 300);
+        };
 
-        return () => clearTimeout(timer);
-    }, [query]);
+        runSearch();
+    }, [query, locale, t, onSearch]);
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'ArrowDown') {
@@ -122,7 +128,7 @@ const CalculatorSearch: React.FC<CalculatorSearchProps> = ({
             </div>
 
             {/* Results Dropdown */}
-            {isOpen && (results.length > 0 || isLoading) && (
+            {!hideDropdown && isOpen && (results.length > 0 || isLoading) && (
                 <div className="absolute top-full left-0 right-0 mt-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-xl shadow-2xl overflow-hidden z-50">
                     <div className="py-2">
                         {results.length > 0 ? (

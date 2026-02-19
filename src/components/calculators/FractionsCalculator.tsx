@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 // import { useParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorSelect } from './shared';
+import { CalculatorSelect, CalculatorForm } from './shared';
 
 const FractionAddition = dynamic(() => import('./fractionOperations/FractionAddition'), { ssr: false });
 const FractionSubtraction = dynamic(() => import('./fractionOperations/FractionSubtraction'), { ssr: false });
@@ -85,7 +85,7 @@ const FractionsCalculator: React.FC = () => {
         </div>
       ) : undefined}
     >
-      <div className="space-y-6">
+      <CalculatorForm columns={1}>
         <CalculatorSelect
           id="operation"
           label={t('fractions_select_operation_label')}
@@ -94,7 +94,7 @@ const FractionsCalculator: React.FC = () => {
           options={operationOptions}
           helpText={t('fractions_select_help')}
         />
-      </div>
+      </CalculatorForm>
     </SimpleCalculatorLayout>
   );
 };

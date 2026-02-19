@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorInput, CalculatorResult } from './shared';
+import { CalculatorForm, CalculatorInput, CalculatorResult } from './shared';
 import { useFinanceFormatting } from '@/hooks/useFinanceFormatting';
 
 interface AnnuityResult {
@@ -124,7 +124,7 @@ const AnnuityPaymentCalculator: React.FC = () => {
         />
       )}
     >
-      <div className="space-y-6">
+      <CalculatorForm columns={1}>
         <CalculatorInput
           id="loanAmount"
           label={t('annuity_loan_amount_label')}
@@ -163,7 +163,7 @@ const AnnuityPaymentCalculator: React.FC = () => {
           helpText={t('annuity_loan_term_help')}
           error={errors.loanTerm}
         />
-      </div>
+      </CalculatorForm>
     </SimpleCalculatorLayout>
   );
 };

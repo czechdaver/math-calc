@@ -5,7 +5,7 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorInput, CalculatorResult, CalculatorSelect } from './shared';
+import { CalculatorForm, CalculatorInput, CalculatorResult, CalculatorSelect } from './shared';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Clock, Plus, Minus } from 'lucide-react';
 import { useTimeCalculator, formatTime } from '@/hooks/useTimeCalculator';
@@ -118,7 +118,7 @@ const TimeCalculator: React.FC = () => {
       ]}
       schemaData={{ applicationCategory: "UtilitiesApplication", operatingSystem: "Any" }}
     >
-      <div className="space-y-6">
+      <CalculatorForm columns={1}>
         <CalculatorSelect id="operation" label={t('time_label_operation')}
           value={operation} onChange={setOperation} options={operationOptions}
           helpText={operation === 'add' ? t('time_operation_add') : t('time_operation_subtract')} />
@@ -153,7 +153,7 @@ const TimeCalculator: React.FC = () => {
             </div>
           </CardContent>
         </Card>
-      </div>
+      </CalculatorForm>
     </SimpleCalculatorLayout>
   );
 };

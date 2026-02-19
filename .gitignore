@@ -56,3 +56,19 @@ Thumbs.db
 
 # Optional: ESLint cache
 .eslintcache
+
+# Validation & Audit Logs
+validation_output*.txt
+*_validation.txt
+*_check.txt
+*_report.txt
+MISSING_KEYS_BY_LOCALE.txt
+TRANSLATION_AUDIT_*.md
+TRANSLATION_fix_*.md
+TRANSLATION_FIXES_SUMMARY.md
+TRANSLATION_AUDIT_INDEX.md
+double_final_validation.txt
+final_validation_report.txt
+
+# Temporary Documentation
+docs/temp_manuals/

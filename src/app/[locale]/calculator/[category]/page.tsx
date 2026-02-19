@@ -11,6 +11,8 @@ import { Calculator, Star } from 'lucide-react';
 import { getCategoryBranding } from '@/config/category-branding';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
+import AdBanner from '@/components/ads/AdBanner';
+
 interface CategoryPageProps {
     params: Promise<{
         locale: string;
@@ -78,6 +80,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                     </div>
                 </div>
 
+                {/* Header Ad */}
+                <div className="flex justify-center mb-10">
+                    <AdBanner
+                        placement="header"
+                        className="w-full max-w-[970px] h-[90px] md:h-[120px] rounded-xl overflow-hidden shadow-sm"
+                    />
+                </div>
+
                 {/* Calculator Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                     {categoryData.calculators.map((calc) => (
@@ -118,6 +128,15 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                     <p>{t(`category_${categoryData.id}_long_description`)}</p>
                 </div>
 
+                {/* In-Content Ad */}
+                <div className="flex justify-center mb-16">
+                    <AdBanner
+                        placement="in-content"
+                        className="w-full max-w-[970px] min-h-[90px] md:min-h-[250px] rounded-xl overflow-hidden shadow-sm"
+                        fullWidthResponsive={true}
+                    />
+                </div>
+
                 {/* Other Categories Section */}
                 <div>
                     <h2 className="text-2xl font-bold mb-6">{t('common.other_categories')}</h2>
@@ -141,6 +160,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                                 )
                             })}
                     </div>
+                </div>
+
+                {/* Sticky Bottom Ad */}
+                <div className="flex justify-center">
+                    <AdBanner
+                        placement="sticky-bottom"
+                        className="w-full max-w-[320px] md:max-w-[728px] h-[50px] md:h-[90px] shadow-sm"
+                    />
                 </div>
             </div>
         </div>

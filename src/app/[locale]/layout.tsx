@@ -1,12 +1,16 @@
 import { NextIntlClientProvider } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import Script from 'next/script';
 import { Inter, Fraunces } from 'next/font/google';
 import CookieBanner from '@/components/CookieBanner';
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import MainNavigation from '@/components/navigation/MainNavigation';
 import '@/styles/globals.css';
+import GoogleAnalytics from '@/components/analytics/GoogleAnalytics';
+import GoogleTagManager, { GoogleTagManagerNoScript } from '@/components/analytics/GoogleTagManager';
+
 
 // Font configuration
 const inter = Inter({
@@ -27,11 +31,10 @@ export type Locale = (typeof supportedLocales)[number];
 
 type Props = {
   children: ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
-const MEASUREMENT_ID = 'YOUR_MEASUREMENT_ID'; // TODO: Replace with your actual Measurement ID
-const ADS_CLIENT_ID = 'ca-pub-YOUR_ADS_CLIENT_ID'; // TODO: Replace with your actual AdSense client ID
+const ADS_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID || 'ca-pub-XXXXXXXXXXXXXXXX';
 
 export function generateStaticParams() {
   return supportedLocales.map((locale) => ({ locale }));
@@ -45,9 +48,13 @@ export default async function LocaleLayout({
   const { locale } = await params;
 
   // TypeScript will ensure locale is one of the supported locales
-  if (!supportedLocales.includes(locale)) {
+  // We use 'as any' here because locale is typed as string but supportedLocales expects specific string literals
+  if (!supportedLocales.includes(locale as any)) {
     notFound();
   }
+
+  // Safe to cast after the check
+  const validLocale = locale as Locale;
 
   // Load messages for the current locale
   let messages;
@@ -58,11 +65,14 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  const t = await getTranslations({ locale });
+
   return (
     <html lang={locale} className={`${inter.variable} ${fraunces.variable}`} suppressHydrationWarning>
       <head>
-        <title>Math Calculator</title>
-        <meta name="description" content="A calculator application with multiple calculation tools" />
+        <GoogleTagManager />
+        <title>{t('app_name')}</title>
+        <meta name="description" content={t('homepage.categories_description')} />
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
         <meta name="theme-color" content="#ffffff" />
@@ -82,25 +92,12 @@ export default async function LocaleLayout({
           crossOrigin="anonymous"
           strategy="lazyOnload"
         />
-
-        {/* Google Analytics */}
-        <Script id="google-consent-defaults">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('consent', 'default', {
-              'ad_storage': 'denied',
-              'analytics_storage': 'denied'
-            });
-          `}
-        </Script>
-        <Script
-          id="google-analytics-script"
-          src={`https://www.googletagmanager.com/gtag/js?id=${MEASUREMENT_ID}`}
-          strategy="lazyOnload"
-        />
       </head>
       <body className="font-body">
+        <GoogleTagManagerNoScript />
+        <Suspense fallback={null}>
+          <GoogleAnalytics />
+        </Suspense>
         <ThemeProvider>
           <NextIntlClientProvider
             locale={locale}

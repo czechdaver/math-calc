@@ -1,6 +1,8 @@
 // src/components/shared/AdPlaceholder.tsx
 import React from 'react';
 
+import { useTranslations } from 'next-intl';
+
 export interface AdPlaceholderProps {
   size: string;
   position: string;
@@ -16,12 +18,15 @@ export interface AdPlaceholderProps {
  * @param className - Additional CSS classes
  */
 const AdPlaceholder: React.FC<AdPlaceholderProps> = ({ size, position, className = '' }) => {
+  const t = useTranslations();
+  const [width, height] = size.includes('x') ? size.split('x') : ['auto', 'auto'];
+
   return (
     <div
       className={`bg-muted border-2 border-dashed flex items-center justify-center text-muted-foreground text-sm ${className}`}
-      style={{ minHeight: size.includes('x') ? size.split('x')[1] + 'px' : '100px' }}
+      style={{ minHeight: height !== 'auto' ? `${height}px` : '100px' }}
     >
-      Ad Space ({size}) - {position}
+      <span className="text-sm font-medium text-muted-foreground opacity-50">{t('common.ad_space') || 'Ad Space'} ({width}x{height})</span>
     </div>
   );
 };

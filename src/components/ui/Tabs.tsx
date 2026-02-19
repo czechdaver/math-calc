@@ -196,7 +196,7 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabItem } = ({
   keepMounted = false,
 }) => {
   const [internalActiveTab, setInternalActiveTab] = React.useState<string>('');
-  
+
   // Generate IDs for tabs if not provided
   const tabs = React.Children.map(children, (child, index) => {
     if (!React.isValidElement(child)) return null;
@@ -205,7 +205,7 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabItem } = ({
       ...childProps,
       _id: childProps._id || `tab-${index}`,
     };
-  }).filter(Boolean) as Array<TabItemProps & { _id: string }>;
+  })?.filter(Boolean) as Array<TabItemProps & { _id: string }> || [];
 
   // Set the first tab as active by default if none is active
   React.useEffect(() => {
@@ -229,13 +229,13 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabItem } = ({
   return (
     <div className={cn('flex flex-col', className)}>
       {header && <div className="mb-4">{header}</div>}
-      
-      <ShadcnTabs 
-        value={activeTab} 
+
+      <ShadcnTabs
+        value={activeTab}
         onValueChange={handleTabChange}
         className="w-full"
       >
-        <ShadcnTabsList 
+        <ShadcnTabsList
           className={cn(
             'inline-flex w-full' + (fullWidth ? ' w-full' : ' w-auto'),
             variantClasses[variant].list,
@@ -257,10 +257,10 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabItem } = ({
             />
           ))}
         </ShadcnTabsList>
-        
+
         {tabs.map((tab) => (
-          <ShadcnTabsContent 
-            key={`content-${tab._id}`} 
+          <ShadcnTabsContent
+            key={`content-${tab._id}`}
             value={tab._id}
             className={cn(panelsClassName, tab.panelClassName)}
             forceMount={keepMounted ? true : undefined}
@@ -269,7 +269,7 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabItem } = ({
           </ShadcnTabsContent>
         ))}
       </ShadcnTabs>
-      
+
       {footer && <div className="mt-4">{footer}</div>}
     </div>
   );

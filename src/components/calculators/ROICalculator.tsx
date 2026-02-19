@@ -4,12 +4,10 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorInput } from './shared';
+import { CalculatorForm, CalculatorInput, CalculatorSelect, CalculatorInputGroup } from './shared';
 import { useFinanceFormatting } from '@/hooks/useFinanceFormatting';
 import { useROICalculator } from '@/hooks/useROICalculator';
 import { Card, CardContent } from '@/components/ui/Card';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { TrendingUp, Calculator as CalcIcon } from 'lucide-react';
 
 const ROICalculator: React.FC = () => {
@@ -137,20 +135,18 @@ const ROICalculator: React.FC = () => {
       schemaData={{ applicationCategory: 'FinanceApplication', operatingSystem: 'Any' }}
       resultSection={resultsSection}
     >
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="calculationType" className="text-sm font-medium">{t('calculators.roi.calculation_type')}</Label>
-          <Select value={state.calculationType} onValueChange={(v) => setField('calculationType', v)}>
-            <SelectTrigger><SelectValue /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="simple">{t('calculators.roi.simple_investment')}</SelectItem>
-              <SelectItem value="annualized">{t('calculators.roi.regular_returns')}</SelectItem>
-            </SelectContent>
-          </Select>
-          <p className="text-muted-foreground text-xs">
-            {state.calculationType === 'simple' ? t('calculators.roi.simple_hint') : t('calculators.roi.annualized_hint')}
-          </p>
-        </div>
+      <CalculatorForm columns={1}>
+        <CalculatorSelect
+          id="calculationType"
+          label={t('calculators.roi.calculation_type')}
+          value={state.calculationType}
+          onChange={(v) => setField('calculationType', v)}
+          options={[
+            { value: 'simple', label: t('calculators.roi.simple_investment') },
+            { value: 'annualized', label: t('calculators.roi.regular_returns') }
+          ]}
+          helpText={state.calculationType === 'simple' ? t('calculators.roi.simple_hint') : t('calculators.roi.annualized_hint')}
+        />
 
         <CalculatorInput
           id="initialInvestment"
@@ -205,8 +201,7 @@ const ROICalculator: React.FC = () => {
           error={errors.additionalCosts}
         />
 
-        <div className="space-y-2">
-          <Label className="text-sm font-medium">{t('calculators.roi.investment_period')}</Label>
+        <CalculatorInputGroup label={t('calculators.roi.investment_period')}>
           <div className="grid grid-cols-2 gap-4">
             <CalculatorInput
               id="timePeriod"
@@ -218,18 +213,21 @@ const ROICalculator: React.FC = () => {
               step="0.1"
               error={errors.timePeriod}
             />
-            <Select value={state.timeUnit} onValueChange={(v) => setField('timeUnit', v)}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
-              <SelectContent>
-                <SelectItem value="years">{t('calculators.roi.years')}</SelectItem>
-                <SelectItem value="months">{t('calculators.roi.months')}</SelectItem>
-                <SelectItem value="days">{t('common.days')}</SelectItem>
-              </SelectContent>
-            </Select>
+            <CalculatorSelect
+              id="timeUnit"
+              label=""
+              value={state.timeUnit}
+              onChange={(v) => setField('timeUnit', v)}
+              options={[
+                { value: 'years', label: t('calculators.roi.years') },
+                { value: 'months', label: t('calculators.roi.months') },
+                { value: 'days', label: t('common.days') }
+              ]}
+            />
           </div>
-          <p className="text-muted-foreground text-xs">{t('calculators.roi.time_period_hint')}</p>
-        </div>
-      </div>
+          <p className="text-muted-foreground text-xs mt-2">{t('calculators.roi.time_period_hint')}</p>
+        </CalculatorInputGroup>
+      </CalculatorForm>
     </SimpleCalculatorLayout>
   );
 };

@@ -4,7 +4,7 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorInput, CashFlowEditor } from './shared';
+import { CalculatorForm, CalculatorInput, CashFlowEditor } from './shared';
 import { useFinanceFormatting } from '@/hooks/useFinanceFormatting';
 import { useNPVCalculator, calculatePresentValue } from '@/hooks/useNPVCalculator';
 import { Card, CardContent } from '@/components/ui/Card';
@@ -160,7 +160,7 @@ const NPVCalculator: React.FC = () => {
       schemaData={{ applicationCategory: 'FinanceApplication', operatingSystem: 'Any' }}
       resultSection={resultsSection}
     >
-      <div className="space-y-6">
+      <CalculatorForm columns={1}>
         <CalculatorInput
           id="discountRate"
           label={t('calculators.npv.discount_rate')}
@@ -188,7 +188,7 @@ const NPVCalculator: React.FC = () => {
             periodZeroHint: t('calculators.npv.period_zero'),
           }}
         />
-      </div>
+      </CalculatorForm>
     </SimpleCalculatorLayout>
   );
 };

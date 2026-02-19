@@ -71,7 +71,7 @@ const HomePage: React.FC = () => {
           <div className="text-center max-w-4xl mx-auto">
             <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-sm font-medium text-primary mb-6 backdrop-blur-sm">
               <Star className="mr-1 h-3 w-3 fill-current" />
-              <span>{t('homepage.trusted_by')} 10k+ {t('homepage.user_count')}</span>
+              <span>{t('homepage.trusted_by')} {t('homepage.stats_10k')} {t('homepage.user_count')}</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-heading font-bold text-foreground mb-6 leading-tight tracking-tight">
@@ -107,7 +107,7 @@ const HomePage: React.FC = () => {
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-2">
                 {t('homepage.popular_calculators')}
               </h2>
-              <p className="text-lg text-muted-foreground">Quick access to our most frequently used tools</p>
+              <p className="text-lg text-muted-foreground">{t('homepage.quick_access')}</p>
             </div>
             <Button variant="ghost" className="hidden md:flex group" onClick={() => window.location.href = `/${locale}/calculators`}>
               {t('common.view_all')} <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -138,7 +138,7 @@ const HomePage: React.FC = () => {
               {t('homepage.calculator_categories')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Explore our comprehensive collection of calculation tools organized by category
+              {t('homepage.categories_description')}
             </p>
           </div>
 
@@ -173,7 +173,7 @@ const HomePage: React.FC = () => {
                 <Users className="h-8 w-8" />
               </div>
               <div className="text-4xl font-bold mb-2">{t('homepage.user_count')}</div>
-              <div className="text-muted-foreground font-medium uppercase tracking-wide text-sm">Active Users</div>
+              <div className="text-muted-foreground font-medium uppercase tracking-wide text-sm">{t('homepage.stats_active_users')}</div>
             </GlassCard>
 
             <GlassCard className="text-center p-6 border-none bg-primary/5">
@@ -181,7 +181,7 @@ const HomePage: React.FC = () => {
                 <Star className="h-8 w-8" />
               </div>
               <div className="text-4xl font-bold mb-2">4.8/5</div>
-              <div className="text-muted-foreground font-medium uppercase tracking-wide text-sm">Average Rating</div>
+              <div className="text-muted-foreground font-medium uppercase tracking-wide text-sm">{t('homepage.stats_avg_rating')}</div>
             </GlassCard>
 
             <GlassCard className="text-center p-6 border-none bg-primary/5">
@@ -189,7 +189,7 @@ const HomePage: React.FC = () => {
                 <Shield className="h-8 w-8" />
               </div>
               <div className="text-4xl font-bold mb-2">100%</div>
-              <div className="text-muted-foreground font-medium uppercase tracking-wide text-sm">Secure & Private</div>
+              <div className="text-muted-foreground font-medium uppercase tracking-wide text-sm">{t('homepage.stats_secure')}</div>
             </GlassCard>
           </div>
         </div>
@@ -202,7 +202,7 @@ const HomePage: React.FC = () => {
             <h2 className="text-3xl font-heading font-bold text-foreground mb-4">
               {t('homepage.faq_title')}
             </h2>
-            <p className="text-lg text-muted-foreground">Common questions about our calculators</p>
+            <p className="text-lg text-muted-foreground">{t('common.faq_description')}</p>
           </div>
 
           {isMounted && (

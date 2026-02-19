@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorInput, CalculatorResult } from './shared';
+import { CalculatorInput, CalculatorResult, CalculatorForm } from './shared';
 
 interface PercentageResult {
   percentage: number;
@@ -70,7 +70,7 @@ const WhatPercentageIsXOfYCalculator: React.FC = () => {
 
   // Calculator form using shared components
   const calculatorForm = (
-    <div className="space-y-6">
+    <CalculatorForm columns={1}>
       <CalculatorInput
         id="valueX"
         label={t('hodnota_x_label') || 'Hodnota X'}
@@ -90,7 +90,7 @@ const WhatPercentageIsXOfYCalculator: React.FC = () => {
         helpText={t('hodnota_y_help_text') || 'Zadejte hodnotu Y (celek)'}
         error={errors.valueY}
       />
-    </div>
+    </CalculatorForm>
   );
 
   // Examples for SimpleCalculatorLayout

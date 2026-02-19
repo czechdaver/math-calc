@@ -5,8 +5,7 @@ import React, { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorInput } from './shared';
-import { CalculatorSelect } from './shared';
+import { CalculatorInput, CalculatorSelect, CalculatorForm } from './shared';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Truck, Package, Building } from 'lucide-react';
 import { useConcreteCalculator, concreteGrades } from '@/hooks/useConcreteCalculator';
@@ -121,7 +120,7 @@ const ConcreteCalculator: React.FC = () => {
       ]}
       schemaData={{ applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any' }}
     >
-      <div className="space-y-6">
+      <CalculatorForm columns={1}>
         <CalculatorSelect
           id="calculationType" label={t('concrete_type_label')} value={calc.calculationType}
           onChange={calc.setCalculationType} options={typeOptions}
@@ -152,7 +151,7 @@ const ConcreteCalculator: React.FC = () => {
             <CalculatorInput id="gravelPrice" label={t('concrete_gravel_price_label')} value={calc.gravelPrice} onChange={calc.setGravelPrice} placeholder="350" error={calc.errors.gravelPrice} />
           </div>
         </div>
-      </div>
+      </CalculatorForm>
     </SimpleCalculatorLayout>
   );
 };

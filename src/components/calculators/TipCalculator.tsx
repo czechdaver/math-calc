@@ -5,10 +5,8 @@ import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { AlertCircle, Calculator as CalcIcon, DollarSign, Users, Receipt, Percent } from 'lucide-react';
+import { Calculator as CalcIcon, DollarSign, Users, Receipt, Percent } from 'lucide-react';
+import { CalculatorForm, CalculatorInput, CalculatorSelect } from './shared';
 
 interface TipResult {
   billAmount: number;
@@ -154,126 +152,69 @@ const TipCalculator: React.FC = () => {
 
   // Calculator input form
   const calculatorForm = (
-    <div className="space-y-6">
+    <CalculatorForm columns={1}>
       {/* Bill Amount */}
-      <div className="space-y-2">
-        <Label htmlFor="billAmount" className="text-sm font-medium">
-          {t('calculators.tip.bill_amount')}
-        </Label>
-        <div className="relative">
-          <Input
-            id="billAmount"
-            type="number"
-            value={billAmount}
-            onChange={(e) => setBillAmount(e.target.value)}
-            placeholder="500"
-            className={`pr-12 ${errors.billAmount ? 'border-red-500' : ''}`}
-            min="1"
-            max="100000"
-            step="1"
-          />
-          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-            {t('common.currency')}
-          </span>
-        </div>
-        {errors.billAmount && (
-          <p className="text-red-500 text-xs flex items-center gap-1">
-            <AlertCircle className="w-3 h-3" />
-            {errors.billAmount}
-          </p>
-        )}
-        <p className="text-gray-500 text-xs">
-          {t('tip_hint_bill_amount')}
-        </p>
-      </div>
+      <CalculatorInput
+        id="billAmount"
+        label={t('calculators.tip.bill_amount')}
+        value={billAmount}
+        onChange={setBillAmount}
+        placeholder="500"
+        min="1"
+        max="100000"
+        step="1"
+        unit={t('common.currency')}
+        error={errors.billAmount}
+        helpText={t('tip_hint_bill_amount')}
+      />
 
       {/* Service Quality */}
-      <div className="space-y-2">
-        <Label htmlFor="serviceQuality" className="text-sm font-medium">
-          {t('tip_label_service_quality')}
-        </Label>
-        <Select value={serviceQuality} onValueChange={setServiceQuality}>
-          <SelectTrigger>
-            <SelectValue placeholder={t('tip_placeholder_service_quality')} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="poor">{t('tip_service_poor')}</SelectItem>
-            <SelectItem value="average">{t('tip_service_average')}</SelectItem>
-            <SelectItem value="good">{t('tip_service_good')}</SelectItem>
-            <SelectItem value="excellent">{t('tip_service_excellent')}</SelectItem>
-            <SelectItem value="custom">{t('tip_service_custom')}</SelectItem>
-          </SelectContent>
-        </Select>
-        <p className="text-gray-500 text-xs">
-          {getServiceQualityInfo(serviceQuality).description} - {t('tip_recommended_tip')}
-        </p>
-      </div>
+      <CalculatorSelect
+        id="serviceQuality"
+        label={t('tip_label_service_quality')}
+        value={serviceQuality}
+        onChange={setServiceQuality}
+        options={[
+          { value: "poor", label: t('tip_service_poor') },
+          { value: "average", label: t('tip_service_average') },
+          { value: "good", label: t('tip_service_good') },
+          { value: "excellent", label: t('tip_service_excellent') },
+          { value: "custom", label: t('tip_service_custom') }
+        ]}
+        helpText={`${getServiceQualityInfo(serviceQuality).description} - ${t('tip_recommended_tip')}`}
+      />
 
       {/* Custom Tip Percentage */}
       {serviceQuality === 'custom' && (
-        <div className="space-y-2">
-          <Label htmlFor="customTip" className="text-sm font-medium">
-            {t('tip_label_custom_tip')}
-          </Label>
-          <div className="relative">
-            <Input
-              id="customTip"
-              type="number"
-              value={customTip}
-              onChange={(e) => setCustomTip(e.target.value)}
-              placeholder="15"
-              className={`pr-12 ${errors.customTip ? 'border-red-500' : ''}`}
-              min="0"
-              max="100"
-              step="0.5"
-            />
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-              %
-            </span>
-          </div>
-          {errors.customTip && (
-            <p className="text-red-500 text-xs flex items-center gap-1">
-              <AlertCircle className="w-3 h-3" />
-              {errors.customTip}
-            </p>
-          )}
-          <p className="text-gray-500 text-xs">
-            {t('tip_hint_custom_tip')}
-          </p>
-        </div>
+        <CalculatorInput
+          id="customTip"
+          label={t('tip_label_custom_tip')}
+          value={customTip}
+          onChange={setCustomTip}
+          placeholder="15"
+          min="0"
+          max="100"
+          step="0.5"
+          unit="%"
+          error={errors.customTip}
+          helpText={t('tip_hint_custom_tip')}
+        />
       )}
 
       {/* Number of People */}
-      <div className="space-y-2">
-        <Label htmlFor="numberOfPeople" className="text-sm font-medium">
-          {t('tip_label_people')}
-        </Label>
-        <div className="relative">
-          <Input
-            id="numberOfPeople"
-            type="number"
-            value={numberOfPeople}
-            onChange={(e) => setNumberOfPeople(e.target.value)}
-            placeholder="2"
-            className={`pr-12 ${errors.numberOfPeople ? 'border-red-500' : ''}`}
-            min="1"
-            max="50"
-            step="1"
-          />
-          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-            {t('tip_unit_people')}
-          </span>
-        </div>
-        {errors.numberOfPeople && (
-          <p className="text-red-500 text-xs flex items-center gap-1">
-            <AlertCircle className="w-3 h-3" />
-            {errors.numberOfPeople}
-          </p>
-        )}
-        <p className="text-gray-500 text-xs">
-          {t('tip_hint_people')}
-        </p>
-      </div>
+      <CalculatorInput
+        id="numberOfPeople"
+        label={t('tip_label_people')}
+        value={numberOfPeople}
+        onChange={setNumberOfPeople}
+        placeholder="2"
+        min="1"
+        max="50"
+        step="1"
+        unit={t('tip_unit_people')}
+        error={errors.numberOfPeople}
+        helpText={t('tip_hint_people')}
+      />
 
       {/* Summary Card */}
       <Card className="bg-blue-50 border-blue-200">
@@ -298,7 +239,7 @@ const TipCalculator: React.FC = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </CalculatorForm>
   );
 
   // Results section

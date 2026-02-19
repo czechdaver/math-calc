@@ -4,9 +4,8 @@ import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/label';
 import { Info, AlertCircle } from 'lucide-react';
+import { CalculatorForm, CalculatorInput } from './shared';
 
 interface PercentageResult {
   result: number;
@@ -107,56 +106,33 @@ const PercentageOfNumberCalculator: React.FC = () => {
         </Card>
       )}
     >
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="percentage" className="text-sm font-medium">
-            {t('percentages_label')}
-          </Label>
-          <div className="relative">
-            <Input
-              id="percentage"
-              type="number"
-              value={percentage}
-              onChange={(e) => setPercentage(e.target.value)}
-              placeholder="15"
-              className={`${errors.percentage ? 'border-red-500' : ''}`}
-              min="0"
-              max="1000"
-              step="0.01"
-            />
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">%</span>
-          </div>
-          {errors.percentage && (
-            <p className="text-red-500 text-xs flex items-center gap-1">
-              <AlertCircle className="w-3 h-3" />{errors.percentage}
-            </p>
-          )}
-          <p className="text-gray-500 text-xs">{t('pct_of_num_percentage_help')}</p>
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="number" className="text-sm font-medium">
-            {t('cislo_label')}
-          </Label>
-          <div className="relative">
-            <Input
-              id="number"
-              type="number"
-              value={number}
-              onChange={(e) => setNumber(e.target.value)}
-              placeholder="1000"
-              className={`${errors.number ? 'border-red-500' : ''}`}
-              min="0"
-              step="0.01"
-            />
-          </div>
-          {errors.number && (
-            <p className="text-red-500 text-xs flex items-center gap-1">
-              <AlertCircle className="w-3 h-3" />{errors.number}
-            </p>
-          )}
-          <p className="text-gray-500 text-xs">{t('pct_of_num_number_help')}</p>
-        </div>
-      </div>
+      <CalculatorForm columns={1}>
+        <CalculatorInput
+          id="percentage"
+          label={t('percentages_label')}
+          value={percentage}
+          onChange={(val) => setPercentage(val)}
+          placeholder="15"
+          min="0"
+          max="1000"
+          step="0.01"
+          unit="%"
+          error={errors.percentage}
+          helpText={t('pct_of_num_percentage_help')}
+        />
+
+        <CalculatorInput
+          id="number"
+          label={t('cislo_label')}
+          value={number}
+          onChange={(val) => setNumber(val)}
+          placeholder="1000"
+          min="0"
+          step="0.01"
+          error={errors.number}
+          helpText={t('pct_of_num_number_help')}
+        />
+      </CalculatorForm>
     </SimpleCalculatorLayout>
   );
 };

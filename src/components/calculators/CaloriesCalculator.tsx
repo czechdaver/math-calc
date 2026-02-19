@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Activity, User, Zap, Target, TrendingUp } from 'lucide-react';
+import { CalculatorInput, CalculatorForm, CalculatorInputGroup } from './shared';
 
 interface CaloriesResult {
   bmr: number;
@@ -156,128 +157,82 @@ const CaloriesCalculator: React.FC = () => {
 
   // Calculator input form
   const calculatorForm = (
-    <div className="space-y-6">
+    <CalculatorForm columns={1}>
       {/* Personal Information */}
-      <div className="space-y-4">
-        <div className="text-sm font-medium text-gray-700">{t('calories_section_personal')}</div>
+      <CalculatorInputGroup label={t('calories_section_personal')}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Age */}
+          <CalculatorInput
+            id="age"
+            label={t('calories_label_age')}
+            value={age}
+            onChange={(e) => setAge(e)}
+            placeholder="30"
+            type="number"
+            min="15"
+            max="120"
+            step="1"
+            unit={t('calories_unit_years')}
+            error={errors.age}
+            helpText={t('calories_hint_age')}
+          />
 
-        {/* Age */}
-        <div className="space-y-2">
-          <Label htmlFor="age" className="text-sm font-medium">
-            {t('calories_label_age')}
-          </Label>
-          <div className="relative">
-            <Input
-              id="age"
-              type="number"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-              placeholder="30"
-              className={`pr-12 ${errors.age ? 'border-red-500' : ''}`}
-              min="15"
-              max="120"
-              step="1"
-            />
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-              {t('calories_unit_years')}
-            </span>
-          </div>
-          {errors.age && (
-            <p className="text-red-500 text-xs flex items-center gap-1">
-              <AlertCircle className="w-3 h-3" />
-              {errors.age}
+          {/* Gender */}
+          <div className="space-y-2">
+            <Label htmlFor="gender" className="text-sm font-medium">
+              {t('calories_label_gender')}
+            </Label>
+            <Select value={gender} onValueChange={setGender}>
+              <SelectTrigger>
+                <SelectValue placeholder={t('calories_placeholder_gender')} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="male">{t('calories_gender_male')}</SelectItem>
+                <SelectItem value="female">{t('calories_gender_female')}</SelectItem>
+              </SelectContent>
+            </Select>
+            <p className="text-muted-foreground text-xs">
+              {t('calories_hint_gender')}
             </p>
-          )}
-          <p className="text-gray-500 text-xs">
-            {t('calories_hint_age')}
-          </p>
+          </div>
         </div>
 
-        {/* Weight */}
-        <div className="space-y-2">
-          <Label htmlFor="weight" className="text-sm font-medium">
-            {t('calories_label_weight')}
-          </Label>
-          <div className="relative">
-            <Input
-              id="weight"
-              type="number"
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
-              placeholder="70"
-              className={`pr-12 ${errors.weight ? 'border-red-500' : ''}`}
-              min="30"
-              max="300"
-              step="0.1"
-            />
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-              {t('common.kg')}
-            </span>
-          </div>
-          {errors.weight && (
-            <p className="text-red-500 text-xs flex items-center gap-1">
-              <AlertCircle className="w-3 h-3" />
-              {errors.weight}
-            </p>
-          )}
-          <p className="text-gray-500 text-xs">
-            {t('calories_hint_weight')}
-          </p>
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          {/* Weight */}
+          <CalculatorInput
+            id="weight"
+            label={t('calories_label_weight')}
+            value={weight}
+            onChange={(e) => setWeight(e)}
+            placeholder="70"
+            type="number"
+            min="30"
+            max="300"
+            step="0.1"
+            unit={t('common.kg')}
+            error={errors.weight}
+            helpText={t('calories_hint_weight')}
+          />
 
-        {/* Height */}
-        <div className="space-y-2">
-          <Label htmlFor="height" className="text-sm font-medium">
-            {t('calories_label_height')}
-          </Label>
-          <div className="relative">
-            <Input
-              id="height"
-              type="number"
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
-              placeholder="170"
-              className={`pr-12 ${errors.height ? 'border-red-500' : ''}`}
-              min="100"
-              max="250"
-              step="1"
-            />
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-              {t('common.cm')}
-            </span>
-          </div>
-          {errors.height && (
-            <p className="text-red-500 text-xs flex items-center gap-1">
-              <AlertCircle className="w-3 h-3" />
-              {errors.height}
-            </p>
-          )}
-          <p className="text-gray-500 text-xs">
-            {t('calories_hint_height')}
-          </p>
-        </div>
-
-        {/* Gender */}
-        <div className="space-y-2">
-          <Label htmlFor="gender" className="text-sm font-medium">
-            {t('calories_label_gender')}
-          </Label>
-          <Select value={gender} onValueChange={setGender}>
-            <SelectTrigger>
-              <SelectValue placeholder={t('calories_placeholder_gender')} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="male">{t('calories_gender_male')}</SelectItem>
-              <SelectItem value="female">{t('calories_gender_female')}</SelectItem>
-            </SelectContent>
-          </Select>
-          <p className="text-gray-500 text-xs">
-            {t('calories_hint_gender')}
-          </p>
+          {/* Height */}
+          <CalculatorInput
+            id="height"
+            label={t('calories_label_height')}
+            value={height}
+            onChange={(e) => setHeight(e)}
+            placeholder="170"
+            type="number"
+            min="100"
+            max="250"
+            step="1"
+            unit={t('common.cm')}
+            error={errors.height}
+            helpText={t('calories_hint_height')}
+          />
         </div>
 
         {/* Activity Level */}
-        <div className="space-y-2">
+        <div className="space-y-2 mt-6">
           <Label htmlFor="activityLevel" className="text-sm font-medium">
             {t('calories_label_activity')}
           </Label>
@@ -293,36 +248,36 @@ const CaloriesCalculator: React.FC = () => {
               <SelectItem value="extreme">{t('calories_activity_extreme')}</SelectItem>
             </SelectContent>
           </Select>
-          <p className="text-gray-500 text-xs">
+          <p className="text-muted-foreground text-xs">
             {getActivityDescription(activityLevel)}
           </p>
         </div>
-      </div>
+      </CalculatorInputGroup>
 
       {/* Personal Summary */}
-      <Card className="bg-blue-50 border-blue-200">
+      <Card className="bg-primary/5 border-primary/20">
         <CardContent className="p-4">
           <div className="text-center">
-            <div className="text-sm font-medium text-blue-800 mb-2">
+            <div className="text-sm font-medium text-primary mb-2">
               {t('calories_summary_title')}
             </div>
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div>
-                <div className="font-semibold text-blue-900">{t('calories_summary_age_gender')}</div>
-                <div className="text-blue-700">{age} {t('calories_unit_years')}, {gender === 'male' ? t('calories_gender_male').toLowerCase() : t('calories_gender_female').toLowerCase()}</div>
+                <div className="font-semibold text-foreground">{t('calories_summary_age_gender')}</div>
+                <div className="text-muted-foreground">{age} {t('calories_unit_years')}, {gender === 'male' ? t('calories_gender_male').toLowerCase() : t('calories_gender_female').toLowerCase()}</div>
               </div>
               <div>
-                <div className="font-semibold text-blue-900">{t('calories_summary_body')}</div>
-                <div className="text-blue-700">{weight} {t('common.kg')}, {height} {t('common.cm')}</div>
+                <div className="font-semibold text-foreground">{t('calories_summary_body')}</div>
+                <div className="text-muted-foreground">{weight} {t('common.kg')}, {height} {t('common.cm')}</div>
               </div>
             </div>
-            <div className="mt-2 text-xs text-blue-600">
+            <div className="mt-2 text-xs text-muted-foreground">
               {getActivityDescription(activityLevel)}
             </div>
           </div>
         </CardContent>
       </Card>
-    </div>
+    </CalculatorForm>
   );
 
   // Results section

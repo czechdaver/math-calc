@@ -6,10 +6,8 @@ import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Square, Triangle, Circle, Hexagon } from 'lucide-react';
+import { CalculatorForm, CalculatorSelect, CalculatorInput } from './shared';
 
 interface AreaResult {
   area: number;
@@ -243,234 +241,148 @@ const AreaCalculator: React.FC = () => {
 
   // Calculator input form
   const calculatorForm = (
-    <div className="space-y-6">
+    <CalculatorForm columns={1}>
       {/* Shape Selection */}
-      <div className="space-y-2">
-        <Label htmlFor="shape" className="text-sm font-medium">
-          {t('area_label_shape')}
-        </Label>
-        <Select value={shape} onValueChange={setShape}>
-          <SelectTrigger>
-            <SelectValue placeholder={t('area_placeholder_shape')} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="rectangle">{t('area_shape_rectangle')}</SelectItem>
-            <SelectItem value="square">{t('area_shape_square')}</SelectItem>
-            <SelectItem value="circle">{t('area_shape_circle')}</SelectItem>
-            <SelectItem value="triangle">{t('area_shape_triangle')}</SelectItem>
-            <SelectItem value="trapezoid">{t('area_shape_trapezoid')}</SelectItem>
-          </SelectContent>
-        </Select>
-        <p className="text-gray-500 text-xs">
-          {getShapeDescription(shape)} - {t('area_calc_hint')}
-        </p>
-      </div>
+      <CalculatorSelect
+        id="shape"
+        label={t('area_label_shape')}
+        value={shape}
+        onChange={setShape}
+        options={[
+          { value: 'rectangle', label: t('area_shape_rectangle') },
+          { value: 'square', label: t('area_shape_square') },
+          { value: 'circle', label: t('area_shape_circle') },
+          { value: 'triangle', label: t('area_shape_triangle') },
+          { value: 'trapezoid', label: t('area_shape_trapezoid') }
+        ]}
+        helpText={`${getShapeDescription(shape)} - ${t('area_calc_hint')}`}
+      />
 
       {/* Rectangle/Square Inputs */}
       {(shape === 'rectangle' || shape === 'square') && (
         <div className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="length" className="text-sm font-medium">
-              {shape === 'square' ? t('area_label_side') : t('area_label_length')}
-            </Label>
-            <Input
-              id="length"
-              type="number"
-              value={length}
-              onChange={(e) => setLength(e.target.value)}
-              placeholder="10"
-              className={`${errors.length ? 'border-red-500' : ''}`}
-              min="0"
-              step="0.1"
-            />
-            {errors.length && (
-              <p className="text-red-500 text-xs flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" />
-                {errors.length}
-              </p>
-            )}
-          </div>
+          <CalculatorInput
+            id="length"
+            label={shape === 'square' ? t('area_label_side') : t('area_label_length')}
+            value={length}
+            onChange={(val) => setLength(val)}
+            placeholder="10"
+            min="0"
+            step="0.1"
+            unit="m"
+            error={errors.length}
+          />
 
           {shape === 'rectangle' && (
-            <div className="space-y-2">
-              <Label htmlFor="width" className="text-sm font-medium">
-                {t('area_label_width')}
-              </Label>
-              <Input
-                id="width"
-                type="number"
-                value={width}
-                onChange={(e) => setWidth(e.target.value)}
-                placeholder="8"
-                className={`${errors.width ? 'border-red-500' : ''}`}
-                min="0"
-                step="0.1"
-              />
-              {errors.width && (
-                <p className="text-red-500 text-xs flex items-center gap-1">
-                  <AlertCircle className="w-3 h-3" />
-                  {errors.width}
-                </p>
-              )}
-            </div>
+            <CalculatorInput
+              id="width"
+              label={t('area_label_width')}
+              value={width}
+              onChange={(val) => setWidth(val)}
+              placeholder="8"
+              min="0"
+              step="0.1"
+              unit="m"
+              error={errors.width}
+            />
           )}
         </div>
       )}
 
       {/* Circle Inputs */}
       {shape === 'circle' && (
-        <div className="space-y-2">
-          <Label htmlFor="radius" className="text-sm font-medium">
-            {t('area_label_radius')}
-          </Label>
-          <Input
-            id="radius"
-            type="number"
-            value={radius}
-            onChange={(e) => setRadius(e.target.value)}
-            placeholder="5"
-            className={`${errors.radius ? 'border-red-500' : ''}`}
-            min="0"
-            step="0.1"
-          />
-          {errors.radius && (
-            <p className="text-red-500 text-xs flex items-center gap-1">
-              <AlertCircle className="w-3 h-3" />
-              {errors.radius}
-            </p>
-          )}
-        </div>
+        <CalculatorInput
+          id="radius"
+          label={t('area_label_radius')}
+          value={radius}
+          onChange={(val) => setRadius(val)}
+          placeholder="5"
+          min="0"
+          step="0.1"
+          unit="m"
+          error={errors.radius}
+        />
       )}
 
       {/* Triangle Inputs */}
       {shape === 'triangle' && (
         <div className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="base" className="text-sm font-medium">
-              {t('area_label_base')}
-            </Label>
-            <Input
-              id="base"
-              type="number"
-              value={base}
-              onChange={(e) => setBase(e.target.value)}
-              placeholder="10"
-              className={`${errors.base ? 'border-red-500' : ''}`}
-              min="0"
-              step="0.1"
-            />
-            {errors.base && (
-              <p className="text-red-500 text-xs flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" />
-                {errors.base}
-              </p>
-            )}
-          </div>
+          <CalculatorInput
+            id="base"
+            label={t('area_label_base')}
+            value={base}
+            onChange={(val) => setBase(val)}
+            placeholder="10"
+            min="0"
+            step="0.1"
+            unit="m"
+            error={errors.base}
+          />
 
-          <div className="space-y-2">
-            <Label htmlFor="height" className="text-sm font-medium">
-              {t('area_label_height')}
-            </Label>
-            <Input
-              id="height"
-              type="number"
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
-              placeholder="8"
-              className={`${errors.height ? 'border-red-500' : ''}`}
-              min="0"
-              step="0.1"
-            />
-            {errors.height && (
-              <p className="text-red-500 text-xs flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" />
-                {errors.height}
-              </p>
-            )}
-          </div>
+          <CalculatorInput
+            id="height"
+            label={t('area_label_height')}
+            value={height}
+            onChange={(val) => setHeight(val)}
+            placeholder="8"
+            min="0"
+            step="0.1"
+            unit="m"
+            error={errors.height}
+          />
         </div>
       )}
 
       {/* Trapezoid Inputs */}
       {shape === 'trapezoid' && (
         <div className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="topBase" className="text-sm font-medium">
-              {t('area_label_top_base')}
-            </Label>
-            <Input
-              id="topBase"
-              type="number"
-              value={topBase}
-              onChange={(e) => setTopBase(e.target.value)}
-              placeholder="6"
-              className={`${errors.topBase ? 'border-red-500' : ''}`}
-              min="0"
-              step="0.1"
-            />
-            {errors.topBase && (
-              <p className="text-red-500 text-xs flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" />
-                {errors.topBase}
-              </p>
-            )}
-          </div>
+          <CalculatorInput
+            id="topBase"
+            label={t('area_label_top_base')}
+            value={topBase}
+            onChange={(val) => setTopBase(val)}
+            placeholder="6"
+            min="0"
+            step="0.1"
+            unit="m"
+            error={errors.topBase}
+          />
 
-          <div className="space-y-2">
-            <Label htmlFor="bottomBase" className="text-sm font-medium">
-              {t('area_label_bottom_base')}
-            </Label>
-            <Input
-              id="bottomBase"
-              type="number"
-              value={bottomBase}
-              onChange={(e) => setBottomBase(e.target.value)}
-              placeholder="10"
-              className={`${errors.bottomBase ? 'border-red-500' : ''}`}
-              min="0"
-              step="0.1"
-            />
-            {errors.bottomBase && (
-              <p className="text-red-500 text-xs flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" />
-                {errors.bottomBase}
-              </p>
-            )}
-          </div>
+          <CalculatorInput
+            id="bottomBase"
+            label={t('area_label_bottom_base')}
+            value={bottomBase}
+            onChange={(val) => setBottomBase(val)}
+            placeholder="10"
+            min="0"
+            step="0.1"
+            unit="m"
+            error={errors.bottomBase}
+          />
 
-          <div className="space-y-2">
-            <Label htmlFor="trapHeight" className="text-sm font-medium">
-              {t('area_label_height')}
-            </Label>
-            <Input
-              id="trapHeight"
-              type="number"
-              value={trapHeight}
-              onChange={(e) => setTrapHeight(e.target.value)}
-              placeholder="8"
-              className={`${errors.trapHeight ? 'border-red-500' : ''}`}
-              min="0"
-              step="0.1"
-            />
-            {errors.trapHeight && (
-              <p className="text-red-500 text-xs flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" />
-                {errors.trapHeight}
-              </p>
-            )}
-          </div>
+          <CalculatorInput
+            id="trapHeight"
+            label={t('area_label_height')}
+            value={trapHeight}
+            onChange={(val) => setTrapHeight(val)}
+            placeholder="8"
+            min="0"
+            step="0.1"
+            unit="m"
+            error={errors.trapHeight}
+          />
         </div>
       )}
 
       {/* Summary Card */}
-      <Card className="bg-blue-50 border-blue-200">
+      <Card className="bg-primary/5 border-primary/20">
         <CardContent className="p-4">
           <div className="text-center">
-            <div className="text-sm font-medium text-blue-800 mb-2 flex items-center justify-center gap-2">
+            <div className="text-sm font-medium text-primary mb-2 flex items-center justify-center gap-2">
               {getShapeIcon(shape)}
               {t('area_summary_calc')} - {getShapeDescription(shape)}
             </div>
-            <div className="text-lg font-semibold text-blue-900">
+            <div className="text-lg font-semibold text-foreground">
               {shape === 'rectangle' && `${length} × ${width} m`}
               {shape === 'square' && `${length} × ${length} m`}
               {shape === 'circle' && `r = ${radius} m`}
@@ -480,7 +392,7 @@ const AreaCalculator: React.FC = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </CalculatorForm>
   );
 
   // Results section

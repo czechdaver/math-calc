@@ -15,7 +15,7 @@ export function evaluateMathExpression(
   variables: Record<string, number> = {}
 ): number | null {
   // Remove all whitespace from the expression
-  let expr = expression.replace(/\s+/g, '');
+  const expr = expression.replace(/\s+/g, '');
 
   // Check for empty expression
   if (!expr) return null;
@@ -195,111 +195,5 @@ export function evaluateMathExpression(
   // If we get here, the expression couldn't be evaluated
   return null;
 
-  // Handle nested expressions in parentheses
-  const nestedMatch = expr.match(/\(([^()]+)\)/);
-  if (nestedMatch) {
-    const innerExpr = nestedMatch[1];
-    const innerResult = evaluateMathExpression(innerExpr, variables);
 
-    if (innerResult === null) return null;
-
-    // Replace the parenthesized expression with its result and evaluate again
-    const newExpr = expr.replace(nestedMatch[0], innerResult.toString());
-    return evaluateMathExpression(newExpr, variables);
-  }
-
-  // Handle negative numbers at the start of the expression
-  if (expr.startsWith('-')) {
-    expr = `0${expr}`;
-  }
-
-  // Handle negative numbers after operators
-  expr = expr.replace(/([+\-*/(^])(-)/g, '$1-');
-
-  // Create evaluation context with math functions and constants
-  const context = {
-    sin: Math.sin,
-    cos: Math.cos,
-    tan: Math.tan,
-    sqrt: Math.sqrt,
-    log: Math.log,
-    pow: Math.pow,
-    PI: Math.PI,
-    E: Math.E,
-    ...variables
-  };
-
-  // Handle function calls with parameters
-  expr = expr.replace(/([a-zA-Z]+)\(([^()]+)\)/g, (match, fn, args) => {
-    // For pow function with two arguments
-    if (fn === 'pow') {
-      const [base, exp] = args.split(',').map(s => s.trim());
-      return `context['${fn}'](${base},${exp})`;
-    }
-    // For single-argument functions
-    return `context['${fn}'](${args})`;
-  });
-
-  // Replace variables and constants with context references
-  expr = expr.replace(/([a-zA-Z]+)/g, (match) => {
-    if (context.hasOwnProperty(match)) {
-      if (typeof context[match] === 'function') {
-        return match; // Keep function names as is (already handled above)
-      }
-      return `context['${match}']`; // Replace variables and constants
-    }
-    return match;
-  });
-
-  // Handle implicit multiplication (e.g., 2PI -> 2*PI, 2(3) -> 2*(3))
-  expr = expr.replace(/(\d+)([a-zA-Z(])/g, '$1*$2');
-
-  // Handle multiplication with parentheses (e.g., (2+3)(4+5) -> (2+3)*(4+5))
-  expr = expr.replace(/\)\(/g, ')*(');
-
-  // Create a safe evaluation function
-  const processOperators = (expr: string, ops: string[]): string => {
-    let result = expr;
-    for (const op of ops) {
-      const regex = new RegExp(`([-+]?[0-9.eE+]+)(\\${op})([-+]?[0-9.eE+]+)`);
-      let match;
-      while ((match = result.match(regex))) {
-        const [full, a, operator, b] = match;
-        const numA = parseFloat(a);
-        const numB = parseFloat(b);
-        let value: number;
-
-        switch (operator) {
-          case '*': value = numA * numB; break;
-          case '/': value = numB !== 0 ? numA / numB : NaN; break;
-          case '+': value = numA + numB; break;
-          case '-': value = numA - numB; break;
-          default: return result;
-        }
-
-        if (isNaN(value)) return 'NaN';
-
-        // Replace the operation with its result
-        result = result.replace(full, value.toString());
-      }
-    }
-    return result;
-  };
-
-  // Process multiplication and division first, then addition and subtraction
-  expr = processOperators(expr, ['*', '/', '+', '-']);
-
-  // Final evaluation of the simplified expression
-  try {
-    // Check if the expression is a valid number
-    if (expr === 'NaN') return null;
-    if (/^[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?$/.test(expr)) {
-      const result = parseFloat(expr);
-      return isFinite(result) ? result : null;
-    }
-    return null;
-  } catch {
-    // Catch any unexpected errors during evaluation
-    return null;
-  }
 }

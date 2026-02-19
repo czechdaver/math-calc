@@ -6,10 +6,8 @@ import { useTranslations } from 'next-intl';
 // import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { AlertCircle, Calculator as CalcIcon, Car, Fuel, MapPin, DollarSign } from 'lucide-react';
+import { Calculator as CalcIcon, Car, Fuel, MapPin, DollarSign } from 'lucide-react';
+import { CalculatorForm, CalculatorInput, CalculatorSelect } from './shared';
 
 interface FuelResult {
   fuelConsumption: number;
@@ -221,197 +219,112 @@ const FuelCalculator: React.FC = () => {
 
   // Calculator input form
   const calculatorForm = (
-    <div className="space-y-6">
+    <CalculatorForm columns={1}>
       {/* Calculation Type */}
-      <div className="space-y-2">
-        <Label htmlFor="calculationType" className="text-sm font-medium">
-          {t('calculators.fuel.calculation_type')}
-        </Label>
-        <Select value={calculationType} onValueChange={setCalculationType}>
-          <SelectTrigger>
-            <SelectValue placeholder={t('common.select_option')} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="consumption">{t('calculators.fuel.consumption_calc')}</SelectItem>
-            <SelectItem value="cost">{t('calculators.fuel.cost_calc')}</SelectItem>
-            <SelectItem value="trip">{t('calculators.fuel.trip_planning')}</SelectItem>
-          </SelectContent>
-        </Select>
-        <p className="text-gray-500 text-xs">
-          {getCalculationDescription(calculationType)}
-        </p>
-      </div>
+      <CalculatorSelect
+        id="calculationType"
+        label={t('calculators.fuel.calculation_type')}
+        value={calculationType}
+        onChange={setCalculationType}
+        options={[
+          { value: "consumption", label: t('calculators.fuel.consumption_calc') },
+          { value: "cost", label: t('calculators.fuel.cost_calc') },
+          { value: "trip", label: t('calculators.fuel.trip_planning') }
+        ]}
+        helpText={getCalculationDescription(calculationType)}
+      />
 
       {/* Fuel Price - Common for all types */}
-      <div className="space-y-2">
-        <Label htmlFor="fuelPrice" className="text-sm font-medium">
-          {t('calculators.fuel.fuel_price')} (Kč/l)
-        </Label>
-        <Input
-          id="fuelPrice"
-          type="number"
-          value={fuelPrice}
-          onChange={(e) => setFuelPrice(e.target.value)}
-          placeholder="35.50"
-          className={`${errors.fuelPrice ? 'border-red-500' : ''}`}
-          min="0"
-          step="0.01"
-        />
-        {errors.fuelPrice && (
-          <p className="text-red-500 text-xs flex items-center gap-1">
-            <AlertCircle className="w-3 h-3" />
-            {errors.fuelPrice}
-          </p>
-        )}
-        <p className="text-gray-500 text-xs">
-          {t('calculators.fuel.fuel_price_hint')}
-        </p>
-      </div>
+      <CalculatorInput
+        id="fuelPrice"
+        label={`${t('calculators.fuel.fuel_price')} (Kč/l)`}
+        value={fuelPrice}
+        onChange={setFuelPrice}
+        placeholder="35.50"
+        min="0"
+        step="0.01"
+        error={errors.fuelPrice}
+        helpText={t('calculators.fuel.fuel_price_hint')}
+      />
 
       {/* Consumption Calculation Inputs */}
       {calculationType === 'consumption' && (
         <>
-          <div className="space-y-2">
-            <Label htmlFor="distance" className="text-sm font-medium">
-              {t('calculators.fuel.distance')} (km)
-            </Label>
-            <Input
-              id="distance"
-              type="number"
-              value={distance}
-              onChange={(e) => setDistance(e.target.value)}
-              placeholder="100"
-              className={`${errors.distance ? 'border-red-500' : ''}`}
-              min="0"
-              step="0.1"
-            />
-            {errors.distance && (
-              <p className="text-red-500 text-xs flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" />
-                {errors.distance}
-              </p>
-            )}
-          </div>
+          <CalculatorInput
+            id="distance"
+            label={`${t('calculators.fuel.distance')} (km)`}
+            value={distance}
+            onChange={setDistance}
+            placeholder="100"
+            min="0"
+            step="0.1"
+            error={errors.distance}
+          />
 
-          <div className="space-y-2">
-            <Label htmlFor="fuelUsed" className="text-sm font-medium">
-              {t('calculators.fuel.fuel_used')} (l)
-            </Label>
-            <Input
-              id="fuelUsed"
-              type="number"
-              value={fuelUsed}
-              onChange={(e) => setFuelUsed(e.target.value)}
-              placeholder="7.5"
-              className={`${errors.fuelUsed ? 'border-red-500' : ''}`}
-              min="0"
-              step="0.1"
-            />
-            {errors.fuelUsed && (
-              <p className="text-red-500 text-xs flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" />
-                {errors.fuelUsed}
-              </p>
-            )}
-          </div>
+          <CalculatorInput
+            id="fuelUsed"
+            label={`${t('calculators.fuel.fuel_used')} (l)`}
+            value={fuelUsed}
+            onChange={setFuelUsed}
+            placeholder="7.5"
+            min="0"
+            step="0.1"
+            error={errors.fuelUsed}
+          />
         </>
       )}
 
       {/* Cost Calculation Inputs */}
       {calculationType === 'cost' && (
         <>
-          <div className="space-y-2">
-            <Label htmlFor="distance" className="text-sm font-medium">
-              {t('calculators.fuel.distance')} (km)
-            </Label>
-            <Input
-              id="distance"
-              type="number"
-              value={distance}
-              onChange={(e) => setDistance(e.target.value)}
-              placeholder="100"
-              className={`${errors.distance ? 'border-red-500' : ''}`}
-              min="0"
-              step="0.1"
-            />
-            {errors.distance && (
-              <p className="text-red-500 text-xs flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" />
-                {errors.distance}
-              </p>
-            )}
-          </div>
+          <CalculatorInput
+            id="distance"
+            label={`${t('calculators.fuel.distance')} (km)`}
+            value={distance}
+            onChange={setDistance}
+            placeholder="100"
+            min="0"
+            step="0.1"
+            error={errors.distance}
+          />
 
-          <div className="space-y-2">
-            <Label htmlFor="consumption" className="text-sm font-medium">
-              {t('calculators.fuel.consumption')} (l/100km)
-            </Label>
-            <Input
-              id="consumption"
-              type="number"
-              value={consumption}
-              onChange={(e) => setConsumption(e.target.value)}
-              placeholder="7.5"
-              className={`${errors.consumption ? 'border-red-500' : ''}`}
-              min="0"
-              step="0.1"
-            />
-            {errors.consumption && (
-              <p className="text-red-500 text-xs flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" />
-                {errors.consumption}
-              </p>
-            )}
-          </div>
+          <CalculatorInput
+            id="consumption"
+            label={`${t('calculators.fuel.consumption')} (l/100km)`}
+            value={consumption}
+            onChange={setConsumption}
+            placeholder="7.5"
+            min="0"
+            step="0.1"
+            error={errors.consumption}
+          />
         </>
       )}
 
       {/* Trip Planning Inputs */}
       {calculationType === 'trip' && (
         <>
-          <div className="space-y-2">
-            <Label htmlFor="tripDistance" className="text-sm font-medium">
-              {t('calculators.fuel.trip_distance')} (km)
-            </Label>
-            <Input
-              id="tripDistance"
-              type="number"
-              value={tripDistance}
-              onChange={(e) => setTripDistance(e.target.value)}
-              placeholder="500"
-              className={`${errors.tripDistance ? 'border-red-500' : ''}`}
-              min="0"
-              step="0.1"
-            />
-            {errors.tripDistance && (
-              <p className="text-red-500 text-xs flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" />
-                {errors.tripDistance}
-              </p>
-            )}
-          </div>
+          <CalculatorInput
+            id="tripDistance"
+            label={`${t('calculators.fuel.trip_distance')} (km)`}
+            value={tripDistance}
+            onChange={setTripDistance}
+            placeholder="500"
+            min="0"
+            step="0.1"
+            error={errors.tripDistance}
+          />
 
-          <div className="space-y-2">
-            <Label htmlFor="carConsumption" className="text-sm font-medium">
-              {t('calculators.fuel.car_consumption')} (l/100km)
-            </Label>
-            <Input
-              id="carConsumption"
-              type="number"
-              value={carConsumption}
-              onChange={(e) => setCarConsumption(e.target.value)}
-              placeholder="7.5"
-              className={`${errors.carConsumption ? 'border-red-500' : ''}`}
-              min="0"
-              step="0.1"
-            />
-            {errors.carConsumption && (
-              <p className="text-red-500 text-xs flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" />
-                {errors.carConsumption}
-              </p>
-            )}
-          </div>
+          <CalculatorInput
+            id="carConsumption"
+            label={`${t('calculators.fuel.car_consumption')} (l/100km)`}
+            value={carConsumption}
+            onChange={setCarConsumption}
+            placeholder="7.5"
+            min="0"
+            step="0.1"
+            error={errors.carConsumption}
+          />
         </>
       )}
 
@@ -430,7 +343,7 @@ const FuelCalculator: React.FC = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </CalculatorForm>
   );
 
   // Results section

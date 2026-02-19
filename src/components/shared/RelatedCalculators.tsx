@@ -130,7 +130,7 @@ const RelatedCalculators: React.FC<RelatedCalculatorsProps> = ({
                                     </p>
 
                                     <div className="pt-4 mt-auto border-t border-border/30 flex items-center text-xs font-medium text-muted-foreground group-hover:text-primary transition-colors">
-                                        <span>Vypočítat</span>
+                                        <span>{t('common.calculate')}</span>
                                         <ExternalLink className="w-3 h-3 ml-1.5 opacity-50 group-hover:opacity-100 transition-opacity" />
                                     </div>
                                 </div>

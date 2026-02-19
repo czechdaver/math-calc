@@ -4,9 +4,7 @@ import { useTranslations } from 'next-intl';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 
 import { useUnitConverter, UnitType } from '@/hooks/useUnitConverter';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/label';
+import { CalculatorForm, CalculatorInput, CalculatorSelect } from './shared';
 import Tabs from '@/components/ui/Tabs';
 
 import { ArrowRightLeft } from 'lucide-react';
@@ -105,72 +103,60 @@ const UnitConverter: React.FC = () => {
         </div>
       ) : undefined}
     >
-      <div className="space-y-6">
-        <Tabs
-          activeTab={unitType}
-          onChange={(tabId) => handleUnitTypeChange(tabId as UnitType)}
-          variant="segmented"
-          fullWidth
-          className="w-full"
-        >
-          {(Object.keys(unitTypeLabels) as UnitType[]).map((type) => (
-            <Tabs.Item key={type} label={unitTypeLabels[type]} _id={type}>
-              <div className="sr-only">{type}</div>
-            </Tabs.Item>
-          ))}
-        </Tabs>
-
-        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-end">
-          <div className="flex-1 w-full">
-            <Label htmlFor="inputValue">{t('unit_converter_value_label')}</Label>
-            <Input
-              id="inputValue"
-              type="number"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder={t('unit_converter_enter_value')}
-              className="mt-1"
-            />
-          </div>
-
-          <div className="w-full sm:w-auto">
-            <Label>{t('unit_converter_from_label')}</Label>
-            <Select value={fromUnit} onValueChange={setFromUnit}>
-              <SelectTrigger className="w-full sm:w-[180px] mt-1">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {(currentUnits as readonly string[]).map((unit) => (
-                  <SelectItem key={`from-${unit}`} value={unit}>{unit}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <button
-            onClick={swapUnits}
-            className="p-2 rounded-md hover:bg-muted transition-colors"
-            aria-label={t('unit_converter_swap')}
-            title={t('unit_converter_swap')}
+      <CalculatorForm columns={1}>
+        <div className="mb-6">
+          <Tabs
+            activeTab={unitType}
+            onChange={(tabId) => handleUnitTypeChange(tabId as UnitType)}
+            variant="segmented"
+            fullWidth
+            className="w-full"
           >
-            <ArrowRightLeft className="h-5 w-5" />
-          </button>
-
-          <div className="w-full sm:w-auto">
-            <Label>{t('unit_converter_to_label')}</Label>
-            <Select value={toUnit} onValueChange={setToUnit}>
-              <SelectTrigger className="w-full sm:w-[180px] mt-1">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {(currentUnits as readonly string[]).map((unit) => (
-                  <SelectItem key={`to-${unit}`} value={unit}>{unit}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+            {(Object.keys(unitTypeLabels) as UnitType[]).map((type) => (
+              <Tabs.Item key={type} label={unitTypeLabels[type]} _id={type}>
+                <div className="sr-only">{type}</div>
+              </Tabs.Item>
+            ))}
+          </Tabs>
         </div>
-      </div>
+
+        <CalculatorInput
+          id="inputValue"
+          label={t('unit_converter_value_label')}
+          value={inputValue}
+          onChange={setInputValue}
+          placeholder={t('unit_converter_enter_value')}
+        />
+
+        <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] gap-4 items-start">
+          <CalculatorSelect
+            id="fromUnit"
+            label={t('unit_converter_from_label')}
+            value={fromUnit}
+            onChange={setFromUnit}
+            options={(currentUnits as readonly string[]).map((unit) => ({ value: unit, label: unit }))}
+          />
+
+          <div className="flex justify-center pt-8">
+            <button
+              onClick={swapUnits}
+              className="p-2 rounded-md hover:bg-muted transition-colors border border-input bg-background"
+              aria-label={t('unit_converter_swap')}
+              title={t('unit_converter_swap')}
+            >
+              <ArrowRightLeft className="h-4 w-4" />
+            </button>
+          </div>
+
+          <CalculatorSelect
+            id="toUnit"
+            label={t('unit_converter_to_label')}
+            value={toUnit}
+            onChange={setToUnit}
+            options={(currentUnits as readonly string[]).map((unit) => ({ value: unit, label: unit }))}
+          />
+        </div>
+      </CalculatorForm>
     </SimpleCalculatorLayout>
   );
 };

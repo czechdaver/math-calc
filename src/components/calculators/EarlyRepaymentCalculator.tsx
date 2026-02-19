@@ -4,12 +4,10 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorInput } from './shared';
+import { CalculatorForm, CalculatorInput, CalculatorSelect } from './shared';
 import { useFinanceFormatting } from '@/hooks/useFinanceFormatting';
 import { useEarlyRepaymentCalculator } from '@/hooks/useEarlyRepaymentCalculator';
 import { Card, CardContent } from '@/components/ui/Card';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { TrendingUp, Calculator as CalcIcon } from 'lucide-react';
 
 const EarlyRepaymentCalculator: React.FC = () => {
@@ -191,7 +189,7 @@ const EarlyRepaymentCalculator: React.FC = () => {
       schemaData={{ applicationCategory: 'FinanceApplication', operatingSystem: 'Any' }}
       resultSection={resultsSection}
     >
-      <div className="space-y-6">
+      <CalculatorForm columns={1}>
         <CalculatorInput
           id="loanAmount"
           label={t('calculators.early_repayment.loan_amount')}
@@ -252,22 +250,21 @@ const EarlyRepaymentCalculator: React.FC = () => {
           error={errors.repaymentAmount}
         />
 
-        <div className="space-y-2">
-          <Label htmlFor="repaymentType" className="text-sm font-medium">{t('calculators.early_repayment.repayment_type')}</Label>
-          <Select value={state.repaymentType} onValueChange={(v) => setField('repaymentType', v)}>
-            <SelectTrigger><SelectValue placeholder={t('calculators.early_repayment.select_type')} /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="reduce_term">{t('calculators.early_repayment.reduce_term')}</SelectItem>
-              <SelectItem value="reduce_payment">{t('calculators.early_repayment.reduce_payment')}</SelectItem>
-            </SelectContent>
-          </Select>
-          <p className="text-muted-foreground text-xs">
-            {state.repaymentType === 'reduce_term'
-              ? t('calculators.early_repayment.keep_payment_reduce_term')
-              : t('calculators.early_repayment.keep_term_reduce_payment')}
-          </p>
-        </div>
-      </div>
+        <CalculatorSelect
+          id="repaymentType"
+          label={t('calculators.early_repayment.repayment_type')}
+          value={state.repaymentType}
+          onChange={(v) => setField('repaymentType', v)}
+          options={[
+            { value: 'reduce_term', label: t('calculators.early_repayment.reduce_term') },
+            { value: 'reduce_payment', label: t('calculators.early_repayment.reduce_payment') }
+          ]}
+          helpText={state.repaymentType === 'reduce_term'
+            ? t('calculators.early_repayment.keep_payment_reduce_term')
+            : t('calculators.early_repayment.keep_term_reduce_payment')
+          }
+        />
+      </CalculatorForm>
     </SimpleCalculatorLayout>
   );
 };

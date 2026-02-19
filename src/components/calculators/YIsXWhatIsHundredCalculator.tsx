@@ -4,9 +4,8 @@ import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/label';
 import { Calculator, AlertCircle } from 'lucide-react';
+import { CalculatorForm, CalculatorInput } from './shared';
 
 interface CalculationResult {
   result: number;
@@ -110,55 +109,30 @@ const YJeXKolikJeStoCalculator: React.FC = () => {
         </Card>
       )}
     >
-      <div className="space-y-6">
-        <div className="mb-4">
-          <Label htmlFor="y" className="block text-sm font-medium text-gray-700 mb-2">
-            {t('hodnota_y_label_y_is_x_percent')}
-          </Label>
-          <Input
-            id="y"
-            type="number"
-            value={y}
-            onChange={(e) => setY(e.target.value)}
-            placeholder="25"
-            step="0.01"
-            className="w-full"
-          />
-          <p className="text-sm text-gray-500 mt-1">
-            {t('y_je_x_kolik_je_sto_help_y')}
-          </p>
-          {errors.y && (
-            <p className="text-red-500 text-xs flex items-center gap-1 mt-1">
-              <AlertCircle className="w-3 h-3" />{errors.y}
-            </p>
-          )}
-        </div>
-        <div className="mb-6">
-          <Label htmlFor="x" className="block text-sm font-medium text-gray-700 mb-2">
-            {t('hodnota_x_label_y_is_x_percent')}
-          </Label>
-          <div className="flex items-center space-x-2">
-            <Input
-              id="x"
-              type="number"
-              value={x}
-              onChange={(e) => setX(e.target.value)}
-              placeholder="15"
-              step="0.01"
-              className="flex-1"
-            />
-            <span className="text-gray-500">%</span>
-          </div>
-          <p className="text-sm text-gray-500 mt-1">
-            {t('y_je_x_kolik_je_sto_help_x')}
-          </p>
-          {errors.x && (
-            <p className="text-red-500 text-xs flex items-center gap-1 mt-1">
-              <AlertCircle className="w-3 h-3" />{errors.x}
-            </p>
-          )}
-        </div>
-      </div>
+      <CalculatorForm columns={1}>
+        <CalculatorInput
+          id="y"
+          label={t('hodnota_y_label_y_is_x_percent')}
+          value={y}
+          onChange={setY}
+          placeholder="25"
+          step="0.01"
+          helpText={t('y_je_x_kolik_je_sto_help_y')}
+          error={errors.y}
+        />
+
+        <CalculatorInput
+          id="x"
+          label={t('hodnota_x_label_y_is_x_percent')}
+          value={x}
+          onChange={setX}
+          placeholder="15"
+          step="0.01"
+          unit="%"
+          helpText={t('y_je_x_kolik_je_sto_help_x')}
+          error={errors.x}
+        />
+      </CalculatorForm>
     </SimpleCalculatorLayout>
   );
 };

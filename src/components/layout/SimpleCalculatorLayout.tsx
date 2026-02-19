@@ -13,7 +13,8 @@ import dynamic from 'next/dynamic';
 import { getCalculatorCategories, getQuickLinks } from '@/lib/calculatorDataUtils';
 import { CalculatorRating } from '@/components/calculators/shared';
 import { getCategoryBranding } from '@/config/category-branding';
-import AdPlaceholder from '@/components/shared/AdPlaceholder';
+
+import AdBanner from '@/components/ads/AdBanner';
 import SimpleBadge from '@/components/shared/SimpleBadge';
 import SimpleFAQ from '@/components/shared/SimpleFAQ';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
@@ -262,10 +263,11 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
 
                   {/* In-Content Ad */}
                   <div className="flex justify-center py-4">
-                    <AdPlaceholder
-                      size="300x250"
-                      position="In-Content"
-                      className="w-[300px] h-[250px] rounded-xl overflow-hidden shadow-sm border border-border/50 bg-background/50"
+                    <AdBanner
+                      placement="in-content"
+                      className="w-full max-w-[970px] min-h-[90px] md:min-h-[250px] rounded-xl overflow-hidden shadow-sm"
+                      adFormat="horizontal"
+                      fullWidthResponsive={true}
                     />
                   </div>
 
@@ -361,7 +363,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                 <GlassCard className="py-8 bg-gradient-to-br from-white/40 to-white/10 dark:from-slate-900/40 dark:to-slate-900/10">
                   <CardHeader>
                     <CardTitle className="text-2xl">{t('common.faq')}</CardTitle>
-                    <CardDescription>Frequently asked questions about this calculator</CardDescription>
+                    <CardDescription>{t('common.faq_description')}</CardDescription>
                   </CardHeader>
                   <CardContent className="pt-6">
                     <SimpleFAQ faq={faq} />
@@ -384,10 +386,9 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
               {/* Sidebar Ad */}
               <div className="hidden lg:block sticky top-24">
                 <div className="space-y-8">
-                  <AdPlaceholder
-                    size="300x250"
-                    position="Sidebar"
-                    className="w-full h-[250px] rounded-xl overflow-hidden shadow-sm border border-border/50 bg-background/50"
+                  <AdBanner
+                    placement="sidebar"
+                    className="w-[300px] min-h-[250px] rounded-xl overflow-hidden shadow-sm"
                   />
 
                   {/* Quick Links */}
@@ -431,7 +432,7 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                       {calculatorCategories.length > 0 && (
                         <div className="space-y-2 pt-3 border-t border-border/40">
                           <div className="text-[10px] font-bold text-muted-foreground/50 uppercase tracking-widest px-2 mb-1">
-                            Kategorie
+                            {t('common.categories')}
                           </div>
                           <div className="grid grid-cols-2 gap-2 px-1">
                             {calculatorCategories.slice(0, 6).map((category) => {
@@ -458,11 +459,10 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
                     </CardContent>
                   </GlassCard>
 
-                  {/* Another Sidebar Ad */}
-                  <AdPlaceholder
-                    size="160x600"
-                    position="Sidebar Bottom"
-                    className="w-full h-[600px] rounded-xl overflow-hidden shadow-sm border border-border/50 bg-background/50"
+                  {/* Another Sidebar Ad - Skyscraper */}
+                  <AdBanner
+                    placement="sidebar"
+                    className="w-[160px] min-h-[600px] rounded-xl overflow-hidden shadow-sm mx-auto"
                   />
                 </div>
               </div>
@@ -473,10 +473,9 @@ const SimpleCalculatorLayout: React.FC<SimpleCalculatorLayoutProps> = ({
         {/* Sticky Bottom Ad (Mobile) */}
         <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-background/80 backdrop-blur-md border-t border-border z-40">
           <div className="flex justify-center p-2">
-            <AdPlaceholder
-              size="320x50"
-              position="Sticky Bottom"
-              className="w-[320px] h-[50px] shadow-sm"
+            <AdBanner
+              placement="sticky-bottom"
+              className="w-full max-w-[320px] h-[50px] shadow-sm"
             />
           </div>
         </div>

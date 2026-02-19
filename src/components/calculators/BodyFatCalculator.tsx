@@ -6,10 +6,8 @@ import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Activity, User, Target } from 'lucide-react';
+import { CalculatorForm, CalculatorInput, CalculatorSelect } from './shared';
 
 interface BodyFatResult {
   bodyFatPercentage: number;
@@ -162,176 +160,144 @@ const BodyFatCalculator: React.FC = () => {
   }, [weight, height, age, gender, method, neck, waist, hip]);
 
   const calculatorForm = (
-    <div className="space-y-6">
-      <div className="space-y-2">
-        <Label htmlFor="method" className="text-sm font-medium">{t('bodyfat_label_method')}</Label>
-        <Select value={method} onValueChange={setMethod}>
-          <SelectTrigger>
-            <SelectValue placeholder={t('bodyfat_placeholder_method')} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="navy">{t('bodyfat_method_navy')}</SelectItem>
-            <SelectItem value="bmi">{t('bodyfat_method_bmi')}</SelectItem>
-          </SelectContent>
-        </Select>
-        <p className="text-gray-500 text-xs">
-          {method === 'navy' ? t('bodyfat_hint_navy') : t('bodyfat_hint_bmi')}
-        </p>
-      </div>
+    <CalculatorForm columns={1}>
+      <CalculatorSelect
+        id="method"
+        label={t('bodyfat_label_method')}
+        value={method}
+        onChange={setMethod}
+        options={[
+          { value: 'navy', label: t('bodyfat_method_navy') },
+          { value: 'bmi', label: t('bodyfat_method_bmi') }
+        ]}
+        helpText={method === 'navy' ? t('bodyfat_hint_navy') : t('bodyfat_hint_bmi')}
+      />
 
       <div className="space-y-4">
         <div className="text-sm font-medium text-gray-700">{t('bodyfat_section_basic')}</div>
 
-        <div className="space-y-2">
-          <Label htmlFor="weight" className="text-sm font-medium">{t('bodyfat_label_weight')}</Label>
-          <div className="relative">
-            <Input
-              id="weight" type="number" value={weight} onChange={(e) => setWeight(e.target.value)}
-              placeholder="70" className={`pr-12 ${errors.weight ? 'border-red-500' : ''}`}
-              min="30" max="300" step="0.1"
-            />
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">kg</span>
-          </div>
-          {errors.weight && (
-            <p className="text-red-500 text-xs flex items-center gap-1">
-              <AlertCircle className="w-3 h-3" />{errors.weight}
-            </p>
-          )}
-        </div>
+        <CalculatorInput
+          id="weight"
+          label={t('bodyfat_label_weight')}
+          value={weight}
+          onChange={(val) => setWeight(val)}
+          placeholder="70"
+          min="30"
+          max="300"
+          step="0.1"
+          unit="kg"
+          error={errors.weight}
+        />
 
-        <div className="space-y-2">
-          <Label htmlFor="height" className="text-sm font-medium">{t('bodyfat_label_height')}</Label>
-          <div className="relative">
-            <Input
-              id="height" type="number" value={height} onChange={(e) => setHeight(e.target.value)}
-              placeholder="170" className={`pr-12 ${errors.height ? 'border-red-500' : ''}`}
-              min="100" max="250" step="1"
-            />
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">cm</span>
-          </div>
-          {errors.height && (
-            <p className="text-red-500 text-xs flex items-center gap-1">
-              <AlertCircle className="w-3 h-3" />{errors.height}
-            </p>
-          )}
-        </div>
+        <CalculatorInput
+          id="height"
+          label={t('bodyfat_label_height')}
+          value={height}
+          onChange={(val) => setHeight(val)}
+          placeholder="170"
+          min="100"
+          max="250"
+          step="1"
+          unit="cm"
+          error={errors.height}
+        />
 
-        <div className="space-y-2">
-          <Label htmlFor="age" className="text-sm font-medium">{t('bodyfat_label_age')}</Label>
-          <div className="relative">
-            <Input
-              id="age" type="number" value={age} onChange={(e) => setAge(e.target.value)}
-              placeholder="30" className={`pr-12 ${errors.age ? 'border-red-500' : ''}`}
-              min="15" max="120" step="1"
-            />
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">let</span>
-          </div>
-          {errors.age && (
-            <p className="text-red-500 text-xs flex items-center gap-1">
-              <AlertCircle className="w-3 h-3" />{errors.age}
-            </p>
-          )}
-        </div>
+        <CalculatorInput
+          id="age"
+          label={t('bodyfat_label_age')}
+          value={age}
+          onChange={(val) => setAge(val)}
+          placeholder="30"
+          min="15"
+          max="120"
+          step="1"
+          unit="let"
+          error={errors.age}
+        />
 
-        <div className="space-y-2">
-          <Label htmlFor="gender" className="text-sm font-medium">{t('bodyfat_label_gender')}</Label>
-          <Select value={gender} onValueChange={setGender}>
-            <SelectTrigger>
-              <SelectValue placeholder={t('bodyfat_placeholder_gender')} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="male">{t('bodyfat_gender_male')}</SelectItem>
-              <SelectItem value="female">{t('bodyfat_gender_female')}</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+        <CalculatorSelect
+          id="gender"
+          label={t('bodyfat_label_gender')}
+          value={gender}
+          onChange={setGender}
+          options={[
+            { value: 'male', label: t('bodyfat_gender_male') },
+            { value: 'female', label: t('bodyfat_gender_female') }
+          ]}
+        />
       </div>
 
       {method === 'navy' && (
         <div className="space-y-4">
           <div className="text-sm font-medium text-gray-700">{t('bodyfat_section_measures')}</div>
 
-          <div className="space-y-2">
-            <Label htmlFor="neck" className="text-sm font-medium">{t('bodyfat_label_neck')}</Label>
-            <div className="relative">
-              <Input
-                id="neck" type="number" value={neck} onChange={(e) => setNeck(e.target.value)}
-                placeholder="37" className={`pr-12 ${errors.neck ? 'border-red-500' : ''}`}
-                min="20" max="60" step="0.5"
-              />
-              <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">cm</span>
-            </div>
-            {errors.neck && (
-              <p className="text-red-500 text-xs flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" />{errors.neck}
-              </p>
-            )}
-            <p className="text-gray-500 text-xs">{t('bodyfat_hint_neck')}</p>
-          </div>
+          <CalculatorInput
+            id="neck"
+            label={t('bodyfat_label_neck')}
+            value={neck}
+            onChange={(val) => setNeck(val)}
+            placeholder="37"
+            min="20"
+            max="60"
+            step="0.5"
+            unit="cm"
+            error={errors.neck}
+            helpText={t('bodyfat_hint_neck')}
+          />
 
-          <div className="space-y-2">
-            <Label htmlFor="waist" className="text-sm font-medium">{t('bodyfat_label_waist')}</Label>
-            <div className="relative">
-              <Input
-                id="waist" type="number" value={waist} onChange={(e) => setWaist(e.target.value)}
-                placeholder="85" className={`pr-12 ${errors.waist ? 'border-red-500' : ''}`}
-                min="50" max="200" step="0.5"
-              />
-              <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">cm</span>
-            </div>
-            {errors.waist && (
-              <p className="text-red-500 text-xs flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" />{errors.waist}
-              </p>
-            )}
-            <p className="text-gray-500 text-xs">
-              {gender === 'male' ? t('bodyfat_hint_waist_male') : t('bodyfat_hint_waist_female')}
-            </p>
-          </div>
+          <CalculatorInput
+            id="waist"
+            label={t('bodyfat_label_waist')}
+            value={waist}
+            onChange={(val) => setWaist(val)}
+            placeholder="85"
+            min="50"
+            max="200"
+            step="0.5"
+            unit="cm"
+            error={errors.waist}
+            helpText={gender === 'male' ? t('bodyfat_hint_waist_male') : t('bodyfat_hint_waist_female')}
+          />
 
           {gender === 'female' && (
-            <div className="space-y-2">
-              <Label htmlFor="hip" className="text-sm font-medium">{t('bodyfat_label_hip')}</Label>
-              <div className="relative">
-                <Input
-                  id="hip" type="number" value={hip} onChange={(e) => setHip(e.target.value)}
-                  placeholder="95" className={`pr-12 ${errors.hip ? 'border-red-500' : ''}`}
-                  min="60" max="200" step="0.5"
-                />
-                <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">cm</span>
-              </div>
-              {errors.hip && (
-                <p className="text-red-500 text-xs flex items-center gap-1">
-                  <AlertCircle className="w-3 h-3" />{errors.hip}
-                </p>
-              )}
-              <p className="text-gray-500 text-xs">{t('bodyfat_hint_hip')}</p>
-            </div>
+            <CalculatorInput
+              id="hip"
+              label={t('bodyfat_label_hip')}
+              value={hip}
+              onChange={(val) => setHip(val)}
+              placeholder="95"
+              min="60"
+              max="200"
+              step="0.5"
+              unit="cm"
+              error={errors.hip}
+              helpText={t('bodyfat_hint_hip')}
+            />
           )}
         </div>
       )}
 
-      <Card className="bg-blue-50 border-blue-200">
+      <Card className="bg-primary/5 border-primary/20">
         <CardContent className="p-4">
           <div className="text-center">
-            <div className="text-sm font-medium text-blue-800 mb-2">{t('bodyfat_summary_title')}</div>
+            <div className="text-sm font-medium text-primary mb-2">{t('bodyfat_summary_title')}</div>
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div>
-                <div className="font-semibold text-blue-900">{t('bodyfat_summary_profile')}</div>
-                <div className="text-blue-700">{gender === 'male' ? t('bodyfat_gender_male') : t('bodyfat_gender_female')}, {age} let</div>
+                <div className="font-semibold text-foreground">{t('bodyfat_summary_profile')}</div>
+                <div className="text-muted-foreground">{gender === 'male' ? t('bodyfat_gender_male') : t('bodyfat_gender_female')}, {age} let</div>
               </div>
               <div>
-                <div className="font-semibold text-blue-900">{t('bodyfat_summary_body')}</div>
-                <div className="text-blue-700">{weight} kg, {height} cm</div>
+                <div className="font-semibold text-foreground">{t('bodyfat_summary_body')}</div>
+                <div className="text-muted-foreground">{weight} kg, {height} cm</div>
               </div>
             </div>
-            <div className="mt-2 text-xs text-blue-600">
+            <div className="mt-2 text-xs text-primary">
               {t('bodyfat_label_method')}: {method === 'navy' ? t('bodyfat_method_navy') : t('bodyfat_method_bmi')}
             </div>
           </div>
         </CardContent>
       </Card>
-    </div>
+    </CalculatorForm>
   );
 
   const resultsSection = result ? (

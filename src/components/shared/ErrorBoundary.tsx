@@ -1,6 +1,7 @@
 'use client';
 
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { useTranslations } from 'next-intl';
 
 /**
  * Props for ErrorBoundary component
@@ -31,6 +32,7 @@ interface ErrorBoundaryState {
  * Default error fallback component
  */
 const DefaultErrorFallback: React.FC<ErrorFallbackProps> = ({ error, reset }) => {
+  const t = useTranslations('common.error');
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-md mx-auto text-center bg-card rounded-lg border border-border p-6 shadow-sm">
@@ -51,15 +53,15 @@ const DefaultErrorFallback: React.FC<ErrorFallbackProps> = ({ error, reset }) =>
           </svg>
         </div>
         <h1 className="text-2xl font-bold text-foreground mb-2">
-          Chyba při načítání kalkulátoru
+          {t('loading_title')}
         </h1>
         <p className="text-muted-foreground mb-6">
-          Omlouváme se, došlo k chybě při načítání kalkulátoru. Zkuste prosím obnovit stránku.
+          {t('loading_message')}
         </p>
         {error && (
           <details className="mb-4 text-left">
             <summary className="cursor-pointer text-sm text-muted-foreground hover:text-foreground">
-              Technické detaily
+              {t('technical_details')}
             </summary>
             <pre className="mt-2 text-xs bg-muted p-3 rounded overflow-auto max-h-32">
               {error.toString()}
@@ -70,7 +72,7 @@ const DefaultErrorFallback: React.FC<ErrorFallbackProps> = ({ error, reset }) =>
           onClick={reset}
           className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
         >
-          Zkusit znovu
+          {t('try_again')}
         </button>
       </div>
     </div>

@@ -297,7 +297,7 @@ function validateInterpolationVariables() {
 
   const keyVars = {};
   Object.keys(refFlats).forEach(k => {
-    const matches = refFlats[k].match(/{[^}]+}/g);
+    const matches = refFlats[k].match(/(?<!'){[^}]+}/g);
     if (matches) keyVars[k] = matches.sort();
   });
 
@@ -318,7 +318,7 @@ function validateInterpolationVariables() {
     let issues = 0;
     Object.keys(keyVars).forEach(k => {
       if (!locFlats[k]) return;
-      const m = (locFlats[k].match(/{[^}]+}/g) || []).sort();
+      const m = (locFlats[k].match(/(?<!'){[^}]+}/g) || []).sort();
       if (JSON.stringify(m) !== JSON.stringify(keyVars[k])) {
         console.log(chalk.yellow(`  ⚠ ${locale}.json - ${k}`));
         console.log(chalk.gray(`      Ref: ${keyVars[k].join(', ')}`));

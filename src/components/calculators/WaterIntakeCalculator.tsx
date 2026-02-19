@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorInput, CalculatorSelect } from './shared';
+import { CalculatorForm, CalculatorInput, CalculatorSelect } from './shared';
 
 interface WaterResult {
   liters: number;
@@ -118,14 +118,14 @@ const WaterIntakeCalculator: React.FC = () => {
         </div>
       ) : undefined}
     >
-      <div className="space-y-6">
+      <CalculatorForm columns={1}>
         <CalculatorInput id="water-weight" label={t('water_weight')} value={weight} onChange={setWeight}
           placeholder="70" min="20" max="500" unit="kg" error={errors.weight} />
         <CalculatorSelect id="water-activity" label={t('water_activity')} value={activity} onChange={setActivity}
           options={activityOptions} helpText={t('water_activity_help')} />
         <CalculatorSelect id="water-climate" label={t('water_climate')} value={climate} onChange={setClimate}
           options={climateOptions} />
-      </div>
+      </CalculatorForm>
     </SimpleCalculatorLayout>
   );
 };

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 // import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorInput, CalculatorResult } from './shared';
+import { CalculatorInput, CalculatorResult, CalculatorForm } from './shared';
 // import { Info } from 'lucide-react';
 
 interface BMIResult {
@@ -85,7 +85,7 @@ const BMICalculator: React.FC = () => {
 
   // Calculator form using shared components
   const calculatorForm = (
-    <div className="space-y-6">
+    <CalculatorForm columns={2}>
       <CalculatorInput
         id="height"
         label={t('height_label') || 'Výška'}
@@ -111,7 +111,7 @@ const BMICalculator: React.FC = () => {
         helpText={t('weight_help_text') || 'Zadejte svou váhu v kilogramech (2-500 kg)'}
         error={errors.weight}
       />
-    </div>
+    </CalculatorForm>
   );
 
   // Examples for SimpleCalculatorLayout
@@ -206,7 +206,7 @@ const BMICalculator: React.FC = () => {
               </div>
 
               <div className="text-sm text-muted-foreground bg-muted p-3 rounded">
-                <p>BMI je pouze orientační ukazatel. Pro přesné posouzení zdravotního stavu se obraťte na lékaře.</p>
+                <p>{t('bmi_disclaimer') || 'BMI je pouze orientační ukazatel. Pro přesné posouzení zdravotního stavu se obraťte na lékaře.'}</p>
               </div>
             </div>
           }

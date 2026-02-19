@@ -18,8 +18,8 @@ interface AdBannerProps {
 const AdBanner: React.FC<AdBannerProps> = ({
   placement,
   className,
-  adClient = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID || 'ca-pub-YOUR_ADS_CLIENT_ID',
-  adSlot = 'YOUR_AD_SLOT_ID',
+  adClient = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID,
+  adSlot,
   adFormat = 'auto',
   adLayout,
   adLayoutKey,
@@ -29,6 +29,20 @@ const AdBanner: React.FC<AdBannerProps> = ({
 }) => {
   const [adBlockDetected, setAdBlockDetected] = useState(false);
   const [adLoaded, setAdLoaded] = useState(false);
+
+  // Determine ad slot based on placement if not explicitly provided
+  const getAdSlot = () => {
+    if (adSlot) return adSlot;
+    switch (placement) {
+      case 'header': return process.env.NEXT_PUBLIC_AD_SLOT_HEADER;
+      case 'sidebar': return process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR;
+      case 'in-content': return process.env.NEXT_PUBLIC_AD_SLOT_IN_CONTENT;
+      case 'sticky-bottom': return process.env.NEXT_PUBLIC_AD_SLOT_STICKY;
+      default: return undefined;
+    }
+  };
+
+  const effectiveAdSlot = getAdSlot() || 'YOUR_AD_SLOT_ID';
 
   // Check for ad blockers
   useEffect(() => {
@@ -96,6 +110,7 @@ const AdBanner: React.FC<AdBannerProps> = ({
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (e) {
       console.error('Google Ads error:', e);
+      setAdBlockDetected(true); // Fallback to hide on error
     }
   };
 
@@ -110,7 +125,7 @@ const AdBanner: React.FC<AdBannerProps> = ({
       case 'in-content':
         return {
           container: 'w-full my-8 flex items-center justify-center',
-          ad: 'w-full max-w-4xl mx-auto min-h-[90px] md:min-h-[250px]',
+          ad: 'w-full max-w-4xl mx-auto min-h-[90px] md:min-h-[250px]', // Default rectangular/responsive
         };
       case 'sidebar':
         return {
@@ -133,8 +148,8 @@ const AdBanner: React.FC<AdBannerProps> = ({
   const { container: containerClass, ad: adClass } = getAdStyles();
   const containerStyle = placement === 'sticky-bottom' ? { display: 'none' } : {};
 
-  // Don't render if ad blocker is detected
-  if (adBlockDetected) {
+  // Don't render if client ID is missing/default or ad blocker/error detected
+  if (!adClient || adClient === 'ca-pub-YOUR_ADS_CLIENT_ID' || adBlockDetected) {
     return null;
   }
 
@@ -149,7 +164,7 @@ const AdBanner: React.FC<AdBannerProps> = ({
         className={`adsbygoogle ${adClass}`}
         style={{ display: 'block' }}
         data-ad-client={adClient}
-        data-ad-slot={adSlot}
+        data-ad-slot={effectiveAdSlot}
         data-ad-format={adFormat}
         data-ad-layout={adLayout}
         data-ad-layout-key={adLayoutKey}

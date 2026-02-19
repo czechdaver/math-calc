@@ -1,4 +1,7 @@
+'use client';
+
 import * as React from 'react';
+import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 
 type SpinnerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -81,6 +84,7 @@ const LoadingSpinner = React.forwardRef<HTMLDivElement, LoadingSpinnerProps>(
     },
     ref
   ) => {
+    const t = useTranslations('common');
     const spinner = (
       <div
         className={cn(
@@ -90,9 +94,9 @@ const LoadingSpinner = React.forwardRef<HTMLDivElement, LoadingSpinnerProps>(
           className
         )}
         role="status"
-        aria-label={label ? undefined : 'Loading...'}
+        aria-label={label ? undefined : t('loading')}
       >
-        {!label && <span className="sr-only">Loading...</span>}
+        {!label && <span className="sr-only">{t('loading')}</span>}
       </div>
     );
 

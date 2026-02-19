@@ -59,7 +59,11 @@ const Toast = {
 
     const Icon = variantIcons[variant];
 
-    return sonnerToast[options.variant || 'info'](
+    const method = (options.variant === 'default' || !options.variant)
+      ? sonnerToast
+      : sonnerToast[options.variant];
+
+    return method(
       <div className="flex items-start gap-3">
         <Icon className={cn("h-5 w-5 mt-0.5 flex-shrink-0", {
           'text-green-500': variant === 'success',

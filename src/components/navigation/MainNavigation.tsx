@@ -142,7 +142,7 @@ const MainNavigation: React.FC = () => {
               ) : (
                 <Menu className="w-5 h-5" />
               )}
-              <span className="sr-only">Toggle menu</span>
+              <span className="sr-only">{translate('toggle_menu')}</span>
             </Button>
           </div>
         </div>

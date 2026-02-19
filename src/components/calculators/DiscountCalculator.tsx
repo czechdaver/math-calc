@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Tag, Percent, DollarSign, TrendingDown } from 'lucide-react';
 
+import { CalculatorForm } from './shared';
 interface DiscountResult {
   originalPrice: number;
   discountPercentage: number;
@@ -179,7 +180,7 @@ const DiscountCalculator: React.FC = () => {
 
   // Calculator input form
   const calculatorForm = (
-    <div className="space-y-6">
+    <CalculatorForm columns={2}>
       {/* Calculation Type */}
       <div className="space-y-2">
         <Label htmlFor="calculationType" className="text-sm font-medium">
@@ -195,7 +196,7 @@ const DiscountCalculator: React.FC = () => {
             <SelectItem value="finalPrice">{t('discount_option_final_price')}</SelectItem>
           </SelectContent>
         </Select>
-        <p className="text-gray-500 text-xs">
+        <p className="text-muted-foreground text-xs">
           {getCalculationTypeDescription(calculationType)}
         </p>
       </div>
@@ -212,22 +213,22 @@ const DiscountCalculator: React.FC = () => {
             value={originalPrice}
             onChange={(e) => setOriginalPrice(e.target.value)}
             placeholder="1000"
-            className={`pr-12 ${errors.originalPrice ? 'border-red-500' : ''}`}
+            className={`pr-12 ${errors.originalPrice ? 'border-destructive' : ''}`}
             min="1"
             max="1000000"
             step="1"
           />
-          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
+          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground text-sm">
             {t('common.currency')}
           </span>
         </div>
         {errors.originalPrice && (
-          <p className="text-red-500 text-xs flex items-center gap-1">
+          <p className="text-destructive text-xs flex items-center gap-1">
             <AlertCircle className="w-3 h-3" />
             {errors.originalPrice}
           </p>
         )}
-        <p className="text-gray-500 text-xs">
+        <p className="text-muted-foreground text-xs">
           {t('discount_hint_original_price')}
         </p>
       </div>
@@ -245,22 +246,22 @@ const DiscountCalculator: React.FC = () => {
               value={discountPercentage}
               onChange={(e) => setDiscountPercentage(e.target.value)}
               placeholder="20"
-              className={`pr-12 ${errors.discountPercentage ? 'border-red-500' : ''}`}
+              className={`pr-12 ${errors.discountPercentage ? 'border-destructive' : ''}`}
               min="0"
               max="100"
               step="0.1"
             />
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
+            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground text-sm">
               %
             </span>
           </div>
           {errors.discountPercentage && (
-            <p className="text-red-500 text-xs flex items-center gap-1">
+            <p className="text-destructive text-xs flex items-center gap-1">
               <AlertCircle className="w-3 h-3" />
               {errors.discountPercentage}
             </p>
           )}
-          <p className="text-gray-500 text-xs">
+          <p className="text-muted-foreground text-xs">
             {t('discount_hint_discount_percentage')}
           </p>
         </div>
@@ -279,22 +280,22 @@ const DiscountCalculator: React.FC = () => {
               value={discountAmount}
               onChange={(e) => setDiscountAmount(e.target.value)}
               placeholder="200"
-              className={`pr-12 ${errors.discountAmount ? 'border-red-500' : ''}`}
+              className={`pr-12 ${errors.discountAmount ? 'border-destructive' : ''}`}
               min="0"
               max={originalPrice}
               step="1"
             />
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
+            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground text-sm">
               {t('common.currency')}
             </span>
           </div>
           {errors.discountAmount && (
-            <p className="text-red-500 text-xs flex items-center gap-1">
+            <p className="text-destructive text-xs flex items-center gap-1">
               <AlertCircle className="w-3 h-3" />
               {errors.discountAmount}
             </p>
           )}
-          <p className="text-gray-500 text-xs">
+          <p className="text-muted-foreground text-xs">
             {t('discount_hint_discount_amount')}
           </p>
         </div>
@@ -313,42 +314,42 @@ const DiscountCalculator: React.FC = () => {
               value={finalPrice}
               onChange={(e) => setFinalPrice(e.target.value)}
               placeholder="800"
-              className={`pr-12 ${errors.finalPrice ? 'border-red-500' : ''}`}
+              className={`pr-12 ${errors.finalPrice ? 'border-destructive' : ''}`}
               min="0"
               max={originalPrice}
               step="1"
             />
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
+            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground text-sm">
               {t('common.currency')}
             </span>
           </div>
           {errors.finalPrice && (
-            <p className="text-red-500 text-xs flex items-center gap-1">
+            <p className="text-destructive text-xs flex items-center gap-1">
               <AlertCircle className="w-3 h-3" />
               {errors.finalPrice}
             </p>
           )}
-          <p className="text-gray-500 text-xs">
+          <p className="text-muted-foreground text-xs">
             {t('discount_hint_final_price')}
           </p>
         </div>
       )}
 
       {/* Summary Card */}
-      <Card className="bg-blue-50 border-blue-200">
+      <Card className="bg-blue-50/50 border-blue-200/50 dark:bg-blue-900/10 dark:border-blue-800/30 md:col-span-2">
         <CardContent className="p-4">
           <div className="text-center">
-            <div className="text-sm font-medium text-blue-800 mb-2">
+            <div className="text-sm font-medium text-blue-800 dark:text-blue-300 mb-2">
               {t('discount_summary_title')}
             </div>
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div>
-                <div className="font-semibold text-blue-900">{t('discount_label_original_price')}</div>
-                <div className="text-blue-700">{formatCurrency(parseFloat(originalPrice || '0'))} {t('common.currency')}</div>
+                <div className="font-semibold text-blue-900 dark:text-blue-200">{t('discount_label_original_price')}</div>
+                <div className="text-blue-700 dark:text-blue-400">{formatCurrency(parseFloat(originalPrice || '0'))} {t('common.currency')}</div>
               </div>
               <div>
-                <div className="font-semibold text-blue-900">{t('discount_label_calc_type')}</div>
-                <div className="text-blue-700">
+                <div className="font-semibold text-blue-900 dark:text-blue-200">{t('discount_label_calc_type')}</div>
+                <div className="text-blue-700 dark:text-blue-400">
                   {calculationType === 'percentage' ? t('discount_summary_percentage') :
                     calculationType === 'amount' ? t('discount_summary_amount') : t('discount_summary_final_price')}
                 </div>
@@ -357,7 +358,7 @@ const DiscountCalculator: React.FC = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </CalculatorForm>
   );
 
   // Results section

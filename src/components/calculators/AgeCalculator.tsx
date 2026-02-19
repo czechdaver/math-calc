@@ -9,6 +9,7 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { AlertCircle, Calculator as CalcIcon, Calendar, Clock, User, Gift } from 'lucide-react';
+import { CalculatorForm, CalculatorInputGroup } from './shared';
 
 interface AgeResult {
   years: number;
@@ -175,100 +176,108 @@ const AgeCalculator: React.FC = () => {
 
   // Calculator input form
   const calculatorForm = (
-    <div className="space-y-6">
-      {/* Birth Date */}
-      <div className="space-y-2">
-        <Label htmlFor="birthDate" className="text-sm font-medium">
-          {t('calculators.age.birth_date')}
-        </Label>
-        <Input
-          id="birthDate"
-          type="date"
-          value={birthDate}
-          onChange={(e) => setBirthDate(e.target.value)}
-          className={`${errors.birthDate ? 'border-red-500' : ''}`}
-          max={new Date().toISOString().split('T')[0]}
-        />
-        {errors.birthDate && (
-          <p className="text-red-500 text-xs flex items-center gap-1">
-            <AlertCircle className="w-3 h-3" />
-            {errors.birthDate}
+    <CalculatorForm columns={2}>
+      {/* Birth Date Section */}
+      <CalculatorInputGroup label={t('calculators.age.birth_date')}>
+        <div className="space-y-2">
+          {/* <Label htmlFor="birthDate" className="text-sm font-medium">
+            {t('calculators.age.birth_date')}
+          </Label> */}
+          <Input
+            id="birthDate"
+            type="date"
+            value={birthDate}
+            onChange={(e) => setBirthDate(e.target.value)}
+            className={`${errors.birthDate ? 'border-destructive' : ''}`}
+            max={new Date().toISOString().split('T')[0]}
+          />
+          {errors.birthDate && (
+            <p className="text-destructive text-xs flex items-center gap-1">
+              <AlertCircle className="w-3 h-3" />
+              {errors.birthDate}
+            </p>
+          )}
+          <p className="text-muted-foreground text-xs">
+            {t('calculators.age.birth_date_hint')}
           </p>
-        )}
-        <p className="text-gray-500 text-xs">
-          {t('calculators.age.birth_date_hint')}
-        </p>
-      </div>
-
-      {/* Target Date */}
-      <div className="space-y-2">
-        <Label htmlFor="targetDate" className="text-sm font-medium">
-          {t('calculators.age.target_date')}
-        </Label>
-        <Input
-          id="targetDate"
-          type="date"
-          value={targetDate}
-          onChange={(e) => setTargetDate(e.target.value)}
-          className={`${errors.targetDate ? 'border-red-500' : ''}`}
-        />
-        {errors.targetDate && (
-          <p className="text-red-500 text-xs flex items-center gap-1">
-            <AlertCircle className="w-3 h-3" />
-            {errors.targetDate}
-          </p>
-        )}
-        <p className="text-gray-500 text-xs">
-          {t('calculators.age.target_date_hint')}
-        </p>
-      </div>
-
-      {/* Quick Date Buttons */}
-      <div className="space-y-2">
-        <Label className="text-sm font-medium">{t('calculators.age.quick_settings')}</Label>
-        <div className="grid grid-cols-2 gap-2">
-          <button
-            type="button"
-            onClick={() => setTargetDate(new Date().toISOString().split('T')[0])}
-            className="px-3 py-2 text-xs bg-blue-50 text-blue-700 rounded border border-blue-200 hover:bg-blue-100 transition-colors"
-          >
-            {t('calculators.age.today')}
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              const nextYear = new Date();
-              nextYear.setFullYear(nextYear.getFullYear() + 1);
-              setTargetDate(nextYear.toISOString().split('T')[0]);
-            }}
-            className="px-3 py-2 text-xs bg-green-50 text-green-700 rounded border border-green-200 hover:bg-green-100 transition-colors"
-          >
-            {t('calculators.age.next_year')}
-          </button>
         </div>
-      </div>
+      </CalculatorInputGroup>
 
-      {/* Summary Card */}
-      <Card className="bg-blue-50 border-blue-200">
-        <CardContent className="p-4">
-          <div className="text-center">
-            <div className="text-sm font-medium text-blue-800 mb-2">
-              {t('age_summary_title')}
-            </div>
-            <div className="grid grid-cols-2 gap-4 text-xs">
-              <div>
-                <div className="font-semibold text-blue-900">{t('age_summary_birth')}</div>
-                <div className="text-blue-700">{new Date(birthDate).toLocaleDateString(locale)}</div>
-              </div>
-              <div>
-                <div className="font-semibold text-blue-900">{t('age_summary_target')}</div>
-                <div className="text-blue-700">{new Date(targetDate).toLocaleDateString(locale)}</div>
-              </div>
+      {/* Target Date Section */}
+      <CalculatorInputGroup label={t('calculators.age.target_date')}>
+        <div className="space-y-4">
+          <div className="space-y-2">
+            {/* <Label htmlFor="targetDate" className="text-sm font-medium">
+              {t('calculators.age.target_date')}
+            </Label> */}
+            <Input
+              id="targetDate"
+              type="date"
+              value={targetDate}
+              onChange={(e) => setTargetDate(e.target.value)}
+              className={`${errors.targetDate ? 'border-destructive' : ''}`}
+            />
+            {errors.targetDate && (
+              <p className="text-destructive text-xs flex items-center gap-1">
+                <AlertCircle className="w-3 h-3" />
+                {errors.targetDate}
+              </p>
+            )}
+            <p className="text-muted-foreground text-xs">
+              {t('calculators.age.target_date_hint')}
+            </p>
+          </div>
+
+          {/* Quick Date Buttons */}
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-muted-foreground">{t('calculators.age.quick_settings')}</Label>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => setTargetDate(new Date().toISOString().split('T')[0])}
+                className="px-3 py-2 text-xs bg-muted hover:bg-muted/80 text-foreground rounded border border-border/50 transition-colors"
+              >
+                {t('calculators.age.today')}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  const nextYear = new Date();
+                  nextYear.setFullYear(nextYear.getFullYear() + 1);
+                  setTargetDate(nextYear.toISOString().split('T')[0]);
+                }}
+                className="px-3 py-2 text-xs bg-muted hover:bg-muted/80 text-foreground rounded border border-border/50 transition-colors"
+              >
+                {t('calculators.age.next_year')}
+              </button>
             </div>
           </div>
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+      </CalculatorInputGroup>
+
+      {/* Summary Card */}
+      <div className="md:col-span-2">
+        <Card className="bg-primary/5 border-primary/20">
+          <CardContent className="p-4">
+            <div className="text-center">
+              <div className="text-sm font-medium text-primary mb-2">
+                {t('age_summary_title')}
+              </div>
+              <div className="grid grid-cols-2 gap-4 text-xs">
+                <div>
+                  <div className="font-semibold text-foreground">{t('age_summary_birth')}</div>
+                  <div className="text-muted-foreground">{new Date(birthDate).toLocaleDateString(locale)}</div>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">{t('age_summary_target')}</div>
+                  <div className="text-muted-foreground">{new Date(targetDate).toLocaleDateString(locale)}</div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </CalculatorForm>
   );
 
   // Results section

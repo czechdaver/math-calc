@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorInput, CalculatorSelect } from './shared';
+import { CalculatorInput, CalculatorSelect, CalculatorForm } from './shared';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Box, Circle, Cylinder, Pyramid } from 'lucide-react';
 import { useVolumeCalculator } from '@/hooks/useVolumeCalculator';
@@ -130,7 +130,7 @@ const VolumeCalculator: React.FC = () => {
       ]}
       schemaData={{ applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any' }}
     >
-      <div className="space-y-6">
+      <CalculatorForm columns={1}>
         <CalculatorSelect
           id="shape" label={t('volume_calc_shape_label')} value={calc.shape}
           onChange={calc.setShape} options={shapeOptions}
@@ -160,7 +160,7 @@ const VolumeCalculator: React.FC = () => {
             <CalculatorInput id="coneHeight" label={t('volume_calc_height_label')} value={calc.coneHeight} onChange={calc.setConeHeight} placeholder="8" unit="m" error={calc.errors.coneHeight} />
           </div>
         )}
-      </div>
+      </CalculatorForm>
     </SimpleCalculatorLayout>
   );
 };

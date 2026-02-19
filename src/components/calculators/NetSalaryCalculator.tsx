@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
-import { CalculatorInput, CalculatorSelect } from './shared';
+import { CalculatorInput, CalculatorSelect, CalculatorForm } from './shared';
 import { useNetSalaryCalculator } from '@/hooks/useNetSalaryCalculator';
 import { Info } from 'lucide-react';
 
@@ -108,7 +108,7 @@ const NetSalaryCalculator: React.FC = () => {
         </div>
       )}
     >
-      <div className="space-y-6">
+      <CalculatorForm columns={1}>
         <CalculatorSelect
           id="country"
           label={t('net_salary_country_label')}
@@ -129,7 +129,7 @@ const NetSalaryCalculator: React.FC = () => {
           helpText={t('net_salary_gross_input_help')}
           error={errors.grossSalary}
         />
-      </div>
+      </CalculatorForm>
     </SimpleCalculatorLayout>
   );
 };

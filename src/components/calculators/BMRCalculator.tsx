@@ -6,10 +6,8 @@ import { useTranslations } from 'next-intl';
 // import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, Heart, User, Flame, Activity } from 'lucide-react';
+import { CalculatorForm, CalculatorInput, CalculatorSelect } from './shared';
 
 interface BMRResult {
   bmr: number;
@@ -179,207 +177,119 @@ const BMRCalculator: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [age, weight, height, gender, bodyFat, formula]);
 
-  // Calculator input form
   const calculatorForm = (
-    <div className="space-y-6">
+    <CalculatorForm columns={1}>
       {/* Formula Selection */}
-      <div className="space-y-2">
-        <Label htmlFor="formula" className="text-sm font-medium">
-          {t('calculators.bmr.label_formula')}
-        </Label>
-        <Select value={formula} onValueChange={setFormula}>
-          <SelectTrigger>
-            <SelectValue placeholder={t('calculators.bmr.placeholder_select_formula')} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="mifflin">{t('calculators.bmr.result_mifflin')} ({t('calculators.bmr.result_most_accurate')})</SelectItem>
-            <SelectItem value="harris">{t('calculators.bmr.result_harris')}</SelectItem>
-            <SelectItem value="katch">{t('calculators.bmr.result_katch')}</SelectItem>
-          </SelectContent>
-        </Select>
-        <p className="text-gray-500 text-xs">
-          {getFormulaDescription(formula)}
-        </p>
-      </div>
+      <CalculatorSelect
+        id="formula"
+        label={t('calculators.bmr.label_formula')}
+        value={formula}
+        onChange={setFormula}
+        options={[
+          { value: 'mifflin', label: `${t('calculators.bmr.result_mifflin')} (${t('calculators.bmr.result_most_accurate')})` },
+          { value: 'harris', label: t('calculators.bmr.result_harris') },
+          { value: 'katch', label: t('calculators.bmr.result_katch') }
+        ]}
+        helpText={getFormulaDescription(formula)}
+      />
 
       {/* Personal Information */}
       <div className="space-y-4">
         <div className="text-sm font-medium text-gray-700">{t('calculators.bmr.label_personal_data')}</div>
 
-        {/* Age */}
-        <div className="space-y-2">
-          <Label htmlFor="age" className="text-sm font-medium">
-            {t('calculators.bmr.label_age')}
-          </Label>
-          <div className="relative">
-            <Input
-              id="age"
-              type="number"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-              placeholder={t('calculators.bmr.placeholder_age')}
-              className={`pr-12 ${errors.age ? 'border-red-500' : ''}`}
-              min="15"
-              max="120"
-              step="1"
-            />
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-              {t('calculators.bmr.unit_years')}
-            </span>
-          </div>
-          {errors.age && (
-            <p className="text-red-500 text-xs flex items-center gap-1">
-              <AlertCircle className="w-3 h-3" />
-              {errors.age}
-            </p>
-          )}
-          <p className="text-gray-500 text-xs">
-            {t('calculators.bmr.help_age')}
-          </p>
-        </div>
+        <CalculatorInput
+          id="age"
+          label={t('calculators.bmr.label_age')}
+          value={age}
+          onChange={(val) => setAge(val)}
+          placeholder={t('calculators.bmr.placeholder_age')}
+          min="15"
+          max="120"
+          step="1"
+          unit={t('calculators.bmr.unit_years')}
+          error={errors.age}
+          helpText={t('calculators.bmr.help_age')}
+        />
 
-        {/* Weight */}
-        <div className="space-y-2">
-          <Label htmlFor="weight" className="text-sm font-medium">
-            {t('calculators.bmr.label_weight')}
-          </Label>
-          <div className="relative">
-            <Input
-              id="weight"
-              type="number"
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
-              placeholder={t('calculators.bmr.placeholder_weight')}
-              className={`pr-12 ${errors.weight ? 'border-red-500' : ''}`}
-              min="30"
-              max="300"
-              step="0.1"
-            />
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-              {t('calculators.bmr.unit_kg')}
-            </span>
-          </div>
-          {errors.weight && (
-            <p className="text-red-500 text-xs flex items-center gap-1">
-              <AlertCircle className="w-3 h-3" />
-              {errors.weight}
-            </p>
-          )}
-          <p className="text-gray-500 text-xs">
-            {t('calculators.bmr.help_weight')}
-          </p>
-        </div>
+        <CalculatorInput
+          id="weight"
+          label={t('calculators.bmr.label_weight')}
+          value={weight}
+          onChange={(val) => setWeight(val)}
+          placeholder={t('calculators.bmr.placeholder_weight')}
+          min="30"
+          max="300"
+          step="0.1"
+          unit={t('calculators.bmr.unit_kg')}
+          error={errors.weight}
+          helpText={t('calculators.bmr.help_weight')}
+        />
 
-        {/* Height */}
-        <div className="space-y-2">
-          <Label htmlFor="height" className="text-sm font-medium">
-            {t('calculators.bmr.label_height')}
-          </Label>
-          <div className="relative">
-            <Input
-              id="height"
-              type="number"
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
-              placeholder={t('calculators.bmr.placeholder_height')}
-              className={`pr-12 ${errors.height ? 'border-red-500' : ''}`}
-              min="100"
-              max="250"
-              step="1"
-            />
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-              {t('calculators.bmr.unit_cm')}
-            </span>
-          </div>
-          {errors.height && (
-            <p className="text-red-500 text-xs flex items-center gap-1">
-              <AlertCircle className="w-3 h-3" />
-              {errors.height}
-            </p>
-          )}
-          <p className="text-gray-500 text-xs">
-            {t('calculators.bmr.help_height')}
-          </p>
-        </div>
+        <CalculatorInput
+          id="height"
+          label={t('calculators.bmr.label_height')}
+          value={height}
+          onChange={(val) => setHeight(val)}
+          placeholder={t('calculators.bmr.placeholder_height')}
+          min="100"
+          max="250"
+          step="1"
+          unit={t('calculators.bmr.unit_cm')}
+          error={errors.height}
+          helpText={t('calculators.bmr.help_height')}
+        />
 
-        {/* Gender */}
-        <div className="space-y-2">
-          <Label htmlFor="gender" className="text-sm font-medium">
-            {t('calculators.bmr.label_gender')}
-          </Label>
-          <Select value={gender} onValueChange={setGender}>
-            <SelectTrigger>
-              <SelectValue placeholder={t('calculators.bmr.placeholder_select_formula')} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="male">{t('calculators.bmr.summary_male')}</SelectItem>
-              <SelectItem value="female">{t('calculators.bmr.summary_female')}</SelectItem>
-            </SelectContent>
-          </Select>
-          <p className="text-gray-500 text-xs">
-            {t('calculators.bmr.help_age')}
-          </p>
-        </div>
+        <CalculatorSelect
+          id="gender"
+          label={t('calculators.bmr.label_gender')}
+          value={gender}
+          onChange={setGender}
+          options={[
+            { value: 'male', label: t('calculators.bmr.summary_male') },
+            { value: 'female', label: t('calculators.bmr.summary_female') }
+          ]}
+          helpText={t('calculators.bmr.help_age')} // Note: Original code used help_age for gender too, might be copy paste error in original, keeping or fixing? Keeping for parity unless I fix it. Original line 320: {t('calculators.bmr.help_age')}
+        />
 
-        {/* Body Fat (optional, required for Katch-McArdle) */}
-        <div className="space-y-2">
-          <Label htmlFor="bodyFat" className="text-sm font-medium">
-            {t('calculators.bmr.label_bodyfat')} {formula === 'katch' && <span className="text-red-500">*</span>}
-          </Label>
-          <div className="relative">
-            <Input
-              id="bodyFat"
-              type="number"
-              value={bodyFat}
-              onChange={(e) => setBodyFat(e.target.value)}
-              placeholder={t('calculators.bmr.placeholder_bodyfat')}
-              className={`pr-12 ${errors.bodyFat ? 'border-red-500' : ''}`}
-              min="5"
-              max="50"
-              step="0.1"
-            />
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-              {t('calculators.bmr.unit_percent')}
-            </span>
-          </div>
-          {errors.bodyFat && (
-            <p className="text-red-500 text-xs flex items-center gap-1">
-              <AlertCircle className="w-3 h-3" />
-              {errors.bodyFat}
-            </p>
-          )}
-          <p className="text-gray-500 text-xs">
-            {formula === 'katch'
-              ? t('calculators.bmr.help_formula_katch')
-              : t('calculators.bmr.help_formula_mifflin')}
-          </p>
-        </div>
+        <CalculatorInput
+          id="bodyFat"
+          label={`${t('calculators.bmr.label_bodyfat')} ${formula === 'katch' ? '*' : ''}`}
+          value={bodyFat}
+          onChange={(val) => setBodyFat(val)}
+          placeholder={t('calculators.bmr.placeholder_bodyfat')}
+          min="5"
+          max="50"
+          step="0.1"
+          unit={t('calculators.bmr.unit_percent')}
+          error={errors.bodyFat}
+          helpText={formula === 'katch' ? t('calculators.bmr.help_formula_katch') : t('calculators.bmr.help_formula_mifflin')}
+        />
       </div>
 
       {/* Personal Summary */}
-      <Card className="bg-blue-50 border-blue-200">
+      <Card className="bg-primary/5 border-primary/20">
         <CardContent className="p-4">
           <div className="text-center">
-            <div className="text-sm font-medium text-blue-800 mb-2">
+            <div className="text-sm font-medium text-primary mb-2">
               {t('calculators.bmr.summary_title')}
             </div>
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div>
-                <div className="font-semibold text-blue-900">{t('calculators.bmr.summary_age_gender')}</div>
-                <div className="text-blue-700">{age} {t('calculators.bmr.unit_years')}, {gender === 'male' ? t('calculators.bmr.summary_male') : t('calculators.bmr.summary_female')}</div>
+                <div className="font-semibold text-foreground">{t('calculators.bmr.summary_age_gender')}</div>
+                <div className="text-muted-foreground">{age} {t('calculators.bmr.unit_years')}, {gender === 'male' ? t('calculators.bmr.summary_male') : t('calculators.bmr.summary_female')}</div>
               </div>
               <div>
-                <div className="font-semibold text-blue-900">{t('calculators.bmr.label_weight')}/{t('calculators.bmr.label_height')}</div>
-                <div className="text-blue-700">{weight} {t('calculators.bmr.unit_kg')}, {height} {t('calculators.bmr.unit_cm')}</div>
+                <div className="font-semibold text-foreground">{t('calculators.bmr.label_weight')}/{t('calculators.bmr.label_height')}</div>
+                <div className="text-muted-foreground">{weight} {t('calculators.bmr.unit_kg')}, {height} {t('calculators.bmr.unit_cm')}</div>
               </div>
             </div>
-            <div className="mt-2 text-xs text-blue-600">
+            <div className="mt-2 text-xs text-primary">
               {t('calculators.bmr.summary_formula_label')} {getFormulaDescription(formula)}
             </div>
           </div>
         </CardContent>
       </Card>
-    </div>
+    </CalculatorForm>
   );
 
   // Results section

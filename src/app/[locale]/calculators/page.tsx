@@ -1,17 +1,15 @@
 import React from 'react';
-import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { getAllCategoriesWithCalculators } from '@/lib/calculatorDataUtils';
-import GlassCard from '@/components/shared/GlassCard';
-import { CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/Card';
-import { Calculator, Star } from 'lucide-react';
-import { getCategoryBranding } from '@/config/category-branding';
+import CalculatorsFilterableList from '@/components/calculators/CalculatorsFilterableList';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
+import AdBanner from '@/components/ads/AdBanner';
 
 interface CalculatorsPageProps {
     params: Promise<{
         locale: string;
+        category: string;
     }>;
 }
 
@@ -32,9 +30,6 @@ export default async function CalculatorsPage({ params }: CalculatorsPageProps) 
 
     const categories = getAllCategoriesWithCalculators(locale, tCommon);
 
-    // Use centralized branding instead of local switch for icons
-
-
     return (
         <div className="min-h-screen bg-transparent pt-20 pb-12">
             {/* Ambient Background */}
@@ -52,66 +47,31 @@ export default async function CalculatorsPage({ params }: CalculatorsPageProps) 
                     <h1 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-3">
                         {t('common.all_calculators')}
                     </h1>
-                    <p className="text-xl text-muted-foreground max-w-2xl">
+                    <p className="text-xl text-muted-foreground max-w-2xl mb-8">
                         {t('common.all_calculators_description')}
                     </p>
                 </div>
 
-                {/* Categories List */}
-                <div className="space-y-16">
-                    {categories.map((category) => {
-                        const branding = getCategoryBranding(category.id);
-                        const CategoryIcon = branding.icon;
+                {/* Header Ad */}
+                <div className="flex justify-center mb-16">
+                    <AdBanner
+                        placement="header"
+                        className="w-full max-w-[970px] h-[90px] md:h-[120px] rounded-xl overflow-hidden shadow-sm"
+                    />
+                </div>
 
-                        return (
-                            <div key={category.id} id={category.id} className="scroll-mt-24">
-                                <Link
-                                    href={`/${locale}/calculator/${category.id}`}
-                                    className="inline-flex items-center gap-4 mb-6 group transition-colors hover:text-primary"
-                                >
-                                    <div className={`p-3 rounded-2xl ${branding.bgColor} ${branding.color} group-hover:scale-110 transition-transform`}>
-                                        <CategoryIcon className="w-8 h-8" />
-                                    </div>
-                                    <h2 className="text-3xl font-bold font-heading group-hover:text-primary transition-colors">
-                                        {category.title}
-                                    </h2>
-                                </Link>
+                {/* Filterable List */}
+                <CalculatorsFilterableList
+                    initialCategories={categories}
+                    locale={locale}
+                />
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    {category.calculators.map((calc) => (
-                                        <Link key={calc.id} href={`/${locale}${calc.path}`} className="group h-full">
-                                            <GlassCard hoverEffect className="h-full bg-white/60 dark:bg-slate-900/60 border-primary/10 py-6">
-                                                <CardHeader>
-                                                    <div className="flex items-center justify-between mb-2">
-                                                        <div className="flex items-center gap-3">
-                                                            <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                                                                <Calculator className="w-5 h-5" />
-                                                            </div>
-                                                            <CardTitle className="text-lg">{calc.titleKey ? t(calc.titleKey) : calc.titleKey}</CardTitle>
-                                                        </div>
-                                                        {calc.popularity > 80 && (
-                                                            <div className="flex items-center text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded-full">
-                                                                <Star className="h-3 w-3 fill-current" />
-                                                                <span className="ml-1 text-xs font-bold">{t('common.popular')}</span>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                </CardHeader>
-                                                <CardContent>
-                                                    <CardDescription className="text-sm mb-4 line-clamp-2">
-                                                        {calc.descriptionKey ? t(calc.descriptionKey) : calc.descriptionKey}
-                                                    </CardDescription>
-                                                    <div className="flex items-center text-primary text-sm font-medium group-hover:underline decoration-2 underline-offset-4">
-                                                        <span>{t('common.calculate')}</span>
-                                                    </div>
-                                                </CardContent>
-                                            </GlassCard>
-                                        </Link>
-                                    ))}
-                                </div>
-                            </div>
-                        );
-                    })}
+                {/* Sticky Bottom Ad */}
+                <div className="flex justify-center mt-16">
+                    <AdBanner
+                        placement="sticky-bottom"
+                        className="w-full max-w-[320px] md:max-w-[728px] h-[50px] md:h-[90px] shadow-sm"
+                    />
                 </div>
             </div>
         </div>

@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertCircle, Calculator as CalcIcon, DollarSign, ArrowRightLeft, TrendingUp } from 'lucide-react';
+import { CalculatorForm, CalculatorInputGroup } from './shared';
 
 interface CurrencyRate {
   code: string;
@@ -130,126 +131,132 @@ const CurrencyCalculator: React.FC = () => {
 
   // Calculator input form
   const calculatorForm = (
-    <div className="space-y-6">
-      {/* Amount Input */}
-      <div className="space-y-2">
-        <Label htmlFor="amount" className="text-sm font-medium">
-          {t('calculators.currency.amount')}
-        </Label>
-        <Input
-          id="amount"
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          placeholder="100"
-          className={`text-lg ${errors.amount ? 'border-red-500' : ''}`}
-          min="0"
-          step="0.01"
-        />
-        {errors.amount && (
-          <p className="text-red-500 text-xs flex items-center gap-1">
-            <AlertCircle className="w-3 h-3" />
-            {errors.amount}
-          </p>
-        )}
-        <p className="text-gray-500 text-xs">
-          {t('calculators.currency.amount_hint')}
-        </p>
-      </div>
+    <CalculatorForm columns={1}>
+      {/* Amount Section */}
+      <CalculatorInputGroup label={t('calculators.currency.amount')}>
+        <div className="space-y-4">
+          <div className="space-y-2">
+            {/* <Label htmlFor="amount" className="text-sm font-medium">
+              {t('calculators.currency.amount')}
+            </Label> */}
+            <Input
+              id="amount"
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              placeholder="100"
+              className={`text-lg ${errors.amount ? 'border-destructive' : ''}`}
+              min="0"
+              step="0.01"
+            />
+            {errors.amount && (
+              <p className="text-destructive text-xs flex items-center gap-1">
+                <AlertCircle className="w-3 h-3" />
+                {errors.amount}
+              </p>
+            )}
+            <p className="text-muted-foreground text-xs">
+              {t('calculators.currency.amount_hint')}
+            </p>
+          </div>
 
-      {/* Quick Amount Buttons */}
-      <div className="space-y-2">
-        <Label className="text-sm font-medium">{t('calculators.currency.quick_amounts')}</Label>
-        <div className="flex flex-wrap gap-2">
-          {['100', '500', '1000', '5000', '10000'].map((value) => (
-            <button
-              key={value}
-              onClick={() => setQuickAmount(value)}
-              className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 rounded transition-colors"
-            >
-              {parseInt(value).toLocaleString('cs-CZ')}
-            </button>
-          ))}
+          {/* Quick Amount Buttons */}
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-muted-foreground">{t('calculators.currency.quick_amounts')}</Label>
+            <div className="flex flex-wrap gap-2">
+              {['100', '500', '1000', '5000', '10000'].map((value) => (
+                <button
+                  key={value}
+                  onClick={() => setQuickAmount(value)}
+                  className="px-3 py-1 text-sm bg-muted hover:bg-muted/80 rounded transition-colors border border-border/50"
+                >
+                  {parseInt(value).toLocaleString('cs-CZ')}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
+      </CalculatorInputGroup>
 
       {/* Currency Selection */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* From Currency */}
-        <div className="space-y-2">
-          <Label htmlFor="fromCurrency" className="text-sm font-medium">
-            {t('calculators.currency.from_currency')}
-          </Label>
-          <Select value={fromCurrency} onValueChange={setFromCurrency}>
-            <SelectTrigger>
-              <SelectValue placeholder={t('currency_from_placeholder')} />
-            </SelectTrigger>
-            <SelectContent>
-              {currencies.map((currency) => (
-                <SelectItem key={currency.code} value={currency.code}>
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono text-sm">{currency.symbol}</span>
-                    <span>{currency.code}</span>
-                    <span className="text-gray-500 text-sm">- {currency.name}</span>
-                  </div>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+      <CalculatorInputGroup label={t('calculators.currency.currency_selection') || "Měna"}>
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 items-end">
+          {/* From Currency */}
+          <div className="space-y-2">
+            <Label htmlFor="fromCurrency" className="text-sm font-medium">
+              {t('calculators.currency.from_currency')}
+            </Label>
+            <Select value={fromCurrency} onValueChange={setFromCurrency}>
+              <SelectTrigger>
+                <SelectValue placeholder={t('currency_from_placeholder')} />
+              </SelectTrigger>
+              <SelectContent>
+                {currencies.map((currency) => (
+                  <SelectItem key={currency.code} value={currency.code}>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-sm">{currency.symbol}</span>
+                      <span>{currency.code}</span>
+                      <span className="text-muted-foreground text-sm hidden sm:inline">- {currency.name}</span>
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
-        {/* Swap Button */}
-        <div className="flex items-end justify-center md:col-span-2">
-          <button
-            onClick={swapCurrencies}
-            className="p-2 bg-blue-100 hover:bg-blue-200 rounded-full transition-colors"
-            title={t('calculators.currency.swap_currencies')}
-          >
-            <ArrowRightLeft className="w-5 h-5 text-blue-600" />
-          </button>
-        </div>
+          {/* Swap Button */}
+          <div className="flex justify-center pb-2">
+            <button
+              onClick={swapCurrencies}
+              className="p-2 bg-muted hover:bg-muted/80 rounded-full transition-colors border border-border"
+              title={t('calculators.currency.swap_currencies')}
+            >
+              <ArrowRightLeft className="w-5 h-5 text-primary" />
+            </button>
+          </div>
 
-        {/* To Currency */}
-        <div className="space-y-2 md:col-span-2">
-          <Label htmlFor="toCurrency" className="text-sm font-medium">
-            {t('calculators.currency.to_currency')}
-          </Label>
-          <Select value={toCurrency} onValueChange={setToCurrency}>
-            <SelectTrigger>
-              <SelectValue placeholder={t('currency_to_placeholder')} />
-            </SelectTrigger>
-            <SelectContent>
-              {currencies.map((currency) => (
-                <SelectItem key={currency.code} value={currency.code}>
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono text-sm">{currency.symbol}</span>
-                    <span>{currency.code}</span>
-                    <span className="text-gray-500 text-sm">- {currency.name}</span>
-                  </div>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          {/* To Currency */}
+          <div className="space-y-2">
+            <Label htmlFor="toCurrency" className="text-sm font-medium">
+              {t('calculators.currency.to_currency')}
+            </Label>
+            <Select value={toCurrency} onValueChange={setToCurrency}>
+              <SelectTrigger>
+                <SelectValue placeholder={t('currency_to_placeholder')} />
+              </SelectTrigger>
+              <SelectContent>
+                {currencies.map((currency) => (
+                  <SelectItem key={currency.code} value={currency.code}>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-sm">{currency.symbol}</span>
+                      <span>{currency.code}</span>
+                      <span className="text-muted-foreground text-sm hidden sm:inline">- {currency.name}</span>
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
-      </div>
+      </CalculatorInputGroup>
 
       {/* Conversion Summary */}
-      <Card className="bg-blue-50 border-blue-200">
+      <Card className="bg-primary/5 border-primary/20">
         <CardContent className="p-4">
           <div className="text-center">
-            <div className="text-sm font-medium text-blue-800 mb-2">
+            <div className="text-sm font-medium text-primary mb-2">
               {t('currency_summary_title')}
             </div>
-            <div className="text-lg font-semibold text-blue-900">
+            <div className="text-lg font-semibold text-foreground">
               {formatCurrency(parseFloat(amount || '0'), getCurrency(fromCurrency))} → {getCurrency(toCurrency).symbol}
             </div>
-            <div className="text-xs text-blue-600 mt-1">
+            <div className="text-xs text-muted-foreground mt-1">
               {getCurrency(fromCurrency).name} {t('currency_to')} {getCurrency(toCurrency).name}
             </div>
           </div>
         </CardContent>
       </Card>
-    </div>
+    </CalculatorForm>
   );
 
   // Results section

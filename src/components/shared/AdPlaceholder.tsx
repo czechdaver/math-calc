@@ -17,7 +17,7 @@ export interface AdPlaceholderProps {
  * @param position - Position description (e.g., "Sidebar", "In-Content")
  * @param className - Additional CSS classes
  */
-const AdPlaceholder: React.FC<AdPlaceholderProps> = ({ size, position, className = '' }) => {
+const AdPlaceholder: React.FC<AdPlaceholderProps> = ({ size, className = '' }) => {
   const t = useTranslations();
   const [width, height] = size.includes('x') ? size.split('x') : ['auto', 'auto'];
 

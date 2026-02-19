@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
-import { AlertCircle, Calculator as CalcIcon, Square, Triangle, Circle, Hexagon } from 'lucide-react';
+import { Calculator as CalcIcon, Square, Triangle, Circle, Hexagon } from 'lucide-react';
 import { CalculatorForm, CalculatorSelect, CalculatorInput } from './shared';
 
 interface AreaResult {

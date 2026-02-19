@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
-import { AlertCircle, Calculator as CalcIcon, Activity, User, Target } from 'lucide-react';
+import { Calculator as CalcIcon, Activity, User, Target } from 'lucide-react';
 import { CalculatorForm, CalculatorInput, CalculatorSelect } from './shared';
 
 interface BodyFatResult {

@@ -7,7 +7,7 @@ import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
 
-import { AlertCircle, Calculator as CalcIcon, Scale, User, Target, TrendingUp } from 'lucide-react';
+import { Calculator as CalcIcon, Scale, User, Target, TrendingUp } from 'lucide-react';
 import { CalculatorForm, CalculatorInput, CalculatorSelect } from './shared';
 
 interface IdealWeightResult {

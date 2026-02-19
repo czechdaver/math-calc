@@ -6,13 +6,11 @@ import { usePathname } from 'next/navigation';
 import { ArrowRight, Users, Shield, Star } from 'lucide-react';
 import AdBanner from '@/components/ads/AdBanner';
 import { Button } from '@/components/ui/Button';
-import { CardContent } from '@/components/ui/Card';
 import GlassCard from '@/components/shared/GlassCard';
 import CalculatorCard from '@/components/calculators/shared/CalculatorCard';
 import CalculatorSearch from '@/components/search/CalculatorSearch';
 import SimpleFAQ from '@/components/shared/SimpleFAQ'; // Importing the redesigned SimpleFAQ
 import CategoryCard from '@/components/categories/CategoryCard';
-import { cn } from '@/lib/utils';
 import { getCalculatorCategories, getQuickLinks } from '@/lib/calculatorDataUtils';
 
 const HomePage: React.FC = () => {

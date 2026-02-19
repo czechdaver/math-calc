@@ -1,12 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+
 import { getTranslations } from 'next-intl/server';
 import { getCategoryById, getCalculatorCategories } from '@/lib/calculatorDataUtils';
 import GlassCard from '@/components/shared/GlassCard';
 import { CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
 import { Calculator, Star } from 'lucide-react';
 import { getCategoryBranding } from '@/config/category-branding';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';

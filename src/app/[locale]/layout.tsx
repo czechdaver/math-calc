@@ -54,7 +54,7 @@ export default async function LocaleLayout({
   }
 
   // Safe to cast after the check
-  const validLocale = locale as Locale;
+  // const validLocale = locale as Locale;
 
   // Load messages for the current locale
   let messages;

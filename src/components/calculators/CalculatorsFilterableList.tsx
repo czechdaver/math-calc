@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { QuickLinkCategory, Calculator } from '@/lib/calculatorDataUtils';
+import { QuickLinkCategory } from '@/lib/calculatorDataUtils';
 import CalculatorSearch from '@/components/search/CalculatorSearch';
 import GlassCard from '@/components/shared/GlassCard';
 import { CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/Card';

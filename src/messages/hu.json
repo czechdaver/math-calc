@@ -2187,7 +2187,7 @@
   "vat_formula_base_desc": "Pro számítás částky s ÁFA se základ násobí koeficientem (1 + kulcs ÁFA).",
   "vat_formula_base_to_total": "Teljes\\,ár = Nettó\\,ár \\times (1 + \\frac'{'ÁFA\\%'}'{'100'}')",
   "vat_formula_total_desc": "Pro számítás základu se částka s ÁFA dělí koeficientem (1 + kulcs ÁFA).",
-  "vat_formula_total_to_base": "Nettó\\,ár = \\frac'{'Teljes\\,ár'}'{'1 + \\frac'{'ÁFA\\%'}'{'100'}''}'",
+  "vat_formula_total_to_base": "Nettó\\,ár = \\frac'{'Teljes\\,ár'}'{'1 + \\frac'{'ÁFA\\%'}'{'100'}'}'",
   "vat_result_base": "Bez ÁFA",
   "vat_result_calculation": "Számítás",
   "vat_result_title": "Eredmény výpočtu ÁFA",

@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Calculator, AlertCircle } from 'lucide-react';
+import { Calculator } from 'lucide-react';
 import { CalculatorForm, CalculatorInput } from './shared';
 
 interface CalculationResult {

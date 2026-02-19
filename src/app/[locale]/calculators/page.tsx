@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslations } from 'next-intl';
+
 import { getTranslations } from 'next-intl/server';
 import { getAllCategoriesWithCalculators } from '@/lib/calculatorDataUtils';
 import CalculatorsFilterableList from '@/components/calculators/CalculatorsFilterableList';

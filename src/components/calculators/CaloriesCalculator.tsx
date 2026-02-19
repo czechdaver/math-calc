@@ -6,10 +6,10 @@ import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import SimpleCalculatorLayout from '@/components/layout/SimpleCalculatorLayout';
 import { Card, CardContent } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
+
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { AlertCircle, Calculator as CalcIcon, Activity, User, Zap, Target, TrendingUp } from 'lucide-react';
+import { Calculator as CalcIcon, Activity, User, Zap, Target, TrendingUp } from 'lucide-react';
 import { CalculatorInput, CalculatorForm, CalculatorInputGroup } from './shared';
 
 interface CaloriesResult {

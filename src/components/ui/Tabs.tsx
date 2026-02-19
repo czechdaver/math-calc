@@ -198,14 +198,15 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabItem } = ({
   const [internalActiveTab, setInternalActiveTab] = React.useState<string>('');
 
   // Generate IDs for tabs if not provided
-  const tabs = React.Children.map(children, (child, index) => {
+  // Generate IDs for tabs if not provided
+  const tabs = React.useMemo(() => React.Children.map(children, (child, index) => {
     if (!React.isValidElement(child)) return null;
     const childProps = child.props as any;
     return {
       ...childProps,
       _id: childProps._id || `tab-${index}`,
     };
-  })?.filter(Boolean) as Array<TabItemProps & { _id: string }> || [];
+  })?.filter(Boolean) as Array<TabItemProps & { _id: string }> || [], [children]);
 
   // Set the first tab as active by default if none is active
   React.useEffect(() => {

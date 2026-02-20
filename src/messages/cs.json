@@ -189,7 +189,7 @@
   "bmi_faq_2_question": "Jak se interpretují hodnoty BMI?",
   "bmi_faq_3_answer": "BMI je pouze orientační. Nezohledňuje svalovou hmotu, věk či pohlaví. Pro přesné posouzení navštivte lékaře.",
   "bmi_faq_3_question": "Je BMI přesný ukazatel zdraví?",
-  "bmi_formula": "BMI = \\frac'{'váha (kg)'}'{'výška (m)^2'}'",
+  "bmi_formula": "BMI = \\frac '{' váha (kg) '}' '{' výška (m)^2 '}'",
   "bmi_title": "Kalkulátor BMI",
   "bmr_calculator_description": "Vypočítejte bazální metabolismus pomocí vědeckých vzorců",
   "bmr_calculator_title": "BMR Kalkulátor",
@@ -621,7 +621,7 @@
         "keywords": "palivo,spotřeba paliva,náklady na cestu,l/100km,benzín,nafta,kalkulátor paliva,cestování,auto"
       },
       "formula": {
-        "latex": "Spotřeba = \\frac''{''Palivo \\times 100'}'{Vzdálenost'}' \\quad Náklady = Palivo \\times Cena",
+        "latex": "Spotřeba = \\frac '{' Palivo \\times 100 '}' '{' Vzdálenost '}' \\quad Náklady = Palivo \\times Cena",
         "description": "Spotřeba se počítá jako poměr spotřebovaného paliva k ujeté vzdálenosti, náklady jako součin paliva a ceny."
       },
       "examples": {
@@ -689,7 +689,7 @@
         "keywords": "kalorie,BMR,TDEE,bazální metabolismus,denní potřeba kalorií,hubnutí,přibírání,metabolismus,fitness"
       },
       "formula": {
-        "latex": "BMR_'{'muž'}' = 10 \\times váha + 6.25 \\times výška - 5 \\times věk + 5",
+        "latex": "BMR_ '{' muž '}' = 10 \\times váha + 6.25 \\times výška - 5 \\times věk + 5",
         "description": "BMR se vypočítá pomocí Mifflin-St Jeor rovnice. TDEE = BMR × koeficient aktivity (1.2-1.9)."
       },
       "examples": {
@@ -757,7 +757,7 @@
         "keywords": "sleva,discount,procento slevy,výpočet slevy,úspora,akce,kalkulátor,nákup"
       },
       "formula": {
-        "latex": "Sleva = P\\u016fvodn\\u00ed\\,cena \\times \\frac'{'Procento'}'{'100'}'",
+        "latex": "Sleva = P\\u016fvodn\\u00ed\\,cena \\times \\frac '{' Procento '}' '{' 100 '}'",
         "description": "Konečná cena = Původní cena - Sleva. Procento slevy = (Sleva ÷ Původní cena) × 100."
       },
       "examples": {
@@ -1602,7 +1602,7 @@
   "percentages_label": "Procenta",
   "prima_umera_description": "Zadajte hodnoty pro a, b, c v rovnici a/b = c/x:",
   "prima_umera_title": "Výpočet přímé úměry",
-  "procento_z_cisla_formula": "\\frac''{''Procenta'}'{100'}' \\times Číslo = Výsledek",
+  "procento_z_cisla_formula": "\\frac '{' Procenta '}' '{' 100 '}' \\times Číslo = Výsledek",
   "percentage_of_number_title": "Výpočet procenta z čísla",
   "privacy_policy": {
     "title": "Privacy Policy",
@@ -1744,7 +1744,7 @@
   "vat_formula_base_desc": "Pro výpočet částky s DPH se základ násobí koeficientem (1 + sazba DPH).",
   "vat_formula_base_to_total": "Celkem = Základ \\times (1 + Sazba_DPH)",
   "vat_formula_total_desc": "Pro výpočet základu se částka s DPH dělí koeficientem (1 + sazba DPH).",
-  "vat_formula_total_to_base": "Základ = \\frac'{'Celkem'}'{'1 + Sazba_DPH'}'",
+  "vat_formula_total_to_base": "Základ = \\frac '{' Celkem '}' '{' 1 + Sazba_DPH '}'",
   "vat_result_base": "Bez DPH",
   "vat_result_calculation": "Výpočet",
   "vat_result_title": "Výsledek výpočtu DPH",
@@ -2093,7 +2093,7 @@
   "tip_seo_title": "Kalkulátor spropitného - Výpočet spropitného pro restaurace | MathCalc",
   "tip_seo_description": "Bezplatný kalkulátor spropitného. Vypočítejte správnou výši spropitného podle kvality obsluhy a rozdělte účet mezi více lidí.",
   "tip_seo_keywords": "spropitné,tip calculator,restaurace,obsluha,účet,rozdělení účtu,procenta,kalkulátor",
-  "tip_formula_latex": "Spropitné = Účet \\times \\frac'{Procento}'''{100}''",
+  "tip_formula_latex": "Spropitné = Účet \\times \\frac '{' Procento '}' '{' 100 '}'",
   "tip_formula_description": "Celková částka = Účet + Spropitné. Na osobu = Celková částka ÷ Počet lidí.",
   "tip_examples_title": "Příklady výpočtu spropitného",
   "tip_examples_description": "Různé situace a doporučené procenta",
@@ -2210,7 +2210,7 @@
   "area_practical_materials_title": "Materiály",
   "area_practical_materials_desc": "Množství dlažby, koberce, izolace",
   "area_empty_message": "Zadejte rozměry pro výpočet plochy",
-  "area_formula_latex": "S_'{obdélník}'' = a \\times b \\quad S_'{kruh}'' = \\pi r^2 \\quad S_'{trojúhelník}'' = \\frac'{1}'''{2}'' \\times a \\times v",
+  "area_formula_latex": "S_ '{' obdélník '}' = a \\times b \\quad S_ '{' kruh '}' = \\pi r^2 \\quad S_ '{' trojúhelník '}' = \\frac '{' 1 '}' '{' 2 '}' \\times a \\times v",
   "area_formula_description": "Vzorce pro výpočet plochy různých geometrických tvarů podle jejich specifických rozměrů.",
   "area_examples_title": "Příklady výpočtu plochy",
   "area_examples_description": "Praktické použití kalkulátoru plochy",

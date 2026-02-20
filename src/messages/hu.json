@@ -112,7 +112,7 @@
   "area_faq_4_a": "Závisí na typu materiálu. Například csempe se počítá +10% na ořez, festék podle pokryvnosti (obvykle 1 liter na 8-12 m²).",
   "area_faq_4_q": "Mi a különbség az alakzatok között?",
   "area_formula_description": "Vzorce pro számítás plochy různých geometrických tvarů podle jejich specifických rozměrů.",
-  "area_formula_latex": "S_'{téglalap}'' = a \\times b \\quad S_'{kör}'' = \\pi r^2 \\quad S_'{háromszög}'' = \\frac'{1}'''{2}''ah",
+  "area_formula_latex": "S_ '{' téglalap '}' = a \\times b \\quad S_ '{' kör '}' = \\pi r^2 \\quad S_ '{' háromszög '}' = \\frac '{' 1 '}' '{' 2 '}' ah",
   "area_label_base": "Alap (m)",
   "area_label_bottom_base": "Alsó alap (m)",
   "area_label_height": "Magasság (m)",
@@ -173,7 +173,7 @@
   "bmi_faq_2_question": "Hogyan értelmezzük a BMI értékeket?",
   "bmi_faq_3_answer": "A BMI csak tájékoztató. Nem veszi figyelembe az izomtömeget, az életkort vagy a nemet. A pontos értékeléshez fordulj orvoshoz.",
   "bmi_faq_3_question": "Pontos-e a BMI az egészség mérésére?",
-  "bmi_formula": "BMI = \\frac'{'súly (kg)'}'{'magasság (m)^2'}'",
+  "bmi_formula": "BMI = \\frac '{' súly (kg) '}' '{' magasság (m)^2 '}'",
   "bmi_title": "BMI Számológép",
   "bmr_calculator_description": "Számítsd ki az alapanyagcserét tudományos képletekkel",
   "bmr_calculator_title": "BMR Számológép",
@@ -429,7 +429,7 @@
       },
       "formula": {
         "description": "A BMR a Mifflin-St Jeor egyenlettel számítódik. TDEE = BMR × aktivitási tényező",
-        "latex": "BMR_''{'muž'}' = 10 \\times súly + 6.25 \\times magasság - 5 \\times életkor + 5"
+        "latex": "BMR_ '{' muž '}' = 10 \\times súly + 6.25 \\times magasság - 5 \\times életkor + 5"
       },
       "related": {
         "bmi": {
@@ -512,7 +512,7 @@
       },
       "formula": {
         "description": "Konečná ár = Původní ár - Sleva. Százalék slevy = (Sleva ÷ Původní ár) × 100.",
-        "latex": "Sleva = P\\u016fvodn\\u00ed\\,ár \\times \\frac''{''Százalék'}'{100'}'"
+        "latex": "Sleva = P\\u016fvodn\\u00ed\\,ár \\times \\frac '{' Százalék '}' '{' 100 '}'"
       },
       "related": {
         "bmi": {
@@ -713,7 +713,7 @@
       },
       "formula": {
         "description": "Spotřeba se počítá jako poměr spotřebovaného paliva k ujeté vzdálenosti, költség jako szorzat paliva a árak.",
-        "latex": "Spotřeba = \\frac''{''Palivo \\times 100'}'{Távolság'}' \\quad Költség = Palivo \\times Ár"
+        "latex": "Spotřeba = \\frac '{' Palivo \\times 100 '}' '{' Távolság '}' \\quad Költség = Palivo \\times Ár"
       },
       "fuel_consumption": "Üzemanyag-fogyasztás",
       "fuel_efficiency_tips": "Üzemanyag-takarékosság tippjei",
@@ -1574,7 +1574,7 @@
   "ideal_weight_height_error": "Adjon meg platnou výšku (100-250 cm)",
   "ideal_weight_height_help": "Vaše magasság v centimetrech",
   "ideal_weight_height_label": "Magasság",
-  "ideal_weight_latex": "Ideális\\,súly = Alapérték + (Magasság_''{'cm'}' - Alapmagasság) \\times Szorzó",
+  "ideal_weight_latex": "Ideális\\,súly = Alapérték + (Magasság_ '{' cm '}' - Alapmagasság) \\times Szorzó",
   "ideal_weight_latex_desc": "Robinson képlet pro muže. Pro ženy: 49 + 1.7 × (výška_palce - 60). Další vzorce používají jiné koeficienty.",
   "ideal_weight_max_healthy": "Maximální zdravá súly:",
   "ideal_weight_min_healthy": "Minimální zdravá súly:",
@@ -1943,7 +1943,7 @@
   "percentages_label": "Százalék",
   "prima_umera_description": "Zadajte értékek pro a, b, c v rovnici a/b = c/x:",
   "prima_umera_title": "Számítás přímé úměry",
-  "procento_z_cisla_formula": "\\frac''{''Százalék'}'{100'}' \\times Szám = Eredmény",
+  "procento_z_cisla_formula": "\\frac '{' Százalék '}' '{' 100 '}' \\times Szám = Eredmény",
   "procento_z_cisla_title": "Számítás százalék z számok",
   "quick_links_popular": "Népszerű kalkulátorok",
   "rating": {
@@ -2062,7 +2062,7 @@
   "tip_faq_4_a": "Ano, spropitné se počítá z celkové částky účtu včetně ÁFA. Je to celková částka, kterou zaplatíte za jídlo a pití.",
   "tip_faq_4_q": "Platí se spropitné z ÁFA?",
   "tip_formula_description": "Celková částka = Účet + Spropitné. Na osobu = Celková částka ÷ Szám lidí.",
-  "tip_formula_latex": "Spropitné = Účet \\times \\frac'{Százalék}'''{100}''",
+  "tip_formula_latex": "Spropitné = Účet \\times \\frac '{' Százalék '}' '{' 100 '}'",
   "tip_hint_bill_amount": "A számla teljes összege borravaló előtt",
   "tip_hint_custom_tip": "Zadejte vlastní százalék spropitného",
   "tip_hint_people": "Szám lidí, kteří si účet rozdělí",
@@ -2185,9 +2185,9 @@
   "vat_faq3_a": "Částka bez ÁFA = Částka s ÁFA ÷ (1 + kulcs ÁFA). Například: 1210 ÷ 1.21 = 1000 Kč.",
   "vat_faq3_q": "Jak se počítá základ z částky s ÁFA?",
   "vat_formula_base_desc": "Pro számítás částky s ÁFA se základ násobí koeficientem (1 + kulcs ÁFA).",
-  "vat_formula_base_to_total": "Teljes\\,ár = Nettó\\,ár \\times (1 + \\frac'{'ÁFA\\%'}'{'100'}')",
+  "vat_formula_base_to_total": "Teljes\\,ár = Nettó\\,ár \\times (1 + \\frac '{' ÁFA\\% '}' '{' 100 '}' )",
   "vat_formula_total_desc": "Pro számítás základu se částka s ÁFA dělí koeficientem (1 + kulcs ÁFA).",
-  "vat_formula_total_to_base": "Nettó\\,ár = \\frac'{'Teljes\\,ár'}'{'1 + \\frac'{'ÁFA\\%'}'{'100'}'}'",
+  "vat_formula_total_to_base": "Nettó\\,ár = \\frac '{' Teljes\\,ár '}' '{' 1 + \\frac '{' ÁFA\\% '}' '{' 100 '}' '}'",
   "vat_result_base": "Bez ÁFA",
   "vat_result_calculation": "Számítás",
   "vat_result_title": "Eredmény výpočtu ÁFA",

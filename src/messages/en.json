@@ -114,7 +114,7 @@
   "area_faq_4_a": "It depends on the material type. For example, tiles need +10% for cutting, paint depends on coverage (usually 1 liter per 8-12 m²).",
   "area_faq_4_q": "How much material do I need for a given area?",
   "area_formula_description": "Formulas for calculating the area of various geometric shapes based on their specific dimensions.",
-  "area_formula_latex": "S_'{'rectangle'}' = a \\times b \\quad S_'{'circle'}' = \\pi r^2 \\quad S_'{'triangle'}' = \\frac'{'1'}'{'2'}' \\times a \\times h",
+  "area_formula_latex": "S_ '{' rectangle '}' = a \\times b \\quad S_ '{' circle '}' = \\pi r^2 \\quad S_ '{' triangle '}' = \\frac '{' 1 '}' '{' 2 '}' \\times a \\times h",
   "area_label_base": "Base (m)",
   "area_label_bottom_base": "Bottom Base (m)",
   "area_label_height": "Height (m)",
@@ -174,7 +174,7 @@
   "bmi_faq_2_question": "How are BMI values interpreted?",
   "bmi_faq_3_answer": "BMI is only indicative. It doesn't account for muscle mass, age, or gender. For accurate assessment, consult a doctor.",
   "bmi_faq_3_question": "Is BMI an accurate health indicator?",
-  "bmi_formula": "BMI = \\frac'{'weight (kg)'}'{'height (m)^2'}'",
+  "bmi_formula": "BMI = \\frac '{' weight (kg) '}' '{' height (m)^2 '}'",
   "bmi_title": "BMI Calculator",
   "bmr_calculator_description": "Calculate basal metabolic rate using scientific formulas",
   "bmr_calculator_title": "BMR Calculator",
@@ -428,7 +428,7 @@
       },
       "formula": {
         "description": "BMR is calculated using the Mifflin-St Jeor equation. TDEE = BMR × activity coefficient (1.2-1.9).",
-        "latex": "BMR_'{'men'}' = 10 \\times weight + 6.25 \\times height - 5 \\times age + 5"
+        "latex": "BMR_ '{' men '}' = 10 \\times weight + 6.25 \\times height - 5 \\times age + 5"
       },
       "related": {
         "bmi": {
@@ -511,7 +511,7 @@
       },
       "formula": {
         "description": "Final Price = Original Price - Discount. Discount Percentage = (Discount ÷ Original Price) × 100.",
-        "latex": "Discount = Original\\,Price \\times \\frac'{'Percentage'}'{'100'}'"
+        "latex": "Discount = Original\\,Price \\times \\frac '{' Percentage '}' '{' 100 '}'"
       },
       "related": {
         "bmi": {
@@ -730,7 +730,7 @@
       },
       "formula": {
         "description": "Consumption is calculated as the ratio of fuel consumed to distance traveled, costs as the product of fuel and price.",
-        "latex": "Consumption = \\frac''{''Fuel \\times 100'}'{Distance'}' \\quad Costs = Fuel \\times Price"
+        "latex": "Consumption = \\frac '{' Fuel \\times 100 '}' '{' Distance '}' \\quad Costs = Fuel \\times Price"
       },
       "fuel_consumption": "Fuel Consumption",
       "fuel_efficiency_tips": "Fuel Efficiency Tips",
@@ -1597,7 +1597,7 @@
   "ideal_weight_height_error": "Enter a valid height (100-250 cm)",
   "ideal_weight_height_help": "Your height in centimeters",
   "ideal_weight_height_label": "Height",
-  "ideal_weight_latex": "IBW_''{'Robinson'}' = 52 + 1.9 \\times (height_''{'inches'}' - 60)",
+  "ideal_weight_latex": "IBW_ '{' Robinson '}' = 52 + 1.9 \\times (height_ '{' inches '}' - 60)",
   "ideal_weight_latex_desc": "Robinson formula for men. For women: 49 + 1.7 × (height_inches - 60). Other formulas use different coefficients.",
   "ideal_weight_max_healthy": "Maximum healthy weight:",
   "ideal_weight_min_healthy": "Minimum healthy weight:",
@@ -1957,7 +1957,7 @@
   "percentages_label": "Percentage",
   "prima_umera_description": "Enter values for a, b, c in the equation a/b = c/x:",
   "prima_umera_title": "Direct Proportion Calculation",
-  "procento_z_cisla_formula": "\\frac''{''Percentage'}'{100'}' \\times Number = Result",
+  "procento_z_cisla_formula": "\\frac '{' Percentage '}' '{' 100 '}' \\times Number = Result",
   "percentage_of_number_title": "Percentage of Number Calculator",
   "privacy_policy": {
     "title": "Privacy Policy",
@@ -2078,7 +2078,7 @@
   "tip_faq_4_a": "Tip is typically calculated on the total bill amount including taxes. This is the total amount you pay for food and beverages.",
   "tip_faq_4_q": "Is tip calculated on the pre-tax or post-tax amount?",
   "tip_formula_description": "Total amount = Bill + Tip. Per person = Total amount ÷ Number of people.",
-  "tip_formula_latex": "Tip = Bill \\times \\frac'{Percentage}'''{100}''",
+  "tip_formula_latex": "Tip = Bill \\times \\frac '{' Percentage '}' '{' 100 '}'",
   "tip_hint_bill_amount": "Total bill amount before tip",
   "tip_hint_custom_tip": "Enter custom tip percentage",
   "tip_hint_people": "Number of people splitting the bill",
@@ -2202,7 +2202,7 @@
   "vat_formula_base_desc": "To calculate the amount with VAT, multiply the base by the coefficient (1 + VAT rate).",
   "vat_formula_base_to_total": "Total = Base \\times (1 + VAT_Rate)",
   "vat_formula_total_desc": "To calculate the base, divide the amount with VAT by the coefficient (1 + VAT rate).",
-  "vat_formula_total_to_base": "Base = \\frac'{'Total'}'{'1 + VAT_Rate'}'",
+  "vat_formula_total_to_base": "Base = \\frac '{' Total '}' '{' 1 + VAT_Rate '}'",
   "vat_result_base": "Excl. VAT",
   "vat_result_calculation": "Calculation",
   "vat_result_title": "VAT Calculation Result",

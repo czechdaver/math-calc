@@ -112,7 +112,7 @@
   "area_faq_4_a": "Závisí na typu materiálu. Například dlažba se počítá +10% na ořez, barva podle pokryvnosti (obvykle 1 litr na 8-12 m²).",
   "area_faq_4_q": "Kolik materiálu potřebuji na danou plochu?",
   "area_formula_description": "Vzorce pro obliczenie plochy různých geometrických tvarů podle jejich specifických rozměrů.",
-  "area_formula_latex": "S_'{obdélník}'' = a \\times b \\quad S_'{kruh}'' = \\pi r^2 \\quad S_'{trojúhelník}'' = \\frac'{1}'''{2}'' \\times a \\times v",
+  "area_formula_latex": "S_ '{' obdélník '}' = a \\times b \\quad S_ '{' kruh '}' = \\pi r^2 \\quad S_ '{' trojúhelník '}' = \\frac '{' 1 '}' '{' 2 '}' \\times a \\times v",
   "area_label_base": "Základna (m)",
   "area_label_bottom_base": "Dolní základna (m)",
   "area_label_height": "Výška (m)",
@@ -173,7 +173,7 @@
   "bmi_faq_2_question": "Jak se interpretují hodnoty BMI?",
   "bmi_faq_3_answer": "BMI je pouze orientační. Nezohledňuje svalovou hmotu, wiek či pohlaví. Pro přesné posouzení navštivte lekarze.",
   "bmi_faq_3_question": "Je BMI přesný ukazatel zdraví?",
-  "bmi_formula": "BMI = \\frac'{'waga (kg)'}'{'wzrost (m)^2'}'",
+  "bmi_formula": "BMI = \\frac '{' waga (kg) '}' '{' wzrost (m)^2 '}'",
   "bmi_title": "Kalkulator BMI",
   "bmr_calculator_description": "Oblicz bazální metabolismus pomocí vědeckých vzorců",
   "bmr_calculator_title": "BMR Kalkulator",
@@ -428,7 +428,7 @@
       },
       "formula": {
         "description": "BMR se vypočítá pomocí Mifflin-St Jeor rovnice. TDEE = BMR × koeficient aktivity (1.2-1.9).",
-        "latex": "BMR_''{'muž'}' = 10 \\times waga + 6.25 \\times výška - 5 \\times wiek + 5"
+        "latex": "BMR_ '{' muž '}' = 10 \\times waga + 6.25 \\times výška - 5 \\times wiek + 5"
       },
       "related": {
         "bmi": {
@@ -511,7 +511,7 @@
       },
       "formula": {
         "description": "Konečná cena = Původní cena - Sleva. Procento slevy = (Sleva ÷ Původní cena) × 100.",
-        "latex": "Sleva = P\\u016fvodn\\u00ed\\,cena \\times \\frac''{''Procento'}'{100'}'"
+        "latex": "Sleva = P\\u016fvodn\\u00ed\\,cena \\times \\frac '{' Procento '}' '{' 100 '}'"
       },
       "related": {
         "bmi": {
@@ -712,7 +712,7 @@
       },
       "formula": {
         "description": "Spotřeba se počítá jako poměr spotřebovaného paliva k ujeté vzdálenosti, náklady jako součin paliva a ceny.",
-        "latex": "Spotřeba = \\frac''{''Palivo \\times 100'}'{Vzdálenost'}' \\quad Náklady = Palivo \\times Cena"
+        "latex": "Spotřeba = \\frac '{' Palivo \\times 100 '}' '{' Vzdálenost '}' \\quad Náklady = Palivo \\times Cena"
       },
       "fuel_consumption": "Spotřeba paliva",
       "fuel_efficiency_tips": "Tipy pro úsporu paliva",
@@ -1537,7 +1537,7 @@
   "ideal_weight_height_error": "Wprowadź platnou wzrost (100-250 cm)",
   "ideal_weight_height_help": "Vaše výška v centimetrech",
   "ideal_weight_height_label": "Výška",
-  "ideal_weight_latex": "IBW_''{'Robinson'}' = 52 + 1.9 \\times (výška_''{'palce'}' - 60)",
+  "ideal_weight_latex": "IBW_ '{' Robinson '}' = 52 + 1.9 \\times (výška_ '{' palce '}' - 60)",
   "ideal_weight_latex_desc": "Robinson vzorec pro muže. Pro ženy: 49 + 1.7 × (výška_palce - 60). Další vzorce používají jiné koeficienty.",
   "ideal_weight_max_healthy": "Maximální zdrowa waga:",
   "ideal_weight_min_healthy": "Minimální zdrowa waga:",
@@ -1909,7 +1909,7 @@
   "percentages_label": "Procenta",
   "prima_umera_description": "Zadajte hodnoty pro a, b, c v rovnici a/b = c/x:",
   "prima_umera_title": "Výpočet přímé úměry",
-  "procento_z_cisla_formula": "\\frac''{''Procenta'}'{100'}' \\times Číslo = Wynik",
+  "procento_z_cisla_formula": "\\frac '{' Procenta '}' '{' 100 '}' \\times Číslo = Wynik",
   "procento_z_cisla_title": "Výpočet procent z čísla",
   "quick_links_popular": "Nejoblíbenější",
   "rating": {
@@ -2026,7 +2026,7 @@
   "tip_faq_4_a": "Ano, spropitné se počítá z celkové částky účtu včetně VAT. Je to celková částka, kterou zaplatíte za jídlo a pití.",
   "tip_faq_4_q": "Platí se spropitné z VAT?",
   "tip_formula_description": "Celková částka = Účet + Spropitné. Na osobu = Celková částka ÷ Počet lidí.",
-  "tip_formula_latex": "Spropitné = Účet \\times \\frac'{Procento}'''{100}''",
+  "tip_formula_latex": "Spropitné = Účet \\times \\frac '{' Procento '}' '{' 100 '}'",
   "tip_hint_bill_amount": "Celková částka účtu před spropitným",
   "tip_hint_custom_tip": "Wprowadź vlastní procento spropitného",
   "tip_hint_people": "Počet lidí, kteří si účet rozdělí",
@@ -2151,7 +2151,7 @@
   "vat_formula_base_desc": "Pro obliczenie částky s VAT se základ násobí koeficientem (1 + stawka VAT).",
   "vat_formula_base_to_total": "Brutto = Netto \\times (1 + VAT)",
   "vat_formula_total_desc": "Dla obliczenia podstawy, kwota z VAT jest dzielona przez współczynnik (1 + stawka VAT).",
-  "vat_formula_total_to_base": "Netto = \\frac'{'Brutto'}'{'1 + VAT'}'",
+  "vat_formula_total_to_base": "Netto = \\frac '{' Brutto '}' '{' 1 + VAT '}'",
   "vat_result_base": "Bez VAT",
   "vat_result_calculation": "Výpočet",
   "vat_result_title": "Wynik výpočtu VAT",

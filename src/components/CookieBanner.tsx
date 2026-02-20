@@ -53,7 +53,7 @@ const CookieBanner = () => {
     <div className="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4 flex items-center justify-between z-50">
       <p className="text-sm">
         {t.rich('text', {
-          link: (chunks) => <Link href={`/${locale}/privacy-policy`} className="underline ml-1">{chunks}</Link>
+          link: (chunks) => <Link href={`/${locale}/privacy`} className="underline ml-1">{chunks}</Link>
         })}
       </p>
       <div className="flex space-x-2">

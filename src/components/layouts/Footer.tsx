@@ -12,33 +12,33 @@ const Footer: React.FC = () => {
     {
       title: t('footer.about.title'),
       links: [
-        { label: t('footer.about.company'), href: '/o-nas' },
-        { label: t('footer.about.team'), href: '/tym' },
-        { label: t('footer.about.careers'), href: '/kariera' },
+        { label: t('footer.about.company'), href: '/about' },
+        { label: t('footer.about.team'), href: '/team' },
+        { label: t('footer.about.careers'), href: '/careers' },
         { label: t('footer.about.blog'), href: '/blog' },
       ],
     },
     {
       title: t('footer.support.title'),
       links: [
-        { label: t('footer.support.help_center'), href: '/napoveda' },
-        { label: t('footer.support.contact'), href: '/kontakt' },
-        { label: t('footer.support.faq'), href: '/caste-dotazy' },
+        { label: t('footer.support.help_center'), href: '/help' },
+        { label: t('footer.support.contact'), href: '/contact' },
+        { label: t('footer.support.faq'), href: '/faq' },
       ],
     },
     {
       title: t('footer.legal.title'),
       links: [
-        { label: t('footer.legal.terms'), href: '/podminky-pouziti' },
-        { label: t('footer.legal.privacy'), href: '/ochrana-osobnich-udaju' },
-        { label: t('footer.legal.cookies'), href: '/pouziti-cookies' },
+        { label: t('footer.legal.terms'), href: '/terms' },
+        { label: t('footer.legal.privacy'), href: '/privacy' },
+        { label: t('footer.legal.cookies'), href: '/cookies' },
       ],
     },
     {
       title: t('footer.resources.title'),
       links: [
         { label: t('all_calculators'), href: '/calculators' },
-        { label: t('footer.resources.documentation'), href: '/dokumentace' },
+        { label: t('footer.resources.documentation'), href: '/docs' },
         { label: t('footer.resources.api'), href: '/api' },
         { label: t('footer.resources.status'), href: '/status' },
       ],
@@ -134,19 +134,19 @@ const Footer: React.FC = () => {
             </p>
             <div className="mt-2 flex flex-wrap space-x-4 text-sm text-muted-foreground">
               <Link
-                href="/podminky-pouziti"
+                href="/terms"
                 className="hover:text-foreground transition-colors duration-200"
               >
                 {t('footer.terms')}
               </Link>
               <Link
-                href="/ochrana-osobnich-udaju"
+                href="/privacy"
                 className="hover:text-foreground transition-colors duration-200"
               >
                 {t('footer.privacy')}
               </Link>
               <Link
-                href="/pouziti-cookies"
+                href="/cookies"
                 className="hover:text-foreground transition-colors duration-200"
               >
                 {t('footer.cookies')}

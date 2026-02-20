@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     authors: [
       {
         name: 'MathCalc Pro Team',
-        url: 'https://mathcalc.pro',
+        url: 'https://MathCalc Pro.pro',
       },
     ],
     creator: 'MathCalc Pro Team',

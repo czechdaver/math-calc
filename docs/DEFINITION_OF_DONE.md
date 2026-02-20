@@ -256,14 +256,14 @@ relatedCalculators={relatedCalculators}
 
 ```tsx
 seo={{
-  title: 'Kalkulačka: Můj výpočet | MathCalc',
+  title: 'Kalkulačka: Můj výpočet | MathCalc Pro',
   description: 'Bezplatná kalkulačka pro výpočet...',
   keywords: ['kalkulačka', 'výpočet', 'matematika']
 }}
 ```
 
 **Požadavky:**
-- [ ] Title včetně "MathCalc" suffix
+- [ ] Title včetně "MathCalc Pro" suffix
 - [ ] Description 150-160 znaků
 - [ ] Keywords pole (5-10 frází)
 

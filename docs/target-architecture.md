@@ -791,11 +791,11 @@ export async function generateMetadata({ params }): Promise<Metadata> {
       card: 'summary_large_image',
     },
     alternates: {
-      canonical: `https://mathcalc.pro/${locale}/calculator/bmi`,
+      canonical: `https://MathCalc Pro.pro/${locale}/calculator/bmi`,
       languages: {
-        cs: 'https://mathcalc.pro/cs/calculator/bmi',
-        en: 'https://mathcalc.pro/en/calculator/bmi',
-        sk: 'https://mathcalc.pro/sk/calculator/bmi',
+        cs: 'https://MathCalc Pro.pro/cs/calculator/bmi',
+        en: 'https://MathCalc Pro.pro/en/calculator/bmi',
+        sk: 'https://MathCalc Pro.pro/sk/calculator/bmi',
       },
     },
   };

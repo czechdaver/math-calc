@@ -157,7 +157,7 @@ const BMICalculator: React.FC = () => {
       category="health"
       calculatorId="bmi"
       seo={{
-        title: t('bmi_calculator_title') + ' - Výpočet Body Mass Index | MathCalc',
+        title: t('bmi_calculator_title') + ' - Výpočet Body Mass Index | MathCalc Pro',
         description: 'Bezplatný BMI kalkulátor pro výpočet Body Mass Index. Zjistěte svou váhovou kategorii podle WHO standardů.',
         keywords: [
           'BMI kalkulátor',

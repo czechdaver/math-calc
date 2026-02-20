@@ -20,7 +20,7 @@
   "age_formula_latex": "Életkor = Céldátum - Születési\\,dátum",
   "age_seo_description": "Ingyenes életkor-számológép. Számítsd ki a pontos életkort, az élet napjainak összes számát, a következő születésnapot és a zodiákus jegyet.",
   "age_seo_keywords": "életkor,életkor számológép,születési dátum,születésnap,élet napjai,jegy,zodiákus,életkor számítás",
-  "age_seo_title": "Életkor-számológép - Pontos életkor és élet napjai kiszámítása | MathCalc",
+  "age_seo_title": "Életkor-számológép - Pontos életkor és élet napjai kiszámítása | MathCalc Pro",
   "age_summary_title": "Életkor-számítás",
   "age_unit_months": "hónap",
   "age_unit_years": "év",
@@ -68,7 +68,7 @@
   "annuity_payment_calculator_title": "Járadék törlesztőrészlet számológép",
   "annuity_seo_description": "Ingyenes járadék törlesztőrészlet számológép. Számítsd ki a hitel havi törlesztőrészletét, az összes kamatot és a teljes kifizetett összeget.",
   "annuity_seo_keywords": "járadék törlesztőrészlet,törlesztőrészlet számológép,hitel számítás,jelzáloghitel,havi törlesztőrészlet,hitel számológép",
-  "annuity_seo_title": "Járadék törlesztőrészlet számológép - Havi törlesztőrészlet számítása | MathCalc",
+  "annuity_seo_title": "Járadék törlesztőrészlet számológép - Havi törlesztőrészlet számítása | MathCalc Pro",
   "annuity_total_interest": "Összes kamat",
   "annuity_total_payment": "Összes kifizetett összeg",
   "annuity_validation_interest_rate": "Adjon meg érvényes kamatláb (0-100%)",
@@ -142,7 +142,7 @@
   "area_result_perimeter": "Kerület",
   "area_seo_description": "Ingyenes terület kalkulátor. Számítsd ki négyzet, téglalap, kör, háromszög és trapéz területét.",
   "area_seo_keywords": "terület,kalkulátor,négyzet,téglalap,kör,háromszög,trapéz,terület számítás",
-  "area_seo_title": "Terület Kalkulátor - Alakzatok Terület Számítása | MathCalc",
+  "area_seo_title": "Terület Kalkulátor - Alakzatok Terület Számítása | MathCalc Pro",
   "area_shape_circle": "Kör",
   "area_shape_rectangle": "Téglalap",
   "area_shape_square": "Négyzet",
@@ -218,7 +218,7 @@
   "bodyfat_section_basic": "Alapadatok",
   "bodyfat_seo_description": "Ingyenes testzsír kalkulátor. Számítsd ki a testzsír százalékát Navy, Jackson-Pollock és BMI módszerrel.",
   "bodyfat_seo_keywords": "testzsír,kalkulátor,testzsír százalék,Navy képlet,fitness,testöszetétel",
-  "bodyfat_seo_title": "Testzsír Kalkulátor - Testzsír Százalék | MathCalc",
+  "bodyfat_seo_title": "Testzsír Kalkulátor - Testzsír Százalék | MathCalc Pro",
   "bodyfat_summary_body": "Testösszetétel",
   "bodyfat_summary_profile": "Profil",
   "bodyfat_summary_title": "Testzsír eredmény",
@@ -375,7 +375,7 @@
       "seo": {
         "description": "Bezplatný kalkulátor bazálního metabolismu. Számítás BMR pomocí Mifflin-St Jeor, Harris-Benedict a Katch-McArdle vzorců.",
         "keywords": "BMR,bazální metabolismus,Mifflin-St Jeor,Harris-Benedict,Katch-McArdle,metabolismus,kalória,energie",
-        "title": "BMR Kalkulátor - Alapanyagcsere | MathCalc"
+        "title": "BMR Kalkulátor - Alapanyagcsere | MathCalc Pro"
       },
       "summary_age_gender": "[MISSING] Věk/Pohlaví",
       "summary_female": "[MISSING] žena",
@@ -452,7 +452,7 @@
       "seo": {
         "description": "Bezplatný kalkulátor denní potřeby kalorií. Számítás BMR, TDEE a kalorických cílů pro hubnutí, udržení nebo přibírání súly.",
         "keywords": "kalória,BMR,TDEE,bazální metabolismus,denní potřeba kalorií,hubnutí,přibírání,metabolismus,fitness",
-        "title": "Kalória kalkulátor - Denní potřeba kalorií BMR TDEE | MathCalc"
+        "title": "Kalória kalkulátor - Denní potřeba kalorií BMR TDEE | MathCalc Pro"
       },
       "title": "Kalória kalkulátor"
     },
@@ -535,7 +535,7 @@
       "seo": {
         "description": "Bezplatný kalkulátor slev. Számítsd ki slevu z százalék, částky slevy nebo konečné árak. Zjistěte úsporu a finální cenu.",
         "keywords": "sleva,discount,százalék slevy,számítás slevy,úspora,akce,kalkulátor,nákup",
-        "title": "Kalkulátor slev - Számítás slevy z százalék nebo částky | MathCalc"
+        "title": "Kalkulátor slev - Számítás slevy z százalék nebo částky | MathCalc Pro"
       },
       "title": "Kedvezmény-számológép"
     },
@@ -651,7 +651,7 @@
       "seo": {
         "description": "Ingyenes előtörlesztés-számológép. Számítsd ki a kamatmegtakarítást és hasonlítsd össze a futamidő csökkentésének vagy a törlesztőrészlet csökkentésének lehetőségeit.",
         "keywords": "előtörlesztés,hitel,jelzáloghitel,kamatmegtakarítás,futamidő csökkentése,törlesztőrészlet csökkentése,hitel számológép",
-        "title": "Hitelk előtörlesztés-számológép | MathCalc"
+        "title": "Hitelk előtörlesztés-számológép | MathCalc Pro"
       },
       "term_reduction": "Hitelfutamidő csökkentése",
       "title": "Előtörlesztés számológép",
@@ -748,7 +748,7 @@
       "seo": {
         "description": "Bezplatný kalkulátor spotřeby paliva. Számítsd ki spotřebu l/100km, költség na cestu a naplánujte si výlety.",
         "keywords": "palivo,spotřeba paliva,költség na cestu,l/100km,benzín,nafta,kalkulátor paliva,cestování,auto",
-        "title": "Kalkulátor spotřeby paliva - Számítás nákladů na cestu | MathCalc"
+        "title": "Kalkulátor spotřeby paliva - Számítás nákladů na cestu | MathCalc Pro"
       },
       "title": "Üzemanyag-fogyasztás számológép",
       "total_cost": "Celkové költség",
@@ -784,7 +784,7 @@
       "remove_period": "Időszak eltávolítása",
       "returns": "hozamok",
       "seo_description": "Ingyenes IRR számológép. Számítsd ki a belső megtérülési rátát, NPV-t és elemezd a beruházás jövedelmezőségét pénzáramlásokkal.",
-      "seo_title": "IRR Számológép - Belső megtérülési ráta | MathCalc",
+      "seo_title": "IRR Számológép - Belső megtérülési ráta | MathCalc Pro",
       "sum_all_expenses": "Az összes kiadás összege",
       "sum_all_income": "Az összes bevétel összege",
       "title": "IRR Számológép",
@@ -1171,7 +1171,7 @@
   "compound_interest_rate_help": "Nominální roční kamat kulcs v procentech",
   "compound_interest_rate_label": "Roční kamat kulcs",
   "compound_interest_seo_description": "Ingyenes összetett kamat kalkulátor. Számítsd ki az összetett kamatot és végső egyenleget.",
-  "compound_interest_seo_title": "Összetett Kamat Kalkulátor | MathCalc",
+  "compound_interest_seo_title": "Összetett Kamat Kalkulátor | MathCalc Pro",
   "compound_interest_title": "Összetett Kamat",
   "compound_interest_total_contributions": "Összes beruházás",
   "compound_interest_validation_principal": "Adjon meg platnou počáteční částku",
@@ -1231,7 +1231,7 @@
   "concrete_sand_price_label": "Ár písku (Kč/m³)",
   "concrete_seo_desc": "Bezplatná kalkulačka betonu: přesný számítás cementu, písku, štěrku a vody pro desky i sloupy. Včetně 5% rezervy a odhadu nákladů.",
   "concrete_seo_keywords": "beton,kalkulátor,beton mennyiség,alapozás,oszlop,beton súly",
-  "concrete_seo_title": "Beton Kalkulátor - Beton Térfogat és Súly | MathCalc",
+  "concrete_seo_title": "Beton Kalkulátor - Beton Térfogat és Súly | MathCalc Pro",
   "concrete_strength_extreme": "Extrém szilárdság",
   "concrete_strength_high": "Magas szilárdság",
   "concrete_strength_low": "Alacsony szilárdság",
@@ -1283,7 +1283,7 @@
   "currency_result_original": "Eredeti összeg",
   "currency_seo_description": "Ingyenes pénznem-átváltó. Valós idejű árfolyamokkal és 150+ pénznemmel.",
   "currency_seo_keywords": "pénznem,átváltó,árfolyam,valuta,konverter,HUF,EUR,USD",
-  "currency_seo_title": "Pénznem-Átváltó - Valós Idejű Árfolyamok | MathCalc",
+  "currency_seo_title": "Pénznem-Átváltó - Valós Idejű Árfolyamok | MathCalc Pro",
   "currency_summary_title": "Átváltási eredmény",
   "currency_to": "erre",
   "currency_to_placeholder": "Válassz valutát",
@@ -1314,7 +1314,7 @@
   "direct_proportion_keyword_4": "számítás",
   "direct_proportion_result_label": "X = ",
   "direct_proportion_seo_description": "Ingyenes egyenes arányosság kalkulátor. Oldj meg hármasszabály feladatokat gyorsan.",
-  "direct_proportion_seo_title": "Egyenes Arányosság Kalkulátor - Hármasszabály | MathCalc",
+  "direct_proportion_seo_title": "Egyenes Arányosság Kalkulátor - Hármasszabály | MathCalc Pro",
   "direct_proportion_title": "Egyenes Arányosság",
   "direct_proportion_validation_positive": "Zadejte platné kladné szám větší než 0",
   "direct_proportion_value_a": "Érték A",
@@ -1431,7 +1431,7 @@
   "fractions_select_operation": "Válassz operaci se fractions ze seznamu.",
   "fractions_select_operation_label": "Válassz operaci",
   "fractions_seo_description": "Ingyenes törtkalkulátor. Összeadás, kivonás, szorzás, osztás törtekben.",
-  "fractions_seo_title": "Törtkalkulátor - Tört Műveletek | MathCalc",
+  "fractions_seo_title": "Törtkalkulátor - Tört Műveletek | MathCalc Pro",
   "fractions_simplified": "rövidítve",
   "fractions_step_add_numerators": "Összeadjuk a számlálókat",
   "fractions_step_convert": "Převedeme na společný nevező",
@@ -1487,17 +1487,10 @@
   },
   "footer": {
     "about": {
-      "title": "Cég",
-      "company": "Rólunk",
-      "team": "Csapat",
-      "careers": "Karrier",
-      "blog": "Blog"
+      "company": "Rólunk"
     },
     "support": {
-      "title": "Támogatás",
-      "help_center": "Súgóközpont",
-      "contact": "Kapcsolat",
-      "faq": "GYIK"
+      "contact": "Kapcsolat"
     },
     "legal": {
       "title": "Jogi",
@@ -1505,19 +1498,14 @@
       "privacy": "Adatvédelem",
       "cookies": "Süti szabályzat"
     },
-    "resources": {
-      "title": "Források",
-      "documentation": "Dokumentáció",
-      "api": "API",
-      "status": "Rendszerállapot"
-    },
     "rights": "Minden jog fenntartva",
     "made_with": "Készült",
     "in": "itt:",
     "version": "Verzió",
     "terms": "Feltételek",
     "privacy": "Adatvédelem",
-    "cookies": "Sütik"
+    "cookies": "Sütik",
+    "navigation": "Navigáció"
   },
   "ideal_weight_age_error": "Zadejte platný életkor (15-120 let)",
   "ideal_weight_age_help": "Váš életkor v letech",
@@ -1587,7 +1575,7 @@
   "ideal_weight_result_label": "Ideální súly",
   "ideal_weight_seo_description": "Ingyenes ideális testsúly kalkulátor. Számítsd ki az ideális súlyodat Broca, Devine és Miller képletekkel.",
   "ideal_weight_seo_keywords": "ideális súly,testsúly,kalkulátor,normális súly,BMI,egészség",
-  "ideal_weight_seo_title": "Ideális Testsúly Kalkulátor | MathCalc",
+  "ideal_weight_seo_title": "Ideális Testsúly Kalkulátor | MathCalc Pro",
   "ideal_weight_status_ideal": "Ideální súly",
   "ideal_weight_status_overweight": "Túlsúly",
   "ideal_weight_status_slightly_overweight": "Kissé túlsúlyos",
@@ -1628,7 +1616,7 @@
   "insulation_select_area": "Válassz oblast",
   "insulation_select_material": "Vyberte anyag",
   "insulation_seo_description": "Ingyenes szigetelés kalkulátor. Számítsd ki a szükséges szigetelés mennyiségét és súlyát.",
-  "insulation_seo_title": "Szigetelés Kalkulátor - Szükséges Szigetelés Mennyisége | MathCalc",
+  "insulation_seo_title": "Szigetelés Kalkulátor - Szükséges Szigetelés Mennyisége | MathCalc Pro",
   "insulation_target_u": "Cílová U-érték",
   "insulation_target_u_label": "Cílová U-érték (W/m²K)",
   "insulation_thermal_conductivity": "Hővezetési tényező (λ)",
@@ -1666,7 +1654,7 @@
   "inverse_proportion_keyword_4": "számítás",
   "inverse_proportion_result_label": "X = ",
   "inverse_proportion_seo_description": "Ingyenes fordított arányosság kalkulátor. Oldj meg fordított arány feladatokat gyorsan.",
-  "inverse_proportion_seo_title": "Fordított Arányosság Kalkulátor | MathCalc",
+  "inverse_proportion_seo_title": "Fordított Arányosság Kalkulátor | MathCalc Pro",
   "inverse_proportion_title": "Fordított Arányosság",
   "inverse_proportion_validation_positive": "Zadejte platné kladné szám větší než 0",
   "inverse_proportion_value_a": "Érték A",
@@ -1697,7 +1685,7 @@
   "irr_irr_label": "IRR (vnitřní výnosové százalék)",
   "irr_seo_description": "Bezplatný kalkulátor IRR. Számítsd ki vnitřní výnosové százalék, NPV a analyzujte výhodnost beruházás s peněžními toky.",
   "irr_seo_keywords": "IRR,vnitřní výnosové százalék,NPV,beruházás,výnosnost,peněžní toky,finanční analýza,kalkulátor IRR",
-  "irr_seo_title": "IRR Kalkulátor - Belső Megtérülési Ráta | MathCalc",
+  "irr_seo_title": "IRR Kalkulátor - Belső Megtérülési Ráta | MathCalc Pro",
   "irr_validation_cash_flow": "Adjon meg platnou částku",
   "irr_validation_cash_flows": "Adjon meg legalább 2 pénzáramlást (kezdeti beruházás + legalább 1 hozam)",
   "irr_validation_discount_rate": "Adjon meg platnou diskontní sazbu",
@@ -1771,7 +1759,7 @@
   "loan_result_total_interest": "Celkové kamatok",
   "loan_seo_description": "Ingyenes hitel kalkulátor. Számítsd ki a havi törlesztőrészletet és a kamatot.",
   "loan_seo_keywords": "hitel,kalkulátor,jelzáloghitel,törlesztőrészlet,kamat,autóhitel",
-  "loan_seo_title": "Hitel Kalkulátor - Havi Törlesztőrészlet | MathCalc",
+  "loan_seo_title": "Hitel Kalkulátor - Havi Törlesztőrészlet | MathCalc Pro",
   "loan_summary_labels": "Výše • Kamat • Időszak splatnosti",
   "loan_summary_title": "Hitel összegzése",
   "loan_unit_months": "Hónap",
@@ -1822,7 +1810,7 @@
   "macro_per_day": "naponta",
   "macro_protein": "Fehérjék",
   "macro_seo_description": "Ingyenes makró kalkulátor. Számítsd ki a napi fehérje, zsír és szénhidrátszükségletet.",
-  "macro_seo_title": "Makró Kalkulátor - Napi Makrotápanyag | MathCalc",
+  "macro_seo_title": "Makró Kalkulátor - Napi Makrotápanyag | MathCalc Pro",
   "macro_weight": "Súly",
   "nav": {
     "calculators": "Kalkulátorok",
@@ -1880,7 +1868,7 @@
   "net_salary_keyword_4": "adó",
   "net_salary_net_label": "Čistá fizetés",
   "net_salary_seo_description": "Ingyenes nettó fizetés-számológép. Számítsd ki az adók és járulékok levonása után kapott nettó fizetést.",
-  "net_salary_seo_title": "Nettó fizetés-számológép | MathCalc",
+  "net_salary_seo_title": "Nettó fizetés-számológép | MathCalc Pro",
   "net_salary_social_label": "Társadalombiztosítás",
   "net_salary_tax_label": "Adó z příjmu",
   "net_salary_title": "Nettó Fizetés",
@@ -1910,7 +1898,7 @@
   "npv_formula_desc": "NPV je összeg současných hodnot všech peněžních toků diskontovaných požadovanou výnosností.",
   "npv_seo_description": "Bezplatný kalkulátor NPV. Számítsd ki čistou současnou hodnotu beruházás, index ziskovosti a analyzujte výhodnost projektu.",
   "npv_seo_keywords": "NPV,čistá současná érték,beruházás,diskontní kulcs,index ziskovosti,finanční analýza,kalkulátor NPV",
-  "npv_seo_title": "Kalkulátor NPV – Čistá současná érték | MathCalc",
+  "npv_seo_title": "Kalkulátor NPV – Čistá současná érték | MathCalc Pro",
   "npv_validation_cash_flow": "Adjon meg platnou částku",
   "npv_validation_discount_rate": "Adjon meg platnou diskontní sazbu",
   "pct_of_num_description": "Számítsd ki X százalék z daného számok. Ideální pro számítások slev, ÁFA, spropitného a dalších procentuálních výpočtů.",
@@ -1936,7 +1924,7 @@
   "pct_of_num_result_calculation": "Számítás",
   "pct_of_num_seo_description": "Bezplatný kalkulátor pro számítás százalék z számok. Snadno számítsd ki slevy, ÁFA, spropitné a další procentuální értékek.",
   "pct_of_num_seo_keywords": "százalék z számok,kalkulátor százalék,számítás slevy,számítás ÁFA,procentuální kalkulátor",
-  "pct_of_num_seo_title": "Kalkulátor: Százalék z számok - Számítás X% z számok | MathCalc",
+  "pct_of_num_seo_title": "Kalkulátor: Százalék z számok - Számítás X% z számok | MathCalc Pro",
   "percent_decrease_title": "Százalékos csökkentés-számológép",
   "percentage_calculator_description": "Számítsd ki százalék, slevy a poměry",
   "percentage_calculator_title": "Kalkulátor százalék",
@@ -1981,7 +1969,7 @@
   "roi_net_profit_label": "Tiszta nyereség",
   "roi_seo_description": "Ingyenes ROI kalkulátor. Számítsd ki a beruházás megtérülési rátáját.",
   "roi_seo_keywords": "ROI,kalkulátor,beruházás,megtérülés,nyereség,jövedelmezőség",
-  "roi_seo_title": "ROI Kalkulátor - Beruházás Megtérülési Ráta | MathCalc",
+  "roi_seo_title": "ROI Kalkulátor - Beruházás Megtérülési Ráta | MathCalc Pro",
   "roi_total_roi": "Teljes ROI",
   "roi_validation_additional_costs": "Zadejte platné dodatečné költség",
   "roi_validation_annual_return": "Zadejte platný roční hozam",
@@ -2082,7 +2070,7 @@
   "tip_result_tip": "Borravaló",
   "tip_seo_description": "Bezplatný kalkulátor spropitného. Számítsd ki správnou výši spropitného podle kvality obsluhy a rozdělte účet mezi více lidí.",
   "tip_seo_keywords": "spropitné,tip calculator,restaurace,obsluha,účet,rozdělení účtu,százalék,kalkulátor",
-  "tip_seo_title": "Kalkulátor spropitného - Számítás spropitného pro restaurace | MathCalc",
+  "tip_seo_title": "Kalkulátor spropitného - Számítás spropitného pro restaurace | MathCalc Pro",
   "tip_service_average": "Átlagos",
   "tip_service_custom": "Vlastní százalék",
   "tip_service_excellent": "Kiváló",
@@ -2138,7 +2126,7 @@
   "unit_converter_length": "Hosszúság",
   "unit_converter_quick_conversions": "Gyors átváltások",
   "unit_converter_seo_description": "Ingyenes egységváltó. Váltsd át a hosszúságot, súlyt, térfogatot, területet és időt. Metrikus és angolszász egységek.",
-  "unit_converter_seo_title": "Převodník jednotek – Hosszúság, hmotnost, térfogat, hőmérséklet | MathCalc",
+  "unit_converter_seo_title": "Převodník jednotek – Hosszúság, hmotnost, térfogat, hőmérséklet | MathCalc Pro",
   "unit_converter_swap": "Prohodit egységek",
   "unit_converter_temperature": "Hőmérséklet",
   "unit_converter_title": "Egység Átalakító",
@@ -2195,7 +2183,7 @@
   "vat_result_vat": "ÁFA összeg",
   "vat_seo_description": "Ingyenes ÁFA kalkulátor. Számítsd ki a bruttó/nettó árat és az ÁFA összeget.",
   "vat_seo_keywords": "ÁFA,kalkulátor,bruttó,nettó,27%,18%,5%,szja",
-  "vat_seo_title": "ÁFA Kalkulátor - Bruttó és Nettó Ár | MathCalc",
+  "vat_seo_title": "ÁFA Kalkulátor - Bruttó és Nettó Ár | MathCalc Pro",
   "vat_title": "ÁFA-számológép",
   "volume_calc_base_radius_label": "Alapkör sugara",
   "volume_calc_description": "Számítsd ki térfogat a povrch geometrických těles – krychle, kvádr, koule, válec, kužel.",
@@ -2233,7 +2221,7 @@
   "volume_calc_result_surface": "Felület",
   "volume_calc_result_volume": "Térfogat",
   "volume_calc_seo_desc": "Bezplatná kalkulačka objemu a povrchu: krychle, kvádr, koule, válec, kužel. Přesný számítás s převodem jednotek.",
-  "volume_calc_seo_title": "Térfogat számológép - m³, liter, gallon átváltás | MathCalc",
+  "volume_calc_seo_title": "Térfogat számológép - m³, liter, gallon átváltás | MathCalc Pro",
   "volume_calc_shape_label": "Alak",
   "volume_calc_title": "Térfogat számológép",
   "volume_calc_width_label": "Szélesség",
@@ -2276,7 +2264,7 @@
   "water_keyword_4": "denní jövedelem tekutin",
   "water_per_day": "naponta",
   "water_seo_description": "Ingyenes vízfogyasztás kalkulátor. Mekkora napi vízigényed az aktivitás alapján.",
-  "water_seo_title": "Vízfogyasztás Kalkulátor - Napi Vízigény | MathCalc",
+  "water_seo_title": "Vízfogyasztás Kalkulátor - Napi Vízigény | MathCalc Pro",
   "water_weight": "Súly",
   "weight_converter_title": "Súly-átváltó",
   "weight_help_text": "Adjon meg svou váhu v kilogramech (2-500 kg)",
@@ -2348,7 +2336,7 @@
   },
   "about": {
     "title": "About Us",
-    "content": "MathCalc Pro is a comprehensive collection of precise, easy-to-use online calculators designed to help you solve everyday math problems across various categories such as health, finance, construction, and basic mathematics. Our goal is to provide fast, reliable, and accessible tools for everyone."
+    "content": "A MathCalc Pro a pontos és könnyen használható online számológépek átfogó gyűjteménye, amely segít a mindennapi matematikai problémák megoldásában. Akár pénzügyi számológépekre van szüksége jelzáloghitelekhez, egészségügyi számológépekre, mint a BMI és a BMR, építőipari számológépekre az anyagbecslésekhez, vagy alapvető matematikai eszközökre, platformunk gyors, megbízható és teljesen ingyenes megoldásokat kínál. Célunk, hogy egyszerűsítsük a mindennapi számításokat."
   },
   "contact": {
     "title": "Contact Us",

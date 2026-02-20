@@ -443,7 +443,7 @@ const MaterialCalculator: React.FC = () => {
       category={t('categories.construction')}
       calculatorId="materials"
       seo={{
-        title: "Kalkulátor materiálů - Výpočet dlažby, barvy, betonu | MathCalc",
+        title: "Kalkulátor materiálů - Výpočet dlažby, barvy, betonu | MathCalc Pro",
         description: "Bezplatný kalkulátor stavebních materiálů. Vypočítejte potřebné množství dlažby, barvy, betonu, podlahovin včetně odpadu a ceny.",
         keywords: ["materiály", "dlažba", "barva", "beton", "podlahoviny", "tapety", "izolace", "stavba", "rekonstrukce", "kalkulátor materiálů"]
       }}

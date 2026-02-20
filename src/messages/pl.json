@@ -20,7 +20,7 @@
   "age_formula_latex": "Věk = Cílové\\,datum - Datum\\,urodzenia",
   "age_seo_description": "Bezplatný kalkulator wieku. Oblicz přesný wiek, celkový počet dní života, další urodziny a znamení zvěrokruhu.",
   "age_seo_keywords": "wiek,kalkulator wieku,datum urodzenia,urodziny,dny života,znamení,zvěrokruh,obliczenie wieku",
-  "age_seo_title": "Kalkulator wieku - Výpočet přesného wieku a dní života | MathCalc",
+  "age_seo_title": "Kalkulator wieku - Výpočet přesného wieku a dní života | MathCalc Pro",
   "age_summary_title": "Výpočet wieku",
   "age_unit_months": "miesięcy",
   "age_unit_years": "lat",
@@ -68,7 +68,7 @@
   "annuity_payment_calculator_title": "Kalkulator annuitetowy splátky",
   "annuity_seo_description": "Bezplatný kalkulator annuitetowy splátky. Oblicz měsíční splátku kredytu, celkové odsetki a celkovou zaplacenou částku.",
   "annuity_seo_keywords": "annuitetowy rata,kalkulator splátky,obliczenie kredytu,hipoteka,měsíční rata,kredytová kalkulačka",
-  "annuity_seo_title": "Kalkulator annuitetowy splátky – Výpočet měsíční splátky | MathCalc",
+  "annuity_seo_title": "Kalkulator annuitetowy splátky – Výpočet měsíční splátky | MathCalc Pro",
   "annuity_total_interest": "Celkové odsetki",
   "annuity_total_payment": "Celková zaplacená částka",
   "annuity_validation_interest_rate": "Wprowadź platnou odsetkaovou sazbu (0-100 %)",
@@ -142,7 +142,7 @@
   "area_result_perimeter": "Obvod",
   "area_seo_description": "Bezplatný kalkulator plochy. Oblicz plochu a obvod obdélníku, čtverce, kruhu, trojúhelníku a lichoběžníku.",
   "area_seo_keywords": "plocha,obvod,obdélník,čtverec,kruh,trojúhelník,lichoběžník,geometrie,stavebnictví,kalkulator plochy",
-  "area_seo_title": "Kalkulator plochy - Výpočet plochy obdélníku, kruhu, trojúhelníku | MathCalc",
+  "area_seo_title": "Kalkulator plochy - Výpočet plochy obdélníku, kruhu, trojúhelníku | MathCalc Pro",
   "area_shape_circle": "Kruh",
   "area_shape_rectangle": "Obdélník",
   "area_shape_square": "Čtverec",
@@ -216,7 +216,7 @@
   "bodyfat_section_basic": "Základní údaje",
   "bodyfat_seo_description": "Bezplatný kalkulator tělesného tuku. Výpočet pomocí US Navy metody nebo BMI s analýzou složení těla a zdrowotnymi doporučeními.",
   "bodyfat_seo_keywords": "tělesný tuk,body fat,US Navy,BMI,složení těla,tuková hmota,svalová hmota,fitness,zdraví",
-  "bodyfat_seo_title": "Tělesný tuk kalkulator - US Navy metoda BMI odhad | MathCalc",
+  "bodyfat_seo_title": "Tělesný tuk kalkulator - US Navy metoda BMI odhad | MathCalc Pro",
   "bodyfat_summary_body": "Tělo",
   "bodyfat_summary_profile": "Profil",
   "bodyfat_summary_title": "Vaše údaje",
@@ -374,7 +374,7 @@
       "seo": {
         "description": "Bezplatný kalkulator bazálního metabolismu. Výpočet BMR pomocí Mifflin-St Jeor, Harris-Benedict a Katch-McArdle vzorců.",
         "keywords": "BMR,bazální metabolismus,Mifflin-St Jeor,Harris-Benedict,Katch-McArdle,metabolismus,kalorie,energie",
-        "title": "BMR kalkulator - Bazální metabolismus Mifflin Harris Katch | MathCalc"
+        "title": "BMR kalkulator - Bazální metabolismus Mifflin Harris Katch | MathCalc Pro"
       },
       "summary_age_gender": "[MISSING] Věk/Pohlaví",
       "summary_female": "[MISSING] žena",
@@ -451,7 +451,7 @@
       "seo": {
         "description": "Bezplatný kalkulator dzieńní potřeby kalorií. Výpočet BMR, TDEE a kalorických cílů pro hubnutí, udržení nebo přibírání váhy.",
         "keywords": "kalorie,BMR,TDEE,bazální metabolismus,dzieńní potřeba kalorií,hubnutí,přibírání,metabolismus,fitness",
-        "title": "Kalorie kalkulator - Denní potřeba kalorií BMR TDEE | MathCalc"
+        "title": "Kalorie kalkulator - Denní potřeba kalorií BMR TDEE | MathCalc Pro"
       },
       "title": "Kalorie kalkulator"
     },
@@ -534,7 +534,7 @@
       "seo": {
         "description": "Bezplatný kalkulator slev. Oblicz slevu z procenta, částky slevy nebo konečné ceny. Zjistěte úsporu a finální cenu.",
         "keywords": "sleva,discount,procento slevy,obliczenie slevy,úspora,akce,kalkulator,nákup",
-        "title": "Kalkulator slev - Výpočet slevy z procenta nebo částky | MathCalc"
+        "title": "Kalkulator slev - Výpočet slevy z procenta nebo částky | MathCalc Pro"
       },
       "title": "Kalkulator slev"
     },
@@ -650,7 +650,7 @@
       "seo": {
         "description": "Bezplatný kalkulator předčasného splacení. Oblicz úspory na úrocích a porovnejte možnosti zkrácení doby nebo snížení splátky.",
         "keywords": "předčasné splacení,kredyt,hipoteka,úspora odsetkaů,zkrácení doby,snížení splátky,kalkulator kredytu",
-        "title": "Kalkulator předčasného splacení kredytu | MathCalc"
+        "title": "Kalkulator předčasného splacení kredytu | MathCalc Pro"
       },
       "term_reduction": "Zkrácení doby kredytu",
       "title": "Kalkulator předčasného splacení",
@@ -747,7 +747,7 @@
       "seo": {
         "description": "Bezplatný kalkulator spotřeby paliva. Oblicz spotřebu l/100km, náklady na cestu a naplánujte si výlaty.",
         "keywords": "palivo,spotřeba paliva,náklady na cestu,l/100km,benzín,nafta,kalkulator paliva,cestování,auto",
-        "title": "Kalkulator spotřeby paliva - Výpočet nákladů na cestu | MathCalc"
+        "title": "Kalkulator spotřeby paliva - Výpočet nákladů na cestu | MathCalc Pro"
       },
       "title": "Kalkulator spotřeby paliva",
       "total_cost": "Celkové náklady",
@@ -783,7 +783,7 @@
       "remove_period": "Odebrat období",
       "returns": "výnosů",
       "seo_description": "Bezplatný kalkulator IRR. Oblicz vnitřní výnosové procento, NPV a analyzujte výhodnost investice s peněžními toky.",
-      "seo_title": "Kalkulator IRR - Vnitřní výnosové procento | MathCalc",
+      "seo_title": "Kalkulator IRR - Vnitřní výnosové procento | MathCalc Pro",
       "sum_all_expenses": "Součet všech výdajů",
       "sum_all_income": "Součet všech příjmů",
       "title": "Kalkulator IRR",
@@ -1168,7 +1168,7 @@
   "compound_interest_rate_help": "Nominální roční odsetkaová stawka v procentech",
   "compound_interest_rate_label": "Roční odsetkaová stawka",
   "compound_interest_seo_description": "Bezplatný kalkulator složeného úročení. Oblicz budoucí hodnotu investice, celkové odsetki a vliv pravidelných vkladů.",
-  "compound_interest_seo_title": "Kalkulator složeného úročení – Výpočet budoucí hodnoty | MathCalc",
+  "compound_interest_seo_title": "Kalkulator složeného úročení – Výpočet budoucí hodnoty | MathCalc Pro",
   "compound_interest_title": "Složené úročení",
   "compound_interest_total_contributions": "Celkové vklady",
   "compound_interest_validation_principal": "Wprowadź platnou počáteční částku",
@@ -1228,7 +1228,7 @@
   "concrete_sand_price_label": "Cena písku (zł/m³)",
   "concrete_seo_desc": "Bezplatná kalkulačka betonu: přesný obliczenie cementu, písku, štěrku a vody pro desky i sloupy. Včetně 5% rezervy a odhadu nákladů.",
   "concrete_seo_keywords": "beton,cement,písek,štěrk,stavba,kalkulator betonu",
-  "concrete_seo_title": "Kalkulačka betonu – Výpočet materiálu a nákladů | MathCalc",
+  "concrete_seo_title": "Kalkulačka betonu – Výpočet materiálu a nákladů | MathCalc Pro",
   "concrete_strength_extreme": "Extrémní pevnost",
   "concrete_strength_high": "Vysoká pevnost",
   "concrete_strength_low": "Nízká pevnost",
@@ -1280,7 +1280,7 @@
   "currency_result_original": "Původní částka",
   "currency_seo_description": "Bezplatný kalkulator měn. Převádějte PLN, EUR, USD, GBP a další měny s aktuálními směnnými kurzy.",
   "currency_seo_keywords": "měny,kalkulator měn,převod měn,směnný kurz,PLN,EUR,USD,GBP,CHF,PLN,HUF",
-  "currency_seo_title": "Kalkulator měn - Převod měn s aktuálními kurzy | MathCalc",
+  "currency_seo_title": "Kalkulator měn - Převod měn s aktuálními kurzy | MathCalc Pro",
   "currency_summary_title": "Převod měny",
   "currency_to": "na",
   "currency_to_placeholder": "Wybierz walutę",
@@ -1311,7 +1311,7 @@
   "direct_proportion_keyword_4": "obliczenie",
   "direct_proportion_result_label": "Wynik",
   "direct_proportion_seo_description": "Oblicz neznámou hodnotu v přímé úměře (a : b = c : x). Ideální pro úměrové výpočty.",
-  "direct_proportion_seo_title": "Kalkulator přímé úměry – Výpočet neznámé x | MathCalc",
+  "direct_proportion_seo_title": "Kalkulator přímé úměry – Výpočet neznámé x | MathCalc Pro",
   "direct_proportion_title": "Přímá úměra",
   "direct_proportion_validation_positive": "Wprowadź platné kladné číslo větší než 0",
   "direct_proportion_value_a": "Hodnota A",
@@ -1428,7 +1428,7 @@
   "fractions_select_operation": "Vyberte operaci se fractions ze seznamu.",
   "fractions_select_operation_label": "Vyberte operaci",
   "fractions_seo_description": "Bezplatný kalkulator zlomků. Sčítání, odčítání, násobení, dělení, krácení a převod zlomků na desetinná čísla.",
-  "fractions_seo_title": "Kalkulator zlomků – Operace se zlomky | MathCalc",
+  "fractions_seo_title": "Kalkulator zlomků – Operace se zlomky | MathCalc Pro",
   "fractions_simplified": "zkráceno",
   "fractions_step_add_numerators": "Sečteme čitatele",
   "fractions_step_convert": "Převedeme na společný jmenovatel",
@@ -1550,7 +1550,7 @@
   "ideal_weight_result_label": "Ideální waga",
   "ideal_weight_seo_description": "Bezplatný kalkulator ideální váhy. Výpočet pomocí Robinson, Miller, Devine a Hamwi vzorců s porovnáním zdroweho BMI rozpětí.",
   "ideal_weight_seo_keywords": "ideální waga,Robinson,Miller,Devine,Hamwi,zdrowa waga,BMI,kalkulator váhy,fitness",
-  "ideal_weight_seo_title": "Ideální waga kalkulator - Robinson Miller Devine Hamwi | MathCalc",
+  "ideal_weight_seo_title": "Ideální waga kalkulator - Robinson Miller Devine Hamwi | MathCalc Pro",
   "ideal_weight_status_ideal": "Ideální waga",
   "ideal_weight_status_overweight": "Nadwaga",
   "ideal_weight_status_slightly_overweight": "Mírně nadwaga",
@@ -1591,7 +1591,7 @@
   "insulation_select_area": "Vyberte oblast",
   "insulation_select_material": "Vyberte materiál",
   "insulation_seo_description": "Bezplatný kalkulator tepelné izolace. Oblicz tloušťku, náklady a úspory pro zateplení fasády, střechy, podlahy.",
-  "insulation_seo_title": "Kalkulator izolace - Výpočet tepelné izolace | MathCalc",
+  "insulation_seo_title": "Kalkulator izolace - Výpočet tepelné izolace | MathCalc Pro",
   "insulation_target_u": "Cílová U-hodnota",
   "insulation_target_u_label": "Cílová U-hodnota (W/m²K)",
   "insulation_thermal_conductivity": "Tepelná vodivost λ",
@@ -1629,7 +1629,7 @@
   "inverse_proportion_keyword_4": "obliczenie",
   "inverse_proportion_result_label": "Wynik",
   "inverse_proportion_seo_description": "Oblicz neznámou hodnotu v nepřímé úměře (A × B = C × x). Ideální pro úměrové výpočty.",
-  "inverse_proportion_seo_title": "Kalkulator nepřímé úměry – Výpočet neznámé x | MathCalc",
+  "inverse_proportion_seo_title": "Kalkulator nepřímé úměry – Výpočet neznámé x | MathCalc Pro",
   "inverse_proportion_title": "Nepřímá úměra",
   "inverse_proportion_validation_positive": "Wprowadź platné kladné číslo větší než 0",
   "inverse_proportion_value_a": "Hodnota A",
@@ -1660,7 +1660,7 @@
   "irr_irr_label": "IRR (vnitřní výnosové procento)",
   "irr_seo_description": "Bezplatný kalkulator IRR. Oblicz vnitřní výnosové procento, NPV a analyzujte výhodnost investice s peněžními toky.",
   "irr_seo_keywords": "IRR,vnitřní výnosové procento,NPV,investice,výnosnost,peněžní toky,finanční analýza,kalkulator IRR",
-  "irr_seo_title": "Kalkulator IRR – Vnitřní výnosové procento | MathCalc",
+  "irr_seo_title": "Kalkulator IRR – Vnitřní výnosové procento | MathCalc Pro",
   "irr_validation_cash_flow": "Wprowadź platnou částku",
   "irr_validation_cash_flows": "Musí existovat alespoň jedzień záporný a jedzień kladný peněžní tok",
   "irr_validation_discount_rate": "Wprowadź platnou diskontní sazbu",
@@ -1734,7 +1734,7 @@
   "loan_result_total_interest": "Celkové odsetki",
   "loan_seo_description": "Bezplatný kalkulator půjček. Oblicz měsíční splátky, celkové náklady a odsetki pro hypotéky, osobní půjčky a kredyty.",
   "loan_seo_keywords": "půjčka,kredyt,hipoteka,rata,odsetka,kalkulator půjček,měsíční rata,finanční kalkulator",
-  "loan_seo_title": "Kalkulator půjček - Výpočet splátek kredytu a hypotéky | MathCalc",
+  "loan_seo_title": "Kalkulator půjček - Výpočet splátek kredytu a hypotéky | MathCalc Pro",
   "loan_summary_labels": "Výše • Úrok • Doba splatnosti",
   "loan_summary_title": "Parametry půjčky",
   "loan_unit_months": "Měsíce",
@@ -1785,7 +1785,7 @@
   "macro_per_day": "dzieńně",
   "macro_protein": "Bílkoviny",
   "macro_seo_description": "Bezplatný kalkulator makroživin. Oblicz dzieńní příjem bílkovin, sacharidů a tuků pro hubnutí, udržení nebo nabírání.",
-  "macro_seo_title": "Makro kalkulator – Výpočet dzieńních makroživin | MathCalc",
+  "macro_seo_title": "Makro kalkulator – Výpočet dzieńních makroživin | MathCalc Pro",
   "macro_weight": "Hmotnost",
   "nav": {
     "calculators": "Kalkulatory",
@@ -1843,7 +1843,7 @@
   "net_salary_keyword_4": "kalkulačka mzdy",
   "net_salary_net_label": "Čistá mzda",
   "net_salary_seo_description": "Bezplatný kalkulator čisté mzdy. Oblicz čistou mzdu z hrubé mzdy včetně sociálního a zdrowotnyho pojištění a daně.",
-  "net_salary_seo_title": "Kalkulator čisté mzdy – Výpočet čisté mzdy z hrubé | MathCalc",
+  "net_salary_seo_title": "Kalkulator čisté mzdy – Výpočet čisté mzdy z hrubé | MathCalc Pro",
   "net_salary_social_label": "Sociální pojištění",
   "net_salary_tax_label": "Daň z příjmu",
   "net_salary_title": "Kalkulator čisté mzdy",
@@ -1873,7 +1873,7 @@
   "npv_formula_desc": "NPV je součet současných hodnot všech peněžních toků diskontovaných požadovanou výnosností.",
   "npv_seo_description": "Bezplatný kalkulator NPV. Oblicz čistou současnou hodnotu investice, index ziskovosti a analyzujte výhodnost projektu.",
   "npv_seo_keywords": "NPV,čistá současná hodnota,investice,diskontní stawka,index ziskovosti,finanční analýza,kalkulator NPV",
-  "npv_seo_title": "Kalkulator NPV – Čistá současná hodnota | MathCalc",
+  "npv_seo_title": "Kalkulator NPV – Čistá současná hodnota | MathCalc Pro",
   "npv_validation_cash_flow": "Wprowadź platnou částku",
   "npv_validation_discount_rate": "Wprowadź platnou diskontní sazbu",
   "pct_of_num_description": "Oblicz X procent z daného čísla. Ideální pro výpočty slev, VAT, spropitného a dalších procentuálních výpočtů.",
@@ -1899,7 +1899,7 @@
   "pct_of_num_result_calculation": "Výpočet",
   "pct_of_num_seo_description": "Bezplatný kalkulator pro obliczenie procent z čísla. Snadno vypočítejte slevy, VAT, spropitné a další procentuální hodnoty.",
   "pct_of_num_seo_keywords": "procento z čísla,kalkulator procent,obliczenie slevy,obliczenie VAT,procentuální kalkulator",
-  "pct_of_num_seo_title": "Kalkulator: Procento z čísla - Výpočet X% z čísla | MathCalc",
+  "pct_of_num_seo_title": "Kalkulator: Procento z čísla - Výpočet X% z čísla | MathCalc Pro",
   "percentage_calculator_description": "Oblicz procenta, slevy a poměry",
   "percentage_of_number_title": "Obliczanie procentu z liczby",
   "privacy_policy": {
@@ -1945,7 +1945,7 @@
   "roi_net_profit_label": "Čistý zisk",
   "roi_seo_description": "Bezplatný kalkulator ROI. Oblicz návratnost investice, roční ROI a analyzujte výhodnost vašich investičních projektů.",
   "roi_seo_keywords": "ROI,návratnost investice,return on investment,výnosnost,investice,finanční analýza,kalkulator ROI",
-  "roi_seo_title": "Kalkulator ROI – Návratnost investice | MathCalc",
+  "roi_seo_title": "Kalkulator ROI – Návratnost investice | MathCalc Pro",
   "roi_total_roi": "Celkové ROI",
   "roi_validation_additional_costs": "Wprowadź platné dodatečné náklady",
   "roi_validation_annual_return": "Wprowadź platný roční výnos",
@@ -2046,7 +2046,7 @@
   "tip_result_tip": "Spropitné",
   "tip_seo_description": "Bezplatný kalkulator spropitného. Oblicz správnou výši spropitného podle kvality obsluhy a rozdělte účet mezi více lidí.",
   "tip_seo_keywords": "spropitné,tip calculator,restaurace,obsluha,účet,rozdělení účtu,procenta,kalkulator",
-  "tip_seo_title": "Kalkulator spropitného - Výpočet spropitného pro restaurace | MathCalc",
+  "tip_seo_title": "Kalkulator spropitného - Výpočet spropitného pro restaurace | MathCalc Pro",
   "tip_service_average": "Průměrná (10%)",
   "tip_service_custom": "Vlastní procento",
   "tip_service_excellent": "Výborná (20%)",
@@ -2102,7 +2102,7 @@
   "unit_converter_length": "Délka",
   "unit_converter_quick_conversions": "Rychlé převody",
   "unit_converter_seo_description": "Bezplatný převodník jednotek. Převádějte mezi jednotkami délky, hmotnosti, objemu a teploty. Rychlé a přesné převody.",
-  "unit_converter_seo_title": "Převodník jednotek – Délka, hmotnost, objem, teplota | MathCalc",
+  "unit_converter_seo_title": "Převodník jednotek – Délka, hmotnost, objem, teplota | MathCalc Pro",
   "unit_converter_swap": "Prohodit jednotky",
   "unit_converter_temperature": "Teplota",
   "unit_converter_title": "Převodník jednotek",
@@ -2159,7 +2159,7 @@
   "vat_result_vat": "VAT",
   "vat_seo_description": "Bezplatný VAT kalkulator pro obliczenie daně z přidané hodnoty. Podporuje sazby pro ČR (21%) a SK (20%). Převod mezi částkami s VAT a bez VAT.",
   "vat_seo_keywords": "VAT kalkulator,podatek z přidané hodnoty,obliczenie VAT,kalkulator s VAT,kalkulator bez VAT",
-  "vat_seo_title": "VAT Kalkulator - Výpočet daně z přidané hodnoty | MathCalc",
+  "vat_seo_title": "VAT Kalkulator - Výpočet daně z přidané hodnoty | MathCalc Pro",
   "vat_title": "VAT Kalkulator",
   "volume_calc_base_radius_label": "Poloměr podstavy",
   "volume_calc_description": "Oblicz objem a povrch geometrických těles – krychle, kvádr, koule, válec, kužel.",
@@ -2197,7 +2197,7 @@
   "volume_calc_result_surface": "Povrch",
   "volume_calc_result_volume": "Objem",
   "volume_calc_seo_desc": "Bezplatná kalkulačka objemu a povrchu: krychle, kvádr, koule, válec, kužel. Přesný obliczenie s převodem jednotek.",
-  "volume_calc_seo_title": "Kalkulačka objemu a povrchu těles | MathCalc",
+  "volume_calc_seo_title": "Kalkulačka objemu a povrchu těles | MathCalc Pro",
   "volume_calc_shape_label": "Tvar tělesa",
   "volume_calc_title": "Kalkulačka objemu a povrchu",
   "volume_calc_width_label": "Šířka",
@@ -2240,7 +2240,7 @@
   "water_keyword_4": "dzieńní příjem tekutin",
   "water_per_day": "dzieńně",
   "water_seo_description": "Bezplatný kalkulator dzieńního příjmu vody. Zjistěte kolik litrů vody byste měli pít podle hmotnosti, aktivity a počasí.",
-  "water_seo_title": "Kalkulator příjmu vody – Kolik vody pít dzieńně | MathCalc",
+  "water_seo_title": "Kalkulator příjmu vody – Kolik vody pít dzieńně | MathCalc Pro",
   "water_weight": "Hmotnost",
   "weight_converter_title": "Převod hmotnosti",
   "weight_help_text": "Wprowadź svou váhu v kilogramech (2-500 kg)",
@@ -2308,11 +2308,14 @@
   },
   "about": {
     "title": "About Us",
-    "content": "MathCalc Pro is a comprehensive collection of precise, easy-to-use online calculators designed to help you solve everyday math problems across various categories such as health, finance, construction, and basic mathematics. Our goal is to provide fast, reliable, and accessible tools for everyone."
+    "content": "MathCalc Pro to wszechstronna kolekcja precyzyjnych i łatwych w użyciu kalkulatorów internetowych zaprojektowanych, aby pomóc Ci rozwiązywać codzienne problemy matematyczne. Niezależnie od tego, czy potrzebujesz kalkulatorów finansowych do kredytów hipotecznych i pożyczek, kalkulatorów zdrowotnych, takich jak BMI i BMR, kalkulatorów budowlanych do szacowania materiałów, czy podstawowych narzędzi matematycznych, nasza platforma zapewnia szybkie, niezawodne i całkowicie darmowe rozwiązania."
   },
   "contact": {
     "title": "Contact Us",
     "content": "Have a question, suggestion, or found a bug? We'd love to hear from you. Please reach out to us using the email below.",
     "email": "info@mathcalc-pro.com"
+  },
+  "footer": {
+    "navigation": "Szybkie linki"
   }
 }

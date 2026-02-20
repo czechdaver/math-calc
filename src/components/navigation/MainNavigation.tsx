@@ -73,8 +73,9 @@ const MainNavigation: React.FC = () => {
             <div className="relative w-8 h-8 flex items-center justify-center bg-primary rounded-lg shadow-lg group-hover:scale-105 transition-transform duration-200">
               <Calculator className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="font-heading font-bold text-xl tracking-tight text-foreground">
+            <span className="font-heading font-bold text-xl tracking-tight text-foreground flex items-center">
               Math<span className="text-primary">Calc</span>
+              <span className="ml-[7px] px-1 py-[1px] text-[12px] leading-none uppercase tracking-wider font-bold rounded bg-primary/10 text-primary/70 border border-primary/20 backdrop-blur-sm mix-blend-multiply dark:mix-blend-screen align-middle mt-0.5">PRO</span>
             </span>
           </Link>
 

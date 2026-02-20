@@ -53,7 +53,7 @@ const YJeXKolikJeStoCalculator: React.FC = () => {
       category="finance"
       calculatorId="y-is-x-what-is-hundred"
       seo={{
-        title: t('y_je_x_kolik_je_sto_title') + ' | MathCalc',
+        title: t('y_je_x_kolik_je_sto_title') + ' | MathCalc Pro',
         description: t('y_je_x_kolik_je_sto_seo_description'),
         keywords: ['percentages', 'calculator', '100%', 'percentage calculation']
       }}

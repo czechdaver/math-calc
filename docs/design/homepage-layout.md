@@ -172,7 +172,7 @@ const CategoryGrid: React.FC<{ categories: Category[] }> = ({ categories }) => {
     "@type": "WebApplication",
     "name": "MathCalc Pro",
     "description": "Mathematical calculators web application",
-    "url": "https://mathcalc.pro",
+    "url": "https://MathCalc Pro.pro",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Web Browser"
   }

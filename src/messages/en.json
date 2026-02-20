@@ -22,7 +22,7 @@
   "age_formula_latex": "Age = Target\\,date - Birth\\,date",
   "age_seo_description": "Free age calculator. Calculate your exact age, total days lived, next birthday, and zodiac sign.",
   "age_seo_keywords": "age,age calculator,birth date,birthday,days lived,zodiac sign,horoscope,age calculation",
-  "age_seo_title": "Age Calculator - Calculate Exact Age and Days Lived | MathCalc",
+  "age_seo_title": "Age Calculator - Calculate Exact Age and Days Lived | MathCalc Pro",
   "age_summary_title": "Age Calculation",
   "age_unit_months": "months",
   "age_unit_years": "years",
@@ -70,7 +70,7 @@
   "annuity_payment_calculator_title": "Annuity Payment Calculator",
   "annuity_seo_description": "Free annuity payment calculator. Calculate monthly loan payments, total interest, and total amount paid.",
   "annuity_seo_keywords": "annuity payment,loan calculator,mortgage calculator,monthly payment,loan repayment,interest calculator",
-  "annuity_seo_title": "Annuity Payment Calculator – Monthly Loan Payment | MathCalc",
+  "annuity_seo_title": "Annuity Payment Calculator – Monthly Loan Payment | MathCalc Pro",
   "annuity_total_interest": "Total Interest",
   "annuity_total_payment": "Total Amount Paid",
   "annuity_validation_interest_rate": "Enter a valid interest rate (0-100%)",
@@ -143,7 +143,7 @@
   "area_result_perimeter": "Perimeter",
   "area_seo_description": "Free area calculator. Calculate the area and perimeter of rectangles, squares, circles, triangles, and trapezoids.",
   "area_seo_keywords": "area,perimeter,rectangle,square,circle,triangle,trapezoid,geometry,construction,area calculator",
-  "area_seo_title": "Area Calculator - Calculate Rectangle, Circle, Triangle Area | MathCalc",
+  "area_seo_title": "Area Calculator - Calculate Rectangle, Circle, Triangle Area | MathCalc Pro",
   "area_shape_circle": "Circle",
   "area_shape_rectangle": "Rectangle",
   "area_shape_square": "Square",
@@ -216,7 +216,7 @@
   "bodyfat_section_basic": "Basic Information",
   "bodyfat_seo_description": "Free body fat calculator. Calculate using US Navy method or BMI with body composition analysis and health recommendations.",
   "bodyfat_seo_keywords": "body fat,body fat calculator,US Navy method,BMI,body composition,fat mass,lean mass,fitness,health",
-  "bodyfat_seo_title": "Body Fat Calculator - US Navy Method & BMI Estimate | MathCalc",
+  "bodyfat_seo_title": "Body Fat Calculator - US Navy Method & BMI Estimate | MathCalc Pro",
   "bodyfat_summary_body": "Body",
   "bodyfat_summary_profile": "Profile",
   "bodyfat_summary_title": "Your Data",
@@ -374,7 +374,7 @@
       "seo": {
         "description": "Free basal metabolic rate calculator. Calculate BMR using Mifflin-St Jeor, Harris-Benedict, and Katch-McArdle formulas.",
         "keywords": "BMR,basal metabolic rate,Mifflin-St Jeor,Harris-Benedict,Katch-McArdle,metabolism,calories,energy",
-        "title": "BMR Calculator - Basal Metabolic Rate Mifflin Harris Katch | MathCalc"
+        "title": "BMR Calculator - Basal Metabolic Rate Mifflin Harris Katch | MathCalc Pro"
       },
       "summary_age_gender": "Age/Gender",
       "summary_female": "female",
@@ -451,7 +451,7 @@
       "seo": {
         "description": "Free daily calorie needs calculator. Calculate BMR, TDEE, and caloric goals for weight loss, maintenance, or weight gain.",
         "keywords": "calories,BMR,TDEE,basal metabolic rate,daily calorie needs,weight loss,weight gain,metabolism,fitness",
-        "title": "Calories Calculator - Daily Calorie Needs BMR TDEE | MathCalc"
+        "title": "Calories Calculator - Daily Calorie Needs BMR TDEE | MathCalc Pro"
       },
       "title": "Calories Calculator"
     },
@@ -534,7 +534,7 @@
       "seo": {
         "description": "Free discount calculator. Calculate discount from percentage, discount amount, or final price. Find out savings and final price.",
         "keywords": "discount,sale,percentage discount,discount calculation,savings,promotion,calculator,shopping",
-        "title": "Discount Calculator - Calculate Discount from Percentage or Amount | MathCalc"
+        "title": "Discount Calculator - Calculate Discount from Percentage or Amount | MathCalc Pro"
       },
       "title": "Discount Calculator"
     },
@@ -668,7 +668,7 @@
       "seo": {
         "description": "Free early repayment calculator. Calculate interest savings and compare term reduction vs. payment reduction options.",
         "keywords": "early repayment,loan,mortgage,interest savings,term reduction,payment reduction,loan calculator",
-        "title": "Early Loan Repayment Calculator | MathCalc"
+        "title": "Early Loan Repayment Calculator | MathCalc Pro"
       },
       "term_reduction": "Loan term reduction",
       "title": "Early Repayment Calculator",
@@ -766,7 +766,7 @@
       "seo": {
         "description": "Free fuel consumption calculator. Calculate fuel consumption l/100km, trip costs and plan your journeys.",
         "keywords": "fuel,fuel consumption,trip costs,l/100km,gasoline,diesel,fuel calculator,travel,car",
-        "title": "Fuel Consumption Calculator - Trip Cost Calculation | MathCalc"
+        "title": "Fuel Consumption Calculator - Trip Cost Calculation | MathCalc Pro"
       },
       "title": "Fuel Consumption Calculator",
       "total_cost": "Total Cost",
@@ -802,7 +802,7 @@
       "remove_period": "Remove period",
       "returns": "returns",
       "seo_description": "Free IRR calculator. Calculate internal rate of return, NPV and analyze investment profitability with cash flows.",
-      "seo_title": "IRR Calculator - Internal Rate of Return | MathCalc",
+      "seo_title": "IRR Calculator - Internal Rate of Return | MathCalc Pro",
       "sum_all_expenses": "Sum of all expenses",
       "sum_all_income": "Sum of all income",
       "title": "IRR Calculator",
@@ -1194,7 +1194,7 @@
   "compound_interest_rate_help": "Nominal annual interest rate in percent",
   "compound_interest_rate_label": "Annual Interest Rate",
   "compound_interest_seo_description": "Free compound interest calculator. Calculate future value of investment, total interest, and impact of regular contributions.",
-  "compound_interest_seo_title": "Compound Interest Calculator – Future Value | MathCalc",
+  "compound_interest_seo_title": "Compound Interest Calculator – Future Value | MathCalc Pro",
   "compound_interest_title": "Compound Interest",
   "compound_interest_total_contributions": "Total Contributions",
   "compound_interest_validation_principal": "Enter a valid initial amount",
@@ -1254,7 +1254,7 @@
   "concrete_sand_price_label": "Sand price (CZK/m³)",
   "concrete_seo_desc": "Free concrete calculator: precise calculation of cement, sand, gravel, and water for slabs and columns. Includes 5% waste reserve and cost estimate.",
   "concrete_seo_keywords": "concrete,cement,sand,gravel,construction,concrete calculator",
-  "concrete_seo_title": "Concrete Calculator – Material & Cost Estimation | MathCalc",
+  "concrete_seo_title": "Concrete Calculator – Material & Cost Estimation | MathCalc Pro",
   "concrete_strength_extreme": "Extreme strength",
   "concrete_strength_high": "High strength",
   "concrete_strength_low": "Low strength",
@@ -1306,7 +1306,7 @@
   "currency_result_original": "Original Amount",
   "currency_seo_description": "Free currency calculator. Convert CZK, EUR, USD, GBP and other currencies with current exchange rates.",
   "currency_seo_keywords": "currency,currency calculator,currency conversion,exchange rate,CZK,EUR,USD,GBP,CHF,PLN,HUF",
-  "currency_seo_title": "Currency Calculator - Currency Conversion with Current Rates | MathCalc",
+  "currency_seo_title": "Currency Calculator - Currency Conversion with Current Rates | MathCalc Pro",
   "currency_summary_title": "Currency Conversion",
   "currency_to": "to",
   "currency_to_placeholder": "Select currency",
@@ -1337,7 +1337,7 @@
   "direct_proportion_keyword_4": "proportion",
   "direct_proportion_result_label": "Result",
   "direct_proportion_seo_description": "Calculate the unknown value in direct proportion (a : b = c : x). Perfect for ratio calculations.",
-  "direct_proportion_seo_title": "Direct Proportion Calculator – Solve for x | MathCalc",
+  "direct_proportion_seo_title": "Direct Proportion Calculator – Solve for x | MathCalc Pro",
   "direct_proportion_title": "Direct Proportion",
   "direct_proportion_validation_positive": "Enter a valid positive number greater than 0",
   "direct_proportion_value_a": "Value A",
@@ -1455,7 +1455,7 @@
   "fractions_select_operation": "Select a fractions operation from the list.",
   "fractions_select_operation_label": "Select operation",
   "fractions_seo_description": "Free fractions calculator. Addition, subtraction, multiplication, division, simplification, and conversion of fractions to decimals.",
-  "fractions_seo_title": "Fractions Calculator – Operations with Fractions | MathCalc",
+  "fractions_seo_title": "Fractions Calculator – Operations with Fractions | MathCalc Pro",
   "fractions_simplified": "simplified",
   "fractions_step_add_numerators": "Add numerators",
   "fractions_step_convert": "Convert to common denominator",
@@ -1487,17 +1487,10 @@
   "hodnota_y_label_y_is_x_percent": "Y",
   "footer": {
     "about": {
-      "title": "Company",
-      "company": "Company",
-      "team": "Team",
-      "careers": "Careers",
-      "blog": "Blog"
+      "company": "Company"
     },
     "support": {
-      "title": "Support",
-      "help_center": "Help Center",
-      "contact": "Contact",
-      "faq": "FAQ"
+      "contact": "Contact"
     },
     "legal": {
       "title": "Legal",
@@ -1505,19 +1498,14 @@
       "privacy": "Privacy Policy",
       "cookies": "Cookie Policy"
     },
-    "resources": {
-      "title": "Resources",
-      "documentation": "Documentation",
-      "api": "API",
-      "status": "System Status"
-    },
     "rights": "All rights reserved",
     "made_with": "Made with",
     "in": "in",
     "version": "Version",
     "terms": "Terms",
     "privacy": "Privacy",
-    "cookies": "Cookies"
+    "cookies": "Cookies",
+    "navigation": "Navigation"
   },
   "homepage": {
     "calculator_categories": "Calculator Categories",
@@ -1610,7 +1598,7 @@
   "ideal_weight_result_label": "Ideal weight",
   "ideal_weight_seo_description": "Free ideal weight calculator. Calculate using Robinson, Miller, Devine and Hamwi formulas with healthy BMI range comparison.",
   "ideal_weight_seo_keywords": "ideal weight,Robinson,Miller,Devine,Hamwi,healthy weight,BMI,weight calculator,fitness",
-  "ideal_weight_seo_title": "Ideal Weight Calculator - Robinson Miller Devine Hamwi | MathCalc",
+  "ideal_weight_seo_title": "Ideal Weight Calculator - Robinson Miller Devine Hamwi | MathCalc Pro",
   "ideal_weight_status_ideal": "Ideal weight",
   "ideal_weight_status_overweight": "Overweight",
   "ideal_weight_status_slightly_overweight": "Slightly overweight",
@@ -1649,7 +1637,7 @@
   "insulation_price_per_m2_label": "Price per m² ($)",
   "insulation_required_thickness": "Required Insulation Thickness",
   "insulation_seo_description": "Free thermal insulation calculator. Calculate thickness, costs, and savings for facade, roof, and floor insulation.",
-  "insulation_seo_title": "Insulation Calculator - Thermal Insulation Calculation | MathCalc",
+  "insulation_seo_title": "Insulation Calculator - Thermal Insulation Calculation | MathCalc Pro",
   "insulation_target_u_label": "Target U-value (W/m²K)",
   "insulation_thermal_conductivity": "Thermal Conductivity λ",
   "insulation_thermal_resistance": "Thermal Resistance",
@@ -1686,7 +1674,7 @@
   "inverse_proportion_keyword_4": "proportion",
   "inverse_proportion_result_label": "Result",
   "inverse_proportion_seo_description": "Calculate the unknown value in inverse proportion (A × B = C × x). Perfect for inverse ratio calculations.",
-  "inverse_proportion_seo_title": "Inverse Proportion Calculator – Solve for x | MathCalc",
+  "inverse_proportion_seo_title": "Inverse Proportion Calculator – Solve for x | MathCalc Pro",
   "inverse_proportion_title": "Inverse Proportion",
   "inverse_proportion_validation_positive": "Enter a valid positive number greater than 0",
   "inverse_proportion_value_a": "Value A",
@@ -1717,7 +1705,7 @@
   "irr_irr_label": "IRR (Internal Rate of Return)",
   "irr_seo_description": "Free IRR calculator. Calculate internal rate of return, NPV, and analyze investment viability with cash flows.",
   "irr_seo_keywords": "IRR,internal rate of return,NPV,investment,profitability,cash flows,financial analysis,IRR calculator",
-  "irr_seo_title": "IRR Calculator – Internal Rate of Return | MathCalc",
+  "irr_seo_title": "IRR Calculator – Internal Rate of Return | MathCalc Pro",
   "irr_validation_cash_flow": "Enter a valid amount",
   "irr_validation_cash_flows": "There must be at least one negative and one positive cash flow",
   "irr_validation_discount_rate": "Enter a valid discount rate",
@@ -1791,7 +1779,7 @@
   "loan_result_total_interest": "Total Interest",
   "loan_seo_description": "Free loan calculator. Calculate monthly payments, total costs, and interest for mortgages, personal loans, and credits.",
   "loan_seo_keywords": "loan,credit,mortgage,payment,interest,loan calculator,monthly payment,financial calculator",
-  "loan_seo_title": "Loan Calculator - Calculate Loan Payments and Mortgage | MathCalc",
+  "loan_seo_title": "Loan Calculator - Calculate Loan Payments and Mortgage | MathCalc Pro",
   "loan_summary_labels": "Amount • Interest • Term",
   "loan_summary_title": "Loan Parameters",
   "loan_unit_months": "Months",
@@ -1842,7 +1830,7 @@
   "macro_per_day": "per day",
   "macro_protein": "Protein",
   "macro_seo_description": "Free macronutrient calculator. Calculate daily protein, carbs, and fat intake for weight loss, maintenance, or muscle gain.",
-  "macro_seo_title": "Macro Calculator – Daily Macronutrient Calculator | MathCalc",
+  "macro_seo_title": "Macro Calculator – Daily Macronutrient Calculator | MathCalc Pro",
   "macro_weight": "Weight",
   "nav": {
     "calculators": "Calculators",
@@ -1895,7 +1883,7 @@
   "net_salary_keyword_4": "paycheck calculator",
   "net_salary_net_label": "Net Salary",
   "net_salary_seo_description": "Free net salary calculator. Calculate net salary from gross including social and health insurance and income tax.",
-  "net_salary_seo_title": "Net Salary Calculator – Gross to Net | MathCalc",
+  "net_salary_seo_title": "Net Salary Calculator – Gross to Net | MathCalc Pro",
   "net_salary_social_label": "Social Insurance",
   "net_salary_tax_label": "Income Tax",
   "net_salary_title": "Net Salary Calculator",
@@ -1925,7 +1913,7 @@
   "npv_formula_desc": "NPV is the sum of present values of all cash flows discounted at the required rate of return.",
   "npv_seo_description": "Free NPV calculator. Calculate net present value, profitability index, and analyze the viability of your investment projects.",
   "npv_seo_keywords": "NPV,net present value,investment,discount rate,profitability index,financial analysis,NPV calculator",
-  "npv_seo_title": "NPV Calculator – Net Present Value | MathCalc",
+  "npv_seo_title": "NPV Calculator – Net Present Value | MathCalc Pro",
   "npv_validation_cash_flow": "Enter a valid amount",
   "npv_validation_discount_rate": "Enter a valid discount rate",
   "pct_of_num_description": "Calculate X percent of a given number. Ideal for calculating discounts, VAT, tips, and other percentage calculations.",
@@ -1951,7 +1939,7 @@
   "pct_of_num_result_calculation": "Calculation",
   "pct_of_num_seo_description": "Free calculator for percentage of a number. Easily calculate discounts, VAT, tips, and other percentage values.",
   "pct_of_num_seo_keywords": "percentage of number,percentage calculator,discount calculation,VAT calculation,percent calculator",
-  "pct_of_num_seo_title": "Calculator: Percentage of Number - Calculate X% of a Number | MathCalc",
+  "pct_of_num_seo_title": "Calculator: Percentage of Number - Calculate X% of a Number | MathCalc Pro",
   "percentage_calculator_description": "Calculate percentages, discounts, and ratios",
   "percentage_calculator_title": "Percentage Calculator",
   "percentages_label": "Percentage",
@@ -1997,7 +1985,7 @@
   "roi_net_profit_label": "Net Profit",
   "roi_seo_description": "Free ROI calculator. Calculate return on investment, annualized ROI, and analyze the profitability of your investment projects.",
   "roi_seo_keywords": "ROI,return on investment,profitability,investment,financial analysis,ROI calculator",
-  "roi_seo_title": "ROI Calculator – Return on Investment | MathCalc",
+  "roi_seo_title": "ROI Calculator – Return on Investment | MathCalc Pro",
   "roi_total_roi": "Total ROI",
   "roi_validation_additional_costs": "Enter valid additional costs",
   "roi_validation_annual_return": "Enter a valid annual return",
@@ -2097,7 +2085,7 @@
   "tip_result_tip": "Tip",
   "tip_seo_description": "Free tip calculator. Calculate the correct tip amount based on service quality and split bills among multiple people.",
   "tip_seo_keywords": "tip calculator,tipping,restaurant,service,bill,split bill,percentage,tip guide,gratuity",
-  "tip_seo_title": "Tip Calculator - Calculate Tips for Restaurants | MathCalc",
+  "tip_seo_title": "Tip Calculator - Calculate Tips for Restaurants | MathCalc Pro",
   "tip_service_average": "Average (10%)",
   "tip_service_custom": "Custom percentage",
   "tip_service_excellent": "Excellent (20%)",
@@ -2153,7 +2141,7 @@
   "unit_converter_length": "Length",
   "unit_converter_quick_conversions": "Quick Conversions",
   "unit_converter_seo_description": "Free unit converter. Convert between length, weight, volume, and temperature units. Fast and accurate conversions.",
-  "unit_converter_seo_title": "Unit Converter – Length, Weight, Volume, Temperature | MathCalc",
+  "unit_converter_seo_title": "Unit Converter – Length, Weight, Volume, Temperature | MathCalc Pro",
   "unit_converter_swap": "Swap units",
   "unit_converter_temperature": "Temperature",
   "unit_converter_title": "Unit Converter",
@@ -2210,7 +2198,7 @@
   "vat_result_vat": "VAT",
   "vat_seo_description": "Free VAT calculator for Value Added Tax. Supports rates for CZ (21%) and SK (20%). Convert between amounts with and without VAT.",
   "vat_seo_keywords": "VAT calculator,value added tax,VAT calculation,tax calculator,VAT rates",
-  "vat_seo_title": "VAT Calculator - Value Added Tax Calculation | MathCalc",
+  "vat_seo_title": "VAT Calculator - Value Added Tax Calculation | MathCalc Pro",
   "vat_title": "VAT Calculator",
   "volume_calc_base_radius_label": "Base radius",
   "volume_calc_description": "Calculate volume and surface area of geometric solids – cube, rectangular prism, sphere, cylinder, cone.",
@@ -2248,7 +2236,7 @@
   "volume_calc_result_surface": "Surface Area",
   "volume_calc_result_volume": "Volume",
   "volume_calc_seo_desc": "Free volume and surface area calculator: cube, rectangular prism, sphere, cylinder, cone. Precise calculation with unit conversions.",
-  "volume_calc_seo_title": "Volume & Surface Area Calculator | MathCalc",
+  "volume_calc_seo_title": "Volume & Surface Area Calculator | MathCalc Pro",
   "volume_calc_shape_label": "Shape",
   "volume_calc_title": "Volume & Surface Area Calculator",
   "volume_calc_width_label": "Width",
@@ -2291,7 +2279,7 @@
   "water_keyword_4": "daily fluid intake",
   "water_per_day": "per day",
   "water_seo_description": "Free daily water intake calculator. Find out how many liters of water you should drink based on weight, activity, and weather.",
-  "water_seo_title": "Water Intake Calculator – How Much Water to Drink Daily | MathCalc",
+  "water_seo_title": "Water Intake Calculator – How Much Water to Drink Daily | MathCalc Pro",
   "water_weight": "Weight",
   "weight_converter_title": "Weight Converter",
   "weight_help_text": "Enter your weight in kilograms (2-500 kg)",
@@ -2359,7 +2347,7 @@
   },
   "about": {
     "title": "About Us",
-    "content": "MathCalc Pro is a comprehensive collection of precise, easy-to-use online calculators designed to help you solve everyday math problems across various categories such as health, finance, construction, and basic mathematics. Our goal is to provide fast, reliable, and accessible tools for everyone."
+    "content": "MathCalc Pro is a comprehensive collection of precise, easy-to-use online calculators designed to help you solve everyday math problems. Whether you need financial calculators for mortgage and loans, health calculators like BMI and BMR, construction calculators for material estimates, or basic mathematics tools, our platform provides fast, reliable, and completely free solutions. We aim to simplify your daily calculations and empower you to make informed decisions effortlessly."
   },
   "contact": {
     "title": "Contact Us",

@@ -5,6 +5,7 @@ import { ReactNode, Suspense } from 'react';
 import Script from 'next/script';
 import { Inter, Fraunces } from 'next/font/google';
 import CookieBanner from '@/components/CookieBanner';
+import Footer from '@/components/layouts/Footer';
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import MainNavigation from '@/components/navigation/MainNavigation';
 import '@/styles/globals.css';
@@ -105,9 +106,10 @@ export default async function LocaleLayout({
             timeZone="Europe/Prague"
           >
             <MainNavigation />
-            <main className="pt-20 pb-16 min-h-screen">
+            <main className="pt-20 min-h-screen">
               {children}
             </main>
+            <Footer />
             <CookieBanner />
           </NextIntlClientProvider>
         </ThemeProvider>

@@ -107,7 +107,38 @@ const CalculatorSearch: React.FC<CalculatorSearchProps> = ({
 
     return (
         <div ref={containerRef} className={cn("relative group max-w-xl mx-auto", className)}>
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200 glow-anim"></div>
+            <style dangerouslySetInnerHTML={{
+                __html: `
+              .star-anim-1 { animation: star-anim-1 2s ease-in-out infinite; }
+              .star-anim-2 { animation: star-anim-2 2.5s ease-in-out infinite 0.3s; }
+              .star-anim-3 { animation: star-anim-3 2.2s ease-in-out infinite 0.6s; }
+              
+              .glow-anim { animation: float-glow 4s ease-in-out infinite; }
+              .group:hover .glow-anim { animation: float-glow-hover 3s ease-in-out infinite; }
+              
+              @keyframes float-glow {
+                0%, 100% { transform: scale(1) translateY(0); filter: blur(8px); }
+                50% { transform: scale(1.02) translateY(2px); filter: blur(12px); opacity: 0.35; }
+              }
+              @keyframes float-glow-hover {
+                0%, 100% { transform: scale(1.02) translateY(0); filter: blur(12px); }
+                50% { transform: scale(1.04) translateY(2px); filter: blur(16px); opacity: 0.55; }
+              }
+              
+              @keyframes star-anim-1 {
+                0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
+                50% { transform: translate(-20px, -20px) scale(1) rotate(45deg); opacity: 1; filter: drop-shadow(0 0 2px currentColor); }
+              }
+              @keyframes star-anim-2 {
+                0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
+                50% { transform: translate(24px, -14px) scale(1.2) rotate(90deg); opacity: 1; filter: drop-shadow(0 0 2px currentColor); }
+              }
+              @keyframes star-anim-3 {
+                0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
+                50% { transform: translate(8px, 16px) scale(0.8) rotate(-45deg); opacity: 1; filter: drop-shadow(0 0 2px currentColor); }
+              }
+            `}} />
             <div className="relative">
                 <input
                     type="text"
@@ -116,14 +147,26 @@ const CalculatorSearch: React.FC<CalculatorSearchProps> = ({
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={handleKeyDown}
                     onFocus={() => query.length > 0 && setIsOpen(true)}
-                    className="w-full px-6 py-4 pl-14 text-lg bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-xl text-foreground placeholder-muted-foreground transition-all"
+                    className="w-full px-6 py-4 pl-14 pr-[12.5%] text-lg bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-xl text-foreground placeholder-muted-foreground transition-all"
                 />
-                <div className="absolute inset-y-0 left-0 flex items-center pl-5 pointer-events-none">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-5 pointer-events-none z-10">
                     {isLoading ? (
                         <Loader2 className="h-6 w-6 text-primary animate-spin" />
                     ) : (
                         <Search className="h-6 w-6 text-muted-foreground" />
                     )}
+                </div>
+                {/* Magical Stars right side 1/8 width */}
+                <div className="absolute inset-y-0 right-0 w-[12.5%] flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <svg className="absolute w-4 h-4 text-yellow-500/90 star-anim-1 pointer-events-none z-0" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+                    </svg>
+                    <svg className="absolute w-5 h-5 text-yellow-500/80 star-anim-2 pointer-events-none z-0" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+                    </svg>
+                    <svg className="absolute w-3 h-3 text-yellow-500 star-anim-3 pointer-events-none z-0" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+                    </svg>
                 </div>
             </div>
 

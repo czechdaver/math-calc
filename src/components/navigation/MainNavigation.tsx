@@ -69,13 +69,46 @@ const MainNavigation: React.FC = () => {
       <div className="container mx-auto">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href={`/${locale}`} className="flex items-center gap-2 group">
-            <div className="relative w-8 h-8 flex items-center justify-center bg-primary rounded-lg shadow-lg group-hover:scale-105 transition-transform duration-200">
+          <Link href={`/${locale}`} className="flex items-center gap-2 group relative">
+            <style dangerouslySetInnerHTML={{
+              __html: `
+              .star-anim-1 { animation: star-anim-1 2s ease-in-out infinite; }
+              .star-anim-2 { animation: star-anim-2 2.5s ease-in-out infinite 0.3s; }
+              .star-anim-3 { animation: star-anim-3 2.2s ease-in-out infinite 0.6s; }
+              
+              @keyframes star-anim-1 {
+                0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
+                50% { transform: translate(-14px, -14px) scale(1) rotate(45deg); opacity: 1; filter: drop-shadow(0 0 2px currentColor); }
+              }
+              @keyframes star-anim-2 {
+                0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
+                50% { transform: translate(16px, -10px) scale(1.2) rotate(90deg); opacity: 1; filter: drop-shadow(0 0 2px currentColor); }
+              }
+              @keyframes star-anim-3 {
+                0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
+                50% { transform: translate(12px, 12px) scale(0.8) rotate(-45deg); opacity: 1; filter: drop-shadow(0 0 2px currentColor); }
+              }
+            `}} />
+            <div className="relative w-8 h-8 flex items-center justify-center bg-primary rounded-lg shadow-lg group-hover:scale-105 transition-transform duration-200 z-10">
               <Calculator className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="font-heading font-bold text-xl tracking-tight text-foreground flex items-center">
+            <span className="font-heading font-bold text-xl tracking-tight text-foreground flex items-center relative z-10">
               Math<span className="text-primary">Calc</span>
-              <span className="ml-[7px] px-1 py-[1px] text-[12px] leading-none uppercase tracking-wider font-bold rounded bg-primary/10 text-primary/70 border border-primary/20 backdrop-blur-sm mix-blend-multiply dark:mix-blend-screen align-middle mt-0.5">PRO</span>
+              <div className="relative ml-[7px] mt-0.5 flex items-center justify-center">
+                <span className="px-1 py-[1px] text-[12px] leading-none uppercase tracking-wider font-bold rounded bg-primary/10 text-primary/70 border border-primary/20 backdrop-blur-sm mix-blend-multiply dark:mix-blend-screen relative z-10 transition-all duration-300 group-hover:bg-primary/20 group-hover:text-primary group-hover:shadow-[0_0_10px_rgba(var(--primary),0.3)]">
+                  PRO
+                </span>
+                {/* Magical Stars that appear on hover */}
+                <svg className="absolute w-2.5 h-2.5 text-yellow-500/90 opacity-0 group-hover:opacity-100 star-anim-1 pointer-events-none z-0" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+                </svg>
+                <svg className="absolute w-3 h-3 text-yellow-500/80 opacity-0 group-hover:opacity-100 star-anim-2 pointer-events-none z-0" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+                </svg>
+                <svg className="absolute w-2 h-2 text-yellow-500 opacity-0 group-hover:opacity-100 star-anim-3 pointer-events-none z-0" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+                </svg>
+              </div>
             </span>
           </Link>
 

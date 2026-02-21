@@ -11,6 +11,7 @@ import MainNavigation from '@/components/navigation/MainNavigation';
 import '@/styles/globals.css';
 import GoogleAnalytics from '@/components/analytics/GoogleAnalytics';
 import GoogleTagManager, { GoogleTagManagerNoScript } from '@/components/analytics/GoogleTagManager';
+import { Analytics } from '@vercel/analytics/next';
 
 
 // Font configuration
@@ -99,6 +100,7 @@ export default async function LocaleLayout({
         <Suspense fallback={null}>
           <GoogleAnalytics />
         </Suspense>
+        <Analytics />
         <ThemeProvider>
           <NextIntlClientProvider
             locale={locale}

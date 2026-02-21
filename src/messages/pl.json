@@ -1048,10 +1048,9 @@
   "common": {
     "search_calculators": "Szukaj kalkulatorów...",
     "cookies": {
-      "text": "We use cookies to improve your experience. For more information, read our",
-      "link": "Privacy Policy",
-      "accept_all": "Accept All",
-      "decline": "Decline"
+      "text": "Używamy plików cookie, aby ulepszyć przeglądanie, analizować ruch na stronie i wyświetlać spersonalizowane treści. Przeczytaj naszą <privacyLink>Politykę prywatności</privacyLink> i <cookieLink>Politykę plików cookie</cookieLink>.",
+      "accept_all": "Akceptuj wszystko",
+      "decline": "Odrzuć"
     },
     "error": {
       "loading_title": "Error loading calculator",
@@ -1460,6 +1459,8 @@
   "hodnota_y_label_y_is_x_percent": "Y",
   "homepage": {
     "calculator_categories": "Kategorie kalkulatorów",
+    "calculator_summary_title": "Wszystkie nasze kalkulatory",
+    "calculator_summary_description": "Przeglądaj naszą pełną kolekcję darmowych kalkulatorów online. Od obliczeń procentowych i konwersji jednostek po BMI, kredyty hipoteczne i kalkulatory budowlane — znajdź odpowiednie narzędzie do każdego zadania. Wszystkie kalkulatory są darmowe, dokładne i działają bezpośrednio w przeglądarce.",
     "categories_description": "Odkryj naszą kompleksową kolekcję narzędzi obliczeniowych uporządkowanych według kategorii",
     "faq_accuracy_a": "Nasze kalkulatory używają precyzyjnych wzorów matematycznych i są regularnie testowane.",
     "faq_accuracy_q": "Jak dokładne są obliczenia?",

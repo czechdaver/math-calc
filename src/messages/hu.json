@@ -1050,10 +1050,9 @@
   "common": {
     "search_calculators": "Számológépek keresése...",
     "cookies": {
-      "text": "We use cookies to improve your experience. For more information, read our",
-      "link": "Privacy Policy",
-      "accept_all": "Accept All",
-      "decline": "Decline"
+      "text": "Cookie-kat használunk a böngészési élmény javítására, a webhelyforgalom elemzésére és személyre szabott tartalom megjelenítésére. Olvassa el <privacyLink>Adatvédelmi irányelveinket</privacyLink> és <cookieLink>Cookie-szabályzatunkat</cookieLink>.",
+      "accept_all": "Elfogadás",
+      "decline": "Elutasítás"
     },
     "error": {
       "loading_title": "Error loading calculator",
@@ -1463,6 +1462,8 @@
   "hodnota_y_label_y_is_x_percent": "Y",
   "homepage": {
     "calculator_categories": "Számológép kategóriák",
+    "calculator_summary_title": "Összes számológépünk",
+    "calculator_summary_description": "Böngésszen ingyenes online számológépeink teljes gyűjteményében. A százalékszámítástól és mértékegység-átváltástól a BMI, jelzálog és építőipari kalkulátorokig — találja meg a megfelelő eszközt minden feladathoz. Minden számológépünk ingyenes, pontos és közvetlenül a böngészőben működik.",
     "categories_description": "Fedezze fel számológép kategóriáinkat",
     "faq_title": "Gyakran Ismételt Kérdések",
     "faq_accuracy_a": "A számológépeink precíz matematikai képleteket használnak és rendszeresen teszteltek a pontosság érdekében.",

@@ -12,6 +12,7 @@ import CalculatorSearch from '@/components/search/CalculatorSearch';
 import SimpleFAQ from '@/components/shared/SimpleFAQ'; // Importing the redesigned SimpleFAQ
 import CategoryCard from '@/components/categories/CategoryCard';
 import { getCalculatorCategories, getQuickLinks } from '@/lib/calculatorDataUtils';
+import CalculatorSummary from '@/components/shared/CalculatorSummary';
 
 const HomePage: React.FC = () => {
   const t = useTranslations();
@@ -208,6 +209,9 @@ const HomePage: React.FC = () => {
           )}
         </div>
       </section>
+
+      {/* Calculator Summary - SEO Section */}
+      <CalculatorSummary />
 
       {/* Footer Ad Banner */}
       <div className="container mx-auto px-4 py-8">

@@ -1047,10 +1047,9 @@
   "common": {
     "search_calculators": "Hľadať kalkulačky...",
     "cookies": {
-      "text": "We use cookies to improve your experience. For more information, read our",
-      "link": "Privacy Policy",
-      "accept_all": "Accept All",
-      "decline": "Decline"
+      "text": "Používame cookies na zlepšenie vášho zážitku z prehliadania, analýzu návštevnosti a zobrazovanie personalizovaného obsahu. Prečítajte si naše <privacyLink>Zásady ochrany osobných údajov</privacyLink> a <cookieLink>Zásady cookies</cookieLink>.",
+      "accept_all": "Prijať všetko",
+      "decline": "Odmietnuť"
     },
     "error": {
       "loading_title": "Error loading calculator",
@@ -1459,6 +1458,8 @@
   "hodnota_y_label_y_is_x_percent": "Y",
   "homepage": {
     "calculator_categories": "Kategórie kalkulačiek",
+    "calculator_summary_title": "Všetky naše kalkulačky",
+    "calculator_summary_description": "Prehliadajte si našu kompletnú zbierku bezplatných online kalkulačiek. Od výpočtov percent a prevodov jednotiek po BMI, hypotéku a stavebné kalkulačky — nájdite ten správny nástroj pre každú úlohu. Všetky kalkulačky sú zadarmo, presné a fungujú priamo vo vašom prehliadači.",
     "categories_description": "Preskúmajte našu komplexnú zbierku výpočtových nástrojov usporiadaných podľa kategórií",
     "faq_accuracy_a": "Naše kalkulačky používajú presné matematické vzorce a sú pravidelne testované.",
     "faq_accuracy_q": "Aké presné sú výpočty?",

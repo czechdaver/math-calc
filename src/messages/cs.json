@@ -2,8 +2,7 @@
   "common": {
     "ad_space": "Reklamní prostor",
     "cookies": {
-      "text": "Používáme cookies pro zlepšení vaší zkušenosti. Pro více informací si přečtěte naše",
-      "link": "Zásady ochrany osobních údajů",
+      "text": "Používáme cookies pro zlepšení vašeho zážitku z prohlížení, analýzu návštěvnosti a zobrazování personalizovaného obsahu. Přečtěte si naše <privacyLink>Zásady ochrany osobních údajů</privacyLink> a <cookieLink>Zásady cookies</cookieLink>.",
       "accept_all": "Přijmout vše",
       "decline": "Odmítnout"
     },
@@ -1241,6 +1240,8 @@
     "subtitle": "Bezplatné online kalkulátory pro procenta, převody jednotek, BMI, výpočty DPH a další. Rychlé, přesné a jednoduché na použití.",
     "quick_access": "Rychlý přístup k nejpoužívanějším nástrojům",
     "search_placeholder": "Najít kalkulátor...",
+    "calculator_summary_title": "Všechny naše kalkulátory",
+    "calculator_summary_description": "Prohlédněte si naši kompletní sbírku bezplatných online kalkulátorů. Od výpočtů procent a převodů jednotek po BMI, hypotéku a stavební kalkulátory — najděte ten správný nástroj pro každou úlohu. Všechny kalkulátory jsou zdarma, přesné a fungují přímo ve vašem prohlížeči.",
     "popular_calculators": "Nejoblíbenější kalkulátory",
     "categories_description": "Prozkoumejte naši komplexní sbírku výpočetních nástrojů uspořádanou podle kategorií",
     "calculator_categories": "Kategorie kalkulátorů",

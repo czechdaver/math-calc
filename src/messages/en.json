@@ -1071,8 +1071,7 @@
   "common": {
     "ad_space": "Ad Space",
     "cookies": {
-      "text": "We use cookies to improve your experience. For more information, read our",
-      "link": "Privacy Policy",
+      "text": "We use cookies to enhance your browsing experience, analyze site traffic, and serve personalized content. Read our <privacyLink>Privacy Policy</privacyLink> and <cookieLink>Cookie Policy</cookieLink>.",
       "accept_all": "Accept All",
       "decline": "Decline"
     },
@@ -1509,6 +1508,8 @@
   },
   "homepage": {
     "calculator_categories": "Calculator Categories",
+    "calculator_summary_title": "All Our Calculators",
+    "calculator_summary_description": "Browse our complete collection of free online calculators. From percentage calculations and unit conversions to BMI, mortgage, and construction calculators — find the right tool for every task. All calculators are free, accurate, and work directly in your browser.",
     "categories_description": "Explore our comprehensive collection of calculation tools organized by category",
     "faq_accuracy_a": "Our calculators use precise mathematical formulas and are regularly tested for accuracy.",
     "faq_accuracy_q": "How accurate are the calculations?",
